@@ -2,21 +2,35 @@ defmodule Mipha.Topics.Topic do
   @moduledoc false
 
   use Ecto.Schema
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
+
+  alias Mipha.{
+    Repo,
+    Topics,
+    Accounts,User,
+    Replies.Reply
+  }
+
+  alias Topics.{Topic, Node}
+
+  @type t :: %Topic{}
 
   schema "topics" do
-    field :body, :string
-    field :closed_at, :naive_datetime
-    field :last_reply_id, :integer
-    field :last_reply_user_id, :integer
-    field :node_id, :integer
-    field :replied_at, :naive_datetime
-    field :reply_count, :integer
-    field :suggested_at, :naive_datetime
     field :title, :string
+    field :body, :string
     field :type, :string
-    field :user_id, :integer
+    field :closed_at, :naive_datetime
+    field :replied_at, :naive_datetime
+    field :suggested_at, :naive_datetime
+    field :reply_count, :integer
     field :visit_count, :integer
+
+    belongs_to :user, User
+    belongs_to :node, Node
+    belongs_to :last_reply, Reply, foreign_key: :last_reply_id
+    belongs_to :last_reply_user, User, foreign_key: :last_reply_user_id
+
+    has_many :replies, Reply
 
     timestamps()
   end

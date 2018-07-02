@@ -3,11 +3,22 @@ defmodule Mipha.Replies.Reply do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Mipha.{
+    Topics.Topic,
+    Replies.Reply,
+    Accounts.User
+  }
+
+  @type t :: %Reply{}
+
   schema "repies" do
     field :content, :string
-    field :parent_id, :integer
-    field :topic_id, :integer
-    field :user_id, :integer
+
+    belongs_to :user, User
+    belongs_to :topic, Topic
+    belongs_to :parent, Reply, foreign_key: :parent_id
+
+    has_many :children, Reply, foreign_key: :parent_id
 
     timestamps()
   end

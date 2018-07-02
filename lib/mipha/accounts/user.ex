@@ -6,6 +6,16 @@ defmodule Mipha.Accounts.User do
   alias Comeonin.Bcrypt
   alias Mipha.Regexp
 
+  alias Mipha.{
+    Repo,
+    Regexp,
+    Accounts.User,
+    Topics.Topic,
+    Replies.Reply
+  }
+
+  @type t :: %User{}
+
   schema "users" do
     field :avatar, :string
     field :bio, :string
@@ -17,6 +27,9 @@ defmodule Mipha.Accounts.User do
     field :website, :string
     field :password, :string, virtual: true
     field :login, :string, virtual: true
+
+    has_many :topics, Topic, on_delete: :delete_all
+    has_many :replies, Reply, on_delete: :delete_all
 
     timestamps()
   end

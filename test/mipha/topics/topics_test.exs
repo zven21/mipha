@@ -123,4 +123,70 @@ defmodule Mipha.TopicsTest do
       assert %Ecto.Changeset{} = Topics.change_topic(topic)
     end
   end
+
+  describe "nodes" do
+    alias Mipha.Topics.Node
+
+    @valid_attrs %{name: "some name", parent_id: 42, position: 42, summary: "some summary"}
+    @update_attrs %{name: "some updated name", parent_id: 43, position: 43, summary: "some updated summary"}
+    @invalid_attrs %{name: nil, parent_id: nil, position: nil, summary: nil}
+
+    def node_fixture(attrs \\ %{}) do
+      {:ok, node} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Topics.create_node()
+
+      node
+    end
+
+    test "list_nodes/0 returns all nodes" do
+      node = node_fixture()
+      assert Topics.list_nodes() == [node]
+    end
+
+    test "get_node!/1 returns the node with given id" do
+      node = node_fixture()
+      assert Topics.get_node!(node.id) == node
+    end
+
+    test "create_node/1 with valid data creates a node" do
+      assert {:ok, %Node{} = node} = Topics.create_node(@valid_attrs)
+      assert node.name == "some name"
+      assert node.parent_id == 42
+      assert node.position == 42
+      assert node.summary == "some summary"
+    end
+
+    test "create_node/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Topics.create_node(@invalid_attrs)
+    end
+
+    test "update_node/2 with valid data updates the node" do
+      node = node_fixture()
+      assert {:ok, node} = Topics.update_node(node, @update_attrs)
+      assert %Node{} = node
+      assert node.name == "some updated name"
+      assert node.parent_id == 43
+      assert node.position == 43
+      assert node.summary == "some updated summary"
+    end
+
+    test "update_node/2 with invalid data returns error changeset" do
+      node = node_fixture()
+      assert {:error, %Ecto.Changeset{}} = Topics.update_node(node, @invalid_attrs)
+      assert node == Topics.get_node!(node.id)
+    end
+
+    test "delete_node/1 deletes the node" do
+      node = node_fixture()
+      assert {:ok, %Node{}} = Topics.delete_node(node)
+      assert_raise Ecto.NoResultsError, fn -> Topics.get_node!(node.id) end
+    end
+
+    test "change_node/1 returns a node changeset" do
+      node = node_fixture()
+      assert %Ecto.Changeset{} = Topics.change_node(node)
+    end
+  end
 end

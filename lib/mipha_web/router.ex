@@ -45,6 +45,7 @@ defmodule MiphaWeb.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
+    resources "/nodes", NodeController
     resources "/topics", TopicController
     resources "/repies", ReplyController
   end

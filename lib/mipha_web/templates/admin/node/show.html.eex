@@ -1,0 +1,28 @@
+<h2>Show Node</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @node.name %>
+  </li>
+
+  <li>
+    <strong>Summary:</strong>
+    <%= @node.summary %>
+  </li>
+
+  <li>
+    <strong>Position:</strong>
+    <%= @node.position %>
+  </li>
+
+  <li>
+    <strong>Parent:</strong>
+    <%= @node.parent_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: admin_node_path(@conn, :edit, @node) %></span>
+<span><%= link "Back", to: admin_node_path(@conn, :index) %></span>

@@ -1,0 +1,48 @@
+<h2>Listing Topics</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Closed at</th>
+      <th>User</th>
+      <th>Type</th>
+      <th>Node</th>
+      <th>Visit count</th>
+      <th>Reply count</th>
+      <th>Last reply</th>
+      <th>Last reply user</th>
+      <th>Replied at</th>
+      <th>Suggested at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for topic <- @topics do %>
+    <tr>
+      <td><%= topic.title %></td>
+      <td><%= topic.body %></td>
+      <td><%= topic.closed_at %></td>
+      <td><%= topic.user_id %></td>
+      <td><%= topic.type %></td>
+      <td><%= topic.node_id %></td>
+      <td><%= topic.visit_count %></td>
+      <td><%= topic.reply_count %></td>
+      <td><%= topic.last_reply_id %></td>
+      <td><%= topic.last_reply_user_id %></td>
+      <td><%= topic.replied_at %></td>
+      <td><%= topic.suggested_at %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: admin_topic_path(@conn, :show, topic), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: admin_topic_path(@conn, :edit, topic), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: admin_topic_path(@conn, :delete, topic), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Topic", to: admin_topic_path(@conn, :new) %></span>

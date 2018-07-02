@@ -1,0 +1,83 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :title, class: "control-label" %>
+    <%= text_input f, :title, class: "form-control" %>
+    <%= error_tag f, :title %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :body, class: "control-label" %>
+    <%= textarea f, :body, class: "form-control" %>
+    <%= error_tag f, :body %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :closed_at, class: "control-label" %>
+    <%= datetime_select f, :closed_at, class: "form-control" %>
+    <%= error_tag f, :closed_at %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :user_id, class: "control-label" %>
+    <%= number_input f, :user_id, class: "form-control" %>
+    <%= error_tag f, :user_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :type, class: "control-label" %>
+    <%= text_input f, :type, class: "form-control" %>
+    <%= error_tag f, :type %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :node_id, class: "control-label" %>
+    <%= number_input f, :node_id, class: "form-control" %>
+    <%= error_tag f, :node_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :visit_count, class: "control-label" %>
+    <%= number_input f, :visit_count, class: "form-control" %>
+    <%= error_tag f, :visit_count %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :reply_count, class: "control-label" %>
+    <%= number_input f, :reply_count, class: "form-control" %>
+    <%= error_tag f, :reply_count %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :last_reply_id, class: "control-label" %>
+    <%= number_input f, :last_reply_id, class: "form-control" %>
+    <%= error_tag f, :last_reply_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :last_reply_user_id, class: "control-label" %>
+    <%= number_input f, :last_reply_user_id, class: "form-control" %>
+    <%= error_tag f, :last_reply_user_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :replied_at, class: "control-label" %>
+    <%= datetime_select f, :replied_at, class: "form-control" %>
+    <%= error_tag f, :replied_at %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :suggested_at, class: "control-label" %>
+    <%= datetime_select f, :suggested_at, class: "form-control" %>
+    <%= error_tag f, :suggested_at %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

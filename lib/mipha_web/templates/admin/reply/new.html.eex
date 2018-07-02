@@ -1,0 +1,5 @@
+<h2>New Reply</h2>
+
+<%= render "form.html", Map.put(assigns, :action, admin_reply_path(@conn, :create)) %>
+
+<span><%= link "Back", to: admin_reply_path(@conn, :index) %></span>

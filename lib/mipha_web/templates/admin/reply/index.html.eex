@@ -1,0 +1,32 @@
+<h2>Listing Repies</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>User</th>
+      <th>Parent</th>
+      <th>Content</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reply <- @repies do %>
+    <tr>
+      <td><%= reply.topic_id %></td>
+      <td><%= reply.user_id %></td>
+      <td><%= reply.parent_id %></td>
+      <td><%= reply.content %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: admin_reply_path(@conn, :show, reply), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: admin_reply_path(@conn, :edit, reply), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: admin_reply_path(@conn, :delete, reply), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Reply", to: admin_reply_path(@conn, :new) %></span>

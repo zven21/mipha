@@ -46,6 +46,7 @@ defmodule MiphaWeb.Router do
     get "/", PageController, :index
     resources "/users", UserController
     resources "/topics", TopicController
+    resources "/repies", ReplyController
   end
 
   # Other scopes may use custom stacks.

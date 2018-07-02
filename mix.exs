@@ -41,7 +41,12 @@ defmodule Mipha.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:credo, "~> 0.9.3"}
+      {:credo, "~> 0.9.3"},
+      {:comeonin, "~> 4.1"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:ueberauth, "~> 0.5.0"},
+      {:ueberauth_identity, "~> 0.2.3"},
+      {:ueberauth_github, "~> 0.7.0"}
     ]
   end
 

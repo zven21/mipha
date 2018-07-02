@@ -23,6 +23,7 @@ defmodule MiphaWeb do
       import Plug.Conn
       import MiphaWeb.Router.Helpers
       import MiphaWeb.Gettext
+      import MiphaWeb.Session
     end
   end
 
@@ -40,6 +41,7 @@ defmodule MiphaWeb do
       import MiphaWeb.Router.Helpers
       import MiphaWeb.ErrorHelpers
       import MiphaWeb.Gettext
+      import MiphaWeb.Session
     end
   end
 

@@ -1,4 +1,6 @@
 defmodule Mipha.Application do
+  @moduledoc false
+
   use Application
 
   # See https://hexdocs.pm/elixir/Application.html

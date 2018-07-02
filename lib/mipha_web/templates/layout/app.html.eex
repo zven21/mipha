@@ -12,11 +12,11 @@
   </head>
 
   <body>
-    <div class="container">
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+    <%= render "_header.html", assigns %>
+    <div id="main" class="main-container container">
+      <%= render @view_module, @view_template, assigns %>
     </div>
+    <%= render "_footer.html", assigns %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

@@ -26,7 +26,6 @@ defmodule MiphaWeb.ConnCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Mipha.Repo)
     unless tags[:async] do
@@ -34,5 +33,4 @@ defmodule MiphaWeb.ConnCase do
     end
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end

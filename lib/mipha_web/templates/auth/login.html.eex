@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col"></div>
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-header">登录</div>
+      <div class="card-body">
+        <%= form_for @changeset, "/auth/identity/callback", fn f -> %>
+          <div class="form-group">
+            <%= text_input f, :login, class: "form-control", required: true, tabindex: 1, placeholder: "Username / Email" %>
+            <%= error_tag f, :login %>
+          </div>
+          <div class="form-group">
+            <%= password_input f, :password, class: "form-control", required: true, tabindex: 2, placeholder: "Password" %>
+          </div>
+          <div class="form-group from-check">
+            <label class="form-check-label" for="user_remember_me">
+              <input name="user[remember_me]" type="hidden" value="0" /><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me" />
+              记住登录状态（60 天）
+            </label>
+          </div>
+          <div class="form-group text-center">
+            <%= submit class: "btn btn-primary btn-block btn-lg", tabindex: 3 do %>
+              <span>登录</span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header">用其他平台的帐号登录</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <a class="btn btn-default btn-lg btn-block" href="/auth/github"><i class='fa fa-github'></i>GitHub</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="/join">注册</a></li>
+        <li class="list-group-item"><a href="/account/password/new">忘记了密码?</a></li>
+        <li class="list-group-item"><a href="/account/unlock/new">未收到解锁邮件?</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col"></div>
+</div>

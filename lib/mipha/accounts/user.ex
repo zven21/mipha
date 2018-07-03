@@ -4,15 +4,18 @@ defmodule Mipha.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Comeonin.Bcrypt
-  alias Mipha.Regexp
 
   alias Mipha.{
     Repo,
     Regexp,
-    Accounts.User,
-    Topics.Topic,
-    Replies.Reply
+    Accounts,
+    Topics,
+    Replies
   }
+
+  alias Topics.Topic
+  alias Replies.Reply
+  alias Accounts.{User, Location}
 
   @type t :: %User{}
 
@@ -27,6 +30,8 @@ defmodule Mipha.Accounts.User do
     field :website, :string
     field :password, :string, virtual: true
     field :login, :string, virtual: true
+
+    belongs_to :location, Location
 
     has_many :topics, Topic, on_delete: :delete_all
     has_many :replies, Reply, on_delete: :delete_all
@@ -44,6 +49,7 @@ defmodule Mipha.Accounts.User do
       website
       github_handle
       is_admin
+      location_id
     )a
 
     required_attrs = ~w(

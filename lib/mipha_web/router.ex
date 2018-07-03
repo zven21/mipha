@@ -38,7 +38,8 @@ defmodule MiphaWeb.Router do
     get "/u/:name", UserController, :show
 
     resources "/topics", TopicController
-    resources "/notifications", NotificationController
+    resources "/notifications", NotificationController, only: ~w(index)a
+    resources "/locations", LocationController, only: ~w(index show)a
   end
 
   scope "/admin", MiphaWeb.Admin, as: :admin do

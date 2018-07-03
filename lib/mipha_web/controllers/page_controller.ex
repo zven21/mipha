@@ -1,10 +1,14 @@
 defmodule MiphaWeb.PageController do
   use MiphaWeb, :controller
 
-  alias Mipha.Topics
+  alias Mipha.{
+    Topics,
+    Accounts
+  }
 
   def index(conn, _params) do
     parent_nodes = Topics.list_parent_nodes
+    locations = Accounts.list_locations
 
     {odd, even} =
       Topics.list_topics
@@ -14,6 +18,7 @@ defmodule MiphaWeb.PageController do
     render conn, :index,
       odd_topics: odd,
       even_topics: even,
-      parent_nodes: parent_nodes
+      parent_nodes: parent_nodes,
+      locations: locations
   end
 end

@@ -5,9 +5,13 @@ alias Mipha.{
   Replies
 }
 
-alias Accounts.User
+alias Accounts.{User, Location}
 alias Topics.{Topic, Node}
 alias Replies.Reply
+
+# Gen three locations
+beijing = Repo.insert! %Location{name: "北京"}
+hangzhou = Repo.insert! %Location{name: "杭州"}
 
 qhwa = User.register_changeset(%User{}, %{
   username: "qhwa",
@@ -17,7 +21,9 @@ qhwa = User.register_changeset(%User{}, %{
   is_admin: true,
   bio: Faker.Lorem.sentence(10),
   website: Faker.Internet.domain_name,
-  github_handle: "qhwa"
+  github_handle: "qhwa",
+  location_id: beijing.id
+
 }) |> Repo.insert!
 
 zven = User.register_changeset(%User{}, %{
@@ -27,7 +33,19 @@ zven = User.register_changeset(%User{}, %{
   avatar: Faker.Avatar.image_url,
   bio: Faker.Lorem.sentence(10),
   website: Faker.Internet.domain_name,
-  github_handle: "zven21"
+  github_handle: "zven21",
+  location_id: beijing.id
+}) |> Repo.insert!
+
+dayu = User.register_changeset(%User{}, %{
+  username: "bencode",
+  email: "bencode@mipha.com",
+  password: "123123123",
+  avatar: Faker.Avatar.image_url,
+  bio: Faker.Lorem.sentence(10),
+  website: Faker.Internet.domain_name,
+  github_handle: "bencode",
+  location_id: hangzhou.id
 }) |> Repo.insert!
 
 for parent_node <- ~w(ruby elixir) do

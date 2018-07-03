@@ -1,41 +1,10 @@
 <div class="index-locations card">
   <div class="card-header">热门城市</div>
   <div class="card-body location-list" style="text-align:center;">
-    <span class="name">
-      <a href="/users/city/%E5%8C%97%E4%BA%AC">北京</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E4%B8%8A%E6%B5%B7">上海</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E6%B7%B1%E5%9C%B3">深圳</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E6%9D%AD%E5%B7%9E">杭州</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E6%88%90%E9%83%BD">成都</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E5%B9%BF%E5%B7%9E">广州</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E6%AD%A6%E6%B1%89">武汉</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E8%A5%BF%E5%AE%89">西安</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E5%8D%97%E4%BA%AC">南京</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E5%A4%A7%E8%BF%9E">大连</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E9%95%BF%E6%B2%99">长沙</a>
-    </span>
-    <span class="name">
-      <a href="/users/city/%E8%8B%8F%E5%B7%9E">苏州</a>
-    </span>
+    <%= for item <- @locations do %>
+      <span class="name">
+        <%= link item.name, to: location_path(@conn, :show, item) %>
+      </span>
+    <% end %>
   </div>
 </div>

@@ -103,4 +103,64 @@ defmodule Mipha.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
   end
+
+  describe "locations" do
+    alias Mipha.Accounts.Location
+
+    @valid_attrs %{name: "some name"}
+    @update_attrs %{name: "some updated name"}
+    @invalid_attrs %{name: nil}
+
+    def location_fixture(attrs \\ %{}) do
+      {:ok, location} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_location()
+
+      location
+    end
+
+    test "list_locations/0 returns all locations" do
+      location = location_fixture()
+      assert Accounts.list_locations() == [location]
+    end
+
+    test "get_location!/1 returns the location with given id" do
+      location = location_fixture()
+      assert Accounts.get_location!(location.id) == location
+    end
+
+    test "create_location/1 with valid data creates a location" do
+      assert {:ok, %Location{} = location} = Accounts.create_location(@valid_attrs)
+      assert location.name == "some name"
+    end
+
+    test "create_location/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_location(@invalid_attrs)
+    end
+
+    test "update_location/2 with valid data updates the location" do
+      location = location_fixture()
+      assert {:ok, location} = Accounts.update_location(location, @update_attrs)
+      assert %Location{} = location
+      assert location.name == "some updated name"
+    end
+
+    test "update_location/2 with invalid data returns error changeset" do
+      location = location_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_location(location, @invalid_attrs)
+      assert location == Accounts.get_location!(location.id)
+    end
+
+    test "delete_location/1 deletes the location" do
+      location = location_fixture()
+      assert {:ok, %Location{}} = Accounts.delete_location(location)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_location!(location.id) end
+    end
+
+    test "change_location/1 returns a location changeset" do
+      location = location_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_location(location)
+    end
+  end
 end

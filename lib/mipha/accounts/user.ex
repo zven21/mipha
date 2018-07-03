@@ -78,6 +78,11 @@ defmodule Mipha.Accounts.User do
       username
       email
       password
+      avatar
+      is_admin
+      bio
+      website
+      github_handle
     )a
 
     register_attrs = ~w(

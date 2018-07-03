@@ -46,7 +46,8 @@ defmodule Mipha.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:ueberauth, "~> 0.5.0"},
       {:ueberauth_identity, "~> 0.2.3"},
-      {:ueberauth_github, "~> 0.7.0"}
+      {:ueberauth_github, "~> 0.7.0"},
+      {:faker, "~> 0.10.0"}
     ]
   end
 

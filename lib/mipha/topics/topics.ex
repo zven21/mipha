@@ -18,7 +18,9 @@ defmodule Mipha.Topics do
 
   """
   def list_topics do
-    Repo.all(Topic)
+    Topic
+    |> Repo.all()
+    |> Repo.preload([:node, :user, :last_reply_user])
   end
 
   @doc """
@@ -196,5 +198,15 @@ defmodule Mipha.Topics do
   """
   def change_node(%Node{} = node) do
     Node.changeset(node, %{})
+  end
+
+  @doc """
+  Returns the parent of nodes
+  """
+  @spec list_parent_nodes :: [Node.t()] | nil
+  def list_parent_nodes do
+    Node.is_parent
+    |> Repo.all
+    |> Node.preload_children
   end
 end

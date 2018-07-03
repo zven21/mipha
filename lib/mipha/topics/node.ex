@@ -1,7 +1,7 @@
 defmodule Mipha.Topics.Node do
   @moduledoc false
   use Ecto.Schema
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
 
   alias Mipha.{
     Repo,
@@ -24,6 +24,24 @@ defmodule Mipha.Topics.Node do
 
     timestamps()
   end
+
+  @doc """
+  Returns the children node.
+  """
+  @spec is_child(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def is_child(query \\ __MODULE__), do: from(q in query, where: not is_nil(q.parent_id))
+
+  @doc """
+  Returns the parent of node.
+  """
+  @spec is_parent(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def is_parent(query \\ __MODULE__), do: from(q in query, where: is_nil(q.parent_id))
+
+  @doc """
+  Preloads the children of a node.
+  """
+  @spec preload_children(t()) :: t()
+  def preload_children(node), do: Repo.preload(node, :children)
 
   @doc false
   def changeset(node, attrs) do

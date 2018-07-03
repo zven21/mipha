@@ -1,0 +1,27 @@
+<div class="topic media">
+  <div class="avatar">
+    <a title="<%= @item.user.username %>" href="/u/<%= @item.user.username %>">
+      <img class="media-object avatar-48" src="<%= @item.user.avatar %>">
+    </a>
+  </div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+      <a title="<%= @item.title %>" href="/topics/<%= @item.id %>">
+        <span class="node"><%= @item.node && @item.node.name %></span>
+        <%= @item.title %>
+      </a>
+      <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i>
+    </div>
+    <div class="info">
+      <a class="user-name" href="/u/<%= @item.user.username %>"><%= @item.user.username %></a>
+      <span class="hidden-mobile">
+        • 最后由
+        <a class="user-name" href="/u/<%= @item.last_reply_user.username %>"><%= @item.last_reply_user && @item.last_reply_user.username %></a> 回复于
+        <abbr class="timeago" title="2018年06月23日">6 天前</abbr>
+      </span>
+    </div>
+  </div>
+  <div class="count media-right">
+    <a class="state-false" href="/topics/<%= @item.id %>#reply-343677"><%= @item.reply_count %></a>
+  </div>
+</div>

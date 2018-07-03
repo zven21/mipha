@@ -7,7 +7,7 @@ defmodule Mipha.Topics.Topic do
   alias Mipha.{
     Repo,
     Topics,
-    Accounts,User,
+    Accounts.User,
     Replies.Reply
   }
 

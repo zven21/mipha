@@ -1,0 +1,19 @@
+<div class="index-sections card">
+  <div class="card-header">讨论节点分类导航</div>
+  <div class="card-body">
+    <div class="row node-list">
+      <%= for parent <- @parent_nodes do %>
+        <div class="node media">
+          <label class="mr-2 media-left"><%= parent.name %></label>
+          <span class="nodes media-body">
+            <%= for item <- parent.children do %>
+              <span class="name">
+                <a href="/topics?node_id=<%= item.id %>"><%= item.name %></a>
+              </span>
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

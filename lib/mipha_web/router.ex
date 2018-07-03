@@ -35,6 +35,7 @@ defmodule MiphaWeb.Router do
     post "/join", SessionController, :create, as: :join
     get "/login", AuthController, :login
     get "/logout", AuthController, :delete, as: :logout
+    get "/u/:name", UserController, :show
 
     resources "/topics", TopicController
     resources "/notifications", NotificationController

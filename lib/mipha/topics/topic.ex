@@ -6,14 +6,11 @@ defmodule Mipha.Topics.Topic do
 
   alias Mipha.{
     Repo,
-    Topics,
-    Accounts,
-    Replies
+    Accounts.User,
+    Replies.Reply
   }
 
-  alias Accounts.User
-  alias Replies.Reply
-  alias Topics.{Topic, Node}
+  alias Mipha.Topics.{Topic, Node}
 
   @type t :: %Topic{}
 

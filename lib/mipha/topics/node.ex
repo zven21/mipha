@@ -3,12 +3,8 @@ defmodule Mipha.Topics.Node do
   use Ecto.Schema
   import Ecto.{Changeset, Query}
 
-  alias Mipha.{
-    Repo,
-    Topics
-  }
-
-  alias Topics.{Topic, Node}
+  alias Mipha.Repo
+  alias Mipha.Topics.{Topic, Node}
 
   @type t :: %Node{}
 

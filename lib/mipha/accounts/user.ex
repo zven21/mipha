@@ -8,14 +8,11 @@ defmodule Mipha.Accounts.User do
   alias Mipha.{
     Repo,
     Regexp,
-    Accounts,
-    Topics,
-    Replies
+    Topics.Topic,
+    Replies.Reply
   }
 
-  alias Topics.Topic
-  alias Replies.Reply
-  alias Accounts.{User, Location}
+  alias Mipha.Accounts.{User, Location}
 
   @type t :: %User{}
 

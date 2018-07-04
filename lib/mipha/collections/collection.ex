@@ -5,14 +5,10 @@ defmodule Mipha.Collections.Collection do
 
   alias Mipha.{
     Repo,
-    Topics,
-    Accounts,
-    Collections
+    Topics.Topic,
+    Accounts.User,
+    Collections.Collection
   }
-
-  alias Accounts.User
-  alias Topics.Topic
-  alias Collections.Collection
 
   @type t :: %Collection{}
 

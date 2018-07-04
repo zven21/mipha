@@ -1,0 +1,110 @@
+<div class="card">
+  <div class="card-body">
+    <a class="btn btn-primary btn-block" href="/topics/new">发布新话题</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">小帖士</div>
+  <div class="card-body">
+    如果你想寻找 Ruby 的三方库，请上 rubygems.org 或在 github.com 上面寻找。
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">社区规则</div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <i class="fa fa-archive"></i>
+      <a href="https://ruby-china.org/topics/24325">提问的智慧</a>
+    </li>
+    <li class="list-group-item">
+      <i class="fa fa-heart"></i>
+      <a href="http://blog.steveklabnik.com/posts/2011-08-19-matz-is-nice-so-we-are-nice" target="_blank">Matz is Nice So We Are Nice</a>
+    </li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-header">推荐 Ruby 资源</div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <i class="fa fa-cloud"></i>
+      <a href="/wiki/ruby-mirror">Ruby 镜像</a>
+    </li>
+    <li class="list-group-item">
+      <i class="fa fa-diamond"></i>
+      <a href="https://gems.ruby-china.com" target="_blank">RubyGems 镜像</a>
+    </li>
+    <li class="list-group-item">
+      <i class="fa fa-youtube-play"></i>
+      <a href="http://railscasts.com" target="_blank" rel="nofollow">Rails 视频教程</a>
+    </li>
+    <li class="list-group-item">
+      <i class="fa fa-archive"></i>
+      <a href="https://rails.guide/book/">Rails Guides 中文版</a>
+    </li>
+    <li class="list-group-item">
+      <i class="fa fa-archive"></i>
+      <a href="https://railstutorial-china.org">Ruby on Rails 教程</a>
+    </li>
+  </ul>
+</div>
+
+<!--<div class="card">
+  <div class="card-body" style="padding:0;">
+    <a href="//ruby-china.org/topics/33466" title="RubyConf China 2017"><img src="//l.ruby-china.org/photo/2017/86a069c9-4259-411a-b5ee-f2405b1f19a0.png" style="width: 100%;" /></a>
+  </div>
+</div>-->
+
+<!--div class="card">
+  <div class="card-body" style="padding:0;">
+    <a href="https://www.upyun.com/products/prismcdn?utm_source=ruby&utm_medium=banner&utm_campaign=prismcdn&utm_content=0510" title="UPYun PrismCDN"><img src="//l.ruby-china.org/photo/2018/2eb3c0e4-8ddc-43c9-9180-72386d9c349c.png" style="width: 100%;" /></a>
+  </div>
+</div-->
+
+<div class="card">
+  <div class="card-header">友情社区</div>
+  <ul class="list-group list-group-flush" style="text-align: center;">
+    <li class="list-group-item">
+      <a href="http://cnodejs.org" rel="nofollow" title="CNode 社区" target="_blank">
+        <img src="//l.ruby-china.com/photo/2016/d427ef3efd33b57721df152c2aa1735e.png" style="width:130px; ">
+      </a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://gocn.io" rel="nofollow" title="GoCN 社区" target="_blank">
+        <img src="//l.ruby-china.com/photo/2017/97b87be9-1375-40cb-8d56-29e203a31689.png" style="width:130px; ">
+      </a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://laravel-china.org" target="_blank" rel="nofollow">
+        <img src="//l.ruby-china.com/photo/2016/d7782871f3fac7e85a95d20c74046909.png" style="width:130px; ">
+      </a>
+    </li>
+    <!--li class="list-group-item"><a href="http://segmentfault.com" target="_blank" rel="nofollow"><img src="//l.ruby-china.com/photo/2016/e91d14ee109ed066e215057ab40257b7.png" style="width:150px; " /></a></li-->
+    <li class="list-group-item">
+      <a href="http://elixir-cn.com" target="_blank" rel="nofollow">
+        <img src="//l.ruby-china.com/photo/2017/2720bc62-2348-40c0-88f6-95500067c648.png" style="width: 130px; ">
+      </a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://testerhome.com/" target="_blank" rel="nofollow">
+        <img src="//l.ruby-china.com/photo/2016/5cd78b730062ab3c768bcc2592c5c7fa.png" style="width: 150px;">
+      </a>
+    </li>
+    <li class="list-group-item">
+      <a href="https://pythoncaff.com" target="_blank" rel="nofollow">
+        <img src="//l.ruby-china.com/photo/2018/00d4dd0a-188b-4c58-a524-46c99244659b.png" style="width: 150px;">
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-header">统计信息</div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">社区会员: 35475 人</li>
+    <li class="list-group-item">帖子数: 35731 个</li>
+    <li class="list-group-item">回帖数: 342354 条</li>
+  </ul>
+</div>

@@ -5,7 +5,7 @@
         <b>Elixir</b> China</a>
     </div>
     <div class="navbar-nav-scroll">
-      <ul id="main-nav-menu" class="navbar-nav d-flex">
+      <ul id="main-nav-menu" class="navbar-nav d-flex mi-nav">
         <li class="nav-item">
           <a class="nav-link" href="/topics">社区</a>
         </li>

@@ -8,16 +8,21 @@
     <div class="title media-heading">
       <a title="<%= @item.title %>" href="/topics/<%= @item.id %>">
         <span class="node"><%= @item.node && @item.node.name %></span>
-        <%= @item.title %>
+        <span><%= @item.title %></span>
       </a>
-      <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i>
+      <%= if @item.type == "featured" do %>
+        <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i>
+      <% end %>
+      <%= if @item.suggested_at do %>
+        <i class="fa fa-angle-double-up" title="置顶"></i>
+      <% end %>
     </div>
     <div class="info">
       <a class="user-name" href="/u/<%= @item.user.username %>"><%= @item.user.username %></a>
       <span class="hidden-mobile">
         • 最后由
         <a class="user-name" href="/u/<%= @item.last_reply_user.username %>"><%= @item.last_reply_user && @item.last_reply_user.username %></a> 回复于
-        <abbr class="timeago" title="2018年06月23日">6 天前</abbr>
+        <%= time_tag(@item.updated_at) %>
       </span>
     </div>
   </div>

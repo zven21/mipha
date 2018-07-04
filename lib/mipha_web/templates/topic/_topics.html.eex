@@ -1,0 +1,11 @@
+<div class="topics topics-index card">
+  <div class="card-body item-list">
+    <%= for item <- @topics do %>
+      <%= render "_topic.html", assigns: assigns, item: item %>
+    <% end %>
+  </div>
+
+  <div class="card-footer clearfix">
+    <%= render MiphaWeb.SharedView, "_pagination.html", page: @page %>
+  </div>
+</div>

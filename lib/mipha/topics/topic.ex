@@ -19,7 +19,7 @@ defmodule Mipha.Topics.Topic do
   schema "topics" do
     field :title, :string
     field :body, :string
-    field :type, :string
+    field :type, :string, default: "normal"
     field :closed_at, :naive_datetime
     field :replied_at, :naive_datetime
     field :suggested_at, :naive_datetime
@@ -43,21 +43,21 @@ defmodule Mipha.Topics.Topic do
   """
   @spec job(Ecto.Queryable.t()) :: Ecto.Query.t()
   def job(query \\ __MODULE__),
-    do: where(query, [..., t], t.type == ^:job)
+    do: where(query, [..., t], t.type == ^"job")
 
   @doc """
   Filters the featured of topics.
   """
   @spec featured(Ecto.Queryable.t()) :: Ecto.Query.t()
   def featured(query \\ __MODULE__),
-    do: where(query, [..., t], t.type == ^:featured)
+    do: where(query, [..., t], t.type == ^"featured")
 
   @doc """
   Filters the educational of topics.
   """
   @spec educational(Ecto.Queryable.t()) :: Ecto.Query.t()
   def educational(query \\ __MODULE__),
-    do: where(query, [..., t], t.type == ^:educational)
+    do: where(query, [..., t], t.type == ^"educational")
 
   @doc """
   Filters the no_reply of topics.
@@ -100,6 +100,12 @@ defmodule Mipha.Topics.Topic do
   def preload_replies(topic), do: Repo.preload(topic, :replies)
 
   @doc """
+  Preloads the reply of a topic.
+  """
+  @spec preload_node(t()) :: t()
+  def preload_node(topic), do: Repo.preload(topic, :node)
+
+  @doc """
   Preloads all of a topic.
   """
   @spec preload_all(t()) :: t()
@@ -107,6 +113,7 @@ defmodule Mipha.Topics.Topic do
     topic
     |> preload_replies
     |> preload_user
+    |> preload_node
   end
 
   @doc false

@@ -6,11 +6,29 @@ defmodule MiphaWeb.TopicController do
 
   plug MiphaWeb.Plug.RequireUser when action in ~w(new create)a
 
-  @intercepted_action ~w(index job no_reply popular featured educational)a
+  @intercepted_action ~w(index jobs no_reply popular featured educational)a
 
   def action(conn, _) do
     if Enum.member?(@intercepted_action, action_name(conn)) do
-      render conn, action_name(conn)
+      opts =
+        if conn.params["node_id"] do
+          [node: Topics.get_node!(conn.params["node_id"])]
+        else
+          [type: action_name(conn)]
+        end
+
+      parent_nodes = Topics.list_parent_nodes
+
+      page =
+        opts
+        |> Topics.cond_topics
+        |> Repo.paginate(conn.params)
+
+      render conn, action_name(conn),
+        asset: "topics",
+        topics: page.entries,
+        page: page,
+        parent_nodes: parent_nodes
     else
       apply(__MODULE__, action_name(conn), [conn, conn.params])
     end
@@ -47,8 +65,7 @@ defmodule MiphaWeb.TopicController do
     topic =
       id
       |> Topics.get_topic!
-      |> Topic.preload_user
-      |> Topic.preload_replies
+      |> Topic.preload_all
 
     render conn, :show, topic: topic
   end

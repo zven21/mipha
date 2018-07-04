@@ -3,17 +3,17 @@
   <div class="card-body topics row">
     <div class="col-md-6 topics-group">
       <%= for {item, _} <- @odd_topics do %>
-        <%= render "_topic.html", assigns: assigns, item: item %>
+        <%= render MiphaWeb.TopicView, "_topic.html", assigns: assigns, item: item %>
       <% end %>
     </div>
     <div class="col-md-6 topics-group">
       <%= for {item, _} <- @even_topics do %>
-        <%= render "_topic.html", assigns: assigns, item: item %>
+        <%= render MiphaWeb.TopicView, "_topic.html", assigns: assigns, item: item %>
       <% end %>
     </div>
   </div>
   <div class="card-footer hidden-mobile">
-    <a href="/topics/excellent">查看更多精华帖...</a>
+    <a href="/topics/featured">查看更多精华帖...</a>
   </div>
 </div>
 

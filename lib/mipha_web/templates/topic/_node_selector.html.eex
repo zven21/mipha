@@ -1,0 +1,33 @@
+<div class="modal" id="node-selector" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">讨论区节点</div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="index-sections card">
+          <div class="card-header">讨论节点分类导航</div>
+          <div class="card-body">
+            <div class="row node-list">
+              <%= for parent_node <- @parent_nodes do %>
+                <div class="node media">
+                  <label class="mr-2 media-left"><%= parent_node.name %></label>
+                  <span class="nodes media-body">
+                    <%= for item <- parent_node.children do %>
+                      <span class="name">
+                        <a href="/topics/?node_id=<%= item.id %>"><%= item.name %></a>
+                      </span>
+                    <% end %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,9 @@
 
   <body>
     <%= render "_header.html", assigns %>
+    <%= if Map.get(assigns, :asset) == "topics" do %>
+      <%= render "_sub_header.html", assigns %>
+    <% end %>
     <div id="main" class="main-container container">
       <%= render @view_module, @view_template, assigns %>
     </div>

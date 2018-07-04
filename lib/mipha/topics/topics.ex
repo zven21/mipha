@@ -163,6 +163,21 @@ defmodule Mipha.Topics do
     end
   end
 
+  @doc """
+  Returns the featured of topics.
+
+  ## Examples
+
+      iex> list_topics()
+      [%Topic{}, ...]
+
+  """
+  def list_featured_topics do
+    Topic.featured
+    |> Repo.all()
+    |> Repo.preload([:node, :user, :last_reply_user])
+  end
+
   alias Mipha.Topics.Node
 
   @doc """

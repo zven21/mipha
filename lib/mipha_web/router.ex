@@ -52,7 +52,15 @@ defmodule MiphaWeb.Router do
 
     get "/users", UserController, :index
     resources "/teams", TeamController
+
+    # topic
+    get "/topics/jobs", TopicController, :jobs
+    get "/topics/no_reply", TopicController, :no_reply
+    get "/topics/popular", TopicController, :popular
+    get "/topics/featured", TopicController, :featured
+    get "/topics/educational", TopicController, :educational
     resources "/topics", TopicController
+
     resources "/notifications", NotificationController, only: ~w(index)a
     resources "/locations", LocationController, only: ~w(index show)a
     resources "/companies", CompanyController, only: ~w(index show)a

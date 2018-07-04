@@ -88,6 +88,7 @@ for _ <- 1..50 do
     body: Faker.Lorem.sentence(10),
     last_reply_user: sample_user,
     node: sample_node,
+    type: Enum.random(~w(normal featured educational job)),
     reply_count: 1..50 |> Enum.random,
     visit_count: 1..50 |> Enum.random,
     user: Repo.all(User) |> Enum.random,

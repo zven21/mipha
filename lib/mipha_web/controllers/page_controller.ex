@@ -11,7 +11,7 @@ defmodule MiphaWeb.PageController do
     locations = Accounts.list_locations
 
     {odd, even} =
-      Topics.list_topics
+      Topics.list_featured_topics
       |> Enum.with_index
       |> Enum.split_with(fn {t, i} -> rem(i, 2) == 0 end)
 

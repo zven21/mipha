@@ -4,7 +4,7 @@
       <div class="card-header media clearfix">
         <div class="media-body">
           <h1 class="media-heading">
-            <a class="node" href="/topics?node_id=<%= @topic.node_id %>"><%= @topic.node_id %></a>
+            <a class="node" href="/topics?node_id=<%= @topic.node_id %>"><%= @topic.node.name %></a>
             <span class="title"><%= @topic.title %></span>
           </h1>
           <div class="info">
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <%= if @topic.type == :featured do %>
+      <%= if @topic.type == "featured" do %>
         <div class="label-awesome"><i class="fa fa-diamond awesome"></i> 本帖已被设为精华帖！</div>
       <% end %>
 

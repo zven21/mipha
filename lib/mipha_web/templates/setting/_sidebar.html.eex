@@ -1,5 +1,5 @@
 <div class="card">
-  <ul class="nav nav-pills flex-column nav-stacked">
+  <ul class="nav nav-pills flex-column nav-stacked mi-nav">
     <li class="nav-item">
       <%= link to: setting_path(@conn, :show), class: "nav-link" do %>
         <i class='fa fa-user-circle'></i>

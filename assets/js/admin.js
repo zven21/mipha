@@ -1,2 +1,2 @@
-import "phoenix_html"
-import "bootstrap"
+import 'phoenix_html'
+import 'bootstrap'

@@ -7,7 +7,24 @@
   },
   "scripts": {
     "deploy": "webpack --mode production",
-    "watch": "webpack --mode development --watch"
+    "watch": "webpack --mode development --watch",
+    "lint": "eslint --ext .js js",
+    "prettier": "prettier 'js/**/*js' --write",
+    "precommit": "lint-staged"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "bracketSpacing": true
+  },
+  "lint-staged": {
+    "js/**/*.js": "eslint",
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "bootstrap": "^4.1.1",
@@ -20,14 +37,20 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.5",
     "babel-loader": "^7.1.3",
     "babel-preset-env": "^1.6.1",
     "copy-webpack-plugin": "^4.5.0",
     "css-loader": "^0.28.10",
+    "eslint": "^5.0.1",
+    "eslint-config-prettier": "^2.9.0",
     "file-loader": "^1.1.11",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.8.3",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "prettier": "^1.13.7",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.20.2",
     "uglifyjs-webpack-plugin": "^1.2.4",

@@ -1,0 +1,88 @@
+<div class="card" id="user_github_repos">
+  <div class="card-header">GitHub Public Repos</div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/redis-search">redis-search</a>
+        <span class="watchers" title="709 Watchers">709</span>
+      </div>
+      <p class="desc">
+        Deprecated! High performance real-time prefix search, indexes store in Redis for Rails application
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/flora-kit">flora-kit</a>
+        <span class="watchers" title="691 Watchers">691</span>
+      </div>
+      <p class="desc">
+        💐 基于 shadowsocks-go 做的完善实现，自动网络分流，完全兼容 Surge 的配置文件。
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/rails-settings-cached">rails-settings-cached</a>
+        <span class="watchers" title="650 Watchers">650</span>
+      </div>
+      <p class="desc">
+        This is improved from rails-settings, added caching for all settings
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/init.d">init.d</a>
+        <span class="watchers" title="608 Watchers">608</span>
+      </div>
+      <p class="desc">
+        ⚙️ Batch scripts for Rails production environment install on Ubuntu Server.
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/rucaptcha">rucaptcha</a>
+        <span class="watchers" title="513 Watchers">513</span>
+      </div>
+      <p class="desc">
+        Captcha gem for Rails Application. No dependencies. No ImageMagick, No RMagick.
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/social-share-button">social-share-button</a>
+        <span class="watchers" title="489 Watchers">489</span>
+      </div>
+      <p class="desc">
+        Helper for add social share feature in your Rails app. Twitter, Facebook, Weibo, Douban ...
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/mediom">mediom</a>
+        <span class="watchers" title="323 Watchers">323</span>
+      </div>
+      <p class="desc">
+        Forum web application, an example for from Rails to Go (Revel)
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/carrierwave-aliyun">carrierwave-aliyun</a>
+        <span class="watchers" title="171 Watchers">171</span>
+      </div>
+      <p class="desc">
+        阿里云 OSS Ruby 上传组件，基于 Carrierwave
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/auto-correct">auto-correct</a>
+        <span class="watchers" title="98 Watchers">98</span>
+      </div>
+      <p class="desc">
+        自动给中文英文之间加入合理的空格
+    </li>
+    <li class="list-group-item">
+      <div class="title">
+        <a target="_blank" rel="nofollow" href="https://github.com/huacnlee/gobackup">gobackup</a>
+        <span class="watchers" title="89 Watchers">89</span>
+      </div>
+      <p class="desc">
+        🗄 Simple tool for backup your databases, files to FTP / SCP / S3 storages.
+    </li>
+  </ul>
+  <div class="card-footer more">
+    <a target="_blank" rel="nofollow" href="https://github.com/huacnlee">More on GitHub</a>
+  </div>
+</div>

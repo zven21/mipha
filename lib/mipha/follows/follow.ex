@@ -1,7 +1,8 @@
 defmodule Mipha.Follows.Follow do
   @moduledoc false
+
   use Ecto.Schema
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
 
   alias Mipha.{
     Repo,
@@ -17,6 +18,20 @@ defmodule Mipha.Follows.Follow do
 
     timestamps()
   end
+
+  @doc """
+  Filters the follows by follower.
+  """
+  @spec by_follower(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
+  def by_follower(query \\ __MODULE__, %User{id: follower_id}),
+    do: from(f in query, where: f.follower_id == ^follower_id)
+
+  @doc """
+  Filters the follows by followed user.
+  """
+  @spec by_user(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
+  def by_user(query \\ __MODULE__, %User{id: user_id}),
+    do: from(f in query, where: f.user_id == ^user_id)
 
   @doc false
   def changeset(follow, attrs) do

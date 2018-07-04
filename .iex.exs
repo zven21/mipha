@@ -10,6 +10,6 @@ alias Mipha.{
   Follows.Follow
 }
 
-alias Accounts.User
+alias Accounts.{User, Location, Company, Team}
 alias Topics.{Node, Topic}
 

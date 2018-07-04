@@ -104,6 +104,65 @@ defmodule Mipha.Topics do
     Topic.changeset(topic, %{})
   end
 
+  @doc """
+  Inserts a topic.
+
+  ## Examples
+
+      iex> insert_topic(%User{}, %{field: value})
+      {:ok, %Topic{}}
+
+      iex> insert_topic(%User{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec insert_topic(User.t(), map()) :: {:ok, Topic.t()} | {:error, Ecto.Changeset.t()}
+  def insert_topic(user, attrs \\ %{}) do
+    attrs = attrs |> Map.put(:user_id, user.id)
+
+    %Topic{}
+    |> Topic.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Filter the list of topics.
+
+  ## Examples
+
+      iex> cond_topics()
+      Ecto.Query.t()
+
+      iex> cond_topics(type: :educational)
+      Ecto.Query.t()
+
+      iex> cond_topics(node: %Node{})
+      Ecto.Query.t()
+
+      iex> cond_topics(user: %User{})
+      Ecto.Query.t()
+
+  """
+  @spec cond_topics(Keyword.t()) :: Ecto.Query.t() | nil
+  def cond_topics(opts \\ []) do
+    opts
+    |> filter_from_clauses
+    |> preload([:user, :node, :last_reply_user])
+  end
+
+  defp filter_from_clauses(opts) do
+    cond do
+      Keyword.get(opts, :type) == :jobs -> Topic.job
+      Keyword.get(opts, :type) == :educational -> Topic.educational
+      Keyword.get(opts, :type) == :featured -> Topic.featured
+      Keyword.get(opts, :type) == :no_reply -> Topic.no_reply
+      Keyword.get(opts, :type) == :popular -> Topic.popular
+      Keyword.has_key?(opts, :node) -> opts |> Keyword.get(:node) |> Topic.by_node
+      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Topic.by_user
+      true -> Topic
+    end
+  end
+
   alias Mipha.Topics.Node
 
   @doc """
@@ -150,27 +209,6 @@ defmodule Mipha.Topics do
   def create_node(attrs \\ %{}) do
     %Node{}
     |> Node.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Inserts a topic.
-
-  ## Examples
-
-      iex> insert_topic(%User{}, %{field: value})
-      {:ok, %Topic{}}
-
-      iex> insert_topic(%User{}, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  @spec insert_topic(User.t(), map()) :: {:ok, Topic.t()} | {:error, Ecto.Changeset.t()}
-  def insert_topic(user, attrs \\ %{}) do
-    attrs = attrs |> Map.put(:user_id, user.id)
-
-    %Topic{}
-    |> Topic.changeset(attrs)
     |> Repo.insert()
   end
 

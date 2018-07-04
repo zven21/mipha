@@ -1,0 +1,11 @@
+<%= if @user.teams do %>
+  <div class="card user-teams">
+    <div class="card-body">
+      <%= for team <- @user.teams do %>
+        <%= link to: team_path(@conn, :show, team), title: team.name do %>
+          <img class="media-object avatar-48" src="<%= team.avatar %>" />
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

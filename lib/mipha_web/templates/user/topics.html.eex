@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="sidebar col-md-4" id='sidebar'>
+    <%= render "_left.html", assigns %>
+  </div>
+
+  <div class="col-md-8">
+    <%= render "_menu.html", assigns %>
+    <div class="card">
+      <div class="card-body">
+        <table class="node-topics table">
+          <tr class="head">
+            <td class="node hide-ios">节点</td>
+            <td class="title">标题</td>
+            <td class="replies">回复/赞</td>
+          </tr>
+          <%= for {topic, idx} <- Enum.with_index(@topics) do %>
+            <tr class="topic <%= cycle_tag(idx) %> ">
+              <td class="node hide-ios">
+                <%= link topic.node.name, to: topic_path(@conn, :index), class: "node" %>
+              </td>
+              <td class="title">
+                <%= link topic.title, to: topic_path(@conn, :show, topic) %>
+                <%= topic_featured_tag(topic) %>
+                <%= time_tag(topic.inserted_at) %>
+              </td>
+              <td class="replies"><%= topic.reply_count %>/<%= topic.visit_count %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="card-footer clearfix">
+        <%= render MiphaWeb.SharedView, "_pagination.html", page: @page %>
+      </div>
+    </div>
+  </div>
+</div>

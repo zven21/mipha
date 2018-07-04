@@ -12,6 +12,7 @@ defmodule Mipha.Repo.Migrations.CreateUsers do
       add :github_handle, :string
       add :is_admin, :boolean, default: false, null: false
       add :location_id, :integer
+      add :company_id, :integer
 
       timestamps()
     end

@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item"><%= link "个人信息", to: user_path(@conn, :show, @user.username), class: "nav-link" %></li>
+  <li class="nav-item"><%= link "话题", to: user_topics_path(@conn, :topics, @user.username), class: "nav-link" %></li>
+  <li class="nav-item"><%= link "回帖", to: user_replies_path(@conn, :replies, @user.username), class: "nav-link" %></li>
+  <li class="nav-item"><%= link "收藏", to: user_collections_path(@conn, :collections, @user.username), class: "nav-link" %></li>
+  <li class="nav-item"><%= link "正在关注", to: user_following_path(@conn, :following, @user.username), class: "nav-link" %></li>
+  <li class="nav-item"><%= link "关注者", to: user_followers_path(@conn, :followers, @user.username), class: "nav-link" %></li>
+</ul>

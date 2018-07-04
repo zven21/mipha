@@ -25,4 +25,8 @@ defmodule MiphaWeb.PageController do
   def markdown(conn, _) do
     render conn, :markdown
   end
+
+  def about(conn, _) do
+    render conn, :about
+  end
 end

@@ -163,4 +163,196 @@ defmodule Mipha.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_location(location)
     end
   end
+
+  describe "companies" do
+    alias Mipha.Accounts.Company
+
+    @valid_attrs %{location_id: 42, name: "some name"}
+    @update_attrs %{location_id: 43, name: "some updated name"}
+    @invalid_attrs %{location_id: nil, name: nil}
+
+    def company_fixture(attrs \\ %{}) do
+      {:ok, company} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_company()
+
+      company
+    end
+
+    test "list_companies/0 returns all companies" do
+      company = company_fixture()
+      assert Accounts.list_companies() == [company]
+    end
+
+    test "get_company!/1 returns the company with given id" do
+      company = company_fixture()
+      assert Accounts.get_company!(company.id) == company
+    end
+
+    test "create_company/1 with valid data creates a company" do
+      assert {:ok, %Company{} = company} = Accounts.create_company(@valid_attrs)
+      assert company.location_id == 42
+      assert company.name == "some name"
+    end
+
+    test "create_company/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_company(@invalid_attrs)
+    end
+
+    test "update_company/2 with valid data updates the company" do
+      company = company_fixture()
+      assert {:ok, company} = Accounts.update_company(company, @update_attrs)
+      assert %Company{} = company
+      assert company.location_id == 43
+      assert company.name == "some updated name"
+    end
+
+    test "update_company/2 with invalid data returns error changeset" do
+      company = company_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_company(company, @invalid_attrs)
+      assert company == Accounts.get_company!(company.id)
+    end
+
+    test "delete_company/1 deletes the company" do
+      company = company_fixture()
+      assert {:ok, %Company{}} = Accounts.delete_company(company)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_company!(company.id) end
+    end
+
+    test "change_company/1 returns a company changeset" do
+      company = company_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_company(company)
+    end
+  end
+
+  describe "teams" do
+    alias Mipha.Accounts.Team
+
+    @valid_attrs %{avatar: "some avatar", github_handle: "some github_handle", name: "some name", owner_id: 42, summary: "some summary"}
+    @update_attrs %{avatar: "some updated avatar", github_handle: "some updated github_handle", name: "some updated name", owner_id: 43, summary: "some updated summary"}
+    @invalid_attrs %{avatar: nil, github_handle: nil, name: nil, owner_id: nil, summary: nil}
+
+    def team_fixture(attrs \\ %{}) do
+      {:ok, team} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_team()
+
+      team
+    end
+
+    test "list_teams/0 returns all teams" do
+      team = team_fixture()
+      assert Accounts.list_teams() == [team]
+    end
+
+    test "get_team!/1 returns the team with given id" do
+      team = team_fixture()
+      assert Accounts.get_team!(team.id) == team
+    end
+
+    test "create_team/1 with valid data creates a team" do
+      assert {:ok, %Team{} = team} = Accounts.create_team(@valid_attrs)
+      assert team.avatar == "some avatar"
+      assert team.github_handle == "some github_handle"
+      assert team.name == "some name"
+      assert team.owner_id == 42
+      assert team.summary == "some summary"
+    end
+
+    test "create_team/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_team(@invalid_attrs)
+    end
+
+    test "update_team/2 with valid data updates the team" do
+      team = team_fixture()
+      assert {:ok, team} = Accounts.update_team(team, @update_attrs)
+      assert %Team{} = team
+      assert team.avatar == "some updated avatar"
+      assert team.github_handle == "some updated github_handle"
+      assert team.name == "some updated name"
+      assert team.owner_id == 43
+      assert team.summary == "some updated summary"
+    end
+
+    test "update_team/2 with invalid data returns error changeset" do
+      team = team_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_team(team, @invalid_attrs)
+      assert team == Accounts.get_team!(team.id)
+    end
+
+    test "delete_team/1 deletes the team" do
+      team = team_fixture()
+      assert {:ok, %Team{}} = Accounts.delete_team(team)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_team!(team.id) end
+    end
+
+    test "change_team/1 returns a team changeset" do
+      team = team_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_team(team)
+    end
+  end
+
+  describe "users_teams" do
+    alias Mipha.Accounts.UserTeam
+
+    @valid_attrs %{team_id: 42, user_id: 42}
+    @update_attrs %{team_id: 43, user_id: 43}
+    @invalid_attrs %{team_id: nil, user_id: nil}
+
+    def user_team_fixture(attrs \\ %{}) do
+      {:ok, user_team} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_user_team()
+
+      user_team
+    end
+
+    test "list_users_teams/0 returns all users_teams" do
+      user_team = user_team_fixture()
+      assert Accounts.list_users_teams() == [user_team]
+    end
+
+    test "get_user_team!/1 returns the user_team with given id" do
+      user_team = user_team_fixture()
+      assert Accounts.get_user_team!(user_team.id) == user_team
+    end
+
+    test "create_user_team/1 with valid data creates a user_team" do
+      assert {:ok, %UserTeam{} = user_team} = Accounts.create_user_team(@valid_attrs)
+      assert user_team.team_id == 42
+      assert user_team.user_id == 42
+    end
+
+    test "create_user_team/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_user_team(@invalid_attrs)
+    end
+
+    test "update_user_team/2 with valid data updates the user_team" do
+      user_team = user_team_fixture()
+      assert {:ok, user_team} = Accounts.update_user_team(user_team, @update_attrs)
+      assert %UserTeam{} = user_team
+      assert user_team.team_id == 43
+      assert user_team.user_id == 43
+    end
+
+    test "update_user_team/2 with invalid data returns error changeset" do
+      user_team = user_team_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_user_team(user_team, @invalid_attrs)
+      assert user_team == Accounts.get_user_team!(user_team.id)
+    end
+
+    test "delete_user_team/1 deletes the user_team" do
+      user_team = user_team_fixture()
+      assert {:ok, %UserTeam{}} = Accounts.delete_user_team(user_team)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user_team!(user_team.id) end
+    end
+
+    test "change_user_team/1 returns a user_team changeset" do
+      user_team = user_team_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_user_team(user_team)
+    end
+  end
 end

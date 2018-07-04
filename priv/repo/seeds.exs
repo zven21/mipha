@@ -8,12 +8,14 @@ alias Mipha.{
   Stars.Star
 }
 
-alias Accounts.{User, Location}
+alias Accounts.{User, Location, Company, Team}
 alias Topics.{Topic, Node}
 
 # Gen three locations
 beijing = Repo.insert! %Location{name: "北京"}
 hangzhou = Repo.insert! %Location{name: "杭州"}
+
+helijia = Repo.insert! %Company{name: "河狸家", location: beijing}
 
 qhwa = User.register_changeset(%User{}, %{
   username: "qhwa",
@@ -24,8 +26,8 @@ qhwa = User.register_changeset(%User{}, %{
   bio: Faker.Lorem.sentence(10),
   website: Faker.Internet.domain_name,
   github_handle: "qhwa",
-  location_id: beijing.id
-
+  location_id: beijing.id,
+  company_id: helijia.id
 }) |> Repo.insert!
 
 zven = User.register_changeset(%User{}, %{
@@ -36,10 +38,11 @@ zven = User.register_changeset(%User{}, %{
   bio: Faker.Lorem.sentence(10),
   website: Faker.Internet.domain_name,
   github_handle: "zven21",
-  location_id: beijing.id
+  location_id: beijing.id,
+  company_id: helijia.id
 }) |> Repo.insert!
 
-dayu = User.register_changeset(%User{}, %{
+bencode = User.register_changeset(%User{}, %{
   username: "bencode",
   email: "bencode@mipha.com",
   password: "123123123",
@@ -49,6 +52,16 @@ dayu = User.register_changeset(%User{}, %{
   github_handle: "bencode",
   location_id: hangzhou.id
 }) |> Repo.insert!
+
+# Gen teams helijia_web
+helijia_web = Repo.insert! %Team{
+  name: "helijia-web",
+  summary: Faker.Lorem.sentence(10),
+  owner: zven,
+  github_handle: "helijia-web",
+  avatar: Faker.Avatar.image_url,
+  users: [qhwa, zven, bencode]
+}
 
 for parent_node <- ~w(ruby elixir) do
   node = Repo.insert! %Node{

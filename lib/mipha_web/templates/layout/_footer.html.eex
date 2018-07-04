@@ -7,7 +7,7 @@
 
       <div class="media-body">
         <div class="links">
-          <a href="/wiki/about">关于</a> /
+          <a href="/about">关于</a> /
           <a href="http://rubyconfchina.org" target="_blank" title="RubyConf China 大会">RubyConf</a> /
           <a href="/wiki/ruby-mirror" title="Ruby 镜像">Ruby 镜像</a> /
           <a href="https://&#10;gems.ruby-china.com" target="_blank" title="RubyGems 镜像">RubyGems 镜像</a> /

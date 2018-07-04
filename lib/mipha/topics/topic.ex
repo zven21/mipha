@@ -39,6 +39,55 @@ defmodule Mipha.Topics.Topic do
   end
 
   @doc """
+  Returns the job of topic.
+  """
+  @spec job(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def job(query \\ __MODULE__),
+    do: where(query, [..., t], t.type == ^:job)
+
+  @doc """
+  Filters the featured of topics.
+  """
+  @spec featured(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def featured(query \\ __MODULE__),
+    do: where(query, [..., t], t.type == ^:featured)
+
+  @doc """
+  Filters the educational of topics.
+  """
+  @spec educational(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def educational(query \\ __MODULE__),
+    do: where(query, [..., t], t.type == ^:educational)
+
+  @doc """
+  Filters the no_reply of topics.
+  """
+  @spec no_reply(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def no_reply(query \\ __MODULE__),
+    do: where(query, [..., t], t.reply_count == 0)
+
+  @doc """
+  Filters the popular of topics.
+  """
+  @spec popular(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def popular(query \\ __MODULE__),
+    do: where(query, [..., t], t.reply_count >= 10)
+
+  @doc """
+  Filters the node of topics.
+  """
+  @spec by_node(Ecto.Queryable.t(), Node.t()) :: Ecto.Query.t()
+  def by_node(query \\ __MODULE__, %Node{id: node_id}),
+    do: where(query, [..., t], t.node_id == ^node_id)
+
+  @doc """
+  Filters the user of topics.
+  """
+  @spec by_user(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
+  def by_user(query \\ __MODULE__, %User{id: user_id}),
+    do: where(query, [..., t], t.user_id == ^user_id)
+
+  @doc """
   Preloads the user of a topic.
   """
   @spec preload_user(t()) :: t()

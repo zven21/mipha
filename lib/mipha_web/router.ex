@@ -30,17 +30,31 @@ defmodule MiphaWeb.Router do
   scope "/", MiphaWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    get "/markdown", PageController, :markdown
-    get "/join", SessionController, :new, as: :join
-    post "/join", SessionController, :create, as: :join
-    get "/login", AuthController, :login
-    get "/logout", AuthController, :delete, as: :logout
-    get "/u/:name", UserController, :show
+    get   "/", PageController, :index
+    get   "/about", PageController, :about
+    get   "/markdown", PageController, :markdown
+    get   "/join", SessionController, :new, as: :join
+    post  "/join", SessionController, :create, as: :join
+    get   "/login", AuthController, :login
+    get   "/logout", AuthController, :delete, as: :logout
 
+    get   "/u/:name", UserController, :show
+    get   "/u/:name/topics", UserController, :topics, as: :user_topics
+    get   "/u/:name/replies", UserController, :replies, as: :user_replies
+    get   "/u/:name/stars", UserController, :stars, as: :user_stars
+    get   "/u/:name/collections", UserController, :collections, as: :user_collections
+    post  "/u/:name/follow", UserController, :follow, as: :user_follow
+    post  "/u/:name/unfollow", UserController, :unfollow, as: :user_unfollow
+    get   "/u/:name/followers", UserController, :followers, as: :user_followers
+    get   "/u/:name/following", UserController, :following, as: :user_following
+    get   "/u/:name/reward", UserController, :reward, as: :user_reward
+
+    resources "users", UserController, only: ~w(index)a
+    resources "/teams", TeamController
     resources "/topics", TopicController
     resources "/notifications", NotificationController, only: ~w(index)a
     resources "/locations", LocationController, only: ~w(index show)a
+    resources "/companies", CompanyController, only: ~w(index show)a
   end
 
   scope "/admin", MiphaWeb.Admin, as: :admin do
@@ -51,6 +65,8 @@ defmodule MiphaWeb.Router do
     resources "/nodes", NodeController
     resources "/topics", TopicController
     resources "/repies", ReplyController
+    resources "/companies", CompanyController
+    resources "/teams", TeamController
   end
 
   # Other scopes may use custom stacks.

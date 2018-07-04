@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="sidebar col-md-4" id='sidebar'>
+    <%= render "_left.html", assigns %>
+  </div>
+
+  <div class="col-md-8">
+    <%= render "_menu.html", assigns %>
+    <div class="card">
+      <ul class="list-group list-group-flush recent-replies">
+        <%= for item <- @replies do %>
+          <li class="list-group-item">
+            <div class="title">
+              <%= link item.topic.title, to: topic_path(@conn, :show, item.topic) %>
+              <span class="info">at <%= time_tag(item.updated_at) %></span>
+            </div>
+            <div class="body markdown">
+              <p><%= markdown(item.content) %></p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+      <div class="card-footer clearfix">
+        <%= render MiphaWeb.SharedView, "_pagination.html", assigns %>
+      </div>
+    </div>
+  </div>
+</div>

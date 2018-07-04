@@ -15,7 +15,7 @@ defmodule Mipha.Accounts.User do
     Collections.Collection
   }
 
-  alias Mipha.Accounts.{User, Location}
+  alias Mipha.Accounts.{User, Location, Company, Team, UserTeam}
 
   @type t :: %User{}
 
@@ -32,6 +32,7 @@ defmodule Mipha.Accounts.User do
     field :login, :string, virtual: true
 
     belongs_to :location, Location
+    belongs_to :company, Company
 
     has_many :topics, Topic, on_delete: :delete_all
     has_many :replies, Reply, on_delete: :delete_all
@@ -39,6 +40,8 @@ defmodule Mipha.Accounts.User do
     has_many :following, Follow, foreign_key: :follower_id
     has_many :stars, Star, on_delete: :delete_all
     has_many :collections, Collection, on_delete: :delete_all
+
+    many_to_many :teams, Team, join_through: UserTeam
 
     timestamps()
   end
@@ -54,6 +57,7 @@ defmodule Mipha.Accounts.User do
       github_handle
       is_admin
       location_id
+      company_id
     )a
 
     required_attrs = ~w(

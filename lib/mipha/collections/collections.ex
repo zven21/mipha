@@ -101,4 +101,28 @@ defmodule Mipha.Collections do
   def change_collection(%Collection{} = collection) do
     Collection.changeset(collection, %{})
   end
+
+  @doc """
+  Filter the list of collections.
+
+  ## Examples
+
+      iex> cond_collections()
+      Ecto.Query.t()
+
+  """
+  @spec cond_collections(Keyword.t()) :: Ecto.Query.t() | nil
+  def cond_collections(opts \\ []) do
+    opts
+    |> filter_from_clauses
+    |> preload([:topic, :user])
+  end
+
+  defp filter_from_clauses(opts) do
+    cond do
+      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Collection.by_user
+      Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Collection.by_topic
+      true -> Collection
+    end
+  end
 end

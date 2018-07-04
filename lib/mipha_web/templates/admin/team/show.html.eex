@@ -1,0 +1,33 @@
+<h2>Show Team</h2>
+
+<ul>
+
+  <li>
+    <strong>Owner:</strong>
+    <%= @team.owner_id %>
+  </li>
+
+  <li>
+    <strong>Github handle:</strong>
+    <%= @team.github_handle %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @team.name %>
+  </li>
+
+  <li>
+    <strong>Summary:</strong>
+    <%= @team.summary %>
+  </li>
+
+  <li>
+    <strong>Avatar:</strong>
+    <%= @team.avatar %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: admin_team_path(@conn, :edit, @team) %></span>
+<span><%= link "Back", to: admin_team_path(@conn, :index) %></span>

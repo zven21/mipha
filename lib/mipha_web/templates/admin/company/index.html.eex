@@ -1,0 +1,28 @@
+<h2>Listing Companies</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for company <- @companies do %>
+    <tr>
+      <td><%= company.name %></td>
+      <td><%= company.location_id %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: admin_company_path(@conn, :show, company), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: admin_company_path(@conn, :edit, company), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: admin_company_path(@conn, :delete, company), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Company", to: admin_company_path(@conn, :new) %></span>

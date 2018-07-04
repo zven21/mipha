@@ -1,7 +1,8 @@
 defmodule Mipha.Collections.Collection do
   @moduledoc false
+
   use Ecto.Schema
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
 
   alias Mipha.{
     Repo,
@@ -18,6 +19,20 @@ defmodule Mipha.Collections.Collection do
 
     timestamps()
   end
+
+  @doc """
+  Filters collection by a user.
+  """
+  @spec by_user(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
+  def by_user(query \\ __MODULE__, %User{id: user_id}),
+    do: where(query, [..., c], c.user_id == ^user_id)
+
+  @doc """
+  Filters collection by a topic.
+  """
+  @spec by_topic(Ecto.Queryable.t(), Topic.t()) :: Ecto.Query.t()
+  def by_topic(query \\ __MODULE__, %Topic{id: topic_id}),
+    do: where(query, [..., c], c.topic_id == ^topic_id)
 
   @doc false
   def changeset(collection, attrs) do

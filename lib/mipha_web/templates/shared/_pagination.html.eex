@@ -1,0 +1,5 @@
+<%= if @page.total_pages > 1 do %>
+  <div class="pagination">
+    <%= pagination_links @page %>
+  </div>
+<% end %>

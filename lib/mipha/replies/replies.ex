@@ -101,4 +101,31 @@ defmodule Mipha.Replies do
   def change_reply(%Reply{} = reply) do
     Reply.changeset(reply, %{})
   end
+
+  @doc """
+  Filter the list of repies.
+
+  ## Examples
+
+      iex> cond_replies()
+      Ecto.Query.t()
+
+      iex> cond_replies(user: %User{})
+      Ecto.Query.t()
+
+  """
+  @spec cond_replies(Keyword.t()) :: Ecto.Query.t() | nil
+  def cond_replies(opts \\ []) do
+    opts
+    |> filter_from_clauses
+    |> preload([:topic, :user])
+  end
+
+  defp filter_from_clauses(opts) do
+    cond do
+      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Reply.by_user
+      Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Reply.by_topic
+      true -> Reply
+    end
+  end
 end

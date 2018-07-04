@@ -1,0 +1,95 @@
+<div class="card profile">
+  <div class="card-body">
+    <div class="media">
+      <div class="avatar media-left mr-3">
+        <div class='image'><img class="media-object avatar-96" src="<%= @user.avatar %>" /></div>
+        <div class="level"><%= user_level_tag(@user) %></div>
+      </div>
+      <div class="media-body">
+        <div class="item">
+          <%= @user.username %>
+          <span class="opts pull-right">
+        </span>
+        </div>
+        <div class="item number">
+          第 <%= @user.id %> 位会员 / <span title="注册日期"><%= format_inserted_date(@user.inserted_at) %></span>
+        </div>
+        <div class="item company">
+          <%= if @user.company do %>
+            <span><%= link @user.company.name, to: company_path(@conn, :show, @user.company) %></span>
+          <% end %>
+          <% if @user.location do %>
+             <span title="所在地">
+               <%= link @user.location.name, to: location_path(@conn, :show, @user.location) %>
+             </span>
+          <% end %>
+        </div>
+        <div class="item counts">
+          <span><%= user_topics_count(@user) %></span> 篇帖子 • <span><%= user_replies_count(@user) %></span> 条回帖
+        </div>
+        <div class="item social">
+          <%= if @user.website do %>
+            <a target="_blank" rel="nofollow" href="<%= @user.website %>"><i class="fa fa-globe"></i></a>
+          <% end %>
+          <%= if @user.github_handle do %>
+            <a target="_blank" rel="nofollow" href="//github.com/<%= @user.github_handle %>"><i class="fa fa-github"></i></a>
+          <% end %>
+          <%= if @user.email do %>
+            <a href="mailto: <%= @user.email %>"><i class="fa fa-envelope-o"></i></a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="follow-info row hide-ios">
+      <div class="col-sm-4 followers" data-login="huacnlee">
+        <%= link user_followers_count(@user), to: user_followers_path(@conn, :followers, @user.username), class: "counter" %>
+        <%= link "关注者", to: user_followers_path(@conn, :followers, @user), class: "text" %>
+      </div>
+      <div class="col-sm-4 following">
+        <%= link user_following_count(@user), to: user_following_path(@conn, :following, @user.username), class: "counter" %>
+        <%= link "正在关注", to: user_following_path(@conn, :following, @user), class: "text" %>
+      </div>
+      <div class="col-sm-4 stars">
+        <%= link user_collections_count(@user), to: user_collections_path(@conn, :collections, @user.username), class: "counter" %>
+        <%= link "收藏", to: user_collections_path(@conn, :collections, @user), class: "text" %>
+      </div>
+    </div>
+    <div class="buttons row">
+      <div class="col-sm-6">
+        <%= if @current_user && @current_user.id != @user.id do %>
+          <%= if has_followed?(@current_user, @user) do %>
+            <%= link to: user_unfollow_path(@conn, :unfollow, @user.username), method: :post, class: "button-follow-user btn btn-primary btn-block active" do %>
+              <i class="fa fa-user"></i>
+              <span>取消关注</span>
+            <% end %>
+          <% else %>
+            <%= link to: user_follow_path(@conn, :follow, @user.username), method: :post, class: "button-follow-user btn btn-primary btn-block active" do %>
+              <i class="fa fa-user"></i>
+              <span>关注</span>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= link to: user_follow_path(@conn, :follow, @user.username), method: :post, class: "button-follow-user btn btn-primary btn-block active" do %>
+            <i class="fa fa-user"></i>
+            <span>关注</span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col-sm-6">
+        <a title="" data-id="huacnlee" class="button-block-user btn btn-default btn-block" href="#"><i class="fa fa-eye-slash"></i> <span>屏蔽</span></a>
+      </div>
+    </div>
+
+    <div class="tagline row">
+      <%= @user.bio %>
+    </div>
+
+    <div class="buttons">
+      <a class="btn btn-block btn-default" data-remote="true" href="/huacnlee/reward"><i class='fa fa-qrcode'></i> <span>打赏支持</span></a>
+    </div>
+  </div>
+</div>
+
+<%= render "_teams.html", assigns %>
+<%= render "_repos.html", assigns %>

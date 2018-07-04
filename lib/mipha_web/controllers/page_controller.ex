@@ -21,4 +21,8 @@ defmodule MiphaWeb.PageController do
       parent_nodes: parent_nodes,
       locations: locations
   end
+
+  def markdown(conn, _) do
+    render conn, :markdown
+  end
 end

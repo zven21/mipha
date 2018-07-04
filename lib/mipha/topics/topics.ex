@@ -154,6 +154,27 @@ defmodule Mipha.Topics do
   end
 
   @doc """
+  Inserts a topic.
+
+  ## Examples
+
+      iex> insert_topic(%User{}, %{field: value})
+      {:ok, %Topic{}}
+
+      iex> insert_topic(%User{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec insert_topic(User.t(), map()) :: {:ok, Topic.t()} | {:error, Ecto.Changeset.t()}
+  def insert_topic(user, attrs \\ %{}) do
+    attrs = attrs |> Map.put(:user_id, user.id)
+
+    %Topic{}
+    |> Topic.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
   Updates a node.
 
   ## Examples

@@ -7,10 +7,12 @@ defmodule Mipha.Topics.Topic do
   alias Mipha.{
     Repo,
     Topics,
-    Accounts.User,
-    Replies.Reply
+    Accounts,
+    Replies
   }
 
+  alias Accounts.User
+  alias Replies.Reply
   alias Topics.{Topic, Node}
 
   @type t :: %Topic{}
@@ -33,6 +35,28 @@ defmodule Mipha.Topics.Topic do
     has_many :replies, Reply
 
     timestamps()
+  end
+
+  @doc """
+  Preloads the user of a topic.
+  """
+  @spec preload_user(t()) :: t()
+  def preload_user(topic), do: Repo.preload(topic, [:user, :last_reply_user])
+
+  @doc """
+  Preloads the reply of a topic.
+  """
+  @spec preload_replies(t()) :: t()
+  def preload_replies(topic), do: Repo.preload(topic, :replies)
+
+  @doc """
+  Preloads all of a topic.
+  """
+  @spec preload_all(t()) :: t()
+  def preload_all(topic) do
+    topic
+    |> preload_replies
+    |> preload_user
   end
 
   @doc false

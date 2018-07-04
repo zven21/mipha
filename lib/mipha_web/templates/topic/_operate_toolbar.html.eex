@@ -1,0 +1,6 @@
+<div class="opts">
+  <a title="赞" data-count="172" data-state="deactive" data-type="Topic" data-id="19436" class="likeable deactive" href="#"><i class='fa fa-heart'></i> <span>172 个赞</span></a>
+  <a data-id="19436" class="follow" href="#"><i class="fa fa-eye"></i> 关注</a>
+  <a title="收藏" class="bookmark " data-id="19436" href="#"><i class="fa fa-bookmark"></i> 收藏</a>
+  <span class="pull-right opts"></span>
+</div>

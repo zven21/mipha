@@ -1,1 +1,151 @@
-<h1>Topic Show Page</h1>
+<div class="row">
+  <div class="col-md-9">
+    <div class="topic-detail card">
+      <div class="card-header media clearfix">
+        <div class="media-body">
+          <h1 class="media-heading">
+            <a class="node" href="/topics?node_id=<%= @topic.node_id %>"><%= @topic.node_id %></a>
+            <span class="title"><%= @topic.title %></span>
+          </h1>
+          <div class="info">
+            <%= link @topic.user.username, to: user_path(@conn, :show, @topic.user.username) %>
+            <%= time_tag(@topic.inserted_at) %>
+            <%= if @topic.reply_count != 0 do %>
+              <span class="hidden-mobile">
+                 ·
+                最后由 <%= link @topic.last_reply_user.username, to: topic_path(@conn, :show, @topic.last_reply_user), class: "user-name" %>
+                回复于 <%= time_tag(@topic.updated_at) %>
+              </span>
+            <% end %>
+            · <%= @topic.visit_count %> 次阅读
+          </div>
+        </div>
+        <div class="avatar media-right">
+          <%= link to: user_path(@conn, :show, @topic.user.username), title: @topic.user.username do %>
+            <img class="media-object avatar-48" src="<%= @topic.user.avatar %>" />
+          <% end %>
+          </a>
+        </div>
+      </div>
+
+      <%= if @topic.type == :featured do %>
+        <div class="label-awesome"><i class="fa fa-diamond awesome"></i> 本帖已被设为精华帖！</div>
+      <% end %>
+
+      <div class="card-body markdown markdown-toc">
+        <%= markdown(@topic.body) %>
+      </div>
+
+      <div class="card-footer clearfix">
+        <%= render "_operate_toolbar.html", assigns %>
+      </div>
+    </div>
+
+    <div id="replies" class="card" data-last-floor="43">
+      <div class="total card-header hide-ios">
+        共收到 <b><%= @topic.reply_count %></b> 条回复
+      </div>
+      <div class="items card-body">
+        <%= for item <- @topic.replies do %>
+          <%# FIXME need preload reply %>
+          <div class="reply" data-id="206564" id="reply1">
+            <div id="reply-206564" data-floor="1">
+              <div class="avatar"><a title="rockliu (Rocco Liu)" href="/rockliu"><img class="media-object avatar-48" src="https://l.ruby-china.org/user/avatar/59.jpg!md" /></a></div>
+              <div class="infos">
+                <div class="info">
+                  <span class="name">
+                    <a class="user-name" data-name="Rocco Liu" href="/rockliu">rockliu</a>
+                  </span>
+                  <span class="sub-info">
+                  <span class='floor'>#1</span> ·
+                    <a class="time" href="#reply-206564">
+                      <abbr class="timeago" title="2014-05-21T11:10:23+08:00">2014年05月21日</abbr>
+                    </a>
+                  </span>
+                  <span class="opts pull-right">
+                    <span class="hideable">
+                    <a class="edit fa fa-pencil" data-uid="59" title="修改回帖" href="/topics/19436/replies/206564/edit"></a>
+                    <a data-id="206564" data-login="rockliu" title="回复此楼" class="btn-reply fa fa-mail-reply" href="#"></a>
+                    </span>
+                    <a title="赞" data-count="2" data-state="deactive" data-type="Reply" data-id="206564" class="likeable deactive" href="#"><i class='fa fa-heart'></i> <span>2 个赞</span></a>
+                  </span>
+                </div>
+                <div class="markdown">
+                  <%= markdown(item.content) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="reply" class="card">
+      <div class="card-header hide-ios">回帖</div>
+      <div class="card-body">
+        <%= render "_editor_toolbar.html", assigns %>
+
+        <form id="new_reply" action="/topics/19436/replies" accept-charset="UTF-8" data-remote="true" method="post">
+          <input name="utf8" type="hidden" value="&#x2713;" />
+          <input type="hidden" name="authenticity_token" value="VuDj0UAaiZ3Z+i8D/4633cwBpvH4QBzMu0HDkNqG6Vx4iAnSW7B4iPDw7f7wTwfluyq4fwH5Mf7UwU8fUm2FqQ==" />
+          <div class="form-group">
+            <textarea class="topic-editor form-control" rows="4" tabindex="1" name="reply[body]" id="reply_body"></textarea>
+          </div>
+          <input type="hidden" name="reply[reply_to_id]" id="reply_reply_to_id" />
+          <div class="submit-buttons">
+            <button type="submit" id="reply-button" class="btn btn-primary" tabindex="2" , data-disable-with='提交回复'>提交回复</button>
+            <span class="help-inline" style="padding-left: 5px;" title="或者 Ctrl + Enter"><kbd>Command</kbd> + <kbd>Enter</kbd></span>
+            <div class="pull-right"><a href="/markdown" target="_blank">排版说明</a></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <%= render "_relation_topic.html", assigns %>
+  </div>
+
+  <div class="sidebar hidden-mobile col-md-3">
+    <div id="topic-sidebar" data-spy="affix" data-offset-bottom="65">
+      <div class="card">
+        <div class="card-body">
+          <a href="#" class="btn btn-default btn-block btn-sm btn-move-page" data-type="top"><i class="fa fa-arrow-up"></i></a>
+          <div class="buttons">
+            <div class="group likes opts">
+              <a title="赞" data-count="172" data-state="deactive" data-type="Topic" data-id="19436" class="likeable deactive" href="#"><i class='fa fa-heart'></i> <span>172 个赞</span></a>
+            </div>
+            <div class="group">
+              <div class="btn-group" role="group">
+                <a data-id="19436" class="follow btn btn-default" href="#"><i class="fa fa-eye"></i> 关注</a>
+                <a title="收藏" class="bookmark btn btn-default" data-id="19436" href="#"><i class="fa fa-bookmark"></i> 收藏</a>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="group">
+            <div class='social-share-button' data-title='Cache 在 Ruby China 里面的应用' data-img='' data-url='' data-desc='' data-via=''>
+              <a rel="nofollow " data-site="twitter" class="ssb-icon ssb-twitter" onclick="return SocialShareButton.share(this);" title="分享到 Twitter" href="#"></a>
+              <a rel="nofollow " data-site="wechat" class="ssb-icon ssb-wechat" onclick="return SocialShareButton.share(this);" title="分享到 微信" data-wechat-footer="打开微信，点击底部的 “发现”，&lt;br/&gt; 使用 “扫一扫” 即可将网页分享至朋友圈。" href="#"></a>
+              <a rel="nofollow " data-site="facebook" class="ssb-icon ssb-facebook" onclick="return SocialShareButton.share(this);" title="分享到 Facebook" href="#"></a>
+              <a rel="nofollow " data-site="google_plus" class="ssb-icon ssb-google_plus" onclick="return SocialShareButton.share(this);" title="分享到 Google+" href="#"></a>
+              <a rel="nofollow " data-site="weibo" class="ssb-icon ssb-weibo" onclick="return SocialShareButton.share(this);" title="分享到 新浪微博" href="#"></a>
+              <a rel="nofollow " data-site="douban" class="ssb-icon ssb-douban" onclick="return SocialShareButton.share(this);" title="分享到 豆瓣" href="#"></a>
+            </div>
+          </div>
+          <hr />
+          <div class="reply-buttons">
+            <div class="total">共收到 <b><%= @topic.reply_count %></b> 条回复</div>
+            <a class="btn btn-success" data-remote="true" href="/huacnlee/reward"><i class='fa fa-qrcode'></i> <span>打赏支持</span></a>
+          </div>
+          <hr />
+          <div class="group opts">
+          </div>
+          <a href="#" class="btn btn-default btn-sm btn-block btn-move-page" data-type="bottom"><i class="fa fa-arrow-down"></i></a>
+        </div>
+      </div>
+
+      <div class="notify-updated">
+        <a class="update" href="#"><i class="fa fa-bell-o"></i> <b>有新回复！</b>点击这里立即载入</a>
+      </div>
+    </div>
+  </div>
+</div>

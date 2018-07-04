@@ -42,6 +42,8 @@ defmodule MiphaWeb do
       import MiphaWeb.ErrorHelpers
       import MiphaWeb.Gettext
       import MiphaWeb.Session
+      import MiphaWeb.ViewHelpers
+      import MiphaWeb.TagHelpers
     end
   end
 

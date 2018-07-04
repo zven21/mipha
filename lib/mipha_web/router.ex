@@ -31,6 +31,7 @@ defmodule MiphaWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/markdown", PageController, :markdown
     get "/join", SessionController, :new, as: :join
     post "/join", SessionController, :create, as: :join
     get "/login", AuthController, :login

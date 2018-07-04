@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card-header">相关话题</div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a href="/topics/1040">谈谈今天 ruby-china 的优化</a></li>
+    <li class="list-group-item"><a href="/topics/33254">Vue.js 项目重构，轻松实现上拉加载滚动位置还原</a></li>
+    <li class="list-group-item"><a href="/topics/24996">Rails 3 和 Rails 4 中 ETags 工作原理</a></li>
+    <li class="list-group-item"><a href="/topics/95">缓存问题：话题相关页面 可能 半个小时内没有热门节点</a></li>
+    <li class="list-group-item"><a href="/topics/7252">count_cache 与 XX_count</a></li>
+  </ul>
+</div>

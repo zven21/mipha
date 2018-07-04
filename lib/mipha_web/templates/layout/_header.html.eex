@@ -36,10 +36,10 @@
 
         <li class="nav-item dropdown dropdown-avatar">
           <a href="#" class="dropdown-toggle nav-link" id="navbar-user-menu" data-toggle="dropdown" role="button" aria-expanded="false">
-            <img class="media-object avatar-32" src="https://l.ruby-china.com/user/avatar/33556/7e7c01.jpeg!sm">
+            <img class="media-object avatar-32" src="<%= @current_user.avatar %>">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-user-menu">
-            <a class="dropdown-item" href="/Zven">Zven</a>
+            <a class="dropdown-item" href="/u/<%= @current_user.username %>"><%= @current_user.username %></a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/setting">个人资料设置</a>
             <a class="dropdown-item" href="/topics/favorites">我的收藏</a>

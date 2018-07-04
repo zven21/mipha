@@ -28,7 +28,8 @@ defmodule MiphaWeb.Router do
   end
 
   scope "/", MiphaWeb do
-    pipe_through :browser # Use the default browser stack
+    # Use the default browser stack
+    pipe_through :browser
 
     get   "/", PageController, :index
     get   "/about", PageController, :about
@@ -49,12 +50,20 @@ defmodule MiphaWeb.Router do
     get   "/u/:name/following", UserController, :following, as: :user_following
     get   "/u/:name/reward", UserController, :reward, as: :user_reward
 
-    resources "users", UserController, only: ~w(index)a
+    get "/users", UserController, :index
     resources "/teams", TeamController
     resources "/topics", TopicController
     resources "/notifications", NotificationController, only: ~w(index)a
     resources "/locations", LocationController, only: ~w(index show)a
     resources "/companies", CompanyController, only: ~w(index show)a
+
+    # User profile
+    resources "/setting", SettingController, only: ~w(show update)a, singleton: true do
+      get "/account", SettingController, :account, as: :account
+      get "/password", SettingController, :password, as: :password
+      get "/profile", SettingController, :profile, as: :profile
+      get "/reward", SettingController, :reward, as: :reward
+    end
   end
 
   scope "/admin", MiphaWeb.Admin, as: :admin do

@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-sm-2 col-md-offset-1 setting-menu">
+    <%= render "_sidebar.html", assigns %>
+  </div>
+
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-body">
+        <div class="heading">删除我的账号</div>
+
+        <form action="/setting" accept-charset="UTF-8" data-remote="true" method="post">
+          <input name="utf8" type="hidden" value="&#x2713;" />
+          <input type="hidden" name="_method" value="delete" />
+          <input type="hidden" name="authenticity_token" value="FiuBKuNbeu5y1/Mrh8+7MhR7TjIa4/H6C9iIBKHB4C2+v0Jx0xLiOOoCi1ZakrMvgE8HavcalXlJwOJLNQXg6g=="
+          />
+
+          <input type="hidden" name="by" value="destroy" />
+          <div class="form-group">
+            <p>当然不在想使用这个账号的时候，可以选择删除账号。</p>
+            <p>删除以后数据将会保留，以匿名的方式存在，你的账号将无法再登陆。</p>
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="要删除账号，请输入你的密码" type="password" name="user[current_password]" id="user_current_password"
+            />
+          </div>
+          <input type="submit" name="commit" value="确定删除我的账号" class="btn btn-danger" data-disable-with="正在提交" />
+        </form>
+        <div class="heading">绑定其他帐号用于登录</div>
+
+        <ul class="list-group col-sm-6">
+          <li class="list-group-item">
+            <a rel="twitsy" title="点击绑定" href="/account/auth/github">GitHub</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

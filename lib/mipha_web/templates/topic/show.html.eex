@@ -13,7 +13,7 @@
             <%= if @topic.reply_count != 0 do %>
               <span class="hidden-mobile">
                  ·
-                最后由 <%= link @topic.last_reply_user.username, to: topic_path(@conn, :show, @topic.last_reply_user), class: "user-name" %>
+                最后由 <%= link @topic.last_reply_user.username, to: user_path(@conn, :show, @topic.last_reply_user.username), class: "user-name" %>
                 回复于 <%= time_tag(@topic.updated_at) %>
               </span>
             <% end %>

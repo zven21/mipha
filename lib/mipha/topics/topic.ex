@@ -23,8 +23,8 @@ defmodule Mipha.Topics.Topic do
     field :closed_at, :naive_datetime
     field :replied_at, :naive_datetime
     field :suggested_at, :naive_datetime
-    field :reply_count, :integer
-    field :visit_count, :integer
+    field :reply_count, :integer, default: 0
+    field :visit_count, :integer, default: 0
 
     belongs_to :user, User
     belongs_to :node, Node

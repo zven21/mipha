@@ -18,7 +18,7 @@
                   <span class="nodes media-body">
                     <%= for item <- parent_node.children do %>
                       <span class="name">
-                        <a href="/topics/?node_id=<%= item.id %>"><%= item.name %></a>
+                        <a data-id="<%= item.id %>" href="/topics/?node_id=<%= item.id %>"><%= item.name %></a>
                       </span>
                     <% end %>
                   </span>

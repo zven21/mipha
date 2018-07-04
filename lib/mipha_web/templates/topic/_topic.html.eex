@@ -19,11 +19,13 @@
     </div>
     <div class="info">
       <a class="user-name" href="/u/<%= @item.user.username %>"><%= @item.user.username %></a>
+      <%= if @item.reply_count != 0 do %>
       <span class="hidden-mobile">
         • 最后由
         <a class="user-name" href="/u/<%= @item.last_reply_user.username %>"><%= @item.last_reply_user && @item.last_reply_user.username %></a> 回复于
         <%= time_tag(@item.updated_at) %>
       </span>
+      <% end %>
     </div>
   </div>
   <div class="count media-right">

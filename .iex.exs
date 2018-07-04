@@ -4,9 +4,12 @@ alias Mipha.{
   Repo,
   Accounts,
   Topics,
-  Replies
+  Replies.Reply,
+  Stars.Star,
+  Collections.Collection,
+  Follows.Follow
 }
 
 alias Accounts.User
 alias Topics.{Node, Topic}
-alias Replies.Reply
+

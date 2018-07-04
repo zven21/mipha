@@ -7,7 +7,9 @@ defmodule Mipha.Topics.Topic do
   alias Mipha.{
     Repo,
     Accounts.User,
-    Replies.Reply
+    Replies.Reply,
+    Stars.Star,
+    Collections.Collection
   }
 
   alias Mipha.Topics.{Topic, Node}
@@ -30,6 +32,8 @@ defmodule Mipha.Topics.Topic do
     belongs_to :last_reply_user, User, foreign_key: :last_reply_user_id
 
     has_many :replies, Reply
+    has_many :stars, Star
+    has_many :collections, Collection
 
     timestamps()
   end

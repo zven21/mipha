@@ -6,7 +6,8 @@ defmodule Mipha.Replies.Reply do
   alias Mipha.{
     Topics.Topic,
     Replies.Reply,
-    Accounts.User
+    Accounts.User,
+    Stars.Star
   }
 
   @type t :: %Reply{}
@@ -19,6 +20,7 @@ defmodule Mipha.Replies.Reply do
     belongs_to :parent, Reply, foreign_key: :parent_id
 
     has_many :children, Reply, foreign_key: :parent_id
+    has_many :stars, Star
 
     timestamps()
   end

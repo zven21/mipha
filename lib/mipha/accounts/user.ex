@@ -9,7 +9,10 @@ defmodule Mipha.Accounts.User do
     Repo,
     Regexp,
     Topics.Topic,
-    Replies.Reply
+    Replies.Reply,
+    Follows.Follow,
+    Stars.Star,
+    Collections.Collection
   }
 
   alias Mipha.Accounts.{User, Location}
@@ -32,6 +35,10 @@ defmodule Mipha.Accounts.User do
 
     has_many :topics, Topic, on_delete: :delete_all
     has_many :replies, Reply, on_delete: :delete_all
+    has_many :followers, Follow, on_delete: :delete_all
+    has_many :following, Follow, foreign_key: :follower_id
+    has_many :stars, Star, on_delete: :delete_all
+    has_many :collections, Collection, on_delete: :delete_all
 
     timestamps()
   end

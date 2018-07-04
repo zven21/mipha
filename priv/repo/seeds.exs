@@ -2,12 +2,14 @@ alias Mipha.{
   Repo,
   Accounts,
   Topics,
-  Replies
+  Replies.Reply,
+  Collections.Collection,
+  Follows.Follow,
+  Stars.Star
 }
 
 alias Accounts.{User, Location}
 alias Topics.{Topic, Node}
-alias Replies.Reply
 
 # Gen three locations
 beijing = Repo.insert! %Location{name: "北京"}
@@ -81,6 +83,9 @@ for _ <- 1..50 do
         content: Faker.Lorem.paragraph(3),
         user: Repo.all(User) |> Enum.random
       }
+    ],
+    collections: [
+      %Collection{user: Repo.all(User) |> Enum.random},
     ]
   }
 end

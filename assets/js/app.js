@@ -9,4 +9,6 @@ import Topic from './app/components/topic'
 // Decorate
 Times.humanize()
 Utils.navActive()
+// Topic
 Topic.selectorNode()
+Topic.hookPreview($('.editor-toolbar'), $('.topic-editor'))

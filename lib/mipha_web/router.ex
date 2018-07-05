@@ -99,7 +99,9 @@ defmodule MiphaWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MiphaWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", MiphaWeb do
+    pipe_through :api
+
+    post "/topics/preview", TopicController, :preview
+  end
 end

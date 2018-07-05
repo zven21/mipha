@@ -15,8 +15,44 @@ const selectorNode = () => {
   })
 }
 
+const hookPreview = (switcher, textarea) => {
+  const preview_box = $(document.createElement('div')).attr('id', 'preview')
+  preview_box.addClass('markdown form-control')
+  $(textarea).after(preview_box)
+  preview_box.hide()
+  return $('.preview', switcher).click(function() {
+    if ($(this).hasClass('active')) {
+      $(this).removeClass('active')
+      $(preview_box).hide()
+      $(textarea).show()
+    } else {
+      $(this).addClass('active')
+      $(preview_box).show()
+      $(textarea).hide()
+      $(preview_box).css('height', $(textarea).height())
+      preview($(textarea).val())
+    }
+    return false
+  })
+}
+
+const preview = body => {
+  $('#preview').text('Loading...')
+  $.post(
+    '/api/topics/preview',
+    {
+      body: body
+    },
+    function(data) {
+      return $('#preview').html(data.body)
+    },
+    'json'
+  )
+}
+
 const Topic = {
-  selectorNode
+  selectorNode,
+  hookPreview
 }
 
 export default Topic

@@ -1,7 +1,7 @@
 defmodule MiphaWeb.TopicController do
   use MiphaWeb, :controller
 
-  alias Mipha.{Repo, Topics}
+  alias Mipha.{Repo, Topics, Markdown}
   alias Topics.Topic
 
   plug MiphaWeb.Plug.RequireUser when action in ~w(new create edit update)a
@@ -161,5 +161,9 @@ defmodule MiphaWeb.TopicController do
     conn
     |> put_flash(:info, "Topic deleted successfully.")
     |> redirect(to: topic_path(conn, :index))
+  end
+
+  def preview(conn, %{"body" => body}) do
+    json(conn, %{body: Markdown.render(body)})
   end
 end

@@ -59,6 +59,18 @@ defmodule MiphaWeb.Router do
     get "/topics/popular", TopicController, :popular
     get "/topics/featured", TopicController, :featured
     get "/topics/educational", TopicController, :educational
+
+    # post "/topics/:id/star", TopicController, :star
+    # post "/topics/:id/unstar", TopicController, :unstar
+    # post "/topics/:id/collection", TopicController, :collection
+    # post "/topics/:id/uncollection", TopicController, :uncollection
+    post "/topics/:id/suggest", TopicController, :suggest
+    post "/topics/:id/unsuggest", TopicController, :unsuggest
+    post "/topics/:id/close", TopicController, :close
+    post "/topics/:id/open", TopicController, :open
+    post "/topics/:id/excellent", TopicController, :excellent
+    post "/topics/:id/normal", TopicController, :normal
+
     resources "/topics", TopicController
 
     resources "/notifications", NotificationController, only: ~w(index)a

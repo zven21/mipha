@@ -4,18 +4,28 @@
     <span></span>
   </a>
   <a title="取消收藏" class="bookmark active" data-id="10" href="#">
-    <i class="fa fa-bookmark"></i> 收藏</a>
-  <a data-remote="true" rel="nofollow" data-method="post" href="/admin/topics/10/suggest">
-    <i class="fa fa-angle-double-up"></i> 置顶</a>
-  <a title="设为精华帖" data-remote="true" rel="nofollow" data-method="post" href="/topics/10/action?type=excellent">
-    <i class="fa fa-diamond"></i> 加精</a>
-  <a title="全站屏蔽此贴" data-remote="true" href="/topics/10/ban">
-    <i class="fa fa-ban"></i> 屏蔽</a>
+    <i class="fa fa-bookmark"></i> 收藏
+  </a>
+
+  <%= if @topic.suggested_at do %>
+    <%= link "取消置顶", to: topic_path(@conn, :unsuggest, @topic), method: :post, class: "fa fa-angle-double-down" %>
+  <% else %>
+    <%= link "置顶", to: topic_path(@conn, :suggest, @topic), method: :post, class: "fa fa-angle-double-up" %>
+  <% end %>
+
+  <%= if @topic.type == "featured" do %>
+    <%= link "取消加精", to: topic_path(@conn, :normal, @topic), method: :post, title: "取消精华帖" %>
+  <% else %>
+    <%= link "加精", to: topic_path(@conn, :excellent, @topic), method: :post, title: "设为精华帖", class: "fa fa-diamond" %>
+  <% end %>
+
   <span class="pull-right opts">
-    <a title="" data-toggle="tooltip" data-remote="true" rel="nofollow" data-method="post" href="/topics/10/action?type=close"
-      data-original-title="关闭讨论／问题已解决">
-      <i class="fa fa-check"></i>
-    </a>
+    <%= if @topic.closed_at do %>
+      <%= link "", to: topic_path(@conn, :open, @topic), method: :post, title: "重新开启话题", class: "fa fa-undo" %>
+    <% else %>
+      <%= link "", to: topic_path(@conn, :close, @topic), method: :post, title: "关闭讨论／问题已解决", class: "fa fa-check" %>
+    <% end %>
+
     <%= link "", to: topic_path(@conn, :edit, @topic), title: "修改本帖", class: "fa fa-pencil" %>
     <%= link "", to: topic_path(@conn, :delete, @topic), title: "删除本帖", class: "fa fa-trash", method: :delete, data: [confirm: "确定要删除吗？"] %>
   </span>

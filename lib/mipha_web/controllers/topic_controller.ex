@@ -9,28 +9,96 @@ defmodule MiphaWeb.TopicController do
   @intercepted_action ~w(index jobs no_reply popular featured educational)a
 
   def action(conn, _) do
-    if Enum.member?(@intercepted_action, action_name(conn)) do
-      opts =
-        if conn.params["node_id"] do
-          [node: Topics.get_node!(conn.params["node_id"])]
-        else
-          [type: action_name(conn)]
+    case action_name(conn) do
+      n when n in @intercepted_action ->
+        opts =
+          if conn.params["node_id"] do
+            [node: Topics.get_node!(conn.params["node_id"])]
+          else
+            [type: action_name(conn)]
+          end
+
+        parent_nodes = Topics.list_parent_nodes
+
+        page =
+          opts
+          |> Topics.cond_topics
+          |> Repo.paginate(conn.params)
+
+        render conn, action_name(conn),
+          asset: "topics",
+          topics: page.entries,
+          page: page,
+          parent_nodes: parent_nodes
+
+      :suggest ->
+        topic = Topics.get_topic!(conn.params["id"])
+        attrs = %{
+          "suggested_at" => Timex.now
+        }
+        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
+          conn
+          |> put_flash(:success, "置顶成功")
+          |> redirect(to: topic_path(conn, :show, topic))
         end
 
-      parent_nodes = Topics.list_parent_nodes
+      :unsuggest ->
+        topic = Topics.get_topic!(conn.params["id"])
+        attrs = %{
+          "suggested_at" => nil
+        }
+        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
+          conn
+          |> put_flash(:success, "取消置顶成功")
+          |> redirect(to: topic_path(conn, :show, topic))
+        end
 
-      page =
-        opts
-        |> Topics.cond_topics
-        |> Repo.paginate(conn.params)
+      :close ->
+        topic = Topics.get_topic!(conn.params["id"])
+        attrs = %{
+          "closed_at" => Timex.now
+        }
+        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
+          conn
+          |> put_flash(:success, "该话题已关闭")
+          |> redirect(to: topic_path(conn, :show, topic))
+        end
 
-      render conn, action_name(conn),
-        asset: "topics",
-        topics: page.entries,
-        page: page,
-        parent_nodes: parent_nodes
-    else
-      apply(__MODULE__, action_name(conn), [conn, conn.params])
+      :open ->
+        topic = Topics.get_topic!(conn.params["id"])
+        attrs = %{
+          "closed_at" => nil
+        }
+        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
+          conn
+          |> put_flash(:success, "该话题已打开")
+          |> redirect(to: topic_path(conn, :show, topic))
+        end
+
+      :excellent ->
+        topic = Topics.get_topic!(conn.params["id"])
+        attrs = %{
+          "type" => "featured"
+        }
+        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
+          conn
+          |> put_flash(:success, "该话题设置为精华帖")
+          |> redirect(to: topic_path(conn, :show, topic))
+        end
+
+      :normal ->
+        topic = Topics.get_topic!(conn.params["id"])
+        attrs = %{
+          "type" => "normal"
+        }
+        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
+          conn
+          |> put_flash(:success, "该话题设置为正常帖")
+          |> redirect(to: topic_path(conn, :show, topic))
+        end
+
+      _ ->
+        apply(__MODULE__, action_name(conn), [conn, conn.params])
     end
   end
 
@@ -55,12 +123,7 @@ defmodule MiphaWeb.TopicController do
   end
 
   def create(conn, %{"topic" => topic_params}) do
-    attrs = %{
-      title: topic_params["title"],
-      body: topic_params["body"],
-      node_id: topic_params["node_id"]
-    }
-    case Topics.insert_topic(current_user(conn), attrs) do
+    case Topics.insert_topic(current_user(conn), topic_params) do
       {:ok, topic} ->
         conn
         |> put_flash(:success, "Topic created successfully.")

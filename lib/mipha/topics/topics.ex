@@ -122,7 +122,7 @@ defmodule Mipha.Topics do
   """
   @spec insert_topic(User.t(), map()) :: {:ok, Topic.t()} | {:error, Ecto.Changeset.t()}
   def insert_topic(user, attrs \\ %{}) do
-    attrs = attrs |> Map.put(:user_id, user.id)
+    attrs = attrs |> Map.put("user_id", user.id)
 
     %Topic{}
     |> Topic.changeset(attrs)

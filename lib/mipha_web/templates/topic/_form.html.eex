@@ -7,7 +7,7 @@
       <div class="input-group">
         <div class="input-group-prepend">
           <button type="button" class="btn btn-default" id="node-selector-button" data-toggle="modal" data-target="#node-selector">
-            <%= @topic && @topic.node.name || "选择节点..." %>
+            <%= Map.get(assigns, :topic) && @topic.node.name || "选择节点..." %>
           </button>
         </div>
         <%= text_input f, :title, class: "form-control", required: true, placeholder: "在这里填写标题" %>

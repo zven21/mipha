@@ -1,6 +1,22 @@
 <div class="opts">
-  <a title="赞" data-count="172" data-state="deactive" data-type="Topic" data-id="19436" class="likeable deactive" href="#"><i class='fa fa-heart'></i> <span>172 个赞</span></a>
-  <a data-id="19436" class="follow" href="#"><i class="fa fa-eye"></i> 关注</a>
-  <a title="收藏" class="bookmark " data-id="19436" href="#"><i class="fa fa-bookmark"></i> 收藏</a>
-  <span class="pull-right opts"></span>
+  <a title="赞" data-count="0" data-state="deactive" data-type="Topic" data-id="10" class="likeable deactive" href="#">
+    <i class="fa fa-heart"></i>
+    <span></span>
+  </a>
+  <a title="取消收藏" class="bookmark active" data-id="10" href="#">
+    <i class="fa fa-bookmark"></i> 收藏</a>
+  <a data-remote="true" rel="nofollow" data-method="post" href="/admin/topics/10/suggest">
+    <i class="fa fa-angle-double-up"></i> 置顶</a>
+  <a title="设为精华帖" data-remote="true" rel="nofollow" data-method="post" href="/topics/10/action?type=excellent">
+    <i class="fa fa-diamond"></i> 加精</a>
+  <a title="全站屏蔽此贴" data-remote="true" href="/topics/10/ban">
+    <i class="fa fa-ban"></i> 屏蔽</a>
+  <span class="pull-right opts">
+    <a title="" data-toggle="tooltip" data-remote="true" rel="nofollow" data-method="post" href="/topics/10/action?type=close"
+      data-original-title="关闭讨论／问题已解决">
+      <i class="fa fa-check"></i>
+    </a>
+    <%= link "", to: topic_path(@conn, :edit, @topic), title: "修改本帖", class: "fa fa-pencil" %>
+    <%= link "", to: topic_path(@conn, :delete, @topic), title: "删除本帖", class: "fa fa-trash", method: :delete, data: [confirm: "确定要删除吗？"] %>
+  </span>
 </div>

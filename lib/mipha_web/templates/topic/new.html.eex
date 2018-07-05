@@ -1,31 +1,4 @@
 <div class="card">
   <div class="card-header hide-ios">发布新话题</div>
-  <div class="card-body">
-    <%= render "_node_selector.html", assigns %>
-    <%= form_for @changeset, topic_path(@conn, :create), fn f -> %>
-      <input name="utf8" type="hidden" value="&#x2713;" />
-      <input type="hidden" name="topic[node_id]" id="topic_node_id" value="2"/>
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <button type="button" class="btn btn-default" id="node-selector-button" data-toggle="modal" data-target="#node-selector">
-              选择节点...
-            </button>
-          </div>
-          <%= text_input f, :title, class: "form-control", required: true, placeholder: "在这里填写标题" %>
-          <%= error_tag f, :title %>
-        </div>
-      </div>
-      <%= render "_editor_toolbar.html", assigns %>
-
-      <div class="form-group">
-        <%= textarea f, :body, class: "form-control topic-editor closewarning", required: true, placeholder: "在这里添加内容", rows: 20 %>
-        <%= error_tag f, :body %>
-      </div>
-      <div class="form-actions hide-ios">
-        <%= submit "正在保存", class: "btn btn-primary" %>
-        <div class="pull-right hide-ios"><a href="/markdown" target="_blank"><i class="fa fa-tip"></i> 排版说明</a></div>
-      </div>
-    <% end %>
-  </div>
+  <%= render "_form.html", Map.put(assigns, :action, topic_path(@conn, :create)) %>
 </div>

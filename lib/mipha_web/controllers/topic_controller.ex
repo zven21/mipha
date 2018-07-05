@@ -4,7 +4,7 @@ defmodule MiphaWeb.TopicController do
   alias Mipha.{Repo, Topics}
   alias Topics.Topic
 
-  plug MiphaWeb.Plug.RequireUser when action in ~w(new create)a
+  plug MiphaWeb.Plug.RequireUser when action in ~w(new create edit update)a
 
   @intercepted_action ~w(index jobs no_reply popular featured educational)a
 
@@ -43,6 +43,17 @@ defmodule MiphaWeb.TopicController do
       parent_nodes: parent_nodes
   end
 
+  def edit(conn, %{"id" => id}) do
+    topic = Topics.get_topic!(id)
+    changeset = Topics.change_topic(topic)
+    parent_nodes = Topics.list_parent_nodes
+
+    render conn, :edit,
+      topic: topic,
+      changeset: changeset,
+      parent_nodes: parent_nodes
+  end
+
   def create(conn, %{"topic" => topic_params}) do
     attrs = %{
       title: topic_params["title"],
@@ -61,12 +72,31 @@ defmodule MiphaWeb.TopicController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    topic =
-      id
-      |> Topics.get_topic!
-      |> Topic.preload_all
+  def update(conn, %{"id" => id, "topic" => topic_params}) do
+    topic = Topics.get_topic!(id)
+    case Topics.update_topic(topic, topic_params) do
+      {:ok, topic} ->
+        conn
+        |> put_flash(:success, "Topic updated successfully.")
+        |> redirect(to: topic_path(conn, :show, topic))
 
+      {:error, %Ecto.Changeset{} = changeset} ->
+        parent_nodes = Topics.list_parent_nodes
+        render conn, :edit, topic: topic, changeset: changeset, parent_nodes: parent_nodes
+    end
+  end
+
+  def show(conn, %{"id" => id}) do
+    topic = Topics.get_topic!(id)
     render conn, :show, topic: topic
+  end
+
+  def delete(conn, %{"id" => id}) do
+    topic = Topics.get_topic!(id)
+    {:ok, _user} = Topics.delete_topic(topic)
+
+    conn
+    |> put_flash(:info, "Topic deleted successfully.")
+    |> redirect(to: topic_path(conn, :index))
   end
 end

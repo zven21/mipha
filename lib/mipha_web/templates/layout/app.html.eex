@@ -16,6 +16,7 @@
     <%= if Map.get(assigns, :asset) == "topics" do %>
       <%= render "_sub_header.html", assigns %>
     <% end %>
+    <%= render "_flash.html", assigns %>
     <div id="main" class="main-container container">
       <%= render @view_module, @view_template, assigns %>
     </div>

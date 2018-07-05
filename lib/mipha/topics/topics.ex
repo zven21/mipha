@@ -37,7 +37,11 @@ defmodule Mipha.Topics do
       ** (Ecto.NoResultsError)
 
   """
-  def get_topic!(id), do: Repo.get!(Topic, id)
+  def get_topic!(id) do
+    Topic
+    |> Repo.get!(id)
+    |> Repo.preload([:node, :user, :last_reply_user, :replies])
+  end
 
   @doc """
   Creates a topic.

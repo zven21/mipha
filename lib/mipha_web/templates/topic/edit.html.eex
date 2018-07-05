@@ -1,0 +1,4 @@
+<div class="card">
+  <div class="card-header hide-ios">修改话题</div>
+  <%= render "_form.html", Map.put(assigns, :action, topic_path(@conn, :update, @topic)) %>
+</div>

@@ -2,11 +2,10 @@ defmodule Mipha.Follows do
   @moduledoc """
   The Follows context.
   """
-
   import Ecto.Query, warn: false
   alias Mipha.Repo
-
   alias Mipha.Follows.Follow
+  alias Mipha.Accounts.User
 
   @doc """
   Returns the list of follows.
@@ -36,6 +35,30 @@ defmodule Mipha.Follows do
 
   """
   def get_follow!(id), do: Repo.get!(Follow, id)
+
+  @doc """
+  Gets a single follow.
+
+  ## Examples
+
+      iex> get_follow(123)
+      %Follow{}
+
+      iex> get_follow(456)
+      nil
+
+      iex> get_follow(follower_id: 123, user_id: 456)
+      %Follow{}
+
+      iex> get_follow(follower_id: 123, user_id: 458)
+      nil
+
+  """
+  @spec get_follow(String.t() | non_neg_integer) :: Follow.t() | nil
+  def get_follow(id) when not is_list(id), do: Repo.get(Follow, id)
+
+  @spec get_follow(Keyword.t()) :: Follow.t() | nil
+  def get_follow(clauses) when length(clauses) == 2, do: Repo.get_by(Follow, clauses)
 
   @doc """
   Creates a follow.
@@ -85,8 +108,16 @@ defmodule Mipha.Follows do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_follow(Follow.t()) :: {:ok, Follow.t()} | {:error, Ecto.Changeset.t()}
   def delete_follow(%Follow{} = follow) do
     Repo.delete(follow)
+  end
+
+  @spec delete_follow(Keyword.t()) :: {:ok, Follow.t()} | {:error, Ecto.Changeset.t()}
+  def delete_follow(clauses) when length(clauses) == 2 do
+    clauses
+    |> get_follow
+    |> Repo.delete
   end
 
   @doc """
@@ -130,5 +161,151 @@ defmodule Mipha.Follows do
       Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Follow.by_user
       true -> Follow
     end
+  end
+
+  @doc """
+  Unfollow user.
+
+  ## Examples
+
+      follow_user(follower: %User{}, user: %User{})
+      {:ok, follow}
+
+      follow_user(follower: %User{}, user: %User{})
+      {:error, _}
+
+  """
+  @spec unfollow_user(Keyword.t()) :: {:ok, Follow.t()} | {:error, any()}
+  def unfollow_user(follower: follower, user: user) do
+    opts = [follower: follower, user: user]
+    if can_follow?(opts) do
+      if has_followed?(opts) do
+        delete_follow(user_id: user.id, follower_id: follower.id)
+      else
+        {:error, "Unfollow already."}
+      end
+    else
+      {:error, "Can not follower yourself."}
+    end
+  end
+
+  @doc """
+  Follow user.
+  ## Examples
+
+      follow_user(follower: %User{}, user: %User{})
+      {:ok, follow}
+
+      follow_user(follower: %User{}, user: %User{})
+      {:error, _}
+
+  """
+  @spec follow_user(Keyword.t()) :: {:ok, Follow.t()} | {:error, any()}
+  def follow_user(follower: follower, user: user) do
+    opts = [follower: follower, user: user]
+    if can_follow?(opts) do
+      if has_followed?(opts) do
+        {:error, "Follow already."}
+      else
+        insert_follow(%{user_id: user.id, follower_id: follower.id})
+      end
+    else
+      {:error, "Can't follower yourself."}
+    end
+  end
+
+  @doc """
+  Returns `true` if the follower can follow the followable.
+  `false` otherwise.
+  """
+  @spec can_follow?(Keyword.t()) :: boolean
+  def can_follow?(clauses) do
+    %User{id: follower_id} = Keyword.get(clauses, :follower)
+    %User{id: user_id} = Keyword.get(clauses, :user)
+
+    user_id == follower_id && false || true
+  end
+
+  @doc """
+  Returns `true` if the user has followed the followable.
+  `false` otherwise.
+
+  ## Examples
+
+      iex> has_followed?(follower: %User{}, user: %User{})
+      true
+
+      iex> has_followed?(follower: %User{}, topic: %Topic{})
+      false
+
+  """
+  @spec has_followed?(Keyword.t()) :: boolean
+  def has_followed?(clauses) do
+    %User{id: follower_id} = Keyword.get(clauses, :follower)
+    %User{id: user_id} = Keyword.get(clauses, :user)
+
+    opts = [follower_id: follower_id, user_id: user_id]
+    get_follow(opts)
+  end
+
+  @doc """
+  Insert a follow.
+
+  ## Examples
+
+      iex> insert_follow(attrs)
+      {:ok, %Follow{}}
+
+      iex> insert_follow(attrs)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def insert_follow(attrs \\ %{}) do
+    %Follow{}
+    |> Follow.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Gets the follower count of a followable.
+
+  ## Examples
+
+      iex> get_follower_count([user: %User{}])
+      4
+
+      iex> get_follower_count([artwork: %Artwork{}])
+      8
+
+      iex> get_follower_count([topic: %Topic{}])
+      12
+
+  """
+  @spec get_follower_count(Keyword.t()) :: non_neg_integer()
+  def get_follower_count(clauses) do
+    query =
+      clauses
+      |> Keyword.get(:user)
+      |> Follow.by_user
+
+    query
+    |> join(:inner, [c], u in assoc(c, :follower))
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
+  Gets the followee count of a user.
+
+  ## Examples
+
+    iex> get_followee_count(%User{})
+    42
+
+  """
+  @spec get_followee_count(User.t()) :: non_neg_integer()
+  def get_followee_count(%User{} = user) do
+    user
+    |> Follow.by_follower()
+    |> Repo.aggregate(:count, :id)
   end
 end

@@ -33,7 +33,7 @@ defmodule Mipha.Topics.Topic do
 
     has_many :replies, Reply
     has_many :stars, Star
-    has_many :collections, Collection
+    has_many :collections, Collection, on_delete: :delete_all
 
     timestamps()
   end
@@ -86,6 +86,9 @@ defmodule Mipha.Topics.Topic do
   @spec by_user(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
   def by_user(query \\ __MODULE__, %User{id: user_id}),
     do: where(query, [..., t], t.user_id == ^user_id)
+
+  def recent(query \\ __MODULE__),
+    do: from(c in query, order_by: [desc: c.id], limit: 10)
 
   @doc """
   Preloads the user of a topic.

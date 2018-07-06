@@ -5,6 +5,8 @@ defmodule Mipha.Accounts.Team do
   import Ecto.Changeset
   alias Mipha.Accounts.{User, Team, UserTeam}
 
+  @type t :: %Team{}
+
   schema "teams" do
     field :name, :string
     field :avatar, :string

@@ -27,7 +27,13 @@ defmodule MiphaWeb.UserController do
   end
 
   def show(conn, _params, user) do
-    render conn, :show, user: user
+    topics = Topics.recent_topics(user)
+    replies = Replies.recent_replies(user)
+
+    render conn, :show,
+      user: user,
+      topics: topics,
+      replies: replies
   end
 
   def topics(conn, _params, user) do
@@ -73,5 +79,39 @@ defmodule MiphaWeb.UserController do
       user: user,
       page: page,
       collections: page.entries
+  end
+
+  def follow(conn, _params, user) do
+    case Follows.follow_user(follower: current_user(conn), user: user) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Follow successfully.")
+        |> redirect(to: user_path(conn, :show, user.username))
+      {:error, %Ecto.Changeset{}}
+        conn
+        |> put_flash(:danger, "Follow Error.")
+        |> redirect(to: user_path(conn, :show, user.username))
+      {:error, reason} ->
+        conn
+        |> put_flash(:danger, reason)
+        |> redirect(to: user_path(conn, :show, user.username))
+    end
+  end
+
+  def unfollow(conn, _params, user) do
+    case Follows.unfollow_user(follower: current_user(conn), user: user) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Unfollow successfully.")
+        |> redirect(to: user_path(conn, :show, user.username))
+      {:error, %Ecto.Changeset{}}
+        conn
+        |> put_flash(:danger, "Unfollow error.")
+        |> redirect(to: user_path(conn, :show, user.username))
+      {:error, reason} ->
+        conn
+        |> put_flash(:danger, reason)
+        |> redirect(to: user_path(conn, :show, user.username))
+    end
   end
 end

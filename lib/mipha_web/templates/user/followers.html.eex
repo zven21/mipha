@@ -11,11 +11,29 @@
           <%= for item <- @followers do %>
             <div class="col-xs-12 col-sm-6 col-md-4">
               <div class="media user-card">
-                <div class="media-left mr-2"><a title="lgn21st (Daniel Lv)" href="/lgn21st"><img class="media-object avatar-48" src="https://l.ruby-china.org/user/avatar/3/8cd1d3.png!md" /></a></div>
+                <div class="media-left mr-2">
+                  <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
+                    <img class="media-object avatar-48" src="<%= item.user.avatar %>" />
+                  <% end %>
+                </div>
                 <div class="media-body">
-                  <div class="media-heading"><a class="user-name" data-name="Daniel Lv" href="/lgn21st">lgn21st</a></div>
+                  <div class="media-heading">
+                    <%= link item.user.username, to: user_path(@conn, :show, item.user.username)%>
+                  </div>
                   <div class="infos">
-                    <div class="item opts"><a data-id="lgn21st" class="button-follow-user  active" href="#"><i class="fa fa-user"></i> <span>取消关注</span></a></div>
+                    <div class="item opts">
+                      <%= if @current_user && @current_user != item.user.id do %>
+                        <%= if has_followed?(@current_user, item.user) do %>
+                          <%= link to: user_unfollow_path(@conn, :unfollow, item.user.username), method: :post, class: "button-follow-user active" do %>
+                            <i class="fa fa-user"></i> <span>取消关注</span>
+                          <% end %>
+                        <% else %>
+                          <%= link to: user_follow_path(@conn, :follow, item.user.username), method: :post, class: "button-follow-user active" do %>
+                            <i class="fa fa-user"></i> <span>关注</span>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               </div>

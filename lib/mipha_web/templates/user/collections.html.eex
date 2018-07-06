@@ -14,7 +14,7 @@
           </tr>
           <%= for {item, idx} <- Enum.with_index(@collections) do %>
             <tr class="topic <%= cycle_tag(idx) %>">
-              <td><%= link item.topic.node_id, to: topic_path(@conn, :index) %></td>
+              <td><%= link item.topic.node.name, to: topic_path(@conn, :index) %></td>
               <td class="title">
                 <%= link item.topic.title, title: item.topic.title, to: topic_path(@conn, :show, item.topic) %>
               </td>

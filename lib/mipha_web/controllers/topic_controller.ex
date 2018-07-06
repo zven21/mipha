@@ -1,7 +1,7 @@
 defmodule MiphaWeb.TopicController do
   use MiphaWeb, :controller
 
-  alias Mipha.{Repo, Topics, Markdown}
+  alias Mipha.{Repo, Topics, Stars, Collections, Markdown}
   alias Topics.Topic
 
   plug MiphaWeb.Plug.RequireUser when action in ~w(new create edit update)a
@@ -165,5 +165,80 @@ defmodule MiphaWeb.TopicController do
 
   def preview(conn, %{"body" => body}) do
     json(conn, %{body: Markdown.render(body)})
+  end
+
+  def star(conn, %{"id" => id}) do
+    topic = Topics.get_topic!(id)
+    attrs = %{
+      user_id: current_user(conn).id,
+      topic_id: topic.id
+    }
+    case Stars.insert_star(attrs) do
+      {:ok, star} ->
+        conn
+        |> put_flash(:info, "star successfully")
+        |> redirect(to: topic_path(conn, :show, topic))
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "star error")
+        |> redirect(to: topic_path(conn, :show, topic))
+    end
+  end
+
+  def unstar(conn, %{"id" => id}) do
+    topic = Topics.get_topic!(id)
+    attrs = [
+      user_id: current_user(conn).id,
+      topic_id: topic.id
+    ]
+    case Stars.delete_star(attrs) do
+      {:ok, star} ->
+        conn
+        |> put_flash(:info, "unstar successfully")
+        |> redirect(to: topic_path(conn, :show, topic))
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "unstar error")
+        |> redirect(to: topic_path(conn, :show, topic))
+    end
+  end
+
+  def collection(conn, %{"id" => id}) do
+    topic = Topics.get_topic!(id)
+    attrs = %{
+      user_id: current_user(conn).id,
+      topic_id: topic.id
+    }
+    case Collections.insert_collection(attrs) do
+      {:ok, collection} ->
+        conn
+        |> put_flash(:info, "collection successfully")
+        |> redirect(to: topic_path(conn, :show, topic))
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "collection error")
+        |> redirect(to: topic_path(conn, :show, topic))
+    end
+  end
+
+  def uncollection(conn, %{"id" => id}) do
+    topic = Topics.get_topic!(id)
+    attrs = [
+      user_id: current_user(conn).id,
+      topic_id: topic.id
+    ]
+    case Collections.delete_collection(attrs) do
+      {:ok, collection} ->
+        conn
+        |> put_flash(:info, "uncollection successfully")
+        |> redirect(to: topic_path(conn, :show, topic))
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "uncollection error")
+        |> redirect(to: topic_path(conn, :show, topic))
+    end
   end
 end

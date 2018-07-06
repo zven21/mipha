@@ -46,6 +46,9 @@ defmodule Mipha.Replies.Reply do
   def by_user(query \\ __MODULE__, %User{id: user_id}),
     do: where(query, [..., r], r.user_id == ^user_id)
 
+  def recent(query \\ __MODULE__),
+    do: from(r in query, order_by: [desc: r.id], limit: 10)
+
   @doc false
   def changeset(reply, attrs) do
     reply

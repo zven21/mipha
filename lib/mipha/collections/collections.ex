@@ -7,6 +7,8 @@ defmodule Mipha.Collections do
   alias Mipha.Repo
 
   alias Mipha.Collections.Collection
+  alias Mipha.Accounts.User
+  alias Mipha.Topics.Topic
 
   @doc """
   Returns the list of collections.
@@ -89,6 +91,13 @@ defmodule Mipha.Collections do
     Repo.delete(collection)
   end
 
+  @spec delete_collection(Keyword.t()) :: {:ok, Collection.t()} | nil
+  def delete_collection(clauses) when length(clauses) == 2 do
+    clauses
+    |> get_collection
+    |> Repo.delete()
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking collection changes.
 
@@ -115,7 +124,7 @@ defmodule Mipha.Collections do
   def cond_collections(opts \\ []) do
     opts
     |> filter_from_clauses
-    |> preload([:topic, :user])
+    |> preload([:user, [topic: :node]])
   end
 
   defp filter_from_clauses(opts) do
@@ -124,5 +133,76 @@ defmodule Mipha.Collections do
       Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Collection.by_topic
       true -> Collection
     end
+  end
+
+  @doc """
+  Gets the collection count of a user.
+
+  ## Examples
+
+    iex> get_collection_count(%User{})
+    42
+
+  """
+  @spec get_collection_count(User.t()) :: non_neg_integer()
+  def get_collection_count(%User{} = user) do
+    user
+    |> Collection.by_user()
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
+  Gets a star.
+
+  ## Examples
+
+      iex> get_collection(user_id: 123, topic_id: 123)
+      %Star{}
+
+      iex> get_collection(user_id: 123, topic_id: 456)
+      nil
+
+  """
+  @spec get_collection(Keyword.t()) :: Collection.t() | nil
+  def get_collection(clauses) when length(clauses) == 2, do: Repo.get_by(Collection, clauses)
+
+  @doc """
+  Returns `true` if the user has starred the starrable.
+  `false` otherwise.
+
+  ## Examples
+
+      iex> has_collected?(user: %User{}, topic: %Topic{})
+      true
+
+      iex> has_collected?(user: %User{}, topic: %Topic{})
+      false
+
+  """
+  @spec has_collected?(Keyword.t()) :: boolean
+  def has_collected?(clauses) do
+    %User{id: user_id} = Keyword.get(clauses, :user)
+    %Topic{id: topic_id} = Keyword.get(clauses, :topic)
+
+    opts = [user_id: user_id, topic_id: topic_id]
+    get_collection(opts)
+  end
+
+  @doc """
+  Insert a collection.
+
+  ## Examples
+
+      iex> insert_collection(attrs)
+      {:ok, %Follow{}}
+
+      iex> insert_collection(attrs)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def insert_collection(attrs \\ %{}) do
+    %Collection{}
+    |> Collection.changeset(attrs)
+    |> Repo.insert()
   end
 end

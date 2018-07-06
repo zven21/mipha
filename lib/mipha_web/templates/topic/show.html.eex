@@ -56,43 +56,42 @@
       </div>
       <div class="items card-body">
         <%= for item <- @topic.replies do %>
-          <%# FIXME need preload reply %>
-            <div class="reply" data-id="206564" id="reply1">
-              <div id="reply-206564" data-floor="1">
-                <div class="avatar">
-                  <a title="rockliu (Rocco Liu)" href="/rockliu">
-                    <img class="media-object avatar-48" src="https://l.ruby-china.org/user/avatar/59.jpg!md" />
-                  </a>
+          <div class="reply" data-id="206564" id="reply1">
+            <div id="reply-206564" data-floor="1">
+              <div class="avatar">
+                <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
+                  <img class="media-object avatar-48" src="<%= item.user.avatar %>" />
+                <% end %>
+              </div>
+              <div class="infos">
+                <div class="info">
+                  <span class="name">
+                    <%= link item.user.username, to: user_path(@conn, :show, item.user.username), class: "user-name" %>
+                  </span>
+                  <span class="sub-info">
+                    <span class='floor'>#1</span> ·
+                    <a class="time" href="#reply-206564">
+                      <%= time_tag(item.updated_at) %>
+                    </a>
+                  </span>
+                  <span class="opts pull-right">
+                    <span class="hideable">
+                      <a class="edit fa fa-pencil" data-uid="59" title="修改回帖" href="/topics/19436/replies/206564/edit"></a>
+                      <a data-id="206564" data-login="rockliu" title="回复此楼" class="btn-reply fa fa-mail-reply" href="#"></a>
+                    </span>
+                    <a title="赞" data-count="2" data-state="deactive" data-type="Reply" data-id="206564" class="likeable deactive" href="#">
+                      <i class='fa fa-heart'></i>
+                      <span><%= get_star_reply_count(item) %> 个赞</span>
+                    </a>
+                  </span>
                 </div>
-                <div class="infos">
-                  <div class="info">
-                    <span class="name">
-                      <a class="user-name" data-name="Rocco Liu" href="/rockliu">rockliu</a>
-                    </span>
-                    <span class="sub-info">
-                      <span class='floor'>#1</span> ·
-                      <a class="time" href="#reply-206564">
-                        <abbr class="timeago" title="2014-05-21T11:10:23+08:00">2014年05月21日</abbr>
-                      </a>
-                    </span>
-                    <span class="opts pull-right">
-                      <span class="hideable">
-                        <a class="edit fa fa-pencil" data-uid="59" title="修改回帖" href="/topics/19436/replies/206564/edit"></a>
-                        <a data-id="206564" data-login="rockliu" title="回复此楼" class="btn-reply fa fa-mail-reply" href="#"></a>
-                      </span>
-                      <a title="赞" data-count="2" data-state="deactive" data-type="Reply" data-id="206564" class="likeable deactive" href="#">
-                        <i class='fa fa-heart'></i>
-                        <span>2 个赞</span>
-                      </a>
-                    </span>
-                  </div>
-                  <div class="markdown">
-                    <%= markdown(item.content) %>
-                  </div>
+                <div class="markdown">
+                  <%= markdown(item.content) %>
                 </div>
               </div>
             </div>
-            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
 
@@ -136,16 +135,27 @@
             </a>
             <div class="buttons">
               <div class="group likes opts">
-                <a title="赞" data-count="0" data-state="deactive" data-type="Topic" data-id="10" class="likeable deactive" href="#">
-                  <i class="fa fa-heart"></i>
-                  <span></span>
-                </a>
+                <%= if has_starred?(@current_user, @topic) do %>
+                  <%= link to: topic_path(@conn, :unstar, @topic), method: :post, class: "likeable active" do %>
+                    <i class="fa fa-heart"></i>
+                  <% end %>
+                <% else %>
+                  <%= link to: topic_path(@conn, :star, @topic), method: :post, class: "likeable deactive" do %>
+                    <i class="fa fa-heart"></i>
+                  <% end %>
+                <% end %>
               </div>
               <div class="group">
                 <div class="btn-group" role="group">
-                  <a title="取消收藏" class="bookmark active btn btn-default" data-id="10" href="#">
-                    <i class="fa fa-bookmark"></i> 收藏
-                  </a>
+                  <%= if has_collected?(@current_user, @topic) do %>
+                    <%= link to: topic_path(@conn, :uncollection, @topic), method: :post, class: "bookmark active btn btn-default" do %>
+                      <i class="fa fa-bookmark"></i> 取消收藏
+                    <% end %>
+                  <% else %>
+                    <%= link to: topic_path(@conn, :collection, @topic), method: :post, class: "bookmark btn btn-default" do %>
+                      <i class="fa fa-bookmark"></i> 收藏
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -153,29 +163,10 @@
             <div class="reply-buttons">
               <div class="total">
                 共收到
-                <b>0</b> 条回复
+                <b><%= @topic.reply_count %></b> 条回复
               </div>
             </div>
             <hr>
-            <div class="group opts">
-              <div style="margin-bottom: 8px">
-                <a data-remote="true" rel="nofollow" data-method="post" href="/admin/topics/10/suggest">
-                  <i class="fa fa-angle-double-up"></i> 置顶</a>
-                <a data-remote="true" rel="nofollow" data-method="post" href="/topics/10/action?type=excellent">
-                  <i class="fa fa-diamond"></i> 加精</a>
-                <a title="全站屏蔽此贴" data-remote="true" href="/topics/10/ban">
-                  <i class="fa fa-ban"></i> 屏蔽</a>
-              </div>
-              <div>
-                <a title="" data-toggle="tooltip" data-remote="true" rel="nofollow" data-method="post" href="/topics/10/action?type=close"
-                  data-original-title="关闭讨论／问题已解决">
-                  <i class="fa fa-check"></i> 结束</a>
-                <a title="修改本帖" href="/topics/10/edit">
-                  <i class="fa fa-pencil"></i> 编辑</a>
-                <a data-confirm="确定要删除么？" title="删除本帖" data-remote="true" rel="nofollow" data-method="delete" href="/topics/10">
-                  <i class="fa fa-trash"></i> 删除</a>
-              </div>
-            </div>
             <a href="#" class="btn btn-default btn-sm btn-block btn-move-page" data-type="bottom">
               <i class="fa fa-arrow-down"></i>
             </a>

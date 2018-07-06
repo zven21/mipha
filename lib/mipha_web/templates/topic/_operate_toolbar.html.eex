@@ -1,11 +1,25 @@
 <div class="opts">
-  <a title="赞" data-count="0" data-state="deactive" data-type="Topic" data-id="10" class="likeable deactive" href="#">
-    <i class="fa fa-heart"></i>
-    <span></span>
-  </a>
-  <a title="取消收藏" class="bookmark active" data-id="10" href="#">
-    <i class="fa fa-bookmark"></i> 收藏
-  </a>
+  <%= if has_starred?(@current_user, @topic) do %>
+    <%= link to: topic_path(@conn, :unstar, @topic), method: :post, class: "likeable active" do %>
+      <i class="fa fa-heart"></i>
+      <span><%= get_star_topic_count(@topic) %> 个赞</span>
+    <% end %>
+  <% else %>
+    <%= link to: topic_path(@conn, :star, @topic), method: :post, class: "likeable deactive" do %>
+      <i class="fa fa-heart"></i>
+      <span><%= get_star_topic_count(@topic) %> 个赞</span>
+    <% end %>
+  <% end %>
+
+  <%= if has_collected?(@current_user, @topic) do %>
+    <%= link to: topic_path(@conn, :uncollection, @topic), method: :post, class: "bookmark active" do %>
+      <i class="fa fa-bookmark"></i> 取消收藏
+    <% end %>
+  <% else %>
+    <%= link to: topic_path(@conn, :collection, @topic), method: :post, class: "bookmark" do %>
+      <i class="fa fa-bookmark"></i> 收藏
+    <% end %>
+  <% end %>
 
   <%= if @topic.suggested_at do %>
     <%= link "取消置顶", to: topic_path(@conn, :unsuggest, @topic), method: :post, class: "fa fa-angle-double-down" %>

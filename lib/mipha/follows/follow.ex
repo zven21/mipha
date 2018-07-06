@@ -43,7 +43,7 @@ defmodule Mipha.Follows.Follow do
     required_attrs = ~w(
       user_id
       follower_id
-    )
+    )a
 
     follow
     |> cast(attrs, permitted_attrs)

@@ -20,296 +20,43 @@
         <div class="tab-pane active recent-topics" id="topics">
           <div class="card">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node2">Rails</a>
-                  <a title="Cache 在 Ruby China 里面的应用" href="/topics/19436">Cache 在 Ruby China 里面的应用</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">172 个赞 • 39 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node24">开发工具</a>
-                  <a title="InfluxDB + Grafana 快速搭建自己的 NewRelic，分析应用运行情况" href="/topics/23470">InfluxDB + Grafana 快速搭建自己的 NewRelic，分析应用运行情况</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">154 个赞 • 65 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node3">Gem</a>
-                  <a title="完美的 Ruby 图形验证码 Gem - RuCaptcha" href="/topics/27832">完美的 Ruby 图形验证码 Gem - RuCaptcha</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">122 个赞 • 110 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node3">Gem</a>
-                  <a title="ActionStore - 一步到位的 Like, Follow, Star, Block ... 等动作的解决方案" href="/topics/32262">ActionStore - 一步到位的 Like, Follow, Star, Block ... 等动作的解决方案</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">94 个赞 • 38 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node2">Rails</a>
-                  <a title="Rails 用 RJS 简单有效的实现页面局部刷新" href="/topics/29046">Rails 用 RJS 简单有效的实现页面局部刷新</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">84 个赞 • 36 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node44">部署</a>
-                  <a title="使用 acme.sh 给 Nginx 安装 Let’ s Encrypt 提供的免费 SSL 证书" href="/topics/31983">使用 acme.sh 给 Nginx 安装 Let’ s Encrypt 提供的免费 SSL 证书</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">81 个赞 • 30 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node2">Rails</a>
-                  <a title="Rails 5 正式发布了 - Action Cable, API mode 以及其他新特性介绍" href="/topics/30422">Rails 5 正式发布了 - Action Cable, API mode 以及其他新特性介绍</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">76 个赞 • 39 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node18">Nginx</a>
-                  <a title="利用 Nginx 的 ngx_http_image_filter_module 做实时的图片缩略图" href="/topics/31498">利用 Nginx 的 ngx_http_image_filter_module 做实时的图片缩略图</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">73 个赞 • 22 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node26">分享</a>
-                  <a title="来自 37signals 的 3 个 Rails console 技巧" href="/topics/3506">来自 37signals 的 3 个 Rails console 技巧</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">68 个赞 • 21 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node3">Gem</a>
-                  <a title="Backup - 备份你的服务器环境" href="/topics/1976">Backup - 备份你的服务器环境</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">65 个赞 • 30 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node26">分享</a>
-                  <a title="QQ 圈子的好友关系分析技术" href="/topics/2076">QQ 圈子的好友关系分析技术</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">64 个赞 • 14 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node26">分享</a>
-                  <a title="The Rails Doctrine - 中文翻译" href="/topics/30703">The Rails Doctrine - 中文翻译</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">57 个赞 • 32 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node3">Gem</a>
-                  <a title="Ruby China 已经正式换成 Puma 来跑了！" href="/topics/15140">Ruby China 已经正式换成 Puma 来跑了！</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">52 个赞 • 66 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node48">ObjC/Swift</a>
-                  <a title="用 NSRails 这个库，让 Cocoa 与 Rails 完美结合" href="/topics/7441">用 NSRails 这个库，让 Cocoa 与 Rails 完美结合</a>
-                </div>
-                <div class="info">
-                  <span class="counter">48 个赞 • 19 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node3">Gem</a>
-                  <a title="RuCaptcha 2.0.0 验证码 Gem 发布，不需要依赖 ImageMagick 啦！" href="/topics/32192">RuCaptcha 2.0.0 验证码 Gem 发布，不需要依赖 ImageMagick 啦！</a>
-                </div>
-                <div class="info">
-                  <span class="counter">47 个赞 • 23 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node2">Rails</a>
-                  <a title="关于 ActionCable 部署的细节经验分享" href="/topics/29346">关于 ActionCable 部署的细节经验分享</a>
-                </div>
-                <div class="info">
-                  <span class="counter">45 个赞 • 7 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node3">Gem</a>
-                  <a title="ExceptionTrack - 捕捉 Rails 应用运行期的异常，并存储到数据库" href="/topics/32325">ExceptionTrack - 捕捉 Rails 应用运行期的异常，并存储到数据库</a> <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
-                </div>
-                <div class="info">
-                  <span class="counter">41 个赞 • 21 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node3">Gem</a>
-                  <a title="Homeland - 论坛功能 Rails Engine Gem，全新重构版本发布" href="/topics/29454">Homeland - 论坛功能 Rails Engine Gem，全新重构版本发布</a>
-                </div>
-                <div class="info">
-                  <span class="counter">37 个赞 • 14 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node26">分享</a>
-                  <a title="Ruby - 响应 100W 的并发" href="/topics/8815">Ruby - 响应 100W 的并发</a>
-                </div>
-                <div class="info">
-                  <span class="counter">37 个赞 • 16 条回复</span>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a class="node" href="/topics/node2">Rails</a>
-                  <a title="Rails 5.1 beta 发布了 - 关键词 Loving JavaScript" href="/topics/32374">Rails 5.1 beta 发布了 - 关键词 Loving JavaScript</a>
-                </div>
-                <div class="info">
-                  <span class="counter">35 个赞 • 21 条回复</span>
-                </div>
-              </li>
+              <%= for item <- @topics do %>
+                <li class="list-group-item">
+                  <div class="title">
+                    <a class="node" href="/topics?node_id=<%= item.node.id %>"><%= item.node.name %></a>
+                    <%= link item.title, to: topic_path(@conn, :show, item), title: item.title %>
+                    <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
+                  </div>
+                  <div class="info">
+                    <span class="counter">20 个赞 • <%= item.reply_count %> 条回复</span>
+                  </div>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
         <div class="tab-pane" id="replies">
           <div class="card">
             <ul class="list-group list-group-flush recent-replies">
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/36663">使用 Feedly 订阅 ruby-china，如何过滤机器人发帖？</a>
-                  <span class="info">at <abbr class="timeago" title="2018-05-01T09:33:10+08:00">2018年05月01日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>问题已解决</p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/36663">使用 Feedly 订阅 ruby-china，如何过滤机器人发帖？</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-29T21:11:46+08:00">2018年04月29日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>屏蔽人，没有屏蔽通知的，只屏蔽了话题列表</p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/36663">使用 Feedly 订阅 ruby-china，如何过滤机器人发帖？</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-28T21:26:54+08:00">2018年04月28日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>先记录一下：</p>
+              <%= for item <- @replies do %>
+                <li class="list-group-item">
+                  <div class="title">
+                    <%= link item.topic.title, to: topic_path(@conn, :show, item.topic) %>
 
-                  <p><a href="https://github.com/ruby-china/homeland/issues/1028" rel="nofollow" target="_blank">https://github.com/ruby-china/homeland/issues/1028</a></p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/36087">谈谈我对 Python 的看法</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-28T21:16:26+08:00">2018年04月28日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <pre class="highlight python"><code><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
-                  <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
-                  <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
-                  <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
-                  </code></pre>
-                  <p>代码写成这样，换什么语言都没得救</p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/36075">Rails 5.2  form_for remote: true 请求 js 出现问题</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-27T07:12:13+08:00">2018年04月27日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>目测是 rails-ujs 没生效</p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/35303">ActionView 的組件有安全問題，請趕快更新 rails-html-sanitizer，並確定是否已經是 1.0.4 或以上</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-25T13:46:48+08:00">2018年04月25日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>修复了</p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/35303">ActionView 的組件有安全問題，請趕快更新 rails-html-sanitizer，並確定是否已經是 1.0.4 或以上</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-25T11:40:59+08:00">2018年04月25日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>我没看，直接删除了，你试试再发一个，难倒我漏洞没修复？</p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/35501">请问 Ruby China 用的是什么邮件服务器？</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-23T18:53:04+08:00">2018年04月23日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>Postmark 能国内能收到的。</p>
-
-                  <p>但你没必要，用其他的邮件服务也可以的，收不到的问题是邮件发送的技术问题，你需要额外查资料解决。</p>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="title">
-                  <a href="/topics/35507">font-awesome-sass 使用后，页面的图标无法显示，控制台报找不到字体文件 404</a>
-                  <span class="info">at <abbr class="timeago" title="2018-04-23T18:51:59+08:00">2018年04月23日</abbr></span>
-                </div>
-                <div class="body markdown">
-                  <p>参照官方流程做</p>
-
-                  <p><a href="https://github.com/FortAwesome/font-awesome-sass" rel="nofollow" target="_blank">https://github.com/FortAwesome/font-awesome-sass</a></p>
-
-                  <p>我看了它的实现，你按 REDAME 的流程做不会有问题的</p>
-
-                  <p>你不需要将字体或 css 文件手动放 app/assets 目录</p>
-                </div>
-              </li>
+                    <span class="info">at <%= time_tag(item.updated_at) %></span>
+                  </div>
+                  <div class="body markdown">
+                    <p><%= markdown(item.content) %></p>
+                  </div>
+                </li>
+              <% end %>
             </ul>
-
           </div>
         </div>
         <div class="tab-pane" id="description">
           <div class="card bio">
             <div class="card-body markdown">
-              <p>--</p>
+              <p><%= @current_user.bio %></p>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 defmodule Mipha.Stars.Star do
   @moduledoc false
   use Ecto.Schema
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
 
   alias Mipha.{
     Repo,
@@ -18,6 +18,20 @@ defmodule Mipha.Stars.Star do
 
     timestamps()
   end
+
+  @doc """
+  Filters the topic by star.
+  """
+  @spec by_topic(Ecto.Queryable.t(), Topic.t()) :: Ecto.Query.t()
+  def by_topic(query \\ __MODULE__, %Topic{id: topic_id}),
+    do: from(s in query, where: s.topic_id == ^topic_id)
+
+  @doc """
+  Filters the reply by star.
+  """
+  @spec by_reply(Ecto.Queryable.t(), Reply.t()) :: Ecto.Query.t()
+  def by_reply(query \\ __MODULE__, %Reply{id: reply_id}),
+    do: from(s in query, where: s.reply_id == ^reply_id)
 
   @doc false
   def changeset(star, attrs) do

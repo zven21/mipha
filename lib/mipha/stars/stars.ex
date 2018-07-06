@@ -5,8 +5,12 @@ defmodule Mipha.Stars do
 
   import Ecto.Query, warn: false
   alias Mipha.Repo
-
   alias Mipha.Stars.Star
+  alias Mipha.Topics.Topic
+  alias Mipha.Replies.Reply
+  alias Mipha.Accounts.User
+
+  @type starrable :: Topic.t() | Reply.t()
 
   @doc """
   Returns the list of stars.
@@ -85,8 +89,16 @@ defmodule Mipha.Stars do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_star(Star.t()) :: {:ok, Star.t()} | nil
   def delete_star(%Star{} = star) do
     Repo.delete(star)
+  end
+
+  @spec delete_star(Keyword.t()) :: {:ok, Star.t()} | nil
+  def delete_star(clauses) do
+    clauses
+    |> get_star
+    |> Repo.delete
   end
 
   @doc """
@@ -100,5 +112,107 @@ defmodule Mipha.Stars do
   """
   def change_star(%Star{} = star) do
     Star.changeset(star, %{})
+  end
+
+  @doc """
+  Gets a star.
+
+  ## Examples
+
+      iex> get_star(user_id: 123, topic_id: 123)
+      %Star{}
+
+      iex> get_star(user_id: 123, topic_id: 456)
+      nil
+
+  """
+  @spec get_star(Keyword.t()) :: Star.t() | nil
+  def get_star(clauses) when length(clauses) == 2, do: Repo.get_by(Star, clauses)
+
+  @doc """
+  Returns the starrable of the star.
+
+  ## Examples
+
+      iex> starrable(%Star{})
+      %Topic{}
+
+      iex> starrable(%Star{})
+      %Reply{}
+
+  """
+  @spec starrable(Star.t()) :: Topic.t() | Reply.t()
+  def starrable(%Star{topic_id: topic_id} = star) when not is_nil(topic_id) do
+    star
+    |> Star.preload_topic()
+    |> Map.fetch!(:topic)
+  end
+
+  def starrable(%Star{reply_id: reply_id} = star) when not is_nil(reply_id) do
+    star
+    |> Star.preload_reply()
+    |> Map.fetch!(:reply)
+  end
+
+  @doc """
+  Inserts a star.
+  """
+  # @spec insert_star(map()) :: {:ok, Star.t()} | {:error, }
+  def insert_star(attrs) do
+    %Star{}
+    |> Star.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Returns `true` if the user has starred the starrable.
+  `false` otherwise.
+
+  ## Examples
+
+      iex> has_starred?(user: %User{}, topic: %Topic{})
+      true
+
+      iex> has_starred?(user: %User{}, topic: %Topic{})
+      false
+
+  """
+  @spec has_starred?(Keyword.t()) :: boolean
+  def has_starred?(clauses) do
+    %User{id: user_id} = Keyword.get(clauses, :user)
+
+    clauses =
+      clauses
+      |> get_starrable_from_clauses()
+      |> case do
+        %Topic{id: topic_id} -> [topic_id: topic_id]
+        %Reply{id: reply_id} -> [reply_id: reply_id]
+      end
+      |> Keyword.put(:user_id, user_id)
+
+    get_star(clauses)
+  end
+
+  @spec get_starrable_from_clauses(Keyword.t()) :: starrable()
+  defp get_starrable_from_clauses(clauses) do
+    cond do
+      Keyword.has_key?(clauses, :topic) -> Keyword.get(clauses, :topic)
+      Keyword.has_key?(clauses, :reply) -> Keyword.get(clauses, :reply)
+      true -> Star
+    end
+  end
+
+  @doc """
+  Return starrable count.
+  """
+  @spec get_starred_count(Keyword.t()) :: non_neg_integer()
+  def get_starred_count(clauses) do
+    clauses
+    |> get_starrable_from_clauses()
+    |> case do
+      %Topic{} = topic -> Star.by_topic(topic)
+      %Reply{} = reply -> Star.by_reply(reply)
+    end
+    |> Repo.aggregate(:count, :id)
   end
 end

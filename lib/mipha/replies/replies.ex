@@ -7,6 +7,8 @@ defmodule Mipha.Replies do
   alias Mipha.Repo
 
   alias Mipha.Replies.Reply
+  alias Mipha.Topics.Topic
+  alias Mipha.Accounts.User
 
   @doc """
   Returns the list of repies.
@@ -127,5 +129,53 @@ defmodule Mipha.Replies do
       Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Reply.by_topic
       true -> Reply
     end
+  end
+
+  @doc """
+  Get the reply count of a replyable.
+
+  ## Examples
+
+      iex> get_reply_count(user: %User{})
+      10
+
+      iex> get_reply_count(topic: %Topic{})
+      2
+
+  """
+  @spec get_reply_count(Keyword.t()) :: non_neg_integer()
+  def get_reply_count(clauses) do
+    query =
+      clauses
+      |> get_replyable_from_clauses()
+      |> case do
+        %Topic{} = topic -> Reply.by_topic(topic)
+        %Reply{} = reply -> Reply.by_parent(reply)
+        %User{} = user -> Reply.by_user(user)
+      end
+
+    query
+    |> join(:inner, [r], u in assoc(r, :user))
+    |> Repo.aggregate(:count, :id)
+  end
+
+  defp get_replyable_from_clauses(clauses) do
+    cond do
+      Keyword.has_key?(clauses, :user) -> Keyword.get(clauses, :user)
+      Keyword.has_key?(clauses, :topic) -> Keyword.get(clauses, :topic)
+      Keyword.has_key?(clauses, :reply) -> Keyword.get(clauses, :reply)
+    end
+  end
+
+  @doc """
+  Return the recent of topics.
+  """
+  @spec recent_replies(User.t()) :: [Topic.t()] | nil
+  def recent_replies(%User{} = user) do
+    user
+    |> Reply.by_user()
+    |> Reply.recent()
+    |> Repo.all()
+    |> Repo.preload([:topic, :user])
   end
 end

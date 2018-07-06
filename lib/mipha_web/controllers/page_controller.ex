@@ -13,7 +13,7 @@ defmodule MiphaWeb.PageController do
     {odd, even} =
       Topics.list_featured_topics
       |> Enum.with_index
-      |> Enum.split_with(fn {t, i} -> rem(i, 2) == 0 end)
+      |> Enum.split_with(fn {_, i} -> rem(i, 2) == 0 end)
 
     render conn, :index,
       odd_topics: odd,

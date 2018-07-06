@@ -7,6 +7,7 @@ defmodule Mipha.Topics do
   alias Mipha.Repo
 
   alias Mipha.Topics.Topic
+  alias Mipha.Accounts.User
 
   @doc """
   Returns the list of topics.
@@ -40,7 +41,7 @@ defmodule Mipha.Topics do
   def get_topic!(id) do
     Topic
     |> Repo.get!(id)
-    |> Repo.preload([:node, :user, :last_reply_user, :replies])
+    |> Repo.preload([:node, :user, :last_reply_user, [replies: :user]])
   end
 
   @doc """
@@ -179,6 +180,28 @@ defmodule Mipha.Topics do
   def list_featured_topics do
     Topic.featured
     |> Repo.all()
+    |> Repo.preload([:node, :user, :last_reply_user])
+  end
+
+  @doc """
+  Return topic count of a owner(user).
+  """
+  @spec get_topic_count(User.t()) :: non_neg_integer()
+  def get_topic_count(%User{} = user) do
+    Topic
+    |> Topic.by_user(user)
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
+  Return the recent of topics.
+  """
+  @spec recent_topics(User.t()) :: [Topic.t()] | nil
+  def recent_topics(%User{} = user) do
+    user
+    |> Topic.by_user
+    |> Topic.recent
+    |> Repo.all
     |> Repo.preload([:node, :user, :last_reply_user])
   end
 

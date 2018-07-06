@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs mi-nav">
   <li class="nav-item"><%= link "个人信息", to: user_path(@conn, :show, @user.username), class: "nav-link" %></li>
   <li class="nav-item"><%= link "话题", to: user_topics_path(@conn, :topics, @user.username), class: "nav-link" %></li>
   <li class="nav-item"><%= link "回帖", to: user_replies_path(@conn, :replies, @user.username), class: "nav-link" %></li>

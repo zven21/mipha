@@ -41,7 +41,7 @@ defmodule Mipha.Topics do
   def get_topic!(id) do
     Topic
     |> Repo.get!(id)
-    |> Repo.preload([:node, :user, :last_reply_user, [replies: :user]])
+    |> Repo.preload([:node, :user, :last_reply_user, [replies: [:user, [parent: :user]]]])
   end
 
   @doc """
@@ -155,6 +155,7 @@ defmodule Mipha.Topics do
     |> preload([:user, :node, :last_reply_user])
   end
 
+  # FIXME
   defp filter_from_clauses(opts) do
     cond do
       Keyword.get(opts, :type) == :jobs -> Topic.job
@@ -164,6 +165,7 @@ defmodule Mipha.Topics do
       Keyword.get(opts, :type) == :popular -> Topic.popular
       Keyword.has_key?(opts, :node) -> opts |> Keyword.get(:node) |> Topic.by_node
       Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Topic.by_user
+      Keyword.has_key?(opts, :user_ids) -> opts |> Keyword.get(:user_ids) |> Topic.by_user_ids
       true -> Topic
     end
   end

@@ -5,9 +5,11 @@ defmodule Mipha.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :username, :string
       add :email, :string
+      add :email_public, :boolean
       add :password_hash, :string
       add :avatar, :string
       add :bio, :string
+      add :tagline, :string
       add :website, :string
       add :github_handle, :string
       add :is_admin, :boolean, default: false, null: false

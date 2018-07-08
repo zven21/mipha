@@ -7,21 +7,16 @@
     <div class="card">
       <div class="card-body">
         <%= form_for @changeset, setting_path(@conn, :update), fn f -> %>
-          <%= hidden_input f, :by, value: "show" %>
-          <input name="utf8" type="hidden" value="&#x2713;" />
-          <input type="hidden" name="_method" value="put" />
-          <input type="hidden" name="authenticity_token" value="srXQ1H3WzzghgbQmYh9UdJVlXi7nFXafmPRqpctC2zf0Eji901XVkLrnSh5EmCwXKrrcGWVTRuqIRr6QYth2Tw=="
-          />
+          <%= hidden_input f, :by, value: "profile" %>
 
-          <input type="hidden" name="by" value="profile" />
           <div class="form-group">
-            <label for="user_location">城市</label>
-            <input class="form-control" style="width: 200px" type="text" value="" name="user[location]" id="user_location" />
+            <%= label f, :location_id, "城市" %>
+            <%= text_input f, :location_id, class: "form-control", style: "width: 400px" %>
           </div>
 
           <div class="form-group">
-            <label for="user_company">公司</label>
-            <input class="form-control" style="width: 400px" type="text" value="" name="user[company]" id="user_company" />
+            <%= label f, :company_id, "公司" %>
+            <%= text_input f, :company_id, class: "form-control", style: "width: 400px" %>
           </div>
 
           <div class="form-group">
@@ -30,42 +25,22 @@
               <span class="input-group-prepend">
                 <span class="input-group-text">https://github.com/</span>
               </span>
-              <input class="form-control" type="text" value="zven21" name="user[github]" id="user_github" />
+              <%= text_input f, :github_handle, class: "form-control" %>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="user_twitter">Twitter</label>
-            <div class="input-group">
-              <span class="input-group-prepend">
-                <span class="input-group-text">https://twitter.com/</span>
-              </span>
-              <input class="form-control" type="text" value="" name="user[twitter]" id="user_twitter" />
-            </div>
+            <%= label f, :website, "个人主页" %>
+            <%= text_input f, :website, class: "form-control", placeholder: "http://" %>
           </div>
 
           <div class="form-group">
-            <label for="user_website">个人主页</label>
-            <input type="url" class="form-control" placeholder="http://" value="" name="user[website]" id="user_website" />
+            <%= label f, :tagline, "签名" %>
+            <%= text_input f, :tagline, class: "form-control" %>
           </div>
 
-          <div class="form-group form-group-profile-field-alipay">
-            <label for="user_profile_alipay">支付宝</label>
-            <input class="form-control" type="text" value="" name="user[profiles][alipay]" id="user_profile_alipay">
-
-          </div>
-          <div class="form-group form-group-profile-field-wechat">
-            <label for="user_profile_wechat">微信</label>
-            <input class="form-control" type="text" value="" name="user[profiles][wechat]" id="user_profile_wechat">
-
-          </div>
-
-          <div class="form-group">
-            <label for="user_tagline">签名</label>
-            <input class="form-control" type="text" value="" name="user[tagline]" id="user_tagline" />
-          </div>
           <div class="form-actions hide-ios">
-            <button type="submit" class="btn btn-primary" data-disable-with="正在保存">更新资料</button>
+            <%= submit "更新资料", class: "btn btn-primary" %>
           </div>
         <% end %>
       </div>

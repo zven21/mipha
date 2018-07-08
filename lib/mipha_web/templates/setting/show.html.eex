@@ -6,17 +6,12 @@
   <div class="col-md-10">
     <div class="card">
       <div class="card-body">
-        <%= form_for @changeset, setting_path(@conn, :update), fn f -> %>
+        <%= form_for @changeset, setting_path(@conn, :update), [multipart: true], fn f -> %>
           <%= hidden_input f, :by, value: "show" %>
           <div class="row">
             <div class="col-sm-9">
               <div class="form-group">
-                <input style="width: 200px" class="form-control" placeholder="姓名" type="text" value="这里好多大神" name="user[name]" id="user_name"/>
-              </div>
-
-              <div class="form-group">
-                <input disabled="disabled" class="form-control" placeholder="Email" type="text" value="andzven@gmail.com" name="user[email]"
-                  id="user_email" />
+                <%= text_input f, :email, class: "form-control", disabled: true %>
               </div>
 
               <div class="form-group form-check">
@@ -28,7 +23,7 @@
               </div>
 
               <div class="form-group">
-                <input type="file" name="user[avatar]" id="user_avatar" />
+                <%= file_input f, :avatar %>
                 <div class="form-text">选择上传头像</div>
               </div>
 
@@ -39,7 +34,7 @@
             </div>
             <div class="col-sm-3">
               <div class="form-group avatar-preview" style="text-align: center;">
-                <img class="media-object avatar-96" src="<%= @current_user.avatar %>" />
+                <img class="media-object avatar-96" src="<%= qn_url(@current_user.avatar) %>" />
               </div>
             </div>
           </div>

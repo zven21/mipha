@@ -50,9 +50,33 @@ const preview = body => {
   )
 }
 
+const hookReply = () => {
+  $('.btn-reply').click(function() {
+    const replyId = $(this).data('id')
+    setReplyTo(replyId)
+    const reply_body = $('#new_reply textarea')
+    reply_body.focus()
+    return false
+  })
+}
+
+const setReplyTo = id => {
+  $('input[name="reply[parent_id]"]').val(id)
+  const replyEl = $(`.reply[data-id=${id}]`)
+  const targetAnchor = replyEl.attr('id')
+  const replyToPanel = $('.editor-toolbar .reply-to')
+  const userNameEl = replyEl.find('a.user-name:first-child')
+  const replyToLink = replyToPanel.find('.user')
+
+  replyToLink.attr('href', `#${targetAnchor}`)
+  replyToLink.text(userNameEl.text())
+  replyToPanel.show()
+}
+
 const Topic = {
   selectorNode,
-  hookPreview
+  hookPreview,
+  hookReply
 }
 
 export default Topic

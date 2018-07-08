@@ -23,8 +23,8 @@ defmodule Mipha.Accounts.Company do
     permitted_attrs = ~w(
       name
       avatar
-      loaction_id
-    )
+      location_id
+    )a
 
     required_attrs = ~w(
       name

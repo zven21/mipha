@@ -6,7 +6,6 @@ defmodule Mipha.Accounts.User do
   alias Comeonin.Bcrypt
 
   alias Mipha.{
-    Repo,
     Regexp,
     Topics.Topic,
     Replies.Reply,
@@ -23,12 +22,15 @@ defmodule Mipha.Accounts.User do
     field :avatar, :string
     field :bio, :string
     field :email, :string
+    field :email_public, :boolean, default: false
+    field :tagline, :string
     field :github_handle, :string
     field :is_admin, :boolean, default: false
     field :password_hash, :string
     field :username, :string
     field :website, :string
     field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     field :login, :string, virtual: true
 
     belongs_to :location, Location
@@ -58,6 +60,8 @@ defmodule Mipha.Accounts.User do
       is_admin
       location_id
       company_id
+      tagline
+      email_public
     )a
 
     required_attrs = ~w(
@@ -97,6 +101,8 @@ defmodule Mipha.Accounts.User do
       bio
       website
       github_handle
+      company_id
+      location_id
     )a
 
     register_attrs = ~w(
@@ -115,6 +121,29 @@ defmodule Mipha.Accounts.User do
     |> validate_format(:email, Regexp.email)
     |> unique_constraint(:email)
     |> put_pass_hash()
+  end
+
+  @doc """
+  Change user password.
+  """
+  @spec update_password_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  def update_password_changeset(user, attrs) do
+    required_attrs = ~w(
+      password
+      password_confirmation
+    )a
+
+    user
+    |> cast(attrs, required_attrs)
+    |> validate_required(required_attrs)
+    |> validate_password_confirmation
+    |> put_pass_hash
+  end
+
+  def validate_password_confirmation(%{changes: changes} = changeset) do
+    if changes[:password] == changes[:password_confirmation],
+      do: changeset,
+      else: add_error(changeset, :password_confirmation, "must match password")
   end
 
   defp put_pass_hash(changeset) do

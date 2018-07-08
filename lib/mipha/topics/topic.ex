@@ -87,6 +87,13 @@ defmodule Mipha.Topics.Topic do
   def by_user(query \\ __MODULE__, %User{id: user_id}),
     do: where(query, [..., t], t.user_id == ^user_id)
 
+  @doc """
+  Filters the user of topics.
+  """
+  @spec by_user_ids(Ecto.Queryable.t(), List.t()) :: Ecto.Query.t()
+  def by_user_ids(query \\ __MODULE__, list),
+    do: where(query, [..., t], t.user_id in ^list)
+
   def recent(query \\ __MODULE__),
     do: from(c in query, order_by: [desc: c.id], limit: 10)
 

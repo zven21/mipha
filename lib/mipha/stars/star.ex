@@ -1,5 +1,6 @@
 defmodule Mipha.Stars.Star do
   @moduledoc false
+
   use Ecto.Schema
   import Ecto.{Changeset, Query}
 
@@ -10,6 +11,8 @@ defmodule Mipha.Stars.Star do
     Accounts.User,
     Stars.Star
   }
+
+  @type t :: %Star{}
 
   schema "stars" do
     belongs_to :reply, Reply
@@ -32,6 +35,18 @@ defmodule Mipha.Stars.Star do
   @spec by_reply(Ecto.Queryable.t(), Reply.t()) :: Ecto.Query.t()
   def by_reply(query \\ __MODULE__, %Reply{id: reply_id}),
     do: from(s in query, where: s.reply_id == ^reply_id)
+
+  @doc """
+  Preloads the reply of a topic.
+  """
+  @spec preload_reply(t()) :: t()
+  def preload_reply(star), do: Repo.preload(star, :reply)
+
+  @doc """
+  Preloads the reply of a topic.
+  """
+  @spec preload_topic(t()) :: t()
+  def preload_topic(star), do: Repo.preload(star, :topic)
 
   @doc false
   def changeset(star, attrs) do

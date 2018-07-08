@@ -14,6 +14,10 @@ defmodule Mipha.Markdown do
     |> Earmark.as_html!(earmark_options())
   end
 
+  def example do
+    File.read!("./lib/mipha/markdown/markdown_guides.md")
+  end
+
   def earmark_options do
     %Earmark.Options{
       # Prefix the `code` tag language class, as in `language-elixir`, for

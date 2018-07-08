@@ -1,10 +1,7 @@
 defmodule MiphaWeb.PageController do
   use MiphaWeb, :controller
 
-  alias Mipha.{
-    Topics,
-    Accounts
-  }
+  alias Mipha.{Topics, Accounts, Markdown}
 
   def index(conn, _params) do
     parent_nodes = Topics.list_parent_nodes
@@ -23,10 +20,8 @@ defmodule MiphaWeb.PageController do
   end
 
   def markdown(conn, _) do
-    render conn, :markdown
-  end
-
-  def about(conn, _) do
-    render conn, :about
+    markdown_ex = Markdown.example
+    render conn, :markdown,
+      markdown_ex: markdown_ex
   end
 end

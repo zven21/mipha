@@ -1,1 +1,13 @@
-<h1> Markdown Page </h1>
+<div class="card markdown">
+  <div class="card-body">
+    <h1>Markdown 教程</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <pre><code><%= @markdown_ex %></code></pre>
+      </div>
+      <div class="col-md-6">
+        <%= markdown(@markdown_ex)%>
+      </div>
+    </div>
+  </div>
+</div>

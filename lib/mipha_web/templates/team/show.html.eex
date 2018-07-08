@@ -1,1 +1,34 @@
-<h1> <%= @team.name %></h1>
+<%= render "_nav.html", assigns %>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card topics">
+      <div class="card-body">
+        <%= for item <- @topics do %>
+          <%= render MiphaWeb.TopicView, "_topic.html", assigns: assigns, item: item %>
+        <% end %>
+      </div>
+      <div class="card-footer">
+        <%= render MiphaWeb.SharedView, "_pagination.html", page: @page %>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar team-sidebar col-sm-4">
+    <div class="card members">
+      <div class="card-header">成员列表</div>
+      <div class="card-body">
+        <%= for item <- @team.users do %>
+          <%= link to: user_path(@conn, :show, item.username), title: item.username do %>
+            <img class="media-object avatar-32" src="<%= item.avatar %>">
+          <% end %>
+        <% end %>
+      </div>
+      <div class="card-footer">
+        <a href="/rails-engine/people">所有成员...</a>
+      </div>
+    </div>
+
+    <%= render MiphaWeb.UserView, "_repos.html", assigns %>
+  </div>
+</div>

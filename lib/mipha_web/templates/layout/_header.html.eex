@@ -36,7 +36,7 @@
 
         <li class="nav-item dropdown dropdown-avatar">
           <a href="#" class="dropdown-toggle nav-link" id="navbar-user-menu" data-toggle="dropdown" role="button" aria-expanded="false">
-            <img class="media-object avatar-32" src="<%= @current_user.avatar %>">
+            <img class="media-object avatar-32" src="<%= qn_url(@current_user.avatar) %>">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-user-menu">
             <a class="dropdown-item" href="/u/<%= @current_user.username %>"><%= @current_user.username %></a>

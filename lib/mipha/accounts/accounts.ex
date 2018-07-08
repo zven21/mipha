@@ -192,6 +192,36 @@ defmodule Mipha.Accounts do
     end
   end
 
+  @doc """
+  Gets the user count.
+
+  ## Examples
+
+      iex> get_user_count
+      40
+
+  """
+  @spec get_user_count :: non_neg_integer()
+  def get_user_count do
+    User
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
+  Updates user password.
+  """
+  @spec update_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, any()}
+  def update_user_password(user, attrs) do
+    case check_user_password(user, attrs["current_password"]) do
+      true ->
+        user
+        |> User.update_password_changeset(attrs)
+        |> Repo.update()
+
+      _ -> {:error, "Invalid current password"}
+    end
+  end
+
   alias Mipha.Accounts.Location
 
   @doc """
@@ -413,7 +443,11 @@ defmodule Mipha.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_team!(id), do: Repo.get!(Team, id)
+  def get_team!(id) do
+    Team
+    |> Repo.get!(id)
+    |> Repo.preload([:users, :owner])
+  end
 
   @doc """
   Creates a team.

@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs team-menu mi-nav">
+  <li class="nav-item">
+    <%= link "成员的话题列表", to: team_path(@conn, :show, @team), class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link "成员列表", to: team_path(@conn, :people, @team), class: "nav-link" %>
+  </li>
+</ul>

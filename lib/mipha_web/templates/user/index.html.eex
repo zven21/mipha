@@ -1,1 +1,43 @@
-<h1>User Index Page</h1>
+<div id="users">
+  <div id="hot_users" class="user-list card">
+    <div class="card-header">
+      <strong>TOP 100 活跃会员</strong>
+      <div class="pull-right">目前已经有 <%= @user_count %> 位会员加入了 Ruby China</div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <%= for user <- @users do %>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="media user-card">
+              <div class="media-left mr-2">
+                <%= link to: user_path(@conn, :show, user.username), title: user.username do %>
+                  <img class="media-object avatar-48" src="<%= user.avatar %>" />
+                <% end %>
+              </div>
+              <div class="media-body">
+                <div class="media-heading">
+                  <%= link user.username, to: user_path(@conn, :show, user.username), title: user.username, class: "user-name" %>
+                </div>
+                <div class="infos">
+                    <div class="item opts">
+                      <%= if @current_user && @current_user != user.id do %>
+                        <%= if has_followed?(@current_user, user) do %>
+                          <%= link to: user_unfollow_path(@conn, :unfollow, user.username), method: :post, class: "button-follow-user active" do %>
+                            <i class="fa fa-user"></i> <span>取消关注</span>
+                          <% end %>
+                        <% else %>
+                          <%= link to: user_follow_path(@conn, :follow, user.username), method: :post, class: "button-follow-user active" do %>
+                            <i class="fa fa-user"></i> <span>关注</span>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

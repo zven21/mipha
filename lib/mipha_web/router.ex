@@ -32,7 +32,6 @@ defmodule MiphaWeb.Router do
     pipe_through :browser
 
     get   "/", PageController, :index
-    get   "/about", PageController, :about
     get   "/markdown", PageController, :markdown
     get   "/join", SessionController, :new, as: :join
     post  "/join", SessionController, :create, as: :join
@@ -52,6 +51,7 @@ defmodule MiphaWeb.Router do
 
     get "/users", UserController, :index
     resources "/teams", TeamController
+    get "/teams/:id/people", TeamController, :people
 
     # topic
     get "/topics/jobs", TopicController, :jobs
@@ -71,7 +71,12 @@ defmodule MiphaWeb.Router do
     post "/topics/:id/excellent", TopicController, :excellent
     post "/topics/:id/normal", TopicController, :normal
 
-    resources "/topics", TopicController
+    resources "/topics", TopicController do
+      resources "/replies", ReplyController do
+        post "/star", ReplyController, :star
+        post "/unstar", ReplyController, :unstar
+      end
+    end
 
     resources "/notifications", NotificationController, only: ~w(index)a
     resources "/locations", LocationController, only: ~w(index show)a
@@ -103,5 +108,6 @@ defmodule MiphaWeb.Router do
     pipe_through :api
 
     post "/topics/preview", TopicController, :preview
+    post "/qiniu", CallbackController, :qiniu
   end
 end

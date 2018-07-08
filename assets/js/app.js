@@ -12,3 +12,4 @@ Utils.navActive()
 // Topic
 Topic.selectorNode()
 Topic.hookPreview($('.editor-toolbar'), $('.topic-editor'))
+Topic.hookReply()

@@ -23,7 +23,10 @@ defmodule MiphaWeb.UserController do
 
   def index(conn, _params) do
     users = Accounts.list_users()
-    render conn, :index, users: users
+    user_count = Accounts.get_user_count()
+    render conn, :index,
+      users: users,
+      user_count: user_count
   end
 
   def show(conn, _params, user) do

@@ -1,7 +1,8 @@
 defmodule MiphaWeb.TeamController do
   use MiphaWeb, :controller
 
-  alias Mipha.Accounts
+  require IEx
+  alias Mipha.{Repo, Accounts, Topics}
 
   def index(conn, _params) do
     render conn, :index
@@ -9,6 +10,21 @@ defmodule MiphaWeb.TeamController do
 
   def show(conn, %{"id" => id}) do
     team = Accounts.get_team!(id)
-    render conn, :show, team: team
+    team_user_ids = Enum.map(team.users, &(&1.id))
+
+    page =
+      [user_ids: team_user_ids]
+      |> Topics.cond_topics
+      |> Repo.paginate(conn.params)
+
+    render conn, :show,
+      team: team,
+      topics: page.entries,
+      page: page
+  end
+
+  def people(conn, %{"id" => id}) do
+    team = Accounts.get_team!(id)
+    render conn, :people, team: team
   end
 end

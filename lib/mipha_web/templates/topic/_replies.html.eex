@@ -1,0 +1,63 @@
+<div id="replies" class="card" data-last-floor="43">
+  <div class="total card-header hide-ios">
+    共收到
+    <b><%= @topic.reply_count %></b> 条回复
+  </div>
+  <div class="items card-body">
+    <%= for {item, idx} <- Enum.with_index(@topic.replies) do %>
+      <div class="reply" data-id="<%= item.id %>" id="<%= idx %>">
+        <div id="reply-<%= item.id %>" data-floor="<%= idx %>">
+          <div class="avatar">
+            <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
+              <img class="media-object avatar-48" src="<%= qn_url(item.user.avatar) %>" />
+            <% end %>
+          </div>
+          <div class="infos">
+            <div class="info">
+              <span class="name">
+                <%= link item.user.username, to: user_path(@conn, :show, item.user.username), class: "user-name" %>
+              </span>
+              <span class="sub-info">
+                <span class='floor'>#1</span> ·
+                <a class="time" href="#reply-206564">
+                  <%= time_tag(item.updated_at) %>
+                </a>
+              </span>
+              <span class="opts pull-right">
+                <span class="hideable">
+                  <%= link "", to: topic_reply_path(@conn, :edit, @topic, item), title: "修改回帖", class: "fa fa-pencil" %>
+                  <a data-id="<%= item.id %>" data-login="<%= item.user.username %>" title="回复此楼" class="btn-reply fa fa-mail-reply" href="#"></a>
+                </span>
+                <%= if has_starred?(user: @current_user, reply: item) do %>
+                  <%= link to: topic_reply_reply_path(@conn, :unstar, @topic, item), method: :post, title: "取消赞", class: "likeable active" do %>
+                    <i class="fa fa-heart"></i>
+                    <span><%= get_starred_count(reply: item) %> 个赞</span>
+                  <% end %>
+                <% else %>
+                  <%= link to: topic_reply_reply_path(@conn, :star, @topic, item), method: :post, title: "赞", class: "likeable deactive" do %>
+                    <i class="fa fa-heart"></i>
+                    <span><%= get_starred_count(reply: item) %> 个赞</span>
+                  <% end %>
+                <% end %>
+              </span>
+            </div>
+            <%= if item.parent_id do %>
+              <div class="reply-to-block" data-reply-to-id="343998">
+                <div class="info">
+                  对
+                  <a>
+                    <img class="media-object avatar-16" src="<%= qn_url(item.parent.user.avatar) %>">
+                    <span class="user-name"><%= item.parent.user.username %></span>
+                  </a>回复
+                </div>
+              </div>
+            <% end %>
+            <div class="markdown">
+              <%= markdown(item.content) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

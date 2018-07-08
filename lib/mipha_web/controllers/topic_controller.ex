@@ -8,6 +8,7 @@ defmodule MiphaWeb.TopicController do
 
   @intercepted_action ~w(index jobs no_reply popular featured educational)a
 
+  # FIXME
   def action(conn, _) do
     case action_name(conn) do
       n when n in @intercepted_action ->
@@ -36,66 +37,66 @@ defmodule MiphaWeb.TopicController do
         attrs = %{
           "suggested_at" => Timex.now
         }
-        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
-          conn
-          |> put_flash(:success, "置顶成功")
-          |> redirect(to: topic_path(conn, :show, topic))
-        end
+        {:ok, _} = Topics.update_topic(topic, attrs)
+
+        conn
+        |> put_flash(:success, "置顶成功")
+        |> redirect(to: topic_path(conn, :show, topic))
 
       :unsuggest ->
         topic = Topics.get_topic!(conn.params["id"])
         attrs = %{
           "suggested_at" => nil
         }
-        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
-          conn
-          |> put_flash(:success, "取消置顶成功")
-          |> redirect(to: topic_path(conn, :show, topic))
-        end
+        {:ok, _} = Topics.update_topic(topic, attrs)
+
+        conn
+        |> put_flash(:success, "取消置顶成功")
+        |> redirect(to: topic_path(conn, :show, topic))
 
       :close ->
         topic = Topics.get_topic!(conn.params["id"])
         attrs = %{
           "closed_at" => Timex.now
         }
-        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
-          conn
-          |> put_flash(:success, "该话题已关闭")
-          |> redirect(to: topic_path(conn, :show, topic))
-        end
+        {:ok, _} = Topics.update_topic(topic, attrs)
+
+        conn
+        |> put_flash(:success, "该话题已关闭")
+        |> redirect(to: topic_path(conn, :show, topic))
 
       :open ->
         topic = Topics.get_topic!(conn.params["id"])
         attrs = %{
           "closed_at" => nil
         }
-        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
-          conn
-          |> put_flash(:success, "该话题已打开")
-          |> redirect(to: topic_path(conn, :show, topic))
-        end
+        {:ok, topic} = Topics.update_topic(topic, attrs)
+
+        conn
+        |> put_flash(:success, "该话题已打开")
+        |> redirect(to: topic_path(conn, :show, topic))
 
       :excellent ->
         topic = Topics.get_topic!(conn.params["id"])
         attrs = %{
           "type" => "featured"
         }
-        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
-          conn
-          |> put_flash(:success, "该话题设置为精华帖")
-          |> redirect(to: topic_path(conn, :show, topic))
-        end
+        {:ok, topic} = Topics.update_topic(topic, attrs)
+
+        conn
+        |> put_flash(:success, "该话题设置为精华帖")
+        |> redirect(to: topic_path(conn, :show, topic))
 
       :normal ->
         topic = Topics.get_topic!(conn.params["id"])
         attrs = %{
           "type" => "normal"
         }
-        with {:ok, topic} <= Topics.update_topic(topic, attrs) do
-          conn
-          |> put_flash(:success, "该话题设置为正常帖")
-          |> redirect(to: topic_path(conn, :show, topic))
-        end
+        {:ok, topic} = Topics.update_topic(topic, attrs)
+
+        conn
+        |> put_flash(:success, "该话题设置为正常帖")
+        |> redirect(to: topic_path(conn, :show, topic))
 
       _ ->
         apply(__MODULE__, action_name(conn), [conn, conn.params])
@@ -174,7 +175,7 @@ defmodule MiphaWeb.TopicController do
       topic_id: topic.id
     }
     case Stars.insert_star(attrs) do
-      {:ok, star} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "star successfully")
         |> redirect(to: topic_path(conn, :show, topic))
@@ -193,7 +194,7 @@ defmodule MiphaWeb.TopicController do
       topic_id: topic.id
     ]
     case Stars.delete_star(attrs) do
-      {:ok, star} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "unstar successfully")
         |> redirect(to: topic_path(conn, :show, topic))
@@ -211,7 +212,7 @@ defmodule MiphaWeb.TopicController do
       topic_id: topic.id
     }
     case Collections.insert_collection(attrs) do
-      {:ok, collection} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "collection successfully")
         |> redirect(to: topic_path(conn, :show, topic))
@@ -230,7 +231,7 @@ defmodule MiphaWeb.TopicController do
       topic_id: topic.id
     ]
     case Collections.delete_collection(attrs) do
-      {:ok, collection} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "uncollection successfully")
         |> redirect(to: topic_path(conn, :show, topic))

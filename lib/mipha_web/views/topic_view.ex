@@ -5,15 +5,15 @@ defmodule MiphaWeb.TopicView do
 
   @doc """
   """
-  def has_starred?(current_user, topic), do: Stars.has_starred?(user: current_user, topic: topic)
+  def has_starred?(clauses) do
+    Stars.has_starred?(clauses)
+  end
 
   @doc """
   """
-  def get_star_topic_count(topic), do: Stars.get_starred_count(topic: topic)
-
-  @doc """
-  """
-  def get_star_reply_count(reply), do: Stars.get_starred_count(reply: reply)
+  def get_starred_count(clauses) do
+    Stars.get_starred_count(clauses)
+  end
 
   @doc """
   """

@@ -7,9 +7,7 @@
             <a class="node" href="/topics?node_id=<%= @topic.node_id %>">
               <%= @topic.node.name %>
             </a>
-            <span class="title">
-              <%= @topic.title %>
-            </span>
+            <span class="title"><%= @topic.title %></span>
           </h1>
           <div class="info">
             <%= link @topic.user.username, to: user_path(@conn, :show, @topic.user.username) %>
@@ -17,7 +15,7 @@
             <%= if @topic.reply_count != 0 do %>
               <span class="hidden-mobile">
                 · 最后由
-              <%= link @topic.last_reply_user.username, to: user_path(@conn, :show, @topic.last_reply_user.username), class: "user-name" %>
+                <%= link @topic.last_reply_user.username, to: user_path(@conn, :show, @topic.last_reply_user.username), class: "user-name" %>
                 回复于
                 <%= time_tag(@topic.updated_at) %>
               </span>
@@ -29,14 +27,14 @@
         <div class="avatar media-right">
           <%= link to: user_path(@conn, :show, @topic.user.username), title: @topic.user.username do %>
             <img class="media-object avatar-48" src="<%= @topic.user.avatar %>" />
-            <% end %>
-              </a>
+          <% end %>
         </div>
       </div>
 
       <%= if @topic.type == "featured" do %>
         <div class="label-awesome">
-          <i class="fa fa-diamond awesome"></i> 本帖已被设为精华帖！
+          <i class="fa fa-diamond awesome"></i>
+          本帖已被设为精华帖！
         </div>
       <% end %>
 
@@ -49,136 +47,12 @@
       </div>
     </div>
 
-    <div id="replies" class="card" data-last-floor="43">
-      <div class="total card-header hide-ios">
-        共收到
-        <b><%= @topic.reply_count %></b> 条回复
-      </div>
-      <div class="items card-body">
-        <%= for item <- @topic.replies do %>
-          <div class="reply" data-id="206564" id="reply1">
-            <div id="reply-206564" data-floor="1">
-              <div class="avatar">
-                <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
-                  <img class="media-object avatar-48" src="<%= item.user.avatar %>" />
-                <% end %>
-              </div>
-              <div class="infos">
-                <div class="info">
-                  <span class="name">
-                    <%= link item.user.username, to: user_path(@conn, :show, item.user.username), class: "user-name" %>
-                  </span>
-                  <span class="sub-info">
-                    <span class='floor'>#1</span> ·
-                    <a class="time" href="#reply-206564">
-                      <%= time_tag(item.updated_at) %>
-                    </a>
-                  </span>
-                  <span class="opts pull-right">
-                    <span class="hideable">
-                      <a class="edit fa fa-pencil" data-uid="59" title="修改回帖" href="/topics/19436/replies/206564/edit"></a>
-                      <a data-id="206564" data-login="rockliu" title="回复此楼" class="btn-reply fa fa-mail-reply" href="#"></a>
-                    </span>
-                    <a title="赞" data-count="2" data-state="deactive" data-type="Reply" data-id="206564" class="likeable deactive" href="#">
-                      <i class='fa fa-heart'></i>
-                      <span><%= get_star_reply_count(item) %> 个赞</span>
-                    </a>
-                  </span>
-                </div>
-                <div class="markdown">
-                  <%= markdown(item.content) %>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div id="reply" class="card">
-      <div class="card-header hide-ios">回帖</div>
-      <div class="card-body">
-        <%= render "_editor_toolbar.html", assigns %>
-
-          <form id="new_reply" action="/topics/19436/replies" accept-charset="UTF-8" data-remote="true" method="post">
-            <input name="utf8" type="hidden" value="&#x2713;" />
-            <input type="hidden" name="authenticity_token" value="VuDj0UAaiZ3Z+i8D/4633cwBpvH4QBzMu0HDkNqG6Vx4iAnSW7B4iPDw7f7wTwfluyq4fwH5Mf7UwU8fUm2FqQ=="
-            />
-            <div class="form-group">
-              <textarea class="topic-editor form-control" rows="4" tabindex="1" name="reply[body]" id="reply_body"></textarea>
-            </div>
-            <input type="hidden" name="reply[reply_to_id]" id="reply_reply_to_id" />
-            <div class="submit-buttons">
-              <button type="submit" id="reply-button" class="btn btn-primary" tabindex="2" , data-disable-with='提交回复'>提交回复</button>
-              <span class="help-inline" style="padding-left: 5px;" title="或者 Ctrl + Enter">
-                <kbd>Command</kbd> +
-                <kbd>Enter</kbd>
-              </span>
-              <div class="pull-right">
-                <a href="/markdown" target="_blank">排版说明</a>
-              </div>
-            </div>
-          </form>
-      </div>
-    </div>
-
+    <%= render "_replies.html", assigns %>
+    <%= render "_handle_reply.html", assigns %>
     <%= render "_relation_topic.html", assigns %>
   </div>
 
   <div class="sidebar hidden-mobile col-md-3">
-    <div id="topic-sidebar" data-spy="affix" data-offset-bottom="65">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-body">
-            <a href="#" class="btn btn-default btn-block btn-sm btn-move-page" data-type="top">
-              <i class="fa fa-arrow-up"></i>
-            </a>
-            <div class="buttons">
-              <div class="group likes opts">
-                <%= if has_starred?(@current_user, @topic) do %>
-                  <%= link to: topic_path(@conn, :unstar, @topic), method: :post, class: "likeable active" do %>
-                    <i class="fa fa-heart"></i>
-                  <% end %>
-                <% else %>
-                  <%= link to: topic_path(@conn, :star, @topic), method: :post, class: "likeable deactive" do %>
-                    <i class="fa fa-heart"></i>
-                  <% end %>
-                <% end %>
-              </div>
-              <div class="group">
-                <div class="btn-group" role="group">
-                  <%= if has_collected?(@current_user, @topic) do %>
-                    <%= link to: topic_path(@conn, :uncollection, @topic), method: :post, class: "bookmark active btn btn-default" do %>
-                      <i class="fa fa-bookmark"></i> 取消收藏
-                    <% end %>
-                  <% else %>
-                    <%= link to: topic_path(@conn, :collection, @topic), method: :post, class: "bookmark btn btn-default" do %>
-                      <i class="fa fa-bookmark"></i> 收藏
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="reply-buttons">
-              <div class="total">
-                共收到
-                <b><%= @topic.reply_count %></b> 条回复
-              </div>
-            </div>
-            <hr>
-            <a href="#" class="btn btn-default btn-sm btn-block btn-move-page" data-type="bottom">
-              <i class="fa fa-arrow-down"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="notify-updated">
-        <a class="update" href="#">
-          <i class="fa fa-bell-o"></i>
-          <b>有新回复！</b>点击这里立即载入</a>
-      </div>
-    </div>
+    <%= render "_right_sidebar.html", assigns %>
   </div>
 </div>

@@ -1,13 +1,13 @@
 <div class="opts">
-  <%= if has_starred?(@current_user, @topic) do %>
+  <%= if has_starred?(user: @current_user, topic: @topic) do %>
     <%= link to: topic_path(@conn, :unstar, @topic), method: :post, class: "likeable active" do %>
       <i class="fa fa-heart"></i>
-      <span><%= get_star_topic_count(@topic) %> 个赞</span>
+      <span><%= get_starred_count(topic: @topic) %> 个赞</span>
     <% end %>
   <% else %>
     <%= link to: topic_path(@conn, :star, @topic), method: :post, class: "likeable deactive" do %>
       <i class="fa fa-heart"></i>
-      <span><%= get_star_topic_count(@topic) %> 个赞</span>
+      <span><%= get_starred_count(topic: @topic) %> 个赞</span>
     <% end %>
   <% end %>
 

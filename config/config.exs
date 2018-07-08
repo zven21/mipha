@@ -37,6 +37,10 @@ config :scrivener_html,
   routes_helper: MiphaWeb.Router.Helpers,
   view_style: :bootstrap_v4
 
+config :qiniu, Qiniu,
+  access_key: System.get_env("QINIU_ACCESS_KEY"),
+  secret_key: System.get_env("QINIU_SECRET_KEY")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

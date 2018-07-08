@@ -178,4 +178,25 @@ defmodule Mipha.Replies do
     |> Repo.all()
     |> Repo.preload([:topic, :user])
   end
+
+  @doc """
+  Inserts a reply.
+
+  ## Examples
+
+      iex> insert_reply(%User{}, %{field: value})
+      {:ok, %Reply{}}
+
+      iex> insert_reply(%User{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec insert_reply(User.t(), map()) :: {:ok, Reply.t()} | {:error, Ecto.Changeset.t()}
+  def insert_reply(user, attrs \\ %{}) do
+    attrs = attrs |> Map.put("user_id", user.id)
+
+    %Reply{}
+    |> Reply.changeset(attrs)
+    |> Repo.insert()
+  end
 end

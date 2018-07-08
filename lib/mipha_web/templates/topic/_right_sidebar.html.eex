@@ -1,0 +1,54 @@
+<div id="topic-sidebar" data-spy="affix" data-offset-bottom="65">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-body">
+        <a href="#" class="btn btn-default btn-block btn-sm btn-move-page" data-type="top">
+          <i class="fa fa-arrow-up"></i>
+        </a>
+        <div class="buttons">
+          <div class="group likes opts">
+            <%= if has_starred?(user: @current_user, topic: @topic) do %>
+              <%= link to: topic_path(@conn, :unstar, @topic), method: :post, class: "likeable active" do %>
+                <i class="fa fa-heart"></i>
+              <% end %>
+            <% else %>
+              <%= link to: topic_path(@conn, :star, @topic), method: :post, class: "likeable deactive" do %>
+                <i class="fa fa-heart"></i>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="group">
+            <div class="btn-group" role="group">
+              <%= if has_collected?(@current_user, @topic) do %>
+                <%= link to: topic_path(@conn, :uncollection, @topic), method: :post, class: "bookmark active btn btn-default" do %>
+                  <i class="fa fa-bookmark"></i> 取消收藏
+                <% end %>
+              <% else %>
+                <%= link to: topic_path(@conn, :collection, @topic), method: :post, class: "bookmark btn btn-default" do %>
+                  <i class="fa fa-bookmark"></i> 收藏
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="reply-buttons">
+          <div class="total">
+            共收到
+            <b><%= @topic.reply_count %></b> 条回复
+          </div>
+        </div>
+        <hr>
+        <a href="#" class="btn btn-default btn-sm btn-block btn-move-page" data-type="bottom">
+          <i class="fa fa-arrow-down"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="notify-updated">
+    <a class="update" href="#">
+      <i class="fa fa-bell-o"></i>
+      <b>有新回复！</b>点击这里立即载入</a>
+  </div>
+</div>

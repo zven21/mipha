@@ -46,13 +46,30 @@ defmodule Mipha.Replies.Reply do
   def by_user(query \\ __MODULE__, %User{id: user_id}),
     do: where(query, [..., r], r.user_id == ^user_id)
 
+  @doc """
+  Get the recent of replies.
+  """
+  @spec recent(Ecto.Queryable.t()) :: Ecto.Query.t()
   def recent(query \\ __MODULE__),
     do: from(r in query, order_by: [desc: r.id], limit: 10)
 
   @doc false
   def changeset(reply, attrs) do
+    permitted_attrs = ~w(
+      topic_id
+      user_id
+      parent_id
+      content
+    )a
+
+    required_attrs = ~w(
+      content
+      user_id
+      topic_id
+    )a
+
     reply
-    |> cast(attrs, [:topic_id, :user_id, :parent_id, :content])
-    |> validate_required([:topic_id, :user_id, :parent_id, :content])
+    |> cast(attrs, permitted_attrs)
+    |> validate_required(required_attrs)
   end
 end

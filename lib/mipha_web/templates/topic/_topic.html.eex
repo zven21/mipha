@@ -1,7 +1,7 @@
 <div class="topic media">
   <div class="avatar">
     <a title="<%= @item.user.username %>" href="/u/<%= @item.user.username %>">
-      <img class="media-object avatar-48" src="<%= @item.user.avatar %>">
+      <img class="media-object avatar-48" src="<%= qn_url(@item.user.avatar) %>">
     </a>
   </div>
   <div class="infos media-body">

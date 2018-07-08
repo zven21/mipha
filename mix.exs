@@ -52,7 +52,8 @@ defmodule Mipha.Mixfile do
       {:html_sanitize_ex, "~> 1.3"},
       {:timex, "~> 3.3"},
       {:scrivener_ecto, "~> 1.3"},
-      {:scrivener_html, "~> 1.7"}
+      {:scrivener_html, "~> 1.7"},
+      {:qiniu, "~> 0.4.0"}
     ]
   end
 

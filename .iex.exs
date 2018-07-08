@@ -7,7 +7,8 @@ alias Mipha.{
   Replies.Reply,
   Stars.Star,
   Collections.Collection,
-  Follows.Follow
+  Follows.Follow,
+  Markdown
 }
 
 alias Accounts.{User, Location, Company, Team}

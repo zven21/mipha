@@ -2,8 +2,10 @@ defmodule MiphaWeb.TagHelpers do
   @moduledoc """
   View helpers for generating particular tags with some internal logic.
   """
+
   import Phoenix.HTML.Tag
   require Integer
+  alias Mipha.Qiniu
 
   @doc """
   Generate an abbr to wrap an ISO time to be rendered nicely via JS in the frontend.
@@ -41,5 +43,9 @@ defmodule MiphaWeb.TagHelpers do
     if topic.type == :featured do
       content_tag(:i, "", title: "精华帖", class: "fa fa-diamond", style: "color: red;")
     end
+  end
+
+  def qn_url(string) do
+    Qiniu.q_url(string)
   end
 end

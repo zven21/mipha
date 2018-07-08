@@ -12,23 +12,23 @@
             <div class="col-xs-12 col-sm-6 col-md-4">
               <div class="media user-card">
                 <div class="media-left mr-2">
-                  <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
-                    <img class="media-object avatar-48" src="<%= item.user.avatar %>" />
+                  <%= link to: user_path(@conn, :show, item.follower.username), title: item.follower.username do %>
+                    <img class="media-object avatar-48" src="<%= qn_url(item.follower.avatar) %>" />
                   <% end %>
                 </div>
                 <div class="media-body">
                   <div class="media-heading">
-                    <%= link item.user.username, to: user_path(@conn, :show, item.user.username)%>
+                    <%= link item.follower.username, to: user_path(@conn, :show, item.follower.username)%>
                   </div>
                   <div class="infos">
                     <div class="item opts">
-                      <%= if @current_user && @current_user != item.user.id do %>
-                        <%= if has_followed?(@current_user, item.user) do %>
-                          <%= link to: user_unfollow_path(@conn, :unfollow, item.user.username), method: :post, class: "button-follow-user active" do %>
+                      <%= if @current_user && @current_user.id != item.follower.id do %>
+                        <%= if has_followed?(@current_user, item.follower) do %>
+                          <%= link to: user_unfollow_path(@conn, :unfollow, item.follower.username), method: :post, class: "button-follow-user active" do %>
                             <i class="fa fa-user"></i> <span>取消关注</span>
                           <% end %>
                         <% else %>
-                          <%= link to: user_follow_path(@conn, :follow, item.user.username), method: :post, class: "button-follow-user active" do %>
+                          <%= link to: user_follow_path(@conn, :follow, item.follower.username), method: :post, class: "button-follow-user active" do %>
                             <i class="fa fa-user"></i> <span>关注</span>
                           <% end %>
                         <% end %>

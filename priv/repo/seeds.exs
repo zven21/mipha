@@ -15,13 +15,15 @@ alias Topics.{Topic, Node}
 beijing = Repo.insert! %Location{name: "北京"}
 hangzhou = Repo.insert! %Location{name: "杭州"}
 
-helijia = Repo.insert! %Company{name: "河狸家", location: beijing}
+helijia = Repo.insert! %Company{
+  name: "河狸家",
+  location: beijing
+}
 
 qhwa = User.register_changeset(%User{}, %{
   username: "qhwa",
   email: "qhwa@mipha.com",
   password: "123123123",
-  avatar: Faker.Avatar.image_url,
   is_admin: true,
   bio: Faker.Lorem.sentence(10),
   website: Faker.Internet.domain_name,
@@ -34,7 +36,6 @@ zven = User.register_changeset(%User{}, %{
   username: "zven",
   email: "zven@mipha.com",
   password: "123123123",
-  avatar: Faker.Avatar.image_url,
   bio: Faker.Lorem.sentence(10),
   website: Faker.Internet.domain_name,
   github_handle: "zven21",
@@ -46,7 +47,6 @@ bencode = User.register_changeset(%User{}, %{
   username: "bencode",
   email: "bencode@mipha.com",
   password: "123123123",
-  avatar: Faker.Avatar.image_url,
   bio: Faker.Lorem.sentence(10),
   website: Faker.Internet.domain_name,
   github_handle: "bencode",

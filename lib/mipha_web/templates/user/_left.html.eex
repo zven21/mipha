@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="media">
       <div class="avatar media-left mr-3">
-        <div class='image'><img class="media-object avatar-96" src="<%= @user.avatar %>" /></div>
+        <div class='image'><img class="media-object avatar-96" src="<%= qn_url(@user.avatar) %>" /></div>
         <div class="level"><%= user_level_tag(@user) %></div>
       </div>
       <div class="media-body">
@@ -80,10 +80,13 @@
     </div>
 
     <div class="buttons">
-      <a class="btn btn-block btn-default" data-remote="true" href="/huacnlee/reward"><i class='fa fa-qrcode'></i> <span>打赏支持</span></a>
+      <button type="button" class="btn-block btn btn-default" id="node-selector-button" data-toggle="modal" data-target="#reward-modal">
+        <i class='fa fa-qrcode'></i> <span>打赏支持</span>
+      </button>
     </div>
   </div>
 </div>
 
 <%= render "_teams.html", assigns %>
 <%= render "_repos.html", assigns %>
+<%= render "_reward.html", assigns %>

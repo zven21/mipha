@@ -23,7 +23,7 @@ defmodule Mipha.Markdown do
       # Prefix the `code` tag language class, as in `language-elixir`, for
       # proper support from http://prismjs.com/
       code_class_prefix: "language-",
-      # renderer: Mipha.Markdown.HtmlRenderer,
+      renderer: Mipha.Markdown.HtmlRenderer,
       gfm: true,
       breaks: true,
       smartypants: false

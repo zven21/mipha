@@ -19,6 +19,7 @@ defmodule Mipha.Accounts.User do
   @type t :: %User{}
 
   schema "users" do
+    field :username, :string
     field :avatar, :string
     field :bio, :string
     field :email, :string
@@ -27,8 +28,10 @@ defmodule Mipha.Accounts.User do
     field :github_handle, :string
     field :is_admin, :boolean, default: false
     field :password_hash, :string
-    field :username, :string
     field :website, :string
+    field :alipay, :string
+    field :wechat, :string
+    field :locked_at, :naive_datetime
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :login, :string, virtual: true
@@ -62,6 +65,8 @@ defmodule Mipha.Accounts.User do
       company_id
       tagline
       email_public
+      wechat
+      alipay
     )a
 
     required_attrs = ~w(

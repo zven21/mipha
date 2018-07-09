@@ -5,7 +5,7 @@ defmodule Mipha.Mixfile do
     [
       app: :mipha,
       version: "0.0.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -53,7 +53,9 @@ defmodule Mipha.Mixfile do
       {:timex, "~> 3.3"},
       {:scrivener_ecto, "~> 1.3"},
       {:scrivener_html, "~> 1.7"},
-      {:qiniu, "~> 0.4.0"}
+      {:qiniu, "~> 0.4.0"},
+      {:exmoji, "~> 0.2.2"},
+      {:poison, "~> 3.0", override: true}
     ]
   end
 

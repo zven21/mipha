@@ -6,7 +6,7 @@ defmodule MiphaWeb.TopicView do
   @doc """
   """
   def has_starred?(clauses) do
-    Stars.has_starred?(clauses)
+    if is_nil(Keyword.get(clauses, :user)), do: false, else: Stars.has_starred?(clauses)
   end
 
   @doc """
@@ -18,6 +18,8 @@ defmodule MiphaWeb.TopicView do
   @doc """
   """
   def has_collected?(current_user, topic) do
-    Collections.has_collected?(user: current_user, topic: topic)
+    if is_nil(current_user),
+      do: false,
+      else: Collections.has_collected?(user: current_user, topic: topic)
   end
 end

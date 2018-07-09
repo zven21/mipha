@@ -56,7 +56,7 @@
         <div class="tab-pane" id="description">
           <div class="card bio">
             <div class="card-body markdown">
-              <p><%= @current_user.bio %></p>
+              <p><%= @user.bio %></p>
             </div>
           </div>
         </div>

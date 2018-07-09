@@ -3,7 +3,6 @@ defmodule MiphaWeb.SettingController do
   alias Mipha.Accounts
   alias Mipha.Accounts.User
   alias Mipha.Qiniu
-  require IEx
 
   plug MiphaWeb.Plug.RequireUser
 
@@ -23,7 +22,7 @@ defmodule MiphaWeb.SettingController do
       "show"     ->   update_account(conn, user_params)
       "profile"  ->   update_profile(conn, user_params)
       "password" ->   update_password(conn, user_params)
-      # "reward"   ->   update_reward(conn, user_params)
+      "reward"   ->   update_reward(conn, user_params)
     end
   end
 
@@ -33,16 +32,10 @@ defmodule MiphaWeb.SettingController do
       "email_public" => user_params["email_public"]
     }
 
-    if path = user_params["avatar"] && user_params["avatar"].path do
-      case Qiniu.upload(path) do
-        %HTTPoison.Response{status_code: 200, body: body} ->
-          attrs = Map.merge(attrs, %{"avatar" => body["key"]})
-
-        %HTTPoison.Response{status_code: _} ->
-          conn
-          |> put_flash(:info, "上传失败")
-          |> render(:show, changeset: Accounts.change_user(current_user(conn)))
-      end
+    if user_params["avatar"] do
+      avatar_path = user_params["avatar"].path
+      {:ok, key} = upload(conn, avatar_path)
+      attrs = Map.merge(attrs, %{"avatar" => key})
     end
 
     case Accounts.update_user(current_user(conn), attrs) do
@@ -93,6 +86,43 @@ defmodule MiphaWeb.SettingController do
     end
   end
 
-  # defp update_reward(conn, user_params) do
-  # end
+  defp update_reward(conn, user_params) do
+    attrs = %{}
+
+    if user_params["wechat"] do
+      wechat_path = user_params["wechat"].path
+      {:ok, key} = upload(conn, wechat_path)
+      attrs = Map.merge(attrs, %{"wechat" => key})
+    end
+
+    if user_params["alipay"] do
+      alipay_path = user_params["alipay"].path
+      {:ok, key} = upload(conn, alipay_path)
+      attrs = Map.merge(attrs, %{"alipay" => key})
+    end
+
+    case Accounts.update_user(current_user(conn), attrs) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "User updated successfully.")
+        |> render(:show, changeset: Accounts.change_user(user))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_flash(:error, "User updated failed.")
+        |> render(:show, changeset: changeset)
+    end
+  end
+
+  defp upload(conn, path) do
+    case Qiniu.upload(path) do
+      %HTTPoison.Response{status_code: 200, body: body} ->
+        {:ok, body["key"]}
+
+      %HTTPoison.Response{status_code: _} ->
+        conn
+        |> put_flash(:info, "上传失败")
+        |> render(:show, changeset: Accounts.change_user(current_user(conn)))
+    end
+  end
 end

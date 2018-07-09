@@ -15,6 +15,9 @@ defmodule Mipha.Repo.Migrations.CreateUsers do
       add :is_admin, :boolean, default: false, null: false
       add :location_id, :integer
       add :company_id, :integer
+      add :wechat, :string
+      add :alipay, :string
+      add :locked_at, :naive_datetime
 
       timestamps()
     end

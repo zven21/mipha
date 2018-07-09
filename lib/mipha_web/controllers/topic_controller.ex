@@ -8,7 +8,6 @@ defmodule MiphaWeb.TopicController do
 
   @intercepted_action ~w(index jobs no_reply popular featured educational)a
 
-  # FIXME
   def action(conn, _) do
     conn
     |> action_name

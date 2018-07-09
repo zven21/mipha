@@ -26,7 +26,7 @@
         </div>
         <div class="avatar media-right">
           <%= link to: user_path(@conn, :show, @topic.user.username), title: @topic.user.username do %>
-            <img class="media-object avatar-48" src="<%= @topic.user.avatar %>" />
+            <img class="media-object avatar-48" src="<%= qn_url(@topic.user.avatar) %>" />
           <% end %>
         </div>
       </div>

@@ -6,11 +6,11 @@
       </div>
       <div class="modal-body clearfix">
         <div class="message">
-          <div class="user-info"><img class="media-object avatar-48" src="<%= @user.avatar %>"></div>
+          <div class="user-info"><img class="media-object avatar-48" src="<%= qn_url(@user.avatar) %>"></div>
           <p><i class="fa fa-quote-left pull-left"></i>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！<i class="fa fa-quote-right pull-right"></i></p>
         </div>
-        <div class="reward-image"><img src=""></div>
-        <div class="reward-image"><img src="https://ruby-china-files.b0.upaiyun.com/photo/2017/2bc9edaa2a5ae2041d8a8ec72cd06837.jpg"></div>
+        <div class="reward-image"><img src="<%= qn_url(@user.wechat) %>"></div>
+        <div class="reward-image"><img src="<%= qn_url(@user.alipay) %>"></div>
       </div>
     </div>
   </div>

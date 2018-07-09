@@ -157,18 +157,19 @@ defmodule Mipha.Topics do
 
   # FIXME
   defp filter_from_clauses(opts) do
-    cond do
-      Keyword.get(opts, :type) == :jobs -> Topic.job
-      Keyword.get(opts, :type) == :educational -> Topic.educational
-      Keyword.get(opts, :type) == :featured -> Topic.featured
-      Keyword.get(opts, :type) == :no_reply -> Topic.no_reply
-      Keyword.get(opts, :type) == :popular -> Topic.popular
-      Keyword.has_key?(opts, :node) -> opts |> Keyword.get(:node) |> Topic.by_node
-      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Topic.by_user
-      Keyword.has_key?(opts, :user_ids) -> opts |> Keyword.get(:user_ids) |> Topic.by_user_ids
-      true -> Topic
-    end
+    do_filter_from_clauses(opts)
   end
+
+  defp do_filter_from_clauses(type: :jobs), do: Topic.job
+  defp do_filter_from_clauses(type: :educational), do: Topic.educational
+  defp do_filter_from_clauses(type: :featured), do: Topic.featured
+  defp do_filter_from_clauses(type: :no_reply), do: Topic.no_reply
+  defp do_filter_from_clauses(type: :popular), do: Topic.popular
+  defp do_filter_from_clauses(node: node), do: Topic.by_node(node)
+  defp do_filter_from_clauses(user: user), do: Topic.by_user(user)
+  defp do_filter_from_clauses(user_ids: user_ids), do: Topic.by_user_ids(user_ids)
+  defp do_filter_from_clauses(_), do: Topic
+
 
   @doc """
   Returns the featured of topics.

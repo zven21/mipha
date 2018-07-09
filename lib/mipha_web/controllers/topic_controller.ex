@@ -10,97 +10,85 @@ defmodule MiphaWeb.TopicController do
 
   # FIXME
   def action(conn, _) do
-    case action_name(conn) do
-      n when n in @intercepted_action ->
-        opts =
-          if conn.params["node_id"] do
-            [node: Topics.get_node!(conn.params["node_id"])]
-          else
-            [type: action_name(conn)]
-          end
+    conn
+    |> action_name
+    |> do_fragment(conn)
+  end
 
-        parent_nodes = Topics.list_parent_nodes
+  defp do_fragment(action_name, conn) when action_name in @intercepted_action do
+    opts =
+      if conn.params["node_id"] do
+        [node: Topics.get_node!(conn.params["node_id"])]
+      else
+        [type: action_name(conn)]
+      end
 
-        page =
-          opts
-          |> Topics.cond_topics
-          |> Repo.paginate(conn.params)
+    parent_nodes = Topics.list_parent_nodes
 
-        render conn, action_name(conn),
-          asset: "topics",
-          topics: page.entries,
-          page: page,
-          parent_nodes: parent_nodes
+    page =
+      opts
+      |> Topics.cond_topics
+      |> Repo.paginate(conn.params)
 
-      :suggest ->
-        topic = Topics.get_topic!(conn.params["id"])
-        attrs = %{
-          "suggested_at" => Timex.now
-        }
-        {:ok, _} = Topics.update_topic(topic, attrs)
+    render conn, action_name(conn),
+      asset: "topics",
+      topics: page.entries,
+      page: page,
+      parent_nodes: parent_nodes
+  end
+  defp do_fragment(:suggest, conn) do
+    topic = Topics.get_topic!(conn.params["id"])
+    attrs = %{"suggested_at" => Timex.now}
+    flash = "置顶成功"
 
-        conn
-        |> put_flash(:success, "置顶成功")
-        |> redirect(to: topic_path(conn, :show, topic))
+    do_update(conn, topic, attrs, flash)
+  end
+  defp do_fragment(:unsuggest, conn) do
+    topic = Topics.get_topic!(conn.params["id"])
+    attrs = %{"suggested_at" => nil}
+    flash = "取消置顶"
 
-      :unsuggest ->
-        topic = Topics.get_topic!(conn.params["id"])
-        attrs = %{
-          "suggested_at" => nil
-        }
-        {:ok, _} = Topics.update_topic(topic, attrs)
+    do_update(conn, topic, attrs, flash)
+  end
+  defp do_fragment(:close, conn) do
+    topic = Topics.get_topic!(conn.params["id"])
+    attrs = %{"closed_at" => Timex.now}
+    flash = "该话题已关闭"
 
-        conn
-        |> put_flash(:success, "取消置顶成功")
-        |> redirect(to: topic_path(conn, :show, topic))
+    do_update(conn, topic, attrs, flash)
+  end
+  defp do_fragment(:open, conn) do
+    topic = Topics.get_topic!(conn.params["id"])
+    attrs = %{"closed_at" => nil}
+    flash = "该话题已打开"
 
-      :close ->
-        topic = Topics.get_topic!(conn.params["id"])
-        attrs = %{
-          "closed_at" => Timex.now
-        }
-        {:ok, _} = Topics.update_topic(topic, attrs)
+    do_update(conn, topic, attrs, flash)
+  end
+  defp do_fragment(:excellent, conn) do
+    topic = Topics.get_topic!(conn.params["id"])
+    attrs = %{"type" => "featured"}
+    flash = "该话题设置为精华帖"
 
-        conn
-        |> put_flash(:success, "该话题已关闭")
-        |> redirect(to: topic_path(conn, :show, topic))
+    do_update(conn, topic, attrs, flash)
+  end
+  defp do_fragment(:normal, conn) do
+    topic = Topics.get_topic!(conn.params["id"])
+    attrs = %{"type" => "normal"}
+    flash = "该话题设置为正常帖"
 
-      :open ->
-        topic = Topics.get_topic!(conn.params["id"])
-        attrs = %{
-          "closed_at" => nil
-        }
-        {:ok, topic} = Topics.update_topic(topic, attrs)
+    do_update(conn, topic, attrs, flash)
+  end
+  defp do_fragment(_, conn) do
+    apply(__MODULE__, action_name(conn), [conn, conn.params])
+  end
 
-        conn
-        |> put_flash(:success, "该话题已打开")
-        |> redirect(to: topic_path(conn, :show, topic))
+  # update topic
+  defp do_update(conn, topic, attrs, flash) do
+    {:ok, topic} = Topics.update_topic(topic, attrs)
 
-      :excellent ->
-        topic = Topics.get_topic!(conn.params["id"])
-        attrs = %{
-          "type" => "featured"
-        }
-        {:ok, topic} = Topics.update_topic(topic, attrs)
-
-        conn
-        |> put_flash(:success, "该话题设置为精华帖")
-        |> redirect(to: topic_path(conn, :show, topic))
-
-      :normal ->
-        topic = Topics.get_topic!(conn.params["id"])
-        attrs = %{
-          "type" => "normal"
-        }
-        {:ok, topic} = Topics.update_topic(topic, attrs)
-
-        conn
-        |> put_flash(:success, "该话题设置为正常帖")
-        |> redirect(to: topic_path(conn, :show, topic))
-
-      _ ->
-        apply(__MODULE__, action_name(conn), [conn, conn.params])
-    end
+    conn
+    |> put_flash(:success, flash)
+    |> redirect(to: topic_path(conn, :show, topic))
   end
 
   def new(conn, _params) do

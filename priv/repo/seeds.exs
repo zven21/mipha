@@ -3,9 +3,7 @@ alias Mipha.{
   Accounts,
   Topics,
   Replies.Reply,
-  Collections.Collection,
-  Follows.Follow,
-  Stars.Star
+  Collections.Collection
 }
 
 alias Accounts.{User, Location, Company, Team}

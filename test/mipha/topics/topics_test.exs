@@ -1,7 +1,7 @@
 defmodule Mipha.TopicsTest do
   use Mipha.DataCase
 
-  alias Mipha.Topics
+  alias Mipha.{Topics, Repo}
 
   describe "topics" do
     alias Mipha.Topics.Topic
@@ -65,7 +65,7 @@ defmodule Mipha.TopicsTest do
 
     test "get_topic!/1 returns the topic with given id" do
       topic = topic_fixture()
-      assert Topics.get_topic!(topic.id) == topic
+      assert Topics.get_topic!(topic.id) == (topic |> Repo.preload([:node, :user, :last_reply_user, [replies: [:user, [parent: :user]]]]))
     end
 
     test "create_topic/1 with valid data creates a topic" do
@@ -109,7 +109,7 @@ defmodule Mipha.TopicsTest do
     test "update_topic/2 with invalid data returns error changeset" do
       topic = topic_fixture()
       assert {:error, %Ecto.Changeset{}} = Topics.update_topic(topic, @invalid_attrs)
-      assert topic == Topics.get_topic!(topic.id)
+      assert (topic |> Repo.preload([:node, :user, :last_reply_user, [replies: [:user, [parent: :user]]]])) == Topics.get_topic!(topic.id)
     end
 
     test "delete_topic/1 deletes the topic" do

@@ -1,7 +1,7 @@
 defmodule Mipha.AccountsTest do
   use Mipha.DataCase
 
-  alias Mipha.Accounts
+  alias Mipha.{Accounts, Repo}
 
   describe "users" do
     alias Mipha.Accounts.User
@@ -63,7 +63,6 @@ defmodule Mipha.AccountsTest do
       assert user.email == "some email"
       assert user.github_handle == "some github_handle"
       assert user.is_admin == true
-      assert user.password_hash == "some password_hash"
       assert user.username == "some username"
       assert user.website == "some website"
     end
@@ -81,7 +80,6 @@ defmodule Mipha.AccountsTest do
       assert user.email == "some updated email"
       assert user.github_handle == "some updated github_handle"
       assert user.is_admin == false
-      assert user.password_hash == "some updated password_hash"
       assert user.username == "some updated username"
       assert user.website == "some updated website"
     end
@@ -249,7 +247,7 @@ defmodule Mipha.AccountsTest do
 
     test "get_team!/1 returns the team with given id" do
       team = team_fixture()
-      assert Accounts.get_team!(team.id) == team
+      assert Accounts.get_team!(team.id) == (team |> Repo.preload([:users, :owner]))
     end
 
     test "create_team/1 with valid data creates a team" do
@@ -279,7 +277,7 @@ defmodule Mipha.AccountsTest do
     test "update_team/2 with invalid data returns error changeset" do
       team = team_fixture()
       assert {:error, %Ecto.Changeset{}} = Accounts.update_team(team, @invalid_attrs)
-      assert team == Accounts.get_team!(team.id)
+      assert (team |> Repo.preload([:users, :owner])) == Accounts.get_team!(team.id)
     end
 
     test "delete_team/1 deletes the team" do

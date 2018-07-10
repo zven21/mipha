@@ -3,12 +3,17 @@ defmodule MiphaWeb.UserController do
 
   alias Mipha.{
     Repo,
+    Mailer,
     Accounts,
     Topics,
     Replies,
     Follows,
-    Collections
+    Collections,
+    Token
   }
+
+  alias MiphaWeb.Email
+  alias Accounts.User
 
   plug MiphaWeb.Plug.RequireUser when action in [:follow, :unfollow]
 
@@ -24,6 +29,7 @@ defmodule MiphaWeb.UserController do
   def index(conn, _params) do
     users = Accounts.list_users()
     user_count = Accounts.get_user_count()
+
     render conn, :index,
       users: users,
       user_count: user_count
@@ -40,7 +46,10 @@ defmodule MiphaWeb.UserController do
   end
 
   def topics(conn, _params, user) do
-    page = Topics.cond_topics(user: user) |> Repo.paginate(conn.params)
+    page =
+      [user: user]
+      |> Topics.cond_topics()
+      |> Repo.paginate(conn.params)
 
     render conn, :topics,
       user: user,
@@ -49,7 +58,10 @@ defmodule MiphaWeb.UserController do
   end
 
   def replies(conn, _params, user) do
-    page = Replies.cond_replies(user: user) |> Repo.paginate(conn.params)
+    page =
+      [user: user]
+      |> Replies.cond_replies()
+      |> Repo.paginate(conn.params)
 
     render conn, :replies,
       user: user,
@@ -58,7 +70,10 @@ defmodule MiphaWeb.UserController do
   end
 
   def following(conn, _params, user) do
-    page = Follows.cond_follows(follower: user) |> Repo.paginate(conn.params)
+    page =
+      [follower: user]
+      |> Follows.cond_follows()
+      |> Repo.paginate(conn.params)
 
     render conn, :following,
       user: user,
@@ -67,7 +82,10 @@ defmodule MiphaWeb.UserController do
   end
 
   def followers(conn, _params, user) do
-    page = Follows.cond_follows(user: user) |> Repo.paginate(conn.params)
+    page =
+      [user: user]
+      |> Follows.cond_follows()
+      |> Repo.paginate(conn.params)
 
     render conn, :followers,
       user: user,
@@ -76,7 +94,10 @@ defmodule MiphaWeb.UserController do
   end
 
   def collections(conn, _params, user) do
-    page = Collections.cond_collections(user: user) |> Repo.paginate(conn.params)
+    page =
+      [user: user]
+      |> Collections.cond_collections()
+      |> Repo.paginate(conn.params)
 
     render conn, :collections,
       user: user,
@@ -90,10 +111,12 @@ defmodule MiphaWeb.UserController do
         conn
         |> put_flash(:info, "Follow successfully.")
         |> redirect(to: user_path(conn, :show, user.username))
-      {:error, %Ecto.Changeset{}}
+
+      {:error, %Ecto.Changeset{}} ->
         conn
         |> put_flash(:danger, "Follow Error.")
         |> redirect(to: user_path(conn, :show, user.username))
+
       {:error, reason} ->
         conn
         |> put_flash(:danger, reason)
@@ -107,14 +130,106 @@ defmodule MiphaWeb.UserController do
         conn
         |> put_flash(:info, "Unfollow successfully.")
         |> redirect(to: user_path(conn, :show, user.username))
-      {:error, %Ecto.Changeset{}}
+
+      {:error, %Ecto.Changeset{}} ->
         conn
         |> put_flash(:danger, "Unfollow error.")
         |> redirect(to: user_path(conn, :show, user.username))
+
       {:error, reason} ->
         conn
         |> put_flash(:danger, reason)
         |> redirect(to: user_path(conn, :show, user.username))
     end
   end
+
+  def sent_forgot_password_email(conn, %{"user" => user_params}) do
+    with {:ok, email} <- parse(user_params["email"]),
+         {:ok, user} <- parse(Accounts.get_user_by_email(email))
+    do
+      token = Token.generate_token(user)
+
+      # send email
+      Email.forgot_password(user, token) |> Mailer.deliver_now
+
+      conn
+      |> put_flash(:success, token)
+      |> redirect(to: "/")
+    else
+      _ ->
+        conn
+        |> put_flash(:danger, "The email is invalid.")
+        |> redirect(to: "/forgot_password")
+    end
+  end
+
+  # def sent_verify_email(conn) do
+  # end
+
+  def forgot_password(conn, _) do
+    render conn, :forgot_password
+  end
+
+  def reset_password(conn, %{"token" => token}) do
+    with {:ok, user_id} <- Token.verify_token(token) do
+      user = Accounts.get_user!(user_id)
+      changeset = User.reset_password_changeset(user, %{})
+
+      render conn, :reset_password,
+        user: user,
+        token: token,
+        changeset: changeset
+    else
+      _ -> render conn, :invalid_token
+    end
+  end
+
+  def reset_password(conn, _) do
+    conn
+    |> put_flash(:danger, "The verification link is invalid.")
+    |> redirect(to: "/")
+  end
+
+  def update_password(conn, %{"user" => user_params}) do
+    with {:ok, token} <- parse(user_params["reset_password_token"]),
+         {:ok, user_id} <- Token.verify_token(token)
+    do
+      user = Accounts.get_user!(user_id)
+      case Accounts.update_reset_password(user, user_params) do
+        {:ok, _} ->
+          conn
+          |> put_flash(:success, "reset password successfully.")
+          |> redirect(to: "/login")
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render conn, :reset_password,
+            changeset: changeset,
+            user: user,
+            token: token
+      end
+    else
+      _ -> render conn, :invalid_token
+    end
+  end
+
+  def verify_email(conn, %{"token" => token}) do
+    with {:ok, user_id} <- Token.verify_token(token),
+         %User{email_verified_at: nil} = user <- Accounts.get_user!(user_id)
+    do
+      Accounts.mark_as_verified(user)
+      render conn, :verified
+    else
+      _ -> render conn, :invalid_token
+    end
+  end
+
+  def verify_email(conn, _) do
+    conn
+    |> put_flash(:danger, "The verification link is invalid.")
+    |> redirect(to: "/")
+  end
+
+  defp parse(nil), do: {:error, "nil"}
+  defp parse(valid), do: {:ok, valid}
+  defp parse(_), do: {:error, "_"}
 end

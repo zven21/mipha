@@ -24,7 +24,7 @@ defmodule MiphaWeb.AuthController do
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
     conn
-    |> put_flash(:error, "Failed to authenticate.")
+    |> put_flash(:danger, "Failed to authenticate.")
     |> redirect(to: "/")
   end
 
@@ -36,12 +36,12 @@ defmodule MiphaWeb.AuthController do
             conn |> ok_login(user)
           {:error, %Ecto.Changeset{} = changeset} ->
             conn
-            |> put_flash(:error, "Login unsuccessful")
+            |> put_flash(:danger, "Login unsuccessful")
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
           {:error, reason} ->
             changeset = User.login_changeset(%User{}, %{})
             conn
-            |> put_flash(:error, reason)
+            |> put_flash(:danger, reason)
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
         end
       _ ->

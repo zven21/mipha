@@ -4,7 +4,11 @@ defmodule MiphaWeb.TopicController do
   alias Mipha.{Repo, Topics, Stars, Collections, Markdown}
   alias Topics.Topic
 
-  plug MiphaWeb.Plug.RequireUser when action in ~w(new create edit update)a
+  plug MiphaWeb.Plug.RequireUser when action in ~w(
+    new create edit update
+    star unstar collection uncollection
+    unsuggest suggest close open excellent normal
+  )a
 
   @intercepted_action ~w(index jobs no_reply popular featured educational)a
 
@@ -169,7 +173,7 @@ defmodule MiphaWeb.TopicController do
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "star error")
+        |> put_flash(:danger, "star error")
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -187,7 +191,7 @@ defmodule MiphaWeb.TopicController do
         |> redirect(to: topic_path(conn, :show, topic))
       {:error, _} ->
         conn
-        |> put_flash(:error, "unstar error")
+        |> put_flash(:danger, "unstar error")
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -206,7 +210,7 @@ defmodule MiphaWeb.TopicController do
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "collection error")
+        |> put_flash(:danger, "collection error")
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -225,7 +229,7 @@ defmodule MiphaWeb.TopicController do
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "uncollection error")
+        |> put_flash(:danger, "uncollection error")
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end

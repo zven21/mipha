@@ -1,7 +1,6 @@
 defmodule MiphaWeb.TeamController do
   use MiphaWeb, :controller
 
-  require IEx
   alias Mipha.{Repo, Accounts, Topics}
 
   def index(conn, _params) do

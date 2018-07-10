@@ -71,7 +71,7 @@ defmodule MiphaWeb.ReplyController do
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "star error")
+        |> put_flash(:danger, "star error")
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -90,7 +90,7 @@ defmodule MiphaWeb.ReplyController do
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "unstar error")
+        |> put_flash(:danger, "unstar error")
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end

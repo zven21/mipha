@@ -1,0 +1,18 @@
+language: elixir
+elixir:
+  - '1.6.4'
+otp_release:
+  - '20.3.2'
+addons:
+  postgresql: '9.4'
+services:
+  - postgresql
+cache:
+  directories:
+    - _build
+    - deps
+before_script:
+  - mix ecto.create && mix ecto.migrate
+  - mix run priv/repo/seeds.exs
+script:
+  - mix test

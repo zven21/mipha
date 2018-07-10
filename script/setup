@@ -1,0 +1,16 @@
+#!/bin/bash -ex
+
+for pkg in elixir node yarn; do
+  if brew list -1 | grep -q "^${pkg}\$"; then
+    echo "Package '$pkg' is installed, skipping.."
+  else
+    echo "brew install $pkg"
+    brew install $pkg
+  fi
+done
+
+set -x
+
+mix local.hex --force
+mix deps.get
+yarn --cwd="assets" install

@@ -11,7 +11,7 @@
         <textarea class="topic-editor form-control" rows="4" tabindex="1" name="reply[content]" id="reply_content"></textarea>
       </div>
       <div class="submit-buttons">
-        <button type="submit" id="reply-button" class="btn btn-primary" tabindex="2" , data-disable-with='提交回复'>提交回复</button>
+        <button type="submit" id="reply-button" class="btn btn-primary">提交回复</button>
         <span class="help-inline" style="padding-left: 5px;" title="或者 Ctrl + Enter">
           <kbd>Command</kbd> +
           <kbd>Enter</kbd>

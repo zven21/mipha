@@ -46,7 +46,7 @@ defmodule MiphaWeb.SettingController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:error, "User updated failed.")
+        |> put_flash(:danger, "User updated failed.")
         |> render(:show, changeset: changeset)
     end
   end
@@ -60,7 +60,7 @@ defmodule MiphaWeb.SettingController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:error, "User updated failed.")
+        |> put_flash(:danger, "User updated failed.")
         |> render(:password, changeset: changeset)
     end
   end
@@ -75,13 +75,13 @@ defmodule MiphaWeb.SettingController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:info, "Invalid password")
+        |> put_flash(:danger, "Invalid password")
         |> render(:password, changeset: changeset)
 
       {:error, reason} ->
         changeset = User.update_password_changeset(%User{}, %{})
         conn
-        |> put_flash(:info, reason)
+        |> put_flash(:danger, reason)
         |> render(:password, changeset: changeset)
     end
   end
@@ -109,7 +109,7 @@ defmodule MiphaWeb.SettingController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:error, "User updated failed.")
+        |> put_flash(:danger, "User updated failed.")
         |> render(:show, changeset: changeset)
     end
   end
@@ -121,7 +121,7 @@ defmodule MiphaWeb.SettingController do
 
       %HTTPoison.Response{status_code: _} ->
         conn
-        |> put_flash(:info, "上传失败")
+        |> put_flash(:danger, "上传失败")
         |> render(:show, changeset: Accounts.change_user(current_user(conn)))
     end
   end

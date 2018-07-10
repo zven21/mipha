@@ -21,7 +21,6 @@ defmodule Mipha.Topics do
   def list_topics do
     Topic
     |> Repo.all()
-    |> Repo.preload([:node, :user, :last_reply_user])
   end
 
   @doc """
@@ -169,7 +168,6 @@ defmodule Mipha.Topics do
   defp do_filter_from_clauses(user: user), do: Topic.by_user(user)
   defp do_filter_from_clauses(user_ids: user_ids), do: Topic.by_user_ids(user_ids)
   defp do_filter_from_clauses(_), do: Topic
-
 
   @doc """
   Returns the featured of topics.

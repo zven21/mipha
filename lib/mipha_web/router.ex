@@ -50,6 +50,12 @@ defmodule MiphaWeb.Router do
     get   "/u/:name/reward", UserController, :reward, as: :user_reward
 
     get "/users", UserController, :index
+    get "/forgot_password", UserController, :forgot_password
+    get "/reset_password", UserController, :reset_password
+    get "/verify", UserController, :verify_email
+    put "/users/update_password", UserController, :update_password
+    post "/users/sent_forgot_password_email", UserController, :sent_forgot_password_email
+    post "/users/sent_verify_email", UserController, :sent_verify_email
     resources "/teams", TeamController
     get "/teams/:id/people", TeamController, :people
 

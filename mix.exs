@@ -55,6 +55,8 @@ defmodule Mipha.Mixfile do
       {:scrivener_html, "~> 1.7"},
       {:qiniu, "~> 0.4.0"},
       {:exmoji, "~> 0.2.2"},
+      {:bamboo, "~> 1.0"},
+      {:bamboo_smtp, "~> 1.5"},
       {:poison, "~> 3.0", override: true}
     ]
   end

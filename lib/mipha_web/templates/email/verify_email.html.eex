@@ -1,0 +1,6 @@
+<p class="lead">欢迎 <%= @user.username %></p>
+<p>你已经成功注册 Elixir China 的账号，
+  接下来你需要点击下面的连接 <span class="text-danger">激活</span> 你的账号：</p>
+<p><%= link "激活账号", to: user_url(MiphaWeb.Endpoint, :verify_email, token: @token), class: "btn" %></p>
+<p>如果看不到链接，请复制下面的连接然后在浏览器里面打开：</p>
+<p><%= user_url(MiphaWeb.Endpoint, :verify_email, token: @token) %></p>

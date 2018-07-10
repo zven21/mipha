@@ -222,6 +222,20 @@ defmodule Mipha.Accounts do
     end
   end
 
+  @doc """
+  Mark the current user verified
+  """
+  def mark_as_verified(user) do
+    attrs = %{"email_verified_at" => Timex.now}
+    update_user(user, attrs)
+  end
+
+  def update_reset_password(user, attrs) do
+    user
+    |> User.reset_password_changeset(attrs)
+    |> Repo.update()
+  end
+
   alias Mipha.Accounts.Location
 
   @doc """

@@ -24,6 +24,7 @@ defmodule Mipha.Accounts.User do
     field :bio, :string
     field :email, :string
     field :email_public, :boolean, default: false
+    field :email_verified_at, :naive_datetime
     field :tagline, :string
     field :github_handle, :string
     field :is_admin, :boolean, default: false
@@ -35,6 +36,7 @@ defmodule Mipha.Accounts.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :login, :string, virtual: true
+    field :reset_password_token, :string, virtual: true
 
     belongs_to :location, Location
     belongs_to :company, Company
@@ -67,6 +69,7 @@ defmodule Mipha.Accounts.User do
       email_public
       wechat
       alipay
+      email_verified_at
     )a
 
     required_attrs = ~w(
@@ -145,7 +148,33 @@ defmodule Mipha.Accounts.User do
     |> put_pass_hash
   end
 
-  def validate_password_confirmation(%{changes: changes} = changeset) do
+  # def forgot_password_changeset(user, attrs) do
+  #   required_attrs = ~w(email)a
+
+  #   user
+  #   |> cast(attrs, required_attrs)
+  #   |> validate_required(required_attrs)
+  # end
+
+  @doc """
+  Reset Password when user forgot password.
+  """
+  @spec reset_password_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  def reset_password_changeset(user, attrs) do
+    required_attrs = ~w(
+      reset_password_token
+      password
+      password_confirmation
+    )a
+
+    user
+    |> cast(attrs, required_attrs)
+    |> validate_required(required_attrs)
+    |> validate_password_confirmation
+    |> put_pass_hash
+  end
+
+  defp validate_password_confirmation(%{changes: changes} = changeset) do
     if changes[:password] == changes[:password_confirmation],
       do: changeset,
       else: add_error(changeset, :password_confirmation, "must match password")

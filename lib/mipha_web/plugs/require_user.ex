@@ -15,8 +15,8 @@ defmodule MiphaWeb.Plug.RequireUser do
       conn
     else
       conn
-      |> put_flash(:error, "You must be login in.")
-      |> redirect(to: page_path(conn, :index))
+      |> put_flash(:danger, "You must be login in.")
+      |> redirect(to: auth_path(conn, :login))
       |> halt()
     end
   end

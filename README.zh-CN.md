@@ -29,4 +29,4 @@ mix phx.serve
 
 ## Features
 
-[Issues](https://github.com/zven21/mipha/milestone/1)
+[Milestone 1](https://github.com/zven21/mipha/milestone/1)

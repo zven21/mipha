@@ -1,40 +1,39 @@
 <h2>Listing Users</h2>
+<div class="card bg-light">
+  <span><%= link "New User", to: admin_user_path(@conn, :new), class: "btn btn-sm" %></span>
+  <div class="card-body">
+    <table class="table table-bordered table-hover table-sm text-center">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Avatar</th>
+          <th>Bio</th>
+          <th>Website</th>
+          <th>Github handle</th>
+          <th>Is admin</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for user <- @users do %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td><%= user.avatar %></td>
+          <td><%= user.bio %></td>
+          <td><%= user.website %></td>
+          <td><%= user.github_handle %></td>
+          <td><%= user.is_admin %></td>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Password hash</th>
-      <th>Avatar</th>
-      <th>Bio</th>
-      <th>Website</th>
-      <th>Github handle</th>
-      <th>Is admin</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= user.username %></td>
-      <td><%= user.email %></td>
-      <td><%= user.password_hash %></td>
-      <td><%= user.avatar %></td>
-      <td><%= user.bio %></td>
-      <td><%= user.website %></td>
-      <td><%= user.github_handle %></td>
-      <td><%= user.is_admin %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: admin_user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: admin_user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New User", to: admin_user_path(@conn, :new) %></span>
+          <td class="text-right">
+            <span><%= link "", to: admin_user_path(@conn, :show, user), class: "fa fa-arrows-alt" %></span>
+            <span><%= link "", to: admin_user_path(@conn, :edit, user), class: "fa fa-pencil" %></span>
+            <span><%= link "", to: admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "fa fa-trash" %></span>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

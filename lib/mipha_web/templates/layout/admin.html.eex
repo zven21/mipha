@@ -12,7 +12,9 @@
   </head>
 
   <body>
+    <%= render "_navbar.html", assigns %>
     <div class="container">
+      <%= render "_flash.html", assigns %>
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

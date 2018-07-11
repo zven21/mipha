@@ -1,27 +1,39 @@
-<%= if is_nil(@topic.closed_at) do %>
-<div id="reply" class="card">
-  <div class="card-header hide-ios">回帖</div>
-  <div class="card-body">
-    <form id="new_reply" action="/topics/<%= @topic.id %>/replies" accept-charset="UTF-8" method="post">
-      <%= render "_editor_toolbar.html", assigns %>
-      <input type="hidden" name="_method" value="post" />
-      <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>" />
-      <input type="hidden" name="reply[parent_id]" id="reply_parent_id" />
-      <input type="hidden" name="reply[topic_id]" id="reply_topic_id" value="<%= @topic.id %>" />
-      <div class="form-group">
-        <textarea class="topic-editor form-control" rows="4" tabindex="1" name="reply[content]" id="reply_content"></textarea>
+<%= if @current_user do %>
+  <%= if is_nil(@topic.closed_at) do %>
+    <div id="reply" class="card">
+      <div class="card-header hide-ios">回帖</div>
+      <div class="card-body">
+        <form id="new_reply" action="/topics/<%= @topic.id %>/replies" accept-charset="UTF-8" method="post">
+          <%= render "_editor_toolbar.html", assigns %>
+          <input type="hidden" name="_method" value="post" />
+          <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>" />
+          <input type="hidden" name="reply[parent_id]" id="reply_parent_id" />
+          <input type="hidden" name="reply[topic_id]" id="reply_topic_id" value="<%= @topic.id %>" />
+          <div class="form-group">
+            <textarea class="topic-editor form-control" rows="4" tabindex="1" name="reply[content]" id="reply_content"></textarea>
+          </div>
+          <div class="submit-buttons">
+            <button type="submit" id="reply-button" class="btn btn-primary">提交回复</button>
+            <span class="help-inline" style="padding-left: 5px;" title="或者 Ctrl + Enter">
+              <kbd>Command</kbd> +
+              <kbd>Enter</kbd>
+            </span>
+            <div class="pull-right">
+              <a href="/markdown" target="_blank">排版说明</a>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="submit-buttons">
-        <button type="submit" id="reply-button" class="btn btn-primary">提交回复</button>
-        <span class="help-inline" style="padding-left: 5px;" title="或者 Ctrl + Enter">
-          <kbd>Command</kbd> +
-          <kbd>Enter</kbd>
-        </span>
-        <div class="pull-right">
-          <a href="/markdown" target="_blank">排版说明</a>
+    </div>
+  <% end %>
+<% else %>
+  <div class="card">
+    <div class="card-body">
+      <div id="reply" class="form box">
+        <div style="padding:20px;" data-turbolinks-action="replace">
+          需要 <a class="btn btn-primary" href="/login">登录</a> 后方可回复, 如果你还没有账号请点击这里 <a class="btn btn-danger" href="/join">注册</a>。
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
 <% end %>

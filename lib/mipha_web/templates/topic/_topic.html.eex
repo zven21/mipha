@@ -29,6 +29,6 @@
     </div>
   </div>
   <div class="count media-right">
-    <a class="state-false" href="/topics/<%= @item.id %>#reply-343677"><%= @item.reply_count %></a>
+    <a class="state-false" href="/topics/<%= @item.id %>"><%= @item.reply_count %></a>
   </div>
 </div>

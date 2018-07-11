@@ -3,6 +3,8 @@ defmodule MiphaWeb.ReplyController do
 
   alias Mipha.{Stars, Replies, Topics}
 
+  plug MiphaWeb.Plug.RequireUser when action in ~w(create edit update delete star unstar)a
+
   def action(conn, _) do
     topic = Topics.get_topic!(conn.params["topic_id"])
     apply(__MODULE__, action_name(conn), [conn, conn.params, topic])

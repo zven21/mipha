@@ -32,15 +32,15 @@
   <% else %>
     <%= link "加精", to: topic_path(@conn, :excellent, @topic), method: :post, title: "设为精华帖", class: "fa fa-diamond" %>
   <% end %>
-
-  <span class="pull-right opts">
-    <%= if @topic.closed_at do %>
-      <%= link "", to: topic_path(@conn, :open, @topic), method: :post, title: "重新开启话题", class: "fa fa-undo" %>
-    <% else %>
-      <%= link "", to: topic_path(@conn, :close, @topic), method: :post, title: "关闭讨论／问题已解决", class: "fa fa-check" %>
-    <% end %>
-
-    <%= link "", to: topic_path(@conn, :edit, @topic), title: "修改本帖", class: "fa fa-pencil" %>
-    <%= link "", to: topic_path(@conn, :delete, @topic), title: "删除本帖", class: "fa fa-trash", method: :delete, data: [confirm: "确定要删除吗？"] %>
-  </span>
+  <%= if @current_user && @current_user.id == @topic.user_id do %>
+    <span class="pull-right opts">
+      <%= if @topic.closed_at do %>
+        <%= link "", to: topic_path(@conn, :open, @topic), method: :post, title: "重新开启话题", class: "fa fa-undo" %>
+      <% else %>
+        <%= link "", to: topic_path(@conn, :close, @topic), method: :post, title: "关闭讨论／问题已解决", class: "fa fa-check" %>
+      <% end %>
+      <%= link "", to: topic_path(@conn, :edit, @topic), title: "修改本帖", class: "fa fa-pencil" %>
+      <%= link "", to: topic_path(@conn, :delete, @topic), title: "删除本帖", class: "fa fa-trash", method: :delete, data: [confirm: "确定要删除吗？"] %>
+    </span>
+  <% end %>
 </div>

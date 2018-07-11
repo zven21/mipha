@@ -1,3 +1,4 @@
+<%= if is_nil(@topic.closed_at) do %>
 <div id="reply" class="card">
   <div class="card-header hide-ios">回帖</div>
   <div class="card-body">
@@ -23,3 +24,4 @@
     </form>
   </div>
 </div>
+<% end %>

@@ -1,5 +1,6 @@
 defmodule MiphaWeb.SettingController do
   use MiphaWeb, :controller
+
   alias Mipha.Accounts
   alias Mipha.Accounts.User
   alias Mipha.Qiniu
@@ -32,11 +33,13 @@ defmodule MiphaWeb.SettingController do
       "email_public" => user_params["email_public"]
     }
 
-    if user_params["avatar"] do
-      avatar_path = user_params["avatar"].path
-      {:ok, key} = upload(conn, avatar_path)
-      attrs = Map.merge(attrs, %{"avatar" => key})
-    end
+    attrs =
+      with {:ok, avatar} <- parse(user_params["avatar"]),
+           {:ok, avatar_path} = avatar.path,
+           {:ok, key} = upload(conn, avatar_path)
+      do
+        Map.merge(attrs, %{"avatar" => key})
+      end
 
     case Accounts.update_user(current_user(conn), attrs) do
       {:ok, user} ->
@@ -87,25 +90,29 @@ defmodule MiphaWeb.SettingController do
   end
 
   defp update_reward(conn, user_params) do
-    attrs = %{}
+    attrs =
+      with {:ok, wechat} <- parse(user_params["wechat"]),
+           {:ok, wechat_path} <- parse(wechat.path),
+           {:ok, key} = upload(conn, wechat_path)
+      do
+        Map.merge(%{}, %{"wechat" => key})
+      end
 
-    if user_params["wechat"] do
-      wechat_path = user_params["wechat"].path
-      {:ok, key} = upload(conn, wechat_path)
-      attrs = Map.merge(attrs, %{"wechat" => key})
-    end
-
-    if user_params["alipay"] do
-      alipay_path = user_params["alipay"].path
-      {:ok, key} = upload(conn, alipay_path)
-      attrs = Map.merge(attrs, %{"alipay" => key})
-    end
+    attrs =
+      with {:ok, alipay} <- parse(user_params["alipay"]),
+           {:ok, alipay_path} <- parse(alipay.path),
+           {:ok, key} = upload(conn, alipay_path)
+      do
+        Map.merge(attrs, %{"alipay" => key})
+      end
 
     case Accounts.update_user(current_user(conn), attrs) do
       {:ok, user} ->
+        changeset = Accounts.change_user(user)
+
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> render(:show, changeset: Accounts.change_user(user))
+        |> render(:show, changeset: changeset)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
@@ -125,4 +132,7 @@ defmodule MiphaWeb.SettingController do
         |> render(:show, changeset: Accounts.change_user(current_user(conn)))
     end
   end
+
+  defp parse(nil), do: {:error, "nil"}
+  defp parse(valid), do: {:ok, valid}
 end

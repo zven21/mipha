@@ -150,7 +150,7 @@ defmodule MiphaWeb.UserController do
       token = Token.generate_token(user)
 
       # send email
-      Email.forgot_password(user, token) |> Mailer.deliver_now
+      Email.forgot_password(user, token) |> Mailer.deliver_later
 
       conn
       |> put_flash(:success, token)
@@ -231,5 +231,4 @@ defmodule MiphaWeb.UserController do
 
   defp parse(nil), do: {:error, "nil"}
   defp parse(valid), do: {:ok, valid}
-  defp parse(_), do: {:error, "_"}
 end

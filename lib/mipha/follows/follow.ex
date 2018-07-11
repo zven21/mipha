@@ -5,7 +5,6 @@ defmodule Mipha.Follows.Follow do
   import Ecto.{Changeset, Query}
 
   alias Mipha.{
-    Repo,
     Accounts.User,
     Follows.Follow
   }

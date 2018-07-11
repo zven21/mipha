@@ -5,7 +5,6 @@ defmodule Mipha.Collections.Collection do
   import Ecto.{Changeset, Query}
 
   alias Mipha.{
-    Repo,
     Topics.Topic,
     Accounts.User,
     Collections.Collection

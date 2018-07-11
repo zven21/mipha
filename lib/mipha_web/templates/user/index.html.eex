@@ -2,7 +2,7 @@
   <div id="hot_users" class="user-list card">
     <div class="card-header">
       <strong>TOP 100 活跃会员</strong>
-      <div class="pull-right">目前已经有 <%= @user_count %> 位会员加入了 Ruby China</div>
+      <div class="pull-right">目前已经有 <%= @user_count %> 位会员加入了 Elixir China</div>
     </div>
     <div class="card-body">
       <div class="row">
@@ -11,7 +11,7 @@
             <div class="media user-card">
               <div class="media-left mr-2">
                 <%= link to: user_path(@conn, :show, user.username), title: user.username do %>
-                  <img class="media-object avatar-48" src="<%= user.avatar %>" />
+                  <img class="media-object avatar-48" src="<%= qn_url(user.avatar) %>" />
                 <% end %>
               </div>
               <div class="media-body">

@@ -7,7 +7,7 @@
         <%= for item <- @team.users do %>
           <tr class="team-user clearfix">
             <td class="avatar">
-              <img class="media-object avatar-32" src="<%= item.avatar %>">
+              <img class="media-object avatar-32" src="<%= qn_url(item.avatar) %>">
             </td>
             <td class="name">
               <%= link item.username, to: user_path(@conn, :show, item.username), class: "user-name" %>

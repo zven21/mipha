@@ -20,12 +20,12 @@
       <div class="card-body">
         <%= for item <- @team.users do %>
           <%= link to: user_path(@conn, :show, item.username), title: item.username do %>
-            <img class="media-object avatar-32" src="<%= item.avatar %>">
+            <img class="media-object avatar-32" src="<%= qn_url(item.avatar) %>">
           <% end %>
         <% end %>
       </div>
       <div class="card-footer">
-        <a href="/rails-engine/people">所有成员...</a>
+        <%= link "所有成员...", to: team_path(@conn, :people, @team) %>
       </div>
     </div>
 

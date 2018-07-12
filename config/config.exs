@@ -24,7 +24,7 @@ config :logger, :console,
 
 config :ueberauth, Ueberauth,
   providers: [
-    github: {Ueberauth.Strategy.Github, [default_scope: "", allow_private_emails: true]},
+    github: {Ueberauth.Strategy.Github, [default_scope: "user:email", allow_private_emails: true]},
     identity: {Ueberauth.Strategy.Identity, [callback_methods: ["POST"]]},
   ]
 

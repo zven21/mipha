@@ -150,9 +150,7 @@ defmodule MiphaWeb.UserController do
       token = Token.generate_token(user)
 
       # Send email
-      [user, token]
-      |> Email.forgot_password
-      |> Mailer.deliver_later
+      |> Email.forgot_password(user, token) |> Mailer.deliver_later
 
       conn
       |> put_flash(:success, token)

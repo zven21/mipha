@@ -230,10 +230,37 @@ defmodule Mipha.Accounts do
     update_user(user, attrs)
   end
 
+  @doc """
+  找回密码-重置密码
+  """
   def update_reset_password(user, attrs) do
     user
     |> User.reset_password_changeset(attrs)
     |> Repo.update()
+  end
+
+  @doc """
+  Github 登录应对。
+  """
+  def login_or_register_from_github(%{nickname: nickname, name: nil, email: _email} = user) do
+    login_or_register_from_github(%{user | name: nickname})
+  end
+
+  def login_or_register_from_github(%{nickname: nickname, name: _name, email: nil} = user) do
+    login_or_register_from_github(%{user | email: nickname <> "@users.noreply.github.com"})
+  end
+
+  def login_or_register_from_github(%{nickname: nickname, name: name, email: email}) do
+    case get_user_by_username(nickname) do
+      nil ->
+        create_user(%{
+          email: email,
+          username: nickname
+        })
+
+      user ->
+        {:ok, user}
+    end
   end
 
   alias Mipha.Accounts.Location

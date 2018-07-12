@@ -44,9 +44,23 @@ defmodule MiphaWeb.AuthController do
             |> put_flash(:danger, reason)
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
         end
-      _ ->
-        IO.puts("ignore")
-        # ignore
+      :github ->
+        with %{name: name, nickname: nickname, email: email} <- auth.info do
+          case Accounts.login_or_register_from_github(%{
+                  name: name,
+                  nickname: nickname,
+                  email: email
+                }) do
+            {:ok, user} ->
+              conn
+              |> ok_login(user)
+
+            {:error, reason} ->
+              conn
+              |> put_flash(:error, reason)
+              |> redirect(to: "/")
+          end
+        end
     end
   end
 

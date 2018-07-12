@@ -28,10 +28,14 @@ defmodule MiphaWeb.AuthController do
     |> redirect(to: "/")
   end
 
-  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, %{"user" => user_params}) do
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
     case auth.provider do
       :identity ->
-        case Accounts.authenticate(%{login: user_params["login"], password: user_params["password"]}) do
+        attrs = %{
+          login: params["user"]["login"],
+          password: params["user"]["password"]
+        }
+        case Accounts.authenticate(attrs) do
           {:ok, user} ->
             conn |> ok_login(user)
           {:error, %Ecto.Changeset{} = changeset} ->

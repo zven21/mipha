@@ -22,6 +22,16 @@ config :mipha, MiphaWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :mipha, Mipha.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  port: 465,
+  server: "smtp.gmail.com",
+  username: System.get_env("GMAIL_USERNAME"),
+  password: System.get_env("GMAIL_PASSWORD"),
+  tls: :never, # can be `:always` or `:never` or `:if_available`
+  ssl: true,
+  retries: 3
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

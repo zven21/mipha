@@ -42,15 +42,7 @@ config :qiniu, Qiniu,
   secret_key: System.get_env("QINIU_SECRET_KEY")
 
 config :mipha, Mipha.Mailer,
-  # adapter: Bamboo.LocalAdapter
-  adapter: Bamboo.SMTPAdapter,
-  port: 465,
-  server: "smtp.gmail.com",
-  username: System.get_env("GMAIL_USERNAME"),
-  password: System.get_env("GMAIL_PASSWORD"),
-  tls: :never, # can be `:always` or `:never` or `:if_available`
-  ssl: true,
-  retries: 3
+  adapter: Bamboo.LocalAdapter
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

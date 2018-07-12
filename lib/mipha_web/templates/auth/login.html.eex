@@ -40,8 +40,7 @@
     <div class="card">
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><a href="/join">注册</a></li>
-        <li class="list-group-item"><a href="/account/password/new">忘记了密码?</a></li>
-        <li class="list-group-item"><a href="/account/unlock/new">未收到解锁邮件?</a></li>
+        <li class="list-group-item"><a href="/forgot_password">忘记了密码?</a></li>
       </ul>
     </div>
   </div>

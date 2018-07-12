@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Mipha Admin!</title>
+    <title>Elixir Admin Dashboard!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/admin.css") %>">
   </head>
 

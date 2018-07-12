@@ -77,7 +77,7 @@ for parent_node <- ~w(ruby elixir) do
   end
 end
 
-for _ <- 1..50 do
+for _ <- 1..10 do
   sample_user = Repo.all(User) |> Enum.random
   sample_node = Repo.all(Node.is_child) |> Enum.random
 

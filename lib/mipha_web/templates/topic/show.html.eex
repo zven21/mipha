@@ -49,7 +49,7 @@
 
     <%= render "_replies.html", assigns %>
     <%= render "_handle_reply.html", assigns %>
-    <%= render "_relation_topic.html", assigns %>
+    <%#= render "_relation_topic.html", assigns %>
   </div>
 
   <div class="sidebar hidden-mobile col-md-3">

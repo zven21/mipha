@@ -1,4 +1,6 @@
 defmodule MiphaWeb.Email do
+  @moduledoc false
+
   use Bamboo.Phoenix, view: MiphaWeb.EmailView
 
   def forgot_password(user, token) do

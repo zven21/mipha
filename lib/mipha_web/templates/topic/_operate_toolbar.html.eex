@@ -21,17 +21,30 @@
     <% end %>
   <% end %>
 
-  <%= if @topic.suggested_at do %>
-    <%= link "取消置顶", to: topic_path(@conn, :unsuggest, @topic), method: :post, class: "fa fa-angle-double-down" %>
-  <% else %>
-    <%= link "置顶", to: topic_path(@conn, :suggest, @topic), method: :post, class: "fa fa-angle-double-up" %>
+  <%# 只有管理员可以设置「置顶」或「加精」 %>
+  <%= if @current_user && @current_user.is_admin do %>
+    <%= if @topic.suggested_at do %>
+      <%= link to: topic_path(@conn, :unsuggest, @topic), method: :post do %>
+        <i class="fa fa-angle-double-down"></i> 取消置顶
+      <% end %>
+    <% else %>
+      <%= link to: topic_path(@conn, :suggest, @topic), method: :post do %>
+        <i class="fa fa-angle-double-up"></i> 置顶
+      <% end %>
+    <% end %>
+
+    <%= if @topic.type == "featured" do %>
+      <%= link to: topic_path(@conn, :normal, @topic), method: :post, title: "取消精华帖" do %>
+        <i class="fa fa-diamond"></i> 取消加精
+      <% end %>
+    <% else %>
+      <%= link to: topic_path(@conn, :excellent, @topic), method: :post, title: "设为精华帖" do %>
+        <i class="fa fa-diamond"></i> 加精
+      <% end %>
+    <% end %>
   <% end %>
 
-  <%= if @topic.type == "featured" do %>
-    <%= link "取消加精", to: topic_path(@conn, :normal, @topic), method: :post, title: "取消精华帖" %>
-  <% else %>
-    <%= link "加精", to: topic_path(@conn, :excellent, @topic), method: :post, title: "设为精华帖", class: "fa fa-diamond" %>
-  <% end %>
+  <%# FIXME 后续考虑权限控制 %>
   <%= if @current_user && @current_user.id == @topic.user_id do %>
     <span class="pull-right opts">
       <%= if @topic.closed_at do %>

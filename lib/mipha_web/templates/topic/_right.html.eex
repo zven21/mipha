@@ -5,65 +5,6 @@
 </div>
 
 <div class="card">
-  <div class="card-header">小帖士</div>
-  <div class="card-body">
-    如果你想寻找 Ruby 的三方库，请上 rubygems.org 或在 github.com 上面寻找。
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-header">社区规则</div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <i class="fa fa-archive"></i>
-      <a href="https://ruby-china.org/topics/24325">提问的智慧</a>
-    </li>
-    <li class="list-group-item">
-      <i class="fa fa-heart"></i>
-      <a href="http://blog.steveklabnik.com/posts/2011-08-19-matz-is-nice-so-we-are-nice" target="_blank">Matz is Nice So We Are Nice</a>
-    </li>
-  </ul>
-</div>
-
-<div class="card">
-  <div class="card-header">推荐 Ruby 资源</div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <i class="fa fa-cloud"></i>
-      <a href="/wiki/ruby-mirror">Ruby 镜像</a>
-    </li>
-    <li class="list-group-item">
-      <i class="fa fa-diamond"></i>
-      <a href="https://gems.ruby-china.com" target="_blank">RubyGems 镜像</a>
-    </li>
-    <li class="list-group-item">
-      <i class="fa fa-youtube-play"></i>
-      <a href="http://railscasts.com" target="_blank" rel="nofollow">Rails 视频教程</a>
-    </li>
-    <li class="list-group-item">
-      <i class="fa fa-archive"></i>
-      <a href="https://rails.guide/book/">Rails Guides 中文版</a>
-    </li>
-    <li class="list-group-item">
-      <i class="fa fa-archive"></i>
-      <a href="https://railstutorial-china.org">Ruby on Rails 教程</a>
-    </li>
-  </ul>
-</div>
-
-<!--<div class="card">
-  <div class="card-body" style="padding:0;">
-    <a href="//ruby-china.org/topics/33466" title="RubyConf China 2017"><img src="//l.ruby-china.org/photo/2017/86a069c9-4259-411a-b5ee-f2405b1f19a0.png" style="width: 100%;" /></a>
-  </div>
-</div>-->
-
-<!--div class="card">
-  <div class="card-body" style="padding:0;">
-    <a href="https://www.upyun.com/products/prismcdn?utm_source=ruby&utm_medium=banner&utm_campaign=prismcdn&utm_content=0510" title="UPYun PrismCDN"><img src="//l.ruby-china.org/photo/2018/2eb3c0e4-8ddc-43c9-9180-72386d9c349c.png" style="width: 100%;" /></a>
-  </div>
-</div-->
-
-<div class="card">
   <div class="card-header">友情社区</div>
   <ul class="list-group list-group-flush" style="text-align: center;">
     <li class="list-group-item">

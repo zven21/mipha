@@ -1,0 +1,33 @@
+<h2>Show Notification</h2>
+
+<ul>
+
+  <li>
+    <strong>Action:</strong>
+    <%= @notification.action %>
+  </li>
+
+  <li>
+    <strong>Actor:</strong>
+    <%= @notification.actor_id %>
+  </li>
+
+  <li>
+    <strong>Reply:</strong>
+    <%= @notification.reply_id %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @notification.user_id %>
+  </li>
+
+  <li>
+    <strong>Topic:</strong>
+    <%= @notification.topic_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: admin_notification_path(@conn, :edit, @notification) %></span>
+<span><%= link "Back", to: admin_notification_path(@conn, :index) %></span>

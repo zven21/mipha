@@ -107,6 +107,7 @@ defmodule MiphaWeb.Router do
     resources "/repies", ReplyController
     resources "/companies", CompanyController
     resources "/teams", TeamController
+    resources "/notifications", NotificationController
   end
 
   # Other scopes may use custom stacks.

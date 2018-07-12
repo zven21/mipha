@@ -14,6 +14,7 @@ defmodule Mipha.Accounts.User do
     Collections.Collection
   }
 
+  alias Mipha.Notifications.{Notification, UserNotification}
   alias Mipha.Accounts.{User, Location, Company, Team, UserTeam}
 
   @type t :: %User{}
@@ -49,6 +50,7 @@ defmodule Mipha.Accounts.User do
     has_many :collections, Collection, on_delete: :delete_all
 
     many_to_many :teams, Team, join_through: UserTeam
+    many_to_many :notifications, Notification, join_through: UserNotification
 
     timestamps()
   end

@@ -117,4 +117,9 @@ defmodule MiphaWeb.Router do
     post "/topics/preview", TopicController, :preview
     post "/qiniu", CallbackController, :qiniu
   end
+
+  if Mix.env == :dev do
+    # If using Phoenix
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
 end

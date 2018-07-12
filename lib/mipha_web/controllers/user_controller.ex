@@ -147,13 +147,14 @@ defmodule MiphaWeb.UserController do
     with {:ok, email} <- parse(user_params["email"]),
          {:ok, user} <- parse(Accounts.get_user_by_email(email))
     do
-      token = Token.generate_token(user)
-
       # Send email
-      Email.forgot_password(user, token) |> Mailer.deliver_later
+      user
+      |> Token.generate_token()
+      |> Email.forgot_password(user)
+      |> Mailer.deliver_later()
 
       conn
-      |> put_flash(:success, token)
+      |> put_flash(:success, "稍后，您将收到重置密码的电子邮件。")
       |> redirect(to: "/")
     else
       _ ->
@@ -162,9 +163,6 @@ defmodule MiphaWeb.UserController do
         |> redirect(to: "/forgot_password")
     end
   end
-
-  # def sent_verify_email(conn) do
-  # end
 
   def forgot_password(conn, _) do
     render conn, :forgot_password

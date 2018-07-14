@@ -242,20 +242,21 @@ defmodule Mipha.Accounts do
   @doc """
   Github 登录应对。
   """
-  def login_or_register_from_github(%{nickname: nickname, name: nil, email: _email} = user) do
+  def login_or_register_from_github(%{nickname: nickname, name: nil, email: _email, avatar_url: _} = user) do
     login_or_register_from_github(%{user | name: nickname})
   end
 
-  def login_or_register_from_github(%{nickname: nickname, name: _name, email: nil} = user) do
+  def login_or_register_from_github(%{nickname: nickname, name: _name, email: nil, avatar_url: _} = user) do
     login_or_register_from_github(%{user | email: nickname <> "@users.noreply.github.com"})
   end
 
-  def login_or_register_from_github(%{nickname: nickname, name: name, email: email}) do
+  def login_or_register_from_github(%{nickname: nickname, name: name, email: email, avatar_url: avatar_url}) do
     case get_user_by_username(nickname) do
       nil ->
         create_user(%{
           email: email,
-          username: nickname
+          username: nickname,
+          avatar: avatar_url
         })
 
       user ->

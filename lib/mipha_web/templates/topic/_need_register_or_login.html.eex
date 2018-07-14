@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="card-body">
+    <div id="reply" class="form box">
+      <div style="padding:20px;" data-turbolinks-action="replace">
+        需要 <a class="btn btn-primary btn-sm" href="/login">登录</a> 后方可回复, 如果你还没有账号请点击这里 <a class="btn btn-danger btn-sm" href="/join">注册</a>。
+      </div>
+    </div>
+  </div>
+</div>

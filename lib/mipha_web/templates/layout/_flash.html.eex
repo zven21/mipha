@@ -1,5 +1,5 @@
-<div class="container">
-  <%= for item <- ~w(danger success info)a do %>
+<div class="container" style="margin-top: 10px;">
+  <%= for item <- ~w(danger success warning info)a do %>
     <%= if get_flash(@conn, item) do %>
     <div class="alert-<%= item %> alert text-center alert-dismissible fade show" role="alert">
       <%= get_flash(@conn, item) %>

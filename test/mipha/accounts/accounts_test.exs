@@ -125,7 +125,7 @@ defmodule Mipha.AccountsTest do
 
     test "get_location!/1 returns the location with given id" do
       location = location_fixture()
-      assert Accounts.get_location!(location.id) == location
+      assert Accounts.get_location!(location.id) == (location |> Repo.preload([:users]))
     end
 
     test "create_location/1 with valid data creates a location" do
@@ -147,7 +147,7 @@ defmodule Mipha.AccountsTest do
     test "update_location/2 with invalid data returns error changeset" do
       location = location_fixture()
       assert {:error, %Ecto.Changeset{}} = Accounts.update_location(location, @invalid_attrs)
-      assert location == Accounts.get_location!(location.id)
+      assert (location |> Repo.preload([:users])) == Accounts.get_location!(location.id)
     end
 
     test "delete_location/1 deletes the location" do

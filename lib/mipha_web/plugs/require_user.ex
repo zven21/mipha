@@ -15,7 +15,7 @@ defmodule MiphaWeb.Plug.RequireUser do
       conn
     else
       conn
-      |> put_flash(:danger, "You must be login in.")
+      |> put_flash(:danger, "继续操作前请注册或者登录。")
       |> redirect(to: auth_path(conn, :login))
       |> halt()
     end

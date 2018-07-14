@@ -116,7 +116,7 @@ defmodule MiphaWeb.TopicController do
 
   def create(conn, %{"topic" => topic_params}) do
     case Topics.insert_topic(current_user(conn), topic_params) do
-      {:ok, topic} ->
+      {:ok, %{topic: topic}} ->
         conn
         |> put_flash(:success, "Topic created successfully.")
         |> redirect(to: topic_path(conn, :show, topic))
@@ -143,12 +143,22 @@ defmodule MiphaWeb.TopicController do
 
   def show(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
-    render conn, :show, topic: topic
+
+    # 用户访问，自增+1
+    if is_nil(get_session(conn, "visited_topic_#{topic.id}")) do
+      # 暂无实时展示 visit_count
+      Topic.counter(topic, :inc, :visit_count)
+      conn
+      |> put_session("visited_topic_#{topic.id}", topic.id)
+      |> render(:show, topic: topic)
+    else
+      render(conn, :show, topic: topic)
+    end
   end
 
   def delete(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
-    {:ok, _user} = Topics.delete_topic(topic)
+    {:ok, _topic} = Topics.delete_topic(topic)
 
     conn
     |> put_flash(:info, "Topic deleted successfully.")

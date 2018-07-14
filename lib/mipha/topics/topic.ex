@@ -126,6 +126,27 @@ defmodule Mipha.Topics.Topic do
     |> preload_node
   end
 
+  @doc """
+  Topic 自增/自减 计数器
+  """
+  def counter(%Topic{id: topic_id}, :inc, :visit_count) do
+    Topic
+    |> where([..., t], t.id == ^topic_id)
+    |> Repo.update_all(inc: [visit_count: 1])
+  end
+
+  def counter(%Topic{id: topic_id}, :inc, :reply_count) do
+    Topic
+    |> where([..., t], t.id == ^topic_id)
+    |> Repo.update_all(inc: [reply_count: 1])
+  end
+
+  def counter(%Topic{id: topic_id}, :dec, :reply_count) do
+    Topic
+    |> where([..., t], t.id == ^topic_id)
+    |> Repo.update_all(inc: [reply_count: -1])
+  end
+
   @doc false
   def changeset(topic, attrs) do
     permitted_attrs = ~w(

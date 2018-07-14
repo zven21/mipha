@@ -292,7 +292,11 @@ defmodule Mipha.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_location!(id), do: Repo.get!(Location, id)
+  def get_location!(id) do
+    Location
+    |> Repo.get!(id)
+    |> Repo.preload([:users])
+  end
 
   @doc """
   Creates a location.

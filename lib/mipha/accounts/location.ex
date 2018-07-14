@@ -1,5 +1,6 @@
 defmodule Mipha.Accounts.Location do
   @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

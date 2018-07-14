@@ -1,1 +1,17 @@
-<h1><%= @location.name %></h1>
+<div id="hot_users" class="card user-list">
+  <div class="card-header"><%= @location.name %>的伙伴</div>
+  <div class="card-body row">
+    <%= for item <- @location.users do %>
+      <div class="user col-sm-1">
+        <div class="avatar">
+          <%= link to: user_path(@conn, :show, item.username), title: item.username do %>
+            <img class="media-object avatar-48" src="<%= qn_url(item.avatar) %>">
+          <% end %>
+        </div>
+        <div class="name">
+          <%= link item.username, to: user_path(@conn, :show, item.username), title: item.username %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

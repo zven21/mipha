@@ -13,6 +13,17 @@ defmodule Mipha.Notifications.Notification do
 
   @type t :: %Notification{}
 
+  # 需要支持如下类型
+  # 话题被评论，话题作者收到通知；
+  # 话题被点赞，话题作者收到通知；
+  # 评论被点赞，评论作者收到通知；
+  # 评论被评论，评论作者收到通知；
+  # 话题中被@，被@的人收到通知；
+  # 评论中被@，被@的人收到通知；
+  # 关注的用户发生的动态
+  #   发布话题
+  #   评论
+  #   关注用户
   defenum NotificationAction, :notification_action, [
     :added,
     :updated,

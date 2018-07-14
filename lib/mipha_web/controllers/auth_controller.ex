@@ -49,12 +49,11 @@ defmodule MiphaWeb.AuthController do
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
         end
       :github ->
-        with %{name: name, nickname: nickname, email: email, avatar_url: avatar_url} <- auth.info do
+        with %{name: name, nickname: nickname, email: email} <- auth.info do
           case Accounts.login_or_register_from_github(%{
                   name: name,
                   nickname: nickname,
-                  email: email,
-                  avatar_url: avatar_url
+                  email: email
                 }) do
             {:ok, user} ->
               conn

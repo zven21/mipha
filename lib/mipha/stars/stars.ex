@@ -18,7 +18,6 @@ defmodule Mipha.Stars do
   alias Topics.Topic
   alias Replies.Reply
   alias Accounts.User
-  alias Notifications.Notification
 
   @type starrable :: Topic.t() | Reply.t()
 

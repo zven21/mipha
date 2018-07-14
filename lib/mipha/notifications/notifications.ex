@@ -207,8 +207,8 @@ defmodule Mipha.Notifications do
   @spec unread_notification_count(User.t()) :: non_neg_integer()
   def unread_notification_count(user) do
     user
-    |> UserNotification.by_user
-    |> UserNotification.unread
+    |> UserNotification.by_user()
+    |> UserNotification.unread()
     |> Repo.aggregate(:count, :id)
   end
 
@@ -330,6 +330,7 @@ defmodule Mipha.Notifications do
   def cond_user_notifications(%User{} = user) do
     user
     |> UserNotification.by_user()
+    |> UserNotification.unread()
     |> preload([:user, :notification])
     # |> Enum.group_by(&(Timex.format(&1.updated_at, "{YYYY}-{0M}-{D}")))
   end

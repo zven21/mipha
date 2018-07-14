@@ -1,9 +1,7 @@
 alias Mipha.{
   Repo,
   Accounts,
-  Topics,
-  Replies.Reply,
-  Collections.Collection
+  Topics
 }
 
 alias Accounts.{User, Location, Company, Team}
@@ -52,7 +50,7 @@ bencode = User.register_changeset(%User{}, %{
 }) |> Repo.insert!
 
 # Gen teams helijia_web
-helijia_web = Repo.insert! %Team{
+Repo.insert! %Team{
   name: "helijia-web",
   summary: Faker.Lorem.sentence(10),
   owner: zven,
@@ -61,13 +59,13 @@ helijia_web = Repo.insert! %Team{
   users: [qhwa, zven, bencode]
 }
 
-for parent_node <- ~w(ruby elixir) do
+for parent_node <- ~w(ruby elixir erlang) do
   node = Repo.insert! %Node{
     name: parent_node,
     summary: Faker.Lorem.sentence(10),
     position: 1..10 |> Enum.random
   }
-  for idx <- 1..10 do
+  for idx <- 1..5 do
     Repo.insert! %Node{
       name: "#{node.name}-node#{idx}",
       summary: Faker.Lorem.sentence(10),
@@ -87,17 +85,6 @@ for _ <- 1..10 do
     last_reply_user: sample_user,
     node: sample_node,
     type: Enum.random(~w(normal featured educational job)),
-    reply_count: 1..50 |> Enum.random,
-    visit_count: 1..50 |> Enum.random,
-    user: Repo.all(User) |> Enum.random,
-    replies: [
-      %Reply{
-        content: Faker.Lorem.paragraph(3),
-        user: Repo.all(User) |> Enum.random
-      }
-    ],
-    collections: [
-      %Collection{user: Repo.all(User) |> Enum.random},
-    ]
+    user: Repo.all(User) |> Enum.random
   }
 end

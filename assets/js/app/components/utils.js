@@ -1,5 +1,5 @@
-export default {
-  navActive() {
+export default class Utils {
+  static navActive() {
     const url =
       window.location.protocol +
       '//' +

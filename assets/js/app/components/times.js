@@ -112,14 +112,10 @@ moment.locale('zh-cn', {
   }
 })
 
-const humanize = () => {
-  $('addr.timeago').html((_, html) => {
-    return moment.utc(html.trim(), moment.ISO_8601).fromNow()
-  })
+export default class Times {
+  static humanize() {
+    $('addr.timeago').html((_, html) => {
+      return moment.utc(html.trim(), moment.ISO_8601).fromNow()
+    })
+  }
 }
-
-const Times = {
-  humanize
-}
-
-export default Times

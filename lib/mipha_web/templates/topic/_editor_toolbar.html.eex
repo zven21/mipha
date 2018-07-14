@@ -7,29 +7,24 @@
     </a>
   </div>
   <div class="opts">
-    <a href="#" class="nav-link pickup-emoji">
+    <%# <a href="#" class="nav-link pickup-emoji">
       <i class="fa fa-smile-o"></i>
-    </a>
+    </a> %>
     <span class="dropdown" id="dropdown-insert-codes">
       <a href="#editor-toolbar-insert-code" class="nav-link dropdown-toggle" data-toggle="dropdown" title="插入代码">
         <i class="fa fa-code"></i>
       </a>
       <div class="dropdown-menu insert-codes" aria-labelledby="dropdown-insert-codes">
         <a class="dropdown-item" data-lang="ruby" href="#">Ruby</a>
+        <a class="dropdown-item" data-lang="elixir" href="#">Elixir / Erlang</a>
         <a class="dropdown-item" data-lang="erb" href="#">HTML / ERB</a>
         <a class="dropdown-item" data-lang="scss" href="#">CSS / SCSS</a>
-        <a class="dropdown-item" data-lang="js" href="#">JavaScript</a>
-        <a class="dropdown-item" data-lang="yml" href="#">YAML</i>
-        </a>
-        <a class="dropdown-item" data-lang="coffee" href="#">CoffeeScript</a>
-        <a class="dropdown-item" data-lang="conf" href="#">Nginx / Redis
-          <i>(.conf)</i>
-        </a>
-        <a class="dropdown-item" data-lang="python" href="#">Python</a>
-        <a class="dropdown-item" data-lang="php" href="#">PHP</a>
-        <a class="dropdown-item" data-lang="java" href="#">Java</a>
-        <a class="dropdown-item" data-lang="erlang" href="#">Erlang</a>
         <a class="dropdown-item" data-lang="shell" href="#">Shell / Bash</a>
+        <a class="dropdown-item" data-lang="js" href="#">JavaScript</a>
+        <a class="dropdown-item" data-lang="yml" href="#">YAML</a>
+        <a class="dropdown-item" data-lang="python" href="#">Python</a>
+        <a class="dropdown-item" data-lang="java" href="#">Java</a>
+        <a class="dropdown-item" data-lang="php" href="#">PHP</a>
       </div>
     </span>
     <a id="editor-upload-image" title="上传图片" class="nav-link" href="#">

@@ -28,8 +28,10 @@
   },
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "dropzone": "^5.5.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "jquery.caret": "^0.3.1",
     "moment": "^2.22.2",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",

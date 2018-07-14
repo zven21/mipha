@@ -4,13 +4,19 @@ alias Mipha.{
   Repo,
   Accounts,
   Topics,
-  Replies.Reply,
-  Stars.Star,
-  Collections.Collection,
-  Follows.Follow,
-  Markdown
+  Replies,
+  Stars,
+  Collections,
+  Follows,
+  Markdown,
+  Mailer,
+  Notifications
 }
 
 alias Accounts.{User, Location, Company, Team}
 alias Topics.{Node, Topic}
-
+alias Replies.Reply
+alias Stars.Star
+alias Collections.Collection
+alias Follows.Follow
+alias Notifications.{Notification, UserNotification}

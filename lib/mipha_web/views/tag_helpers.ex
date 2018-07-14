@@ -48,4 +48,13 @@ defmodule MiphaWeb.TagHelpers do
   def qn_url(string) do
     Qiniu.q_url(string)
   end
+
+  def topic_title_tag(topic, reply \\ nil) do
+    ahref = if is_nil(reply), do: "/topics/#{topic.id}", else: "/topics/#{topic.id}#reply#{reply.id}"
+    content_tag(:a, topic.title, href: ahref, title: topic.title)
+  end
+
+  def user_name_tag(user) do
+    content_tag(:a, user.username, href: "/u/#{user.username}", title: user.username)
+  end
 end

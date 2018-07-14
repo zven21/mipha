@@ -1,0 +1,7 @@
+<%= if is_nil(@target_object) do %>
+  相关信息已删除
+<% else %>
+  <div class="media-heading">
+    你的帖子 <%= topic_title_tag(@target_object) %> 被赞了。
+  </div>
+<% end %>

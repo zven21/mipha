@@ -86,6 +86,9 @@ defmodule MiphaWeb.Router do
     end
 
     resources "/notifications", NotificationController, only: ~w(index)a
+    post "/notifications/make_read", NotificationController, :make_read
+    delete "/notifications/clean", NotificationController, :clean
+
     resources "/locations", LocationController, only: ~w(index show)a
     resources "/companies", CompanyController, only: ~w(index show)a
 

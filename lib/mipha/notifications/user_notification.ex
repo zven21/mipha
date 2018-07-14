@@ -27,6 +27,13 @@ defmodule Mipha.Notifications.UserNotification do
     do: where(query, [..., un], un.user_id == ^user_id)
 
   @doc """
+  Gets unread user notifications
+  """
+  @spec unread(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def unread(query \\ __MODULE__),
+    do: where(query, [..., un], is_nil(un.read_at))
+
+  @doc """
   Preloads the user of a user notification.
   """
   @spec preload_user(t()) :: t()

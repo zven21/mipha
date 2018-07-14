@@ -2,7 +2,8 @@
   <div class="card-header hide-ios clearfix">
     所有通知
     <span class="pull-right">
-      <a class="btn btn-sm btn-danger" id="btn-remove-all" data-remote="true" rel="nofollow" data-method="delete" href="/notifications/clean">清空</a>
+      <%= link "全部标记已读", to: notification_path(@conn, :make_read), method: :post, class: "btn btn-sm btn-default" %>
+      <%= link "全部清空", to: notification_path(@conn, :clean), method: :delete, class: "btn btn-sm btn-danger" %>
     </span>
   </div>
   <div class="card-body list item-list">
@@ -13,32 +14,14 @@
           <%= key %>
         </div>
         <%= for item <- value do %>
-          <div id="notification-2402131" data-id="2402131" class="media notification notification-topic_reply">
+          <div class="media notification">
             <div class="media-left mr-3">
               <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
                 <img src="<%= qn_url(item.user.avatar) %>" class="media-object avatar-48">
               <% end %>
             </div>
             <div class="media-body">
-              <%= case target_object(item.notification) do %>
-                <% {"topic", topic} -> %>
-                  <div class="media-heading">
-                    创建了帖子 <%= link topic.title, to: topic_path(@conn, :show, topic), title: topic.title %>
-                  </div>
-                <% {"reply", reply} -> %>
-                  <div class="media-heading">
-                    在帖子
-                    <%= link reply.topic.title, to: topic_path(@conn, :show, reply.topic), title: reply.topic.title %> 回复了：
-                  </div>
-                  <div class="media-content summary markdown">
-                    <%= markdown(reply.content) %>
-                  </div>
-                <% {"user", user} -> %>
-                  <div class="media-heading">
-                    <%= link user.username, to: user_path(@conn, :show, user.username), title: user.username %> 关注了你。
-                  </div>
-                <% _ -> %>
-              <% end %>
+              <%= transfer_action(item.notification) %>
             </div>
             <div class="media-right">
               <%= hour_format(item) %>

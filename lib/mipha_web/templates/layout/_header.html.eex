@@ -18,12 +18,14 @@
       </form>
       <ul class="nav navbar-nav user-bar align-items-center justify-content-end">
         <%= if user_logged_in?(@conn) do %>
-        <li class="nav-item notification-count">
-          <a href="/notifications" class="nav-link new" title="通知">
-            <i class="fa fa-bell"></i>
-            <span class="count">5</span>
-          </a>
-        </li>
+          <%= if has_unread_notification?(@current_user) do %>
+            <li class="nav-item notification-count">
+              <a href="/notifications" class="nav-link new" title="通知">
+                <i class="fa fa-bell"></i>
+                <span class="count"><%= unread_notification_count(@current_user) %></span>
+              </a>
+            </li>
+          <% end %>
         <li class="nav-item dropdown">
           <a href="#" id="navbar-new-menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">

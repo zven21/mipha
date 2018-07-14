@@ -5,8 +5,8 @@
   </div>
   <div class="items card-body">
     <%= for {item, idx} <- Enum.with_index(@topic.replies) do %>
-      <div class="reply" data-id="<%= item.id %>" id="<%= idx %>">
-        <div id="reply-<%= item.id %>" data-floor="<%= idx %>">
+      <div class="reply" data-id="<%= item.id %>" id="reply<%= item.id %>">
+        <div id="reply-<%= item.id %>" data-floor="<%= idx + 1 %>">
           <div class="avatar">
             <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
               <img class="media-object avatar-48" src="<%= qn_url(item.user.avatar) %>" />
@@ -18,10 +18,8 @@
                 <%= link item.user.username, to: user_path(@conn, :show, item.user.username), class: "user-name" %>
               </span>
               <span class="sub-info">
-                <span class='floor'>#1</span> ·
-                <a class="time" href="#reply-206564">
-                  <%= time_tag(item.updated_at) %>
-                </a>
+                <span class='floor'>#<%= idx + 1 %></span> ·
+                <%= time_tag(item.updated_at) %>
               </span>
               <span class="opts pull-right">
                 <span class="hideable">
@@ -42,7 +40,7 @@
               </span>
             </div>
             <%= if item.parent_id do %>
-              <div class="reply-to-block" data-reply-to-id="343998">
+              <div class="reply-to-block">
                 <div class="info">
                   对
                   <a>

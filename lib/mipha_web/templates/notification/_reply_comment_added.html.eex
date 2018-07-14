@@ -1,0 +1,10 @@
+<%= if is_nil(@target_object) do %>
+  <div class="media-body">相关信息已删除</div>
+<% else %>
+  <div class="media-heading">
+    <span class="info">在帖子 <%= topic_title_tag(@target_object.topic, @target_object) %> 回复了：</span>
+    <div class="media-content summary markdown">
+      <%= markdown(@target_object.content) %>
+    </div>
+  </div>
+<% end %>

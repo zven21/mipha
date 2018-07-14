@@ -1,9 +1,11 @@
 defmodule Mipha.Replies.Reply do
   @moduledoc false
+
   use Ecto.Schema
   import Ecto.{Changeset, Query}
 
   alias Mipha.{
+    Repo,
     Topics.Topic,
     Replies.Reply,
     Accounts.User,
@@ -24,6 +26,13 @@ defmodule Mipha.Replies.Reply do
 
     timestamps()
   end
+
+    @doc """
+  Returns the children node.
+  """
+  @spec is_child(Ecto.Queryable.t()) :: Ecto.Query.t()
+  def is_child(query \\ __MODULE__),
+    do: from(q in query, where: not is_nil(q.parent_id))
 
   @doc """
   Filters the topic by reply.
@@ -52,6 +61,24 @@ defmodule Mipha.Replies.Reply do
   @spec recent(Ecto.Queryable.t()) :: Ecto.Query.t()
   def recent(query \\ __MODULE__),
     do: from(r in query, order_by: [desc: r.id], limit: 10)
+
+  @doc """
+  Preloads the user of a reply.
+  """
+  @spec preload_user(t()) :: t()
+  def preload_user(reply), do: Repo.preload(reply, [:user])
+
+  @doc """
+  Preloads the topic of a reply.
+  """
+  @spec preload_topic(t()) :: t()
+  def preload_topic(reply), do: Repo.preload(reply, [:topic])
+
+  @doc """
+  Preloads the parent of a reply.
+  """
+  @spec preload_parent(t()) :: t()
+  def preload_parent(reply), do: Repo.preload(reply, [:parent])
 
   @doc false
   def changeset(reply, attrs) do

@@ -57,6 +57,7 @@ defmodule Mipha.Mixfile do
       {:exmoji, "~> 0.2.2"},
       {:bamboo, "~> 1.0"},
       {:bamboo_smtp, "~> 1.5"},
+      {:ecto_enum, "~> 1.1"},
       {:poison, "~> 3.0", override: true}
     ]
   end

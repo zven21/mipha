@@ -1,1 +1,54 @@
-<h1>Notification Index Page</h1>
+<div class="notifications card">
+  <div class="card-header hide-ios clearfix">
+    所有通知
+    <span class="pull-right">
+      <a class="btn btn-sm btn-danger" id="btn-remove-all" data-remote="true" rel="nofollow" data-method="delete" href="/notifications/clean">清空</a>
+    </span>
+  </div>
+  <div class="card-body list item-list">
+    <%= for {key, value} <- group_by(@notifications) do %>
+      <div class="notification-group">
+        <div class="group-title">
+          <i class="fa fa-clock-o"></i>
+          <%= key %>
+        </div>
+        <%= for item <- value do %>
+          <div id="notification-2402131" data-id="2402131" class="media notification notification-topic_reply">
+            <div class="media-left mr-3">
+              <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
+                <img src="<%= qn_url(item.user.avatar) %>" class="media-object avatar-48">
+              <% end %>
+            </div>
+            <div class="media-body">
+              <%= case target_object(item.notification) do %>
+                <% {"topic", topic} -> %>
+                  <div class="media-heading">
+                    创建了帖子 <%= link topic.title, to: topic_path(@conn, :show, topic), title: topic.title %>
+                  </div>
+                <% {"reply", reply} -> %>
+                  <div class="media-heading">
+                    在帖子
+                    <%= link reply.topic.title, to: topic_path(@conn, :show, reply.topic), title: reply.topic.title %> 回复了：
+                  </div>
+                  <div class="media-content summary markdown">
+                    <%= markdown(reply.content) %>
+                  </div>
+                <% {"user", user} -> %>
+                  <div class="media-heading">
+                    <%= link user.username, to: user_path(@conn, :show, user.username), title: user.username %> 关注了你。
+                  </div>
+                <% _ -> %>
+              <% end %>
+            </div>
+            <div class="media-right">
+              <%= hour_format(item) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="card-footer hide-ios">
+    <%= render MiphaWeb.SharedView, "_pagination.html", page: @page %>
+  </div>
+</div>

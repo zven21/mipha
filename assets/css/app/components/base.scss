@@ -759,13 +759,11 @@ img.emoji {
         text-decoration: none;
         display: inline-block;
         color: #606060;
-
         &.active {
           color: #000;
           text-decoration: none;
           border-bottom: 2px dotted #666666;
         }
-
         &:hover {
           border-color: #eee;
           background: transparent;
@@ -1758,4 +1756,41 @@ textarea.div-dropzone-focus {
       color: #aaa;
     }
   }
+}
+
+.alert {
+  box-shadow: 0 0 0;
+  padding: 0.65rem 1.25rem;
+  border: 2px solid transparent !important;
+  .close {
+    color: $primary;
+    opacity: .7;
+  }
+}
+
+.alert-block {
+  ul {
+    margin-bottom: 0;
+    margin-top: 1.25em;
+  }
+}
+
+.alert-danger {
+  color: $red;
+  background: lighten($red, 43%);
+}
+
+.alert-warning {
+  color: darken($yellow, 10%);
+  background: lighten($yellow, 45%);
+}
+
+.alert-success {
+  color: $green;
+  background: lighten($green, 65%);
+}
+
+.alert-info {
+  color: $blue;
+  background: lighten($blue, 45%);
 }

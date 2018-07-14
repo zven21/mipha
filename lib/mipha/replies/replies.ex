@@ -4,11 +4,18 @@ defmodule Mipha.Replies do
   """
 
   import Ecto.Query, warn: false
-  alias Mipha.Repo
+  alias Ecto.Multi
+  alias Mipha.{
+    Repo,
+    Topics,
+    Notifications,
+    Replies,
+  }
 
-  alias Mipha.Replies.Reply
-  alias Mipha.Topics.Topic
+  alias Replies.Reply
+  alias Topics.Topic
   alias Mipha.Accounts.User
+  alias Mipha.Follows.Follow
 
   @doc """
   Returns the list of repies.
@@ -194,9 +201,138 @@ defmodule Mipha.Replies do
   @spec insert_reply(User.t(), map()) :: {:ok, Reply.t()} | {:error, Ecto.Changeset.t()}
   def insert_reply(user, attrs \\ %{}) do
     attrs = attrs |> Map.put("user_id", user.id)
+    reply_changeset = Reply.changeset(%Reply{}, attrs)
 
-    %Reply{}
-    |> Reply.changeset(attrs)
-    |> Repo.insert()
+    Multi.new()
+    |> Multi.insert(:reply, reply_changeset)
+    |> update_related_topic()
+    |> maybe_notify_follower_of_new_reply()
+    |> notify_topic_owner_of_new_reply()
+    # |> maybe_notify_parent_reply_owner_of_new_reply(attrs)
+    |> Repo.transaction()
+  end
+
+  # 更新关联话题信息
+  defp update_related_topic(multi) do
+    update_topic_fn = fn %{reply: reply} ->
+      topic =
+        reply
+        |> Reply.preload_topic()
+        |> Map.fetch!(:topic)
+
+      attrs = %{
+        last_reply_id: reply.id,
+        last_reply_user_id: reply.user_id,
+        reply_count: (topic.reply_count + 1)
+      }
+
+      case Topics.update_topic(topic, attrs) do
+        {:ok, topic} -> {:ok, topic}
+        {:error, reason} -> {:error, reason}
+      end
+    end
+
+    Multi.run(multi, :update_related_topic, update_topic_fn)
+  end
+
+  # 通知 topic 的作者
+  defp notify_topic_owner_of_new_reply(multi) do
+    insert_notification_fn = fn %{reply: reply} ->
+      # reply -> topic -> user
+      notified_users =
+        reply
+        |> Reply.preload_topic()
+        |> Map.fetch!(:topic)
+        |> Topic.preload_user()
+        |> Map.fetch!(:user)
+
+      attrs = %{
+        actor_id: reply.user_id,
+        action: "added",
+        reply_id: reply.id,
+        notified_users: [notified_users]
+      }
+
+      case Notifications.insert_notification(attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+    Multi.run(multi, :notify_topic_owner_of_new_reply, insert_notification_fn)
+  end
+
+  # 如果是回复其他人的评论，回复该评论的作者, 有新的回复。
+  defp maybe_notify_parent_reply_owner_of_new_reply(multi, %{"parent_id" => parent_id}) when not is_nil(parent_id) do
+    insert_notification_fn = fn %{reply: reply} ->
+      notified_users =
+        reply
+        |> Reply.preload_parent()
+        |> Map.fetch!(:parent)
+        |> Reply.preload_user()
+        |> Map.fetch!(:user)
+
+      attrs = %{
+        actor_id: reply.user_id,
+        action: "added",
+        reply_id: reply.id,
+        notified_users: [notified_users]
+      }
+
+      case Notifications.insert_notification(attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+
+    Multi.run(multi, :notify_parent_reply_owner_of_new_reply, insert_notification_fn)
+  end
+  defp maybe_notify_parent_reply_owner_of_new_reply(multi, _), do: multi
+
+  # 发起评论时，通知关注评论作者的 follower
+  defp maybe_notify_follower_of_new_reply(multi) do
+    insert_notification_fn = fn %{reply: reply} ->
+      # FIXME 获取关注评论作者的 follower.
+      notified_users = notifiable_users_of_reply(reply)
+
+      attrs = %{
+        actor_id: reply.user_id,
+        action: "added",
+        reply_id: reply.id,
+        notified_users: notified_users
+      }
+
+      case Notifications.insert_notification(attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+
+    Multi.run(multi, :notify_users_of_new_reply, insert_notification_fn)
+  end
+
+  defp notifiable_users_of_reply(%Reply{} = reply) do
+    query =
+      from u in User,
+        join: f in Follow,
+        on: f.follower_id == u.id,
+        where: f.user_id == ^reply.user_id
+
+    Repo.all(query)
+  end
+
+  @doc """
+  获取评论作者
+
+  ## Example
+
+      iex> author(%Topic{})
+      %User{}
+
+  """
+  @spec author(Reply.t()) :: User.t()
+  def author(%Reply{} = reply) do
+    reply
+    |> Reply.preload_user()
+    |> Map.fetch!(:user)
   end
 end

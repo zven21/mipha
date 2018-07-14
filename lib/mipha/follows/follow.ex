@@ -5,6 +5,7 @@ defmodule Mipha.Follows.Follow do
   import Ecto.{Changeset, Query}
 
   alias Mipha.{
+    Repo,
     Accounts.User,
     Follows.Follow
   }
@@ -31,6 +32,12 @@ defmodule Mipha.Follows.Follow do
   @spec by_user(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
   def by_user(query \\ __MODULE__, %User{id: user_id}),
     do: from(f in query, where: f.user_id == ^user_id)
+
+  @doc """
+  Preloads the user of a topic.
+  """
+  @spec preload_user(t()) :: t()
+  def preload_user(follow), do: Repo.preload(follow, [:user])
 
   @doc false
   def changeset(follow, attrs) do

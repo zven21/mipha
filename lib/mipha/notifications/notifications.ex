@@ -4,9 +4,21 @@ defmodule Mipha.Notifications do
   """
 
   import Ecto.Query, warn: false
-  alias Mipha.Repo
+  alias Ecto.Multi
+  alias Mipha.{
+    Repo,
+    Topics,
+    Replies,
+    Accounts,
+    Notifications
+  }
 
-  alias Mipha.Notifications.Notification
+  alias Notifications.{Notification, UserNotification}
+  alias Topics.Topic
+  alias Replies.Reply
+  alias Accounts.User
+
+  @type notification_object :: Topic.t() | Reply.t() | User.t()
 
   @doc """
   Returns the list of notifications.
@@ -102,7 +114,78 @@ defmodule Mipha.Notifications do
     Notification.changeset(notification, %{})
   end
 
-  alias Mipha.Notifications.UserNotification
+  @doc """
+  标记已读
+  """
+  def read_notification(%UserNotification{} = user_notification) do
+    attrs = %{read_at: Timex.now}
+
+    user_notification
+    |> UserNotification.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  获取通知的发送者。
+
+  ## Examples
+
+      iex> actor(%Notification{})
+      %User{}
+
+      iex> actor(%Notification{})
+      nil
+
+  """
+  @spec actor(Notification.t()) :: User.t() | nil
+  def actor(%Notification{} = notification) do
+    notification
+    |> Notification.preload_actor()
+    |> Map.get(:actor)
+  end
+
+ @doc """
+  Gets the object of a notification.
+
+  ## Examples
+
+      iex> object(%Notification{})
+      %Story{}
+
+      iex> object(%Notification{})
+      %Publication{}
+
+  """
+  @spec object(Notification.t()) :: notification_object
+  def object(%Notification{topic_id: topic_id} = notification) when not is_nil(topic_id) do
+    value =
+      notification
+      |> Notification.preload_topic()
+      |> Map.get(:topic)
+
+    {"topic", value}
+  end
+
+  def object(%Notification{reply_id: reply_id} = notification) when not is_nil(reply_id) do
+    value =
+      notification
+      |> Notification.preload_reply()
+      |> Map.get(:reply)
+      |> Reply.preload_topic()
+
+    {"reply", value}
+  end
+
+  def object(%Notification{user_id: user_id} = notification) when not is_nil(user_id) do
+    value =
+      notification
+      |> Notification.preload_user()
+      |> Map.get(:user)
+
+    {"user", value}
+  end
+
+  def object(_), do: nil
 
   @doc """
   Returns the list of users_notifications.
@@ -152,6 +235,23 @@ defmodule Mipha.Notifications do
   end
 
   @doc """
+  Inserts a notification.
+  """
+  @spec insert_notification(any) :: {:ok, any} | {:error, any, any, any}
+  def insert_notification(attrs) do
+    Multi.new()
+    |> insert_notification(attrs)
+    |> Repo.transaction()
+  end
+
+  @spec insert_notification(Multi.t(), map()) :: Multi.t()
+  defp insert_notification(multi, attrs) do
+    notification_changeset = Notification.changeset(%Notification{}, attrs)
+
+    Multi.insert(multi, :notification, notification_changeset)
+  end
+
+  @doc """
   Updates a user_notification.
 
   ## Examples
@@ -196,5 +296,16 @@ defmodule Mipha.Notifications do
   """
   def change_user_notification(%UserNotification{} = user_notification) do
     UserNotification.changeset(user_notification, %{})
+  end
+
+  # 获取 current_user
+  # 通过 current_user 获取 关联的 user_notifications 按照日期倒叙，已天为单位
+  # 然后获取单条 notitication 信息, 如果是 topic 就展示 topic
+
+  def cond_user_notifications(%User{} = user) do
+    user
+    |> UserNotification.by_user()
+    |> preload([:user, :notification])
+    # |> Enum.group_by(&(Timex.format(&1.updated_at, "{YYYY}-{0M}-{D}")))
   end
 end

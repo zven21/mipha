@@ -4,11 +4,21 @@ defmodule Mipha.Stars do
   """
 
   import Ecto.Query, warn: false
-  alias Mipha.Repo
-  alias Mipha.Stars.Star
-  alias Mipha.Topics.Topic
-  alias Mipha.Replies.Reply
-  alias Mipha.Accounts.User
+  alias Ecto.Multi
+  alias Mipha.{
+    Repo,
+    Stars,
+    Topics,
+    Replies,
+    Accounts,
+    Notifications
+  }
+
+  alias Stars.Star
+  alias Topics.Topic
+  alias Replies.Reply
+  alias Accounts.User
+  alias Notifications.Notification
 
   @type starrable :: Topic.t() | Reply.t()
 
@@ -159,10 +169,49 @@ defmodule Mipha.Stars do
   """
   # @spec insert_star(map()) :: {:ok, Star.t()} | {:error, }
   def insert_star(attrs) do
-    %Star{}
-    |> Star.changeset(attrs)
-    |> Repo.insert()
+    start_changeset = Star.changeset(%Star{}, attrs)
+
+    Multi.new()
+    |> Multi.insert(:star, start_changeset)
+    |> notify_author_of_starrable()
+    |> Repo.transaction()
   end
+
+  defp notify_author_of_starrable(multi) do
+    insert_notification_fn = fn %{star: star} ->
+      starrable = starrable(star)
+
+      author =
+        case starrable do
+          %Topic{} = topic -> Topics.author(topic)
+          %Reply{} = reply -> Replies.author(reply)
+        end
+
+      notified_users = [author]
+
+      notification_attrs =
+        starrable
+        |> case do
+          %Topic{id: topic_id} -> %{topic_id: topic_id}
+          %Reply{id: reply_id} -> %{reply_id: reply_id}
+        end
+        |> Map.merge(%{
+          actor_id: author.id,
+          action: "starred",
+          notified_users: notified_users
+        })
+
+      case Notifications.insert_notification(notification_attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+
+    Multi.run(multi, :notification, insert_notification_fn)
+  end
+
+  # defp starrable_author(%Topic{} = topic), do: Topics.author(topic)
+  # defp starrable_author(%Reply{} = reply), do: Replies.author(reply)
 
   @doc """
   Returns `true` if the user has starred the starrable.

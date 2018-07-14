@@ -1,11 +1,22 @@
 defmodule MiphaWeb.NotificationController do
   use MiphaWeb, :controller
 
-  @intercepted_action ~w(index)a
+  alias Mipha.{
+    Repo,
+    Notifications
+  }
 
-  def action(conn, _) do
-    if Enum.member?(@intercepted_action, action_name(conn)) do
-      render conn, action_name(conn)
-    end
+  plug MiphaWeb.Plug.RequireUser
+
+  def index(conn, _) do
+    page =
+      conn
+      |> current_user()
+      |> Notifications.cond_user_notifications
+      |> Repo.paginate(conn.params)
+
+    render conn, :index,
+      notifications: page.entries,
+      page: page
   end
 end

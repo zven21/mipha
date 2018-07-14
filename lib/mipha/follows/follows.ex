@@ -2,10 +2,17 @@ defmodule Mipha.Follows do
   @moduledoc """
   The Follows context.
   """
+
   import Ecto.Query, warn: false
-  alias Mipha.Repo
-  alias Mipha.Follows.Follow
-  alias Mipha.Accounts.User
+  alias Ecto.Multi
+  alias Mipha.{
+    Repo,
+    Follows,
+    Accounts,
+    Notifications
+  }
+  alias Follows.Follow
+  alias Accounts.User
 
   @doc """
   Returns the list of follows.
@@ -261,9 +268,37 @@ defmodule Mipha.Follows do
 
   """
   def insert_follow(attrs \\ %{}) do
-    %Follow{}
-    |> Follow.changeset(attrs)
-    |> Repo.insert()
+    follow_changeset = Follow.changeset(%Follow{}, attrs)
+
+    Multi.new()
+    |> Multi.insert(:follow, follow_changeset)
+    |> notify_followee_of_follow()
+    |> Repo.transaction()
+  end
+
+  defp notify_followee_of_follow(multi) do
+    insert_notification_fn = fn %{follow: follow} ->
+      followee =
+        follow
+        |> Follow.preload_user()
+        |> Map.fetch!(:user)
+
+      notified_users = [followee]
+
+      notification_attrs = %{
+        user_id: followee.id,
+        actor_id: follow.follower_id,
+        action: "followed",
+        notified_users: notified_users
+      }
+
+      case Notifications.insert_notification(notification_attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+
+    Multi.run(multi, :notification_of_follow, insert_notification_fn)
   end
 
   @doc """

@@ -4,10 +4,12 @@ defmodule Mipha.Topics do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Multi
   alias Mipha.Repo
-
   alias Mipha.Topics.Topic
   alias Mipha.Accounts.User
+  alias Mipha.Notifications
+  alias Mipha.Follows.Follow
 
   @doc """
   Returns the list of topics.
@@ -123,10 +125,43 @@ defmodule Mipha.Topics do
   @spec insert_topic(User.t(), map()) :: {:ok, Topic.t()} | {:error, Ecto.Changeset.t()}
   def insert_topic(user, attrs \\ %{}) do
     attrs = attrs |> Map.put("user_id", user.id)
+    topic_changeset = Topic.changeset(%Topic{}, attrs)
 
-    %Topic{}
-    |> Topic.changeset(attrs)
-    |> Repo.insert()
+    Multi.new()
+    |> Multi.insert(:topic, topic_changeset)
+    |> maybe_notify_users_of_new_topic()
+    |> Repo.transaction()
+  end
+
+  defp maybe_notify_users_of_new_topic(multi) do
+    insert_notification_fn = fn %{topic: topic} ->
+      # FIXME 获取关注话题作者的 follower.
+      notified_users = notifiable_users_of_topic(topic)
+
+      attrs = %{
+        actor_id: topic.user_id,
+        action: "added",
+        topic_id: topic.id,
+        notified_users: notified_users
+      }
+
+      case Notifications.insert_notification(attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+    Multi.run(multi, :notify_users_of_new_topic, insert_notification_fn)
+  end
+
+  # 获取关注话题作者的 follower.
+  def notifiable_users_of_topic(%Topic{} = topic) do
+    query =
+      from u in User,
+        join: f in Follow,
+        on: f.follower_id == u.id,
+        where: f.user_id == ^topic.user_id
+
+    Repo.all(query)
   end
 
   @doc """
@@ -204,6 +239,22 @@ defmodule Mipha.Topics do
     |> Topic.recent
     |> Repo.all
     |> Repo.preload([:node, :user, :last_reply_user])
+  end
+
+  @doc """
+  获取话题作者
+
+  ## Example
+
+      iex> author(%Topic{})
+      %User{}
+
+  """
+  @spec author(Topic.t()) :: User.t()
+  def author(%Topic{} = topic) do
+    topic
+    |> Topic.preload_user
+    |> Map.fetch!(:user)
   end
 
   alias Mipha.Topics.Node

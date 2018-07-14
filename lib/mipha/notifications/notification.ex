@@ -3,7 +3,9 @@ defmodule Mipha.Notifications.Notification do
 
   use Ecto.Schema
   import Ecto.{Changeset, Query}
+  import EctoEnum, only: [defenum: 3]
 
+  alias Mipha.Repo
   alias Mipha.Accounts.User
   alias Mipha.Topics.Topic
   alias Mipha.Replies.Reply
@@ -11,8 +13,16 @@ defmodule Mipha.Notifications.Notification do
 
   @type t :: %Notification{}
 
+  defenum NotificationAction, :notification_action, [
+    :added,
+    :updated,
+    :deleted,
+    :followed,
+    :starred
+  ]
+
   schema "notifications" do
-    field :action, :string
+    field :action, NotificationAction
 
     belongs_to :actor, User, foreign_key: :actor_id
     belongs_to :reply, Reply
@@ -26,6 +36,37 @@ defmodule Mipha.Notifications.Notification do
     timestamps()
   end
 
+  @doc """
+  Filters the notifications by actor.
+  """
+  @spec by_actor(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
+  def by_actor(query \\ Notification, %User{id: actor_id}),
+    do: where(query, [..., n], n.actor_id == ^actor_id)
+
+  @doc """
+  Preloads the actor of a notification.
+  """
+  @spec preload_actor(t()) :: t()
+  def preload_actor(%Notification{} = notification), do: Repo.preload(notification, :actor)
+
+  @doc """
+  Preloads the topic of a notification.
+  """
+  @spec preload_topic(t()) :: t()
+  def preload_topic(%Notification{} = notification), do: Repo.preload(notification, :topic)
+
+  @doc """
+  Preloads the reply of a notification.
+  """
+  @spec preload_reply(t()) :: t()
+  def preload_reply(%Notification{} = notification), do: Repo.preload(notification, :reply)
+
+  @doc """
+  Preloads the reply of a notification.
+  """
+  @spec preload_user(t()) :: t()
+  def preload_user(%Notification{} = notification), do: Repo.preload(notification, :user)
+
   @doc false
   def changeset(notification, attrs) do
     permitted_attrs = ~w(
@@ -38,11 +79,23 @@ defmodule Mipha.Notifications.Notification do
 
     required_attrs = ~w(
       action
-      actor_id
     )a
 
     notification
     |> cast(attrs, permitted_attrs)
     |> validate_required(required_attrs)
+    |> assoc_constraint(:actor)
+    |> assoc_constraint(:topic)
+    |> assoc_constraint(:reply)
+    |> assoc_constraint(:user)
+    |> maybe_put_notified_users(attrs)
+  end
+
+  @spec maybe_put_notified_users(Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
+  defp maybe_put_notified_users(%Ecto.Changeset{} = changeset, attrs) do
+    case Map.get(attrs, :notified_users) do
+      value when not is_nil(value) -> put_assoc(changeset, :notified_users, value)
+      nil -> changeset
+    end
   end
 end

@@ -1,0 +1,7 @@
+<%= if is_nil(@target_object) do %>
+  <div class="media-body">相关信息已删除</div>
+<% else %>
+  <div class="media-heading">
+    你的评论 <%= topic_title_tag(@target_object.topic) %> 被赞了。
+  </div>
+<% end %>

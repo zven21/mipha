@@ -187,6 +187,12 @@ defmodule Mipha.Stars do
           %Reply{} = reply -> Replies.author(reply)
         end
 
+      action =
+        case starrable do
+          %Topic{} -> "topic_starred"
+          %Reply{} -> "reply_starred"
+        end
+
       notified_users = [author]
 
       notification_attrs =
@@ -197,7 +203,7 @@ defmodule Mipha.Stars do
         end
         |> Map.merge(%{
           actor_id: author.id,
-          action: "starred",
+          action: action,
           notified_users: notified_users
         })
 

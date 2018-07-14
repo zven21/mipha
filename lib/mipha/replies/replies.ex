@@ -10,12 +10,15 @@ defmodule Mipha.Replies do
     Topics,
     Notifications,
     Replies,
+    Accounts
   }
 
   alias Replies.Reply
   alias Topics.Topic
-  alias Mipha.Accounts.User
+  alias Accounts.User
   alias Mipha.Follows.Follow
+
+  @username_regex ~r{@([A-Za-z0-9]+)}
 
   @doc """
   Returns the list of repies.
@@ -208,8 +211,35 @@ defmodule Mipha.Replies do
     |> update_related_topic()
     |> maybe_notify_follower_of_new_reply()
     |> notify_topic_owner_of_new_reply()
-    # |> maybe_notify_parent_reply_owner_of_new_reply(attrs)
+    |> maybe_notify_mention_users_of_new_reply(attrs)
+    |> maybe_notify_parent_reply_owner_of_new_reply(attrs)
     |> Repo.transaction()
+  end
+
+  # 通知被@的用户
+  def maybe_notify_mention_users_of_new_reply(multi, attrs) do
+    insert_notification_fn = fn %{reply: reply} ->
+      # FIXME 和 topic 类似的方法，后续考虑单独处理
+      notified_users =
+        @username_regex
+        |> Regex.scan(attrs["content"])
+        |> Enum.map(fn([_, match]) -> Accounts.get_user_by_username(match) end)
+        |> Enum.filter(&(not is_nil(&1)))
+
+      attrs = %{
+        actor_id: reply.user_id,
+        action: "reply_mentioned",
+        topic_id: reply.id,
+        notified_users: notified_users
+      }
+
+      case Notifications.insert_notification(attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+
+    Multi.run(multi, :notify_mention_users_of_new_reply, insert_notification_fn)
   end
 
   # 更新关联话题信息
@@ -248,7 +278,7 @@ defmodule Mipha.Replies do
 
       attrs = %{
         actor_id: reply.user_id,
-        action: "added",
+        action: "topic_reply_added",
         reply_id: reply.id,
         notified_users: [notified_users]
       }
@@ -262,7 +292,7 @@ defmodule Mipha.Replies do
   end
 
   # 如果是回复其他人的评论，回复该评论的作者, 有新的回复。
-  defp maybe_notify_parent_reply_owner_of_new_reply(multi, %{"parent_id" => parent_id}) when not is_nil(parent_id) do
+  defp maybe_notify_parent_reply_owner_of_new_reply(multi, %{"parent_id" => parent_id}) when parent_id != "" do
     insert_notification_fn = fn %{reply: reply} ->
       notified_users =
         reply
@@ -273,7 +303,7 @@ defmodule Mipha.Replies do
 
       attrs = %{
         actor_id: reply.user_id,
-        action: "added",
+        action: "reply_comment_added",
         reply_id: reply.id,
         notified_users: [notified_users]
       }
@@ -296,7 +326,7 @@ defmodule Mipha.Replies do
 
       attrs = %{
         actor_id: reply.user_id,
-        action: "added",
+        action: "topic_reply_added",
         reply_id: reply.id,
         notified_users: notified_users
       }

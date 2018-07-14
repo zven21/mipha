@@ -1,17 +1,17 @@
 <div class="topic media">
   <div class="avatar">
-    <a title="<%= @item.user.username %>" href="/u/<%= @item.user.username %>">
+    <%= link to: user_path(MiphaWeb.Endpoint, :show, @item.user.username), title: @item.user.username do %>
       <img class="media-object avatar-48" src="<%= qn_url(@item.user.avatar) %>">
-    </a>
+    <% end %>
   </div>
   <div class="infos media-body">
     <div class="title media-heading">
-      <a title="<%= @item.title %>" href="/topics/<%= @item.id %>">
+      <%= link to: topic_path(MiphaWeb.Endpoint, :show, @item), title: @item.title do %>
         <span class="node"><%= @item.node && @item.node.name %></span>
         <span><%= @item.title %></span>
-      </a>
+      <% end %>
       <%= if @item.type == "featured" do %>
-        <i title="" class="fa fa-diamond" data-toggle="tooltip" data-original-title="精华帖"></i>
+        <i title="精华帖" class="fa fa-diamond"></i>
       <% end %>
       <%= if @item.suggested_at do %>
         <i class="fa fa-angle-double-up" title="置顶"></i>
@@ -22,13 +22,15 @@
       <%= if @item.reply_count != 0 do %>
       <span class="hidden-mobile">
         • 最后由
-        <a class="user-name" href="/u/<%= @item.last_reply_user.username %>"><%= @item.last_reply_user && @item.last_reply_user.username %></a> 回复于
-        <%= time_tag(@item.updated_at) %>
+        <a class="user-name" href="/u/<%= @item.last_reply_user.username %>">
+          <%= @item.last_reply_user && @item.last_reply_user.username %>
+        </a>
+        回复于 <%= time_tag(@item.updated_at) %>
       </span>
       <% end %>
     </div>
   </div>
   <div class="count media-right">
-    <a class="state-false" href="/topics/<%= @item.id %>"><%= @item.reply_count %></a>
+    <a class="state-false" href="/topics/<%= @item.id %>#reply<%= @item.last_reply_id %>"><%= @item.reply_count %></a>
   </div>
 </div>

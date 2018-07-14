@@ -115,14 +115,37 @@ defmodule Mipha.Notifications do
   end
 
   @doc """
-  标记已读
+  标记单个已读
   """
+  @spec read_notification(UserNotification.t()) :: {:ok, UserNotification.t()} | {:error, %Ecto.Changeset{}}
   def read_notification(%UserNotification{} = user_notification) do
     attrs = %{read_at: Timex.now}
 
     user_notification
     |> UserNotification.update_changeset(attrs)
     |> Repo.update()
+  end
+
+  @doc """
+  标注全部已读
+  """
+  @spec mark_read_notification(User.t()) :: any
+  def mark_read_notification(user) do
+    user
+    |> UserNotification.by_user()
+    |> UserNotification.unread()
+    |> Repo.update_all(set: [read_at: Timex.now])
+  end
+
+  @doc """
+  清空通知
+  """
+  @spec clean_notification(User.t()) :: any
+  def clean_notification(user) do
+    user
+    |> UserNotification.by_user()
+    |> UserNotification.unread()
+    |> Repo.delete_all()
   end
 
   @doc """
@@ -145,7 +168,7 @@ defmodule Mipha.Notifications do
   end
 
  @doc """
-  Gets the object of a notification.
+  获取通知对象 topic || reply || user
 
   ## Examples
 
@@ -158,34 +181,36 @@ defmodule Mipha.Notifications do
   """
   @spec object(Notification.t()) :: notification_object
   def object(%Notification{topic_id: topic_id} = notification) when not is_nil(topic_id) do
-    value =
-      notification
-      |> Notification.preload_topic()
-      |> Map.get(:topic)
-
-    {"topic", value}
+    notification
+    |> Notification.preload_topic()
+    |> Map.get(:topic)
   end
 
   def object(%Notification{reply_id: reply_id} = notification) when not is_nil(reply_id) do
-    value =
-      notification
-      |> Notification.preload_reply()
-      |> Map.get(:reply)
-      |> Reply.preload_topic()
-
-    {"reply", value}
+    notification
+    |> Notification.preload_reply()
+    |> Map.get(:reply)
+    |> Reply.preload_topic()
   end
 
   def object(%Notification{user_id: user_id} = notification) when not is_nil(user_id) do
-    value =
-      notification
-      |> Notification.preload_user()
-      |> Map.get(:user)
-
-    {"user", value}
+    notification
+    |> Notification.preload_user()
+    |> Map.get(:user)
   end
 
   def object(_), do: nil
+
+  @doc """
+  获取未读的 Notification 个数
+  """
+  @spec unread_notification_count(User.t()) :: non_neg_integer()
+  def unread_notification_count(user) do
+    user
+    |> UserNotification.by_user
+    |> UserNotification.unread
+    |> Repo.aggregate(:count, :id)
+  end
 
   @doc """
   Returns the list of users_notifications.

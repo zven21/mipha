@@ -5,11 +5,17 @@ defmodule Mipha.Topics do
 
   import Ecto.Query, warn: false
   alias Ecto.Multi
-  alias Mipha.Repo
+  alias Mipha.{
+    Repo,
+    Accounts,
+    Notifications
+  }
+
   alias Mipha.Topics.Topic
-  alias Mipha.Accounts.User
-  alias Mipha.Notifications
+  alias Accounts.User
   alias Mipha.Follows.Follow
+
+  @username_regex ~r{@([A-Za-z0-9]+)}
 
   @doc """
   Returns the list of topics.
@@ -130,6 +136,7 @@ defmodule Mipha.Topics do
     Multi.new()
     |> Multi.insert(:topic, topic_changeset)
     |> maybe_notify_users_of_new_topic()
+    |> maybe_notify_mention_users_of_new_topic(attrs)
     |> Repo.transaction()
   end
 
@@ -140,7 +147,7 @@ defmodule Mipha.Topics do
 
       attrs = %{
         actor_id: topic.user_id,
-        action: "added",
+        action: "topic_added",
         topic_id: topic.id,
         notified_users: notified_users
       }
@@ -150,7 +157,33 @@ defmodule Mipha.Topics do
         {:error, _, reason, _} -> {:error, reason}
       end
     end
+
     Multi.run(multi, :notify_users_of_new_topic, insert_notification_fn)
+  end
+
+  # 通知被 @ 的用户
+  def maybe_notify_mention_users_of_new_topic(multi, attrs) do
+    insert_notification_fn = fn %{topic: topic} ->
+      notified_users =
+        @username_regex
+        |> Regex.scan(attrs["body"])
+        |> Enum.map(fn([_, match]) -> Accounts.get_user_by_username(match) end)
+        |> Enum.filter(&(not is_nil(&1)))
+
+      attrs = %{
+        actor_id: topic.user_id,
+        action: "topic_mentioned",
+        topic_id: topic.id,
+        notified_users: notified_users
+      }
+
+      case Notifications.insert_notification(attrs) do
+        {:ok, %{notification: notification}} -> {:ok, notification}
+        {:error, _, reason, _} -> {:error, reason}
+      end
+    end
+
+    Multi.run(multi, :notify_mention_users_of_new_topic, insert_notification_fn)
   end
 
   # 获取关注话题作者的 follower.

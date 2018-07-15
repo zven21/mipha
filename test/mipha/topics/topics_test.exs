@@ -16,7 +16,6 @@ defmodule Mipha.TopicsTest do
       reply_count: 42,
       suggested_at: ~N[2010-04-17 14:00:00.000000],
       title: "some title",
-      type: "some type",
       user_id: 42,
       visit_count: 42
     }
@@ -30,7 +29,6 @@ defmodule Mipha.TopicsTest do
       reply_count: 43,
       suggested_at: ~N[2011-05-18 15:01:01.000000],
       title: "some updated title",
-      type: "some updated type",
       user_id: 43,
       visit_count: 43
     }
@@ -44,7 +42,6 @@ defmodule Mipha.TopicsTest do
       reply_count: nil,
       suggested_at: nil,
       title: nil,
-      type: nil,
       user_id: nil,
       visit_count: nil
     }
@@ -79,7 +76,6 @@ defmodule Mipha.TopicsTest do
       assert topic.reply_count == 42
       assert topic.suggested_at == ~N[2010-04-17 14:00:00.000000]
       assert topic.title == "some title"
-      assert topic.type == "some type"
       assert topic.user_id == 42
       assert topic.visit_count == 42
     end
@@ -101,7 +97,6 @@ defmodule Mipha.TopicsTest do
       assert topic.reply_count == 43
       assert topic.suggested_at == ~N[2011-05-18 15:01:01.000000]
       assert topic.title == "some updated title"
-      assert topic.type == "some updated type"
       assert topic.user_id == 43
       assert topic.visit_count == 43
     end

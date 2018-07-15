@@ -13,7 +13,6 @@ defmodule MiphaWeb.Admin.TopicControllerTest do
     reply_count: 42,
     suggested_at: ~N[2010-04-17 14:00:00.000000],
     title: "some title",
-    type: "some type",
     user_id: 42,
     visit_count: 42
   }
@@ -27,7 +26,6 @@ defmodule MiphaWeb.Admin.TopicControllerTest do
     reply_count: 43,
     suggested_at: ~N[2011-05-18 15:01:01.000000],
     title: "some updated title",
-    type: "some updated type",
     user_id: 43,
     visit_count: 43
   }
@@ -41,7 +39,6 @@ defmodule MiphaWeb.Admin.TopicControllerTest do
     reply_count: nil,
     suggested_at: nil,
     title: nil,
-    type: nil,
     user_id: nil,
     visit_count: nil
   }

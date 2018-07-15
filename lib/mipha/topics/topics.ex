@@ -219,6 +219,7 @@ defmodule Mipha.Topics do
   def cond_topics(opts \\ []) do
     opts
     |> filter_from_clauses
+    |> Topic.base_order
     |> preload([:user, :node, :last_reply_user])
   end
 

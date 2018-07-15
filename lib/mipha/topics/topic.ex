@@ -108,7 +108,13 @@ defmodule Mipha.Topics.Topic do
     do: where(query, [..., t], t.user_id in ^list)
 
   def recent(query \\ __MODULE__),
-    do: from(c in query, order_by: [desc: c.id], limit: 10)
+    do: from(t in query, order_by: [desc: t.id], limit: 10)
+
+  @doc """
+  帖子列表的默认排序，按照 suggested_at updated_at 倒叙
+  """
+  def base_order(query \\ __MODULE__),
+    do: from(t in query, order_by: [asc: t.suggested_at], order_by: [desc: t.updated_at])
 
   @doc """
   Preloads the user of a topic.

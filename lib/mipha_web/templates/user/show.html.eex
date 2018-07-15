@@ -25,10 +25,12 @@
                   <div class="title">
                     <a class="node" href="/topics?node_id=<%= item.node.id %>"><%= item.node.name %></a>
                     <%= link item.title, to: topic_path(@conn, :show, item), title: item.title %>
-                    <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
+                    <%= if item.type == :featured do %>
+                      <i title="精华帖" class="fa fa-diamond" data-toggle="tooltip"></i>
+                    <% end %>
                   </div>
                   <div class="info">
-                    <span class="counter">20 个赞 • <%= item.reply_count %> 条回复</span>
+                    <span class="counter"><%= get_starred_count(topic: item) %> 个赞 • <%= item.reply_count %> 条回复</span>
                   </div>
                 </li>
               <% end %>

@@ -6,7 +6,8 @@ defmodule MiphaWeb.UserView do
     Topics,
     Replies,
     Follows,
-    Collections
+    Collections,
+    Stars
   }
 
   def format_inserted_date(datetime) do
@@ -46,5 +47,21 @@ defmodule MiphaWeb.UserView do
 
   def github_account(target) do
     Accounts.github_handle(target)
+  end
+
+  @doc """
+  获取 Star 个数
+
+  ## Example
+
+      iex> get_starred_count(topic: topic)
+      10
+
+      iex> get_starred_count(reply: reply)
+      20
+
+  """
+  def get_starred_count(clauses) do
+    Stars.get_starred_count(clauses)
   end
 end

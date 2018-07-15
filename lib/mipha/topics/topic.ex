@@ -3,6 +3,7 @@ defmodule Mipha.Topics.Topic do
 
   use Ecto.Schema
   import Ecto.{Changeset, Query}
+  import EctoEnum, only: [defenum: 3]
 
   alias Mipha.{
     Repo,
@@ -16,10 +17,22 @@ defmodule Mipha.Topics.Topic do
 
   @type t :: %Topic{}
 
+  # Topic 状态包含:
+  # 正常的帖子：normal
+  # 加精的帖子：featured
+  # 有建设性的帖子：educational
+  # 招聘帖子：job
+  defenum TopicType, :topic_type, [
+    :normal,
+    :featured,
+    :educational,
+    :job
+  ]
+
   schema "topics" do
     field :title, :string
     field :body, :string
-    field :type, :string, default: "normal"
+    field :type, TopicType
     field :closed_at, :naive_datetime
     field :replied_at, :naive_datetime
     field :suggested_at, :naive_datetime
@@ -43,21 +56,21 @@ defmodule Mipha.Topics.Topic do
   """
   @spec job(Ecto.Queryable.t()) :: Ecto.Query.t()
   def job(query \\ __MODULE__),
-    do: where(query, [..., t], t.type == ^"job")
+    do: where(query, [..., t], t.type == ^:job)
 
   @doc """
   Filters the featured of topics.
   """
   @spec featured(Ecto.Queryable.t()) :: Ecto.Query.t()
   def featured(query \\ __MODULE__),
-    do: where(query, [..., t], t.type == ^"featured")
+    do: where(query, [..., t], t.type == ^:featured)
 
   @doc """
   Filters the educational of topics.
   """
   @spec educational(Ecto.Queryable.t()) :: Ecto.Query.t()
   def educational(query \\ __MODULE__),
-    do: where(query, [..., t], t.type == ^"educational")
+    do: where(query, [..., t], t.type == ^:educational)
 
   @doc """
   Filters the no_reply of topics.

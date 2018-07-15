@@ -33,7 +33,7 @@
       <% end %>
     <% end %>
 
-    <%= if @topic.type == "featured" do %>
+    <%= if @topic.type == :featured do %>
       <%= link to: topic_path(@conn, :normal, @topic), method: :post, title: "取消精华帖" do %>
         <i class="fa fa-diamond"></i> 取消加精
       <% end %>

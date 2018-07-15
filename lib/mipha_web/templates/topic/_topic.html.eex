@@ -10,7 +10,7 @@
         <span class="node"><%= @item.node && @item.node.name %></span>
         <span><%= @item.title %></span>
       <% end %>
-      <%= if @item.type == "featured" do %>
+      <%= if @item.type == :featured do %>
         <i title="精华帖" class="fa fa-diamond"></i>
       <% end %>
       <%= if @item.suggested_at do %>

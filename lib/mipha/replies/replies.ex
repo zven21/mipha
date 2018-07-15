@@ -321,7 +321,7 @@ defmodule Mipha.Replies do
   # 发起评论时，通知关注评论作者的 follower
   defp maybe_notify_follower_of_new_reply(multi) do
     insert_notification_fn = fn %{reply: reply} ->
-      # FIXME 获取关注评论作者的 follower.
+      # 取关注评论作者的 follower.
       notified_users = notifiable_users_of_reply(reply)
 
       attrs = %{

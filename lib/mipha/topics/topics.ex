@@ -142,7 +142,7 @@ defmodule Mipha.Topics do
 
   defp maybe_notify_users_of_new_topic(multi) do
     insert_notification_fn = fn %{topic: topic} ->
-      # FIXME 获取关注话题作者的 follower.
+      # 获取关注话题作者的 follower.
       notified_users = notifiable_users_of_topic(topic)
 
       attrs = %{
@@ -222,7 +222,6 @@ defmodule Mipha.Topics do
     |> preload([:user, :node, :last_reply_user])
   end
 
-  # FIXME
   defp filter_from_clauses(opts) do
     do_filter_from_clauses(opts)
   end

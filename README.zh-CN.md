@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/zven21/mipha.svg?branch=master)](https://travis-ci.org/zven21/mipha)
 
-[English](./README.md) | 简体中文)
+[English](./README.md) | 简体中文
 
 ## 目录
 

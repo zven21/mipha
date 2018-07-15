@@ -127,7 +127,7 @@ defmodule Mipha.Notifications do
   end
 
   @doc """
-  标注全部已读
+  标注所有未读信息为已读
   """
   @spec mark_read_notification(User.t()) :: any
   def mark_read_notification(user) do
@@ -144,7 +144,6 @@ defmodule Mipha.Notifications do
   def clean_notification(user) do
     user
     |> UserNotification.by_user()
-    |> UserNotification.unread()
     |> Repo.delete_all()
   end
 
@@ -173,10 +172,13 @@ defmodule Mipha.Notifications do
   ## Examples
 
       iex> object(%Notification{})
-      %Story{}
+      %Topic{}
 
       iex> object(%Notification{})
-      %Publication{}
+      %Reply{}
+
+      iex> object(%Notification{})
+      %User{}
 
   """
   @spec object(Notification.t()) :: notification_object
@@ -191,6 +193,7 @@ defmodule Mipha.Notifications do
     |> Notification.preload_reply()
     |> Map.get(:reply)
     |> Reply.preload_topic()
+    |> Reply.preload_parent()
   end
 
   def object(%Notification{user_id: user_id} = notification) when not is_nil(user_id) do
@@ -330,7 +333,6 @@ defmodule Mipha.Notifications do
   def cond_user_notifications(%User{} = user) do
     user
     |> UserNotification.by_user()
-    |> UserNotification.unread()
     |> preload([:user, :notification])
     # |> Enum.group_by(&(Timex.format(&1.updated_at, "{YYYY}-{0M}-{D}")))
   end

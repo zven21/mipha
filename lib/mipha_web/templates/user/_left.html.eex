@@ -88,5 +88,5 @@
 </div>
 
 <%= render "_teams.html", assigns %>
-<%= render "_repos.html", assigns %>
+<%= render "_repos.html", object: @user %>
 <%= render "_reward.html", assigns %>

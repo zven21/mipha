@@ -29,6 +29,6 @@
       </div>
     </div>
 
-    <%= render MiphaWeb.UserView, "_repos.html", assigns %>
+    <%= render MiphaWeb.UserView, "_repos.html", object: @team %>
   </div>
 </div>

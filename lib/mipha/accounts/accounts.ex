@@ -4,9 +4,12 @@ defmodule Mipha.Accounts do
   """
 
   import Ecto.Query, warn: false
+
   alias Comeonin.Bcrypt
+  alias HTTPoison
   alias Mipha.Repo
-  alias Mipha.Accounts.User
+  alias Mipha.Accounts.{User, Team}
+  alias Mipha.Utils.Store
 
   @doc """
   Returns the list of users.
@@ -263,6 +266,83 @@ defmodule Mipha.Accounts do
     end
   end
 
+  @doc """
+  获取 用户或组织的 github repos，这里会借助缓存处理。
+
+  ## TODO
+
+      需要队列处理
+
+  ## Example
+
+      iex> github_repositories(user)
+      [%{}, %{}]
+
+      iex> github_repositories(user)
+      []
+
+  """
+  def github_repositories(%User{} = user) do
+    user
+    |> github_repos_cache_key
+    |> Store.get!
+    |> fetch_github_repos(user)
+  end
+
+  def github_repositories(%Team{} = team) do
+    team
+    |> github_repos_cache_key
+    |> Store.get!
+    |> fetch_github_repos(team)
+  end
+
+  # 获取 github repos 信息
+  defp fetch_github_repos(items, target) when is_nil(items) do
+    repos =
+      target
+      |> github_repos_url
+      |> HTTPoison.get!
+      |> handle_response
+
+    Store.put!(github_repos_cache_key(target), repos)
+    repos
+  end
+  defp fetch_github_repos(items, _) do
+    items
+  end
+
+  # 拉取数据，并且 Json 处理
+  defp handle_response(%HTTPoison.Response{body: body, status_code: 200}) do
+    body
+    |> Jason.decode!
+    |> Enum.map(&(Map.take(&1, ~w(name html_url watchers language description))))
+    |> Enum.sort(&(&1["watchers"] >= &2["watchers"]))
+    |> Enum.take(10)
+  end
+  defp handle_response(%HTTPoison.Response{body: _, status_code: 404}) do
+    []
+  end
+
+  # 获取缓存 cache_key
+  defp github_repos_cache_key(target) do
+    "github-repos:" <> github_handle(target)
+  end
+
+  # 请求获取 github 用户的 repos 的 Url
+  defp github_repos_url(target) do
+    "https://api.github.com/users/#{github_handle(target)}/repos?type=owner&sort=pushed"
+  end
+
+  @doc """
+  获取 user 或 team 的 github 账号。
+  """
+  def github_handle(%User{} = user) do
+    user.github_handle || user.username
+  end
+  def github_handle(%Team{} = team) do
+    team.github_handle || team.name
+  end
+
   alias Mipha.Accounts.Location
 
   @doc """
@@ -458,8 +538,6 @@ defmodule Mipha.Accounts do
   def change_company(%Company{} = company) do
     Company.changeset(company, %{})
   end
-
-  alias Mipha.Accounts.Team
 
   @doc """
   Returns the list of teams.

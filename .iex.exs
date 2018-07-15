@@ -10,7 +10,8 @@ alias Mipha.{
   Follows,
   Markdown,
   Mailer,
-  Notifications
+  Notifications,
+  Utils
 }
 
 alias Accounts.{User, Location, Company, Team}
@@ -20,3 +21,4 @@ alias Stars.Star
 alias Collections.Collection
 alias Follows.Follow
 alias Notifications.{Notification, UserNotification}
+alias Utils.Store

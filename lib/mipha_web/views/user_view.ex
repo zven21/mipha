@@ -2,6 +2,7 @@ defmodule MiphaWeb.UserView do
   use MiphaWeb, :view
 
   alias Mipha.{
+    Accounts,
     Topics,
     Replies,
     Follows,
@@ -37,5 +38,13 @@ defmodule MiphaWeb.UserView do
   """
   def has_followed?(current_user, user) do
     Follows.has_followed?(follower: current_user, user: user)
+  end
+
+  def github_repos(target) do
+    Accounts.github_repositories(target)
+  end
+
+  def github_account(target) do
+    Accounts.github_handle(target)
   end
 end

@@ -58,6 +58,8 @@ defmodule Mipha.Mixfile do
       {:bamboo, "~> 1.0"},
       {:bamboo_smtp, "~> 1.5"},
       {:ecto_enum, "~> 1.1"},
+      {:cachex, "~> 3.0"},
+      {:jason, "~> 1.1"},
       {:poison, "~> 3.0", override: true}
     ]
   end

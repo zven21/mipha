@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <%= if @topic.type == "featured" do %>
+      <%= if @topic.type == :featured do %>
         <div class="label-awesome">
           <i class="fa fa-diamond awesome"></i>
           本帖已被设为精华帖！

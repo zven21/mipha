@@ -56,21 +56,18 @@
     </div>
     <div class="buttons row">
       <%= if @current_user && @current_user.id != @user.id do %>
-      <div class="col-sm-6">
+      <div class="col-sm-12">
         <%= if has_followed?(@current_user, @user) do %>
-          <%= link to: user_unfollow_path(@conn, :unfollow, @user.username), method: :post, class: "button-follow-user btn btn-primary btn-block active" do %>
+          <%= link to: user_unfollow_path(@conn, :unfollow, @user.username), method: :post, class: "button-follow-user btn btn-default btn-block" do %>
             <i class="fa fa-user"></i>
             <span>取消关注</span>
           <% end %>
         <% else %>
-          <%= link to: user_follow_path(@conn, :follow, @user.username), method: :post, class: "button-follow-user btn btn-primary btn-block active" do %>
+          <%= link to: user_follow_path(@conn, :follow, @user.username), method: :post, class: "button-follow-user btn btn-primary btn-block" do %>
             <i class="fa fa-user"></i>
             <span>关注</span>
           <% end %>
         <% end %>
-      </div>
-      <div class="col-sm-6">
-        <a title="" data-id="huacnlee" class="button-block-user btn btn-default btn-block" href="#"><i class="fa fa-eye-slash"></i> <span>屏蔽</span></a>
       </div>
       <% end %>
     </div>

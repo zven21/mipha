@@ -82,6 +82,8 @@ defmodule Mipha.Accounts.User do
     user
     |> cast(attrs, permitted_attrs)
     |> validate_required(required_attrs)
+    |> assoc_constraint(:location)
+    |> assoc_constraint(:company)
   end
 
   @doc """

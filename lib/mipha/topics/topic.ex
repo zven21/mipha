@@ -107,12 +107,17 @@ defmodule Mipha.Topics.Topic do
   def by_user_ids(query \\ __MODULE__, list),
     do: where(query, [..., t], t.user_id in ^list)
 
+  @doc """
+  近10篇帖子
+  """
+  @spec recent(t()) :: t()
   def recent(query \\ __MODULE__),
-    do: from(t in query, order_by: [desc: t.id], limit: 10)
+    do: from(t in query, order_by: [desc: t.updated_at], limit: 10)
 
   @doc """
   帖子列表的默认排序，按照 suggested_at updated_at 倒叙
   """
+  @spec base_order(t()) :: t()
   def base_order(query \\ __MODULE__),
     do: from(t in query, order_by: [asc: t.suggested_at], order_by: [desc: t.updated_at])
 

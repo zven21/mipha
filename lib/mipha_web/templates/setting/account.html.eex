@@ -6,7 +6,7 @@
   <div class="col-md-10">
     <div class="card">
       <div class="card-body">
-        <div class="heading">删除我的账号</div>
+        <div class="heading">删除我的账号(暂不提供该功能)</div>
 
         <form action="/setting" accept-charset="UTF-8" data-remote="true" method="post">
           <input name="utf8" type="hidden" value="&#x2713;" />
@@ -26,12 +26,6 @@
           <input type="submit" name="commit" value="确定删除我的账号" class="btn btn-danger" data-disable-with="正在提交" />
         </form>
         <div class="heading">绑定其他帐号用于登录</div>
-
-        <ul class="list-group col-sm-6">
-          <li class="list-group-item">
-            <a rel="twitsy" title="点击绑定" href="/account/auth/github">GitHub</a>
-          </li>
-        </ul>
       </div>
     </div>
   </div>

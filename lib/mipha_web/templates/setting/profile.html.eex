@@ -11,12 +11,12 @@
 
           <div class="form-group">
             <%= label f, :location_id, "城市" %>
-            <%= text_input f, :location_id, class: "form-control", style: "width: 400px" %>
+            <%= select f, :location_id, location_option, class: "form-control", style: "width: 400px" %>
           </div>
 
           <div class="form-group">
             <%= label f, :company_id, "公司" %>
-            <%= text_input f, :company_id, class: "form-control", style: "width: 400px" %>
+            <%= select f, :company_id, company_option, class: "form-control", style: "width: 400px" %>
           </div>
 
           <div class="form-group">

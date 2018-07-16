@@ -211,6 +211,15 @@ defmodule Mipha.Accounts do
   end
 
   @doc """
+  获取全部 topic 个数
+  """
+  @spec get_total_user_count :: non_neg_integer()
+  def get_total_user_count do
+    User
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Updates user password.
   """
   @spec update_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, any()}

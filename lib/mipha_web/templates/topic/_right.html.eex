@@ -22,7 +22,6 @@
         <img src="//l.ruby-china.com/photo/2016/d7782871f3fac7e85a95d20c74046909.png" style="width:130px; ">
       </a>
     </li>
-    <!--li class="list-group-item"><a href="http://segmentfault.com" target="_blank" rel="nofollow"><img src="//l.ruby-china.com/photo/2016/e91d14ee109ed066e215057ab40257b7.png" style="width:150px; " /></a></li-->
     <li class="list-group-item">
       <a href="http://elixir-cn.com" target="_blank" rel="nofollow">
         <img src="//l.ruby-china.com/photo/2017/2720bc62-2348-40c0-88f6-95500067c648.png" style="width: 130px; ">
@@ -44,8 +43,8 @@
 <div class="card">
   <div class="card-header">统计信息</div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">社区会员: 35475 人</li>
-    <li class="list-group-item">帖子数: 35731 个</li>
-    <li class="list-group-item">回帖数: 342354 条</li>
+    <li class="list-group-item">社区会员: <%= get_user_count() %> 人</li>
+    <li class="list-group-item">帖子数: <%= get_topic_count() %> 个</li>
+    <li class="list-group-item">回帖数: <%= get_reply_count() %> 条</li>
   </ul>
 </div>

@@ -169,6 +169,15 @@ defmodule Mipha.Replies do
     |> Repo.aggregate(:count, :id)
   end
 
+  @doc """
+  获取全部 reply 个数
+  """
+  @spec get_total_reply_count :: non_neg_integer()
+  def get_total_reply_count do
+    Reply
+    |> Repo.aggregate(:count, :id)
+  end
+
   defp get_replyable_from_clauses(clauses) do
     cond do
       Keyword.has_key?(clauses, :user) -> Keyword.get(clauses, :user)

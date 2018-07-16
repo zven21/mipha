@@ -1,7 +1,13 @@
 defmodule MiphaWeb.TopicView do
   use MiphaWeb, :view
 
-  alias Mipha.{Stars, Collections}
+  alias Mipha.{
+    Stars,
+    Collections,
+    Topics,
+    Accounts,
+    Replies
+  }
 
   @doc """
   判断是否已 Star
@@ -33,5 +39,26 @@ defmodule MiphaWeb.TopicView do
     if is_nil(current_user),
       do: false,
       else: Collections.has_collected?(user: current_user, topic: topic)
+  end
+
+  @doc """
+  获取全站 topic 个数
+  """
+  def get_topic_count do
+    Topics.get_total_topic_count()
+  end
+
+  @doc """
+  获取全站 topic 个数
+  """
+  def get_reply_count do
+    Replies.get_total_reply_count()
+  end
+
+  @doc """
+  获取全站 user 个数
+  """
+  def get_user_count do
+    Accounts.get_total_user_count()
   end
 end

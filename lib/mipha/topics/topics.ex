@@ -263,6 +263,15 @@ defmodule Mipha.Topics do
   end
 
   @doc """
+  获取全部 topic 个数
+  """
+  @spec get_total_topic_count :: non_neg_integer()
+  def get_total_topic_count do
+    Topic
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Return the recent of topics.
   """
   @spec recent_topics(User.t()) :: [Topic.t()] | nil

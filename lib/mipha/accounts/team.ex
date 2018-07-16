@@ -12,6 +12,11 @@ defmodule Mipha.Accounts.Team do
     field :avatar, :string
     field :summary, :string
     field :github_handle, :string
+    field :twitter_handle, :string
+    field :slug, :string
+    field :website, :string
+    field :email, :string
+    field :email_public, :boolean
 
     belongs_to :owner, User
 
@@ -20,10 +25,31 @@ defmodule Mipha.Accounts.Team do
     timestamps()
   end
 
-  @doc false
+  @doc """
+  Changeset
+  """
   def changeset(team, attrs) do
+    permitted_attrs = ~w(
+      owner_id
+      name
+      summary
+      avatar
+      slug
+      website
+      email
+      email_public
+      github_handle
+      twitter_handle
+    )a
+
+    required_attrs = ~w(
+      owner_id
+      slug
+      name
+    )a
+
     team
-    |> cast(attrs, [:owner_id, :github_handle, :name, :summary, :avatar])
-    |> validate_required([:owner_id, :github_handle, :name, :summary, :avatar])
+    |> cast(attrs, permitted_attrs)
+    |> validate_required(required_attrs)
   end
 end

@@ -646,6 +646,27 @@ defmodule Mipha.Accounts do
     Team.changeset(team, %{})
   end
 
+  @doc """
+  Inserts a team.
+
+  ## Examples
+
+      iex> insert_topic(%User{}, %{field: value})
+      {:ok, %Team{}}
+
+      iex> insert_topic(%User{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec insert_team(User.t(), map()) :: {:ok, Team.t()} | {:error, Ecto.Changeset.t()}
+  def insert_team(user, attrs) do
+    attrs = attrs |> Map.put("owner_id", user.id)
+
+    %Team{}
+    |> Team.changeset(attrs)
+    |> Repo.insert()
+  end
+
   alias Mipha.Accounts.UserTeam
 
   @doc """

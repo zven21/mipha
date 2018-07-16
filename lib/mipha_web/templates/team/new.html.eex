@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for @changeset, team_path(@conn, :create), fn f -> %>
+          <div class="form-group">
+            <%= label f, :slug %>
+            <%= text_input f, :slug, class: "form-control", placeholder: "http://localhost:3000/:slug" %>
+            <%= error_tag f, :slug %>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :name %>
+            <%= text_input f, :name, class: "form-control", placeholder: "请添加名称" %>
+            <%= error_tag f, :name %>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :email %>
+            <%= text_input f, :email, class: "form-control", placeholder: "请添加邮箱" %>
+            <%= error_tag f, :email %>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :summary %>
+            <%= textarea f, :summary, rows: 3, class: "form-control", placeholder: "请添加备注" %>
+          </div>
+
+          <div class="form-group">
+            <%= submit "创建组织", class: "btn btn-primary btn-block" %>
+          </div>
+
+          <div class="form-text">
+            如你发现你的团队名称被抢注，可以尝试联系管理员，我们可以尽可能的协调。
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <%= render "_right.html", assigns %>
+  </div>
+</div>

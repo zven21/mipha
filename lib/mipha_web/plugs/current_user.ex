@@ -6,7 +6,7 @@ defmodule MiphaWeb.Plug.CurrentUser do
   import Plug.Conn
   import MiphaWeb.Session, only: [current_user: 1]
 
-  def init(options), do: options
+  def init(opts), do: opts
 
   def call(conn, _opts) do
     conn

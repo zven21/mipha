@@ -8,6 +8,7 @@ import Times from './app/components/times'
 import Utils from './app/components/utils'
 import Topic from './app/components/topic'
 import Editor from './app/components/editor'
+import Session from './app/components/session'
 
 // Decorate
 Times.humanize()
@@ -18,3 +19,5 @@ Topic.hookPreview($('.editor-toolbar'), $('.topic-editor'))
 Topic.hookReply()
 // Editor
 window._editor = new Editor()
+// 刷新 Captcha
+Session.refreshRucaptcha()

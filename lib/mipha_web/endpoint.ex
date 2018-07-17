@@ -24,7 +24,7 @@ defmodule MiphaWeb.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Jason
 
   plug Plug.MethodOverride
   plug Plug.Head
@@ -36,6 +36,10 @@ defmodule MiphaWeb.Endpoint do
     store: :cookie,
     key: "_mipha_key",
     signing_salt: "7l+jtdHA"
+
+  # 安全处理，限制流量。
+  plug RemoteIp
+  plug MiphaWeb.Plug.Attack
 
   plug MiphaWeb.Router
 

@@ -6,15 +6,10 @@ defmodule MiphaWeb.PageController do
   def index(conn, _params) do
     parent_nodes = Topics.list_parent_nodes
     locations = Accounts.list_locations
-
-    {odd, even} =
-      Topics.list_featured_topics
-      |> Enum.with_index
-      |> Enum.split_with(fn {_, i} -> rem(i, 2) == 0 end)
+    topics = Topics.list_featured_topics
 
     render conn, :index,
-      odd_topics: odd,
-      even_topics: even,
+      topics: topics,
       parent_nodes: parent_nodes,
       locations: locations
   end

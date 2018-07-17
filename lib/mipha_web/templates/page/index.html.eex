@@ -1,13 +1,14 @@
 <div class="home_suggest_topics card">
   <div class="card-header hidden-mobile">社区精华帖</div>
   <div class="card-body topics row">
+    <% {left, right} = split_topics(@topics) %>
     <div class="col-md-6 topics-group">
-      <%= for {item, _} <- @odd_topics do %>
+      <%= for {item, _} <- left do %>
         <%= render MiphaWeb.TopicView, "_topic.html", assigns: assigns, item: item %>
       <% end %>
     </div>
     <div class="col-md-6 topics-group">
-      <%= for {item, _} <- @even_topics do %>
+      <%= for {item, _} <- right do %>
         <%= render MiphaWeb.TopicView, "_topic.html", assigns: assigns, item: item %>
       <% end %>
     </div>

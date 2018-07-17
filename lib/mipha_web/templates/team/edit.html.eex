@@ -1,27 +1,25 @@
+<%= render "_nav.html", assigns %>
 <div class="row">
   <div class="col-sm-8">
     <div class="card">
       <div class="card-body">
-        <form class="edit_team" id="edit_team_2" enctype="multipart/form-data" action="/teams/mipha-elixir" accept-charset="UTF-8"
-          method="post">
-          <input name="utf8" type="hidden" value="✓">
-          <input type="hidden" name="_method" value="patch">
-          <input type="hidden" name="authenticity_token" value="uSEk4KC0+9j4zpe1g2SIopFtTlzF5rpn6xLk03EEwG5ZlQ0/EqD29zB6luJQsAVmny/PyxHHnEndXZwAgQAHmw==">
-
+        <%= form_for @changeset, team_path(@conn, :update, @team.slug), [multipart: true], fn f -> %>
           <div class="form-group">
-            <label for="team_login">Slug</label>
-            <input class="form-control" placeholder="http://localhost:3000/:slug" type="text" value="mipha-elixir" name="team[login]"
-              id="team_login">
+            <%= label f, :slug %>
+            <%= text_input f, :slug, class: "form-control", placeholder: "http://localhost:3000/:slug" %>
+            <%= error_tag f, :slug %>
           </div>
 
           <div class="form-group">
-            <label for="team_name">组织名称</label>
-            <input class="form-control" type="text" value="mipha-elixir" name="team[name]" id="team_name">
+            <%= label f, :name, "组织名称" %>
+            <%= text_input f, :name, class: "form-control", placeholder: "请添加名称" %>
+            <%= error_tag f, :name %>
           </div>
 
           <div class="form-group">
-            <label for="team_email">Email</label>
-            <input class="form-control" type="email" value="zven@mipha.com" name="team[email]" id="team_email">
+            <%= label f, :email, "Email" %>
+            <%= text_input f, :email, class: "form-control", placeholder: "请添加邮箱" %>
+            <%= error_tag f, :email %>
           </div>
 
           <div class="form-group form-check">
@@ -32,48 +30,53 @@
 
           <div class="form-group row">
             <div class="col-sm-7">
-              <label for="team_avatar">头像</label>
-              <input class="form-control" type="file" name="team[avatar]" id="team_avatar">
+              <%= label f, :avatar %>
+              <%= file_input f, :avatar %>
+              <%= error_tag f, :avatar %>
             </div>
             <div class="col-sm-5">
-              <img class="media-object avatar-96" src="http://helija.com">
+              <img class="media-object avatar-96" src="<%= qn_url(@team.avatar) %>">
             </div>
           </div>
 
           <div class="form-group">
-            <label for="team_github">GitHub</label>
+            <%= label f, :github_handle, "Github" %>
             <div class="input-group">
               <span class="input-group-prepend">
                 <span class="input-group-text">https://github.com/</span>
               </span>
-              <input class="form-control" type="text" name="team[github]" id="team_github">
+              <%= text_input f, :github_handle, class: "form-control" %>
+              <%= error_tag f, :github_handle %>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="team_twitter">Twitter</label>
+            <%= label f, :twitter_handle, "Twitter" %>
             <div class="input-group">
               <span class="input-group-prepend">
                 <span class="input-group-text">https://twitter.com/</span>
               </span>
-              <input class="form-control" type="text" name="team[twitter]" id="team_twitter">
+              <%= text_input f, :twitter_handle, class: "form-control" %>
+              <%= error_tag f, :twitter_handle %>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="team_website">组织网址</label>
-            <input class="form-control" placeholder="http://" type="url" name="team[website]" id="team_website">
+            <%= label f, :website, "组织网址" %>
+            <%= text_input f, :website, class: "form-control" %>
+            <%= error_tag f, :website %>
           </div>
 
           <div class="form-group">
-            <label for="team_bio">组织介绍</label>
-            <textarea class="form-control" rows="3" name="team[bio]" id="team_bio">mipha-elixir</textarea>
+            <%= label f, :summary, "组织介绍" %>
+            <%= textarea f, :summary, rows: 3, class: "form-control", placeholder: "请添加备注" %>
+            <%= error_tag f, :summary %>
           </div>
 
-          <div class="form-actions">
-            <input type="submit" name="commit" value="保存" class="btn btn-primary btn-block">
+          <div class="form-group">
+            <%= submit "保存", class: "btn btn-primary btn-block" %>
           </div>
-        </form>
+        <% end %>
       </div>
     </div>
   </div>

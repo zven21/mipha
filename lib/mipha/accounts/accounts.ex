@@ -667,6 +667,12 @@ defmodule Mipha.Accounts do
     |> Repo.insert()
   end
 
+  def get_team_by_slug(slug) do
+    Team
+    |> Repo.get_by([slug: slug])
+    |> Repo.preload([:users, :owner])
+  end
+
   alias Mipha.Accounts.UserTeam
 
   @doc """

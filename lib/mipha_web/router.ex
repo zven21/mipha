@@ -57,8 +57,14 @@ defmodule MiphaWeb.Router do
     put "/users/update_password", UserController, :update_password
     post "/users/sent_forgot_password_email", UserController, :sent_forgot_password_email
     post "/users/sent_verify_email", UserController, :sent_verify_email
-    resources "/teams", TeamController
-    get "/teams/:id/people", TeamController, :people
+
+    # team
+    get  "/teams/new",            TeamController, :new
+    get  "/teams/:slug",          TeamController, :show
+    get  "/teams/:slug/edit",     TeamController, :edit
+    post "/teams",                TeamController, :create
+    put  "/teams/:slug",          TeamController, :update
+    get  "/teams/:slug/people",   TeamController, :people
 
     # topic
     get "/topics/jobs", TopicController, :jobs

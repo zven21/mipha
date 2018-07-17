@@ -60,7 +60,10 @@ defmodule Mipha.Mixfile do
       {:ecto_enum, "~> 1.1"},
       {:cachex, "~> 3.0"},
       {:jason, "~> 1.1"},
-      {:poison, "~> 3.0", override: true}
+      {:poison, "~> 3.0", override: true},
+      {:captcha, "~> 0.1.0"},
+      {:remote_ip, "~> 0.1.4"},
+      {:plug_attack, "~> 0.3.1"},
     ]
   end
 

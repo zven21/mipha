@@ -10,7 +10,7 @@ defmodule MiphaWeb.AuthController do
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "You have been logged out!")
+    |> put_flash(:info, "退出成功。")
     |> configure_session(drop: true)
     |> redirect(to: "/")
   end
@@ -70,7 +70,7 @@ defmodule MiphaWeb.AuthController do
 
   defp ok_login(conn, user) do
     conn
-    |> put_flash(:info, "Successfully authenticated.")
+    |> put_flash(:info, "登录成功。")
     |> put_session(:current_user, user.id)
     |> redirect(to: "/")
   end

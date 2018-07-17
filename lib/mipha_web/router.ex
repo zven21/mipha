@@ -36,6 +36,7 @@ defmodule MiphaWeb.Router do
     get   "/markdown", PageController, :markdown
     get   "/join", SessionController, :new, as: :join
     post  "/join", SessionController, :create, as: :join
+    get   "/rucaptcha", SessionController, :rucaptcha
     get   "/login", AuthController, :login
     get   "/logout", AuthController, :delete, as: :logout
 

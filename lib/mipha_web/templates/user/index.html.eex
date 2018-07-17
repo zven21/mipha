@@ -20,7 +20,7 @@
                 </div>
                 <div class="infos">
                     <div class="item opts">
-                      <%= if @current_user && @current_user != user.id do %>
+                      <%= if @current_user && @current_user.id != user.id do %>
                         <%= if has_followed?(@current_user, user) do %>
                           <%= link to: user_unfollow_path(@conn, :unfollow, user.username), method: :post, class: "button-follow-user active" do %>
                             <i class="fa fa-user"></i> <span>取消关注</span>

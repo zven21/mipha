@@ -19,8 +19,7 @@ defmodule Mipha.Accounts.Team do
     field :email_public, :boolean
 
     belongs_to :owner, User
-
-    many_to_many :users, User, join_through: UserTeam
+    many_to_many :team_users, User, join_through: UserTeam
 
     timestamps()
   end

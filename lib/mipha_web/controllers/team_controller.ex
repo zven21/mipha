@@ -27,7 +27,7 @@ defmodule MiphaWeb.TeamController do
 
   def create(conn, %{"team" => team_params}) do
     case Accounts.insert_team(current_user(conn), team_params) do
-      {:ok, team} ->
+      {:ok, %{team: team}} ->
         conn
         |> put_flash(:success, "团队创建成功。")
         |> redirect(to: team_path(conn, :edit, team.slug))
@@ -68,7 +68,7 @@ defmodule MiphaWeb.TeamController do
   end
 
   def show(conn, _params, team) do
-    team_user_ids = Enum.map(team.users, &(&1.id))
+    team_user_ids = Enum.map(team.team_users, &(&1.id))
 
     page =
       [user_ids: team_user_ids]

@@ -4,7 +4,7 @@ defmodule Mipha.Accounts do
   """
 
   import Ecto.Query, warn: false
-
+  alias Ecto.Multi
   alias Comeonin.Bcrypt
   alias HTTPoison
   alias Mipha.Repo
@@ -220,7 +220,7 @@ defmodule Mipha.Accounts do
   end
 
   @doc """
-  Updates user password.
+  个人中心-修改密码
   """
   @spec update_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, any()}
   def update_user_password(user, attrs) do
@@ -237,6 +237,7 @@ defmodule Mipha.Accounts do
   @doc """
   Mark the current user verified
   """
+  @spec mark_as_verified(User.t()) :: {:ok, User.t()} | {:error, %Ecto.Changeset{}}
   def mark_as_verified(user) do
     attrs = %{"email_verified_at" => Timex.now}
     update_user(user, attrs)
@@ -578,7 +579,7 @@ defmodule Mipha.Accounts do
   def get_team!(id) do
     Team
     |> Repo.get!(id)
-    |> Repo.preload([:users, :owner])
+    |> Repo.preload([:team_users, :owner])
   end
 
   @doc """
@@ -662,15 +663,34 @@ defmodule Mipha.Accounts do
   def insert_team(user, attrs) do
     attrs = attrs |> Map.put("owner_id", user.id)
 
-    %Team{}
-    |> Team.changeset(attrs)
-    |> Repo.insert()
+    team_changeset = Team.changeset(%Team{}, attrs)
+
+    Multi.new()
+    |> Multi.insert(:team, team_changeset)
+    |> build_the_owner_of_new_team()
+    |> Repo.transaction()
+  end
+
+  # 创建 team 的同时，添加 这个 team 的 owner
+  defp build_the_owner_of_new_team(multi) do
+    insert_user_team_fn = fn %{team: team} ->
+      attrs = %{
+        user_id: team.owner_id,
+        team_id: team.id,
+        role: "owner",
+        status: "accepted"
+      }
+      # 创建 team owner
+      create_user_team(attrs)
+    end
+
+    Multi.run(multi, :build_the_owner_of_new_team, insert_user_team_fn)
   end
 
   def get_team_by_slug(slug) do
     Team
     |> Repo.get_by([slug: slug])
-    |> Repo.preload([:users, :owner])
+    |> Repo.preload([:team_users, :owner])
   end
 
   alias Mipha.Accounts.UserTeam

@@ -4,7 +4,7 @@
   <div class="card-body">
     <table class="table table-striped">
       <tbody>
-        <%= for item <- @team.users do %>
+        <%= for item <- @team.team_users do %>
           <tr class="team-user clearfix">
             <td class="avatar">
               <img class="media-object avatar-32" src="<%= qn_url(item.avatar) %>">
@@ -13,7 +13,7 @@
               <%= link item.username, to: user_path(@conn, :show, item.username), class: "user-name" %>
             </td>
             <td class="role">
-              <% is_owner?(@team, item) && "组管理员" %>
+              <%= is_owner?(@team, item) && "组管理员" %>
             </td>
           </tr>
         <% end %>

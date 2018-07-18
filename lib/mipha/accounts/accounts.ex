@@ -211,7 +211,7 @@ defmodule Mipha.Accounts do
   end
 
   @doc """
-  获取全部 topic 个数
+  获取全部 user 个数
   """
   @spec get_total_user_count :: non_neg_integer()
   def get_total_user_count do

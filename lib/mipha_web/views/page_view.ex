@@ -3,7 +3,7 @@ defmodule MiphaWeb.PageView do
 
   def split_topics(topics) do
     topics
-      |> Enum.with_index
-      |> Enum.split_with(fn {_, i} -> rem(i, 2) == 0 end)
+    |> Enum.with_index
+    |> Enum.split_with(fn {_, i} -> rem(i, 2) == 0 end)
   end
 end

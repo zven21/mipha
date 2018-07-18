@@ -76,7 +76,7 @@ defmodule Mipha.Notifications.Notification do
   def preload_reply(%Notification{} = notification), do: Repo.preload(notification, :reply)
 
   @doc """
-  Preloads the reply of a notification.
+  Preloads the user of a notification.
   """
   @spec preload_user(t()) :: t()
   def preload_user(%Notification{} = notification), do: Repo.preload(notification, :user)

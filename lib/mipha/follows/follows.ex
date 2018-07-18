@@ -248,6 +248,7 @@ defmodule Mipha.Follows do
   """
   @spec has_followed?(Keyword.t()) :: boolean
   def has_followed?(clauses) do
+    # FIXME 这里添加 can_follow? 的逻辑
     %User{id: follower_id} = Keyword.get(clauses, :follower)
     %User{id: user_id} = Keyword.get(clauses, :user)
 

@@ -44,6 +44,14 @@ config :qiniu, Qiniu,
 config :mipha, Mipha.Mailer,
   adapter: Bamboo.LocalAdapter
 
+# Sentry
+config :sentry,
+  dsn: System.get_env("SENRTY_DSN"),
+  included_environments: [:prod],
+  environment_name: Mix.env(),
+  enable_source_code_context: true,
+  root_source_code_path: File.cwd!()
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

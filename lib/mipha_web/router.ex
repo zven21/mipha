@@ -1,5 +1,7 @@
 defmodule MiphaWeb.Router do
   use MiphaWeb, :router
+  use Plug.ErrorHandler
+  use Sentry.Plug
 
   pipeline :browser do
     plug Ueberauth

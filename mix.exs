@@ -64,6 +64,7 @@ defmodule Mipha.Mixfile do
       {:captcha, "~> 0.1.0"},
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
+      {:sentry, "~> 6.4"}
     ]
   end
 

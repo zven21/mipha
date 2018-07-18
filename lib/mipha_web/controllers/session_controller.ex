@@ -27,20 +27,20 @@ defmodule MiphaWeb.SessionController do
     |> send_resp(200, img_binary)
   end
 
-  def create(conn, %{"user" => user_params, "_rucaptcha" => captcha}) do
+  def create(conn, %{"user" => user_params}) do
     # 确定验证码是否正确。
-    is_true_captcha =
-      conn
-      |> get_session(:rucaptcha)
-      |> String.equivalent?(captcha)
+    # is_true_captcha =
+    #   conn
+    #   |> get_session(:rucaptcha)
+    #   |> String.equivalent?(captcha)
 
-    unless is_true_captcha do
-      changeset = User.register_changeset(%User{}, user_params)
+    # unless is_true_captcha do
+    #   changeset = User.register_changeset(%User{}, user_params)
 
-      conn
-      |> put_flash(:danger, "验证码错误，请重新输入")
-      |> render(:new, changeset: changeset)
-    end
+    #   conn
+    #   |> put_flash(:danger, "验证码错误，请重新输入")
+    #   |> render(:new, changeset: changeset)
+    # end
 
     case Accounts.register_user(user_params) do
       {:ok, user} ->

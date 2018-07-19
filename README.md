@@ -44,8 +44,7 @@ export GITHUB_CLIENT_SECRET
 ```
 
 ## 数据库表关系
-
-![](https://l.ruby-china.com/photo/2018/46f031c0-af8b-4a9d-a757-77ecc370abdb.jpeg!large)
+![](https://l.ruby-china.com/photo/2018/b96739ac-94d4-433e-9693-de528466c6d3.jpeg!large)
 
 ## 进度与计划
 

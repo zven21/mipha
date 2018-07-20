@@ -15,11 +15,6 @@
           </div>
 
           <div class="form-group">
-            <%= label f, :company_id, "公司" %>
-            <%= select f, :company_id, company_option(), class: "form-control", style: "width: 400px" %>
-          </div>
-
-          <div class="form-group">
             <label for="user_github">GitHub</label>
             <div class="input-group">
               <span class="input-group-prepend">

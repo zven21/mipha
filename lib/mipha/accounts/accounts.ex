@@ -8,7 +8,7 @@ defmodule Mipha.Accounts do
   alias Comeonin.Bcrypt
   alias HTTPoison
   alias Mipha.Repo
-  alias Mipha.Accounts.{User, Team}
+  alias Mipha.Accounts.{User, Team, UserTeam}
   alias Mipha.Utils.Store
 
   @doc """
@@ -579,7 +579,7 @@ defmodule Mipha.Accounts do
   def get_team!(id) do
     Team
     |> Repo.get!(id)
-    |> Repo.preload([:team_users, :owner])
+    |> Repo.preload([:users, :owner])
   end
 
   @doc """
@@ -690,10 +690,8 @@ defmodule Mipha.Accounts do
   def get_team_by_slug(slug) do
     Team
     |> Repo.get_by([slug: slug])
-    |> Repo.preload([:team_users, :owner])
+    |> Repo.preload([:users, :owner])
   end
-
-  alias Mipha.Accounts.UserTeam
 
   @doc """
   Returns the list of users_teams.
@@ -788,4 +786,32 @@ defmodule Mipha.Accounts do
   def change_user_team(%UserTeam{} = user_team) do
     UserTeam.changeset(user_team, %{})
   end
+
+  @doc """
+  获取对应 team 或 user 关联的 user_teams 对象
+
+  ## Example
+
+      iex> get_user_teams(%Team{})
+      [UserTeam]
+
+      iex> get_user_teams(%User{})
+      [UserTeam]
+
+  """
+  def get_user_teams(%Team{} = team) do
+    team
+    |> UserTeam.by_team
+    |> preload([:user, :team])
+    |> Repo.all()
+  end
+
+  def get_user_teams(%User{} = user) do
+    user
+    |> UserTeam.by_user
+    |> preload([:user, :team])
+    |> Repo.all()
+  end
+
+  def get_user_teams(nil), do: nil
 end

@@ -64,7 +64,18 @@ defmodule MiphaWeb.Router do
     get  "/teams/:slug/edit",     TeamController, :edit
     post "/teams",                TeamController, :create
     put  "/teams/:slug",          TeamController, :update
-    get  "/teams/:slug/people",   TeamController, :people
+    # get  "/teams/:slug/people",   TeamController, :people
+
+    # user team
+    get  "/teams/:slug/people",                       PersonController, :index
+    # get  "/teams/:slug/people/new",                   PersonController, :new
+    # post "/teams/:slug/people",                       PersonController, :create
+    # get  "/teams/:slug/people/:name/edit",            PersonController, :edit
+    # get  "/teams/:slug/people/:name",                 PersonController, :show
+    # put  "/teams/:slug/people/:name",                 PersonController, :update
+    # post "/teams/:slug/people/:name/set_accept",      PersonController, :set_accept
+    # post "/teams/:slug/people/:name/set_reject",      PersonController, :set_reject
+    # post "/teams/:slug/people/:name/transfer_owner",  PersonController, :transfer_owner
 
     # topic
     get "/topics/jobs", TopicController, :jobs

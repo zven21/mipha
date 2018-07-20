@@ -268,7 +268,7 @@ defmodule Mipha.AccountsTest do
 
     test "get_team!/1 returns the team with given id" do
       team = team_fixture()
-      assert Accounts.get_team!(team.id) == (team |> Repo.preload([:team_users, :owner]))
+      assert Accounts.get_team!(team.id) == (team |> Repo.preload([:users, :owner]))
     end
 
     test "create_team/1 with valid data creates a team" do
@@ -298,7 +298,7 @@ defmodule Mipha.AccountsTest do
     test "update_team/2 with invalid data returns error changeset" do
       team = team_fixture()
       assert {:error, %Ecto.Changeset{}} = Accounts.update_team(team, @invalid_attrs)
-      assert (team |> Repo.preload([:team_users, :owner])) == Accounts.get_team!(team.id)
+      assert (team |> Repo.preload([:users, :owner])) == Accounts.get_team!(team.id)
     end
 
     test "delete_team/1 deletes the team" do

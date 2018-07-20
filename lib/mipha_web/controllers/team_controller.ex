@@ -68,7 +68,7 @@ defmodule MiphaWeb.TeamController do
   end
 
   def show(conn, _params, team) do
-    team_user_ids = Enum.map(team.team_users, &(&1.id))
+    team_user_ids = Enum.map(team.users, &(&1.id))
 
     page =
       [user_ids: team_user_ids]

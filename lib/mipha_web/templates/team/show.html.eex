@@ -18,14 +18,14 @@
     <div class="card members">
       <div class="card-header">成员列表</div>
       <div class="card-body">
-        <%= for item <- @team.team_users do %>
+        <%= for item <- @team.users do %>
           <%= link to: user_path(@conn, :show, item.username), title: item.username do %>
             <img class="media-object avatar-32" src="<%= qn_url(item.avatar) %>">
           <% end %>
         <% end %>
       </div>
       <div class="card-footer">
-        <%= link "所有成员...", to: team_path(@conn, :people, @team.slug) %>
+        <%= link "所有成员...", to: person_path(@conn, :index, @team.slug) %>
       </div>
     </div>
 

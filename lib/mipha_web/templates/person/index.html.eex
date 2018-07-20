@@ -1,0 +1,30 @@
+<%= render MiphaWeb.TeamView, "_nav.html", assigns %>
+
+<div class="card team-users">
+  <div class="card-header"><a class="btn btn-default" href="/mipha/people/new">邀请成员</a></div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <tbody>
+        <%= for item <- get_user_teams(@team) do %>
+          <tr class="team-user clearfix">
+            <td class="avatar">
+              <img class="media-object avatar-32" src="<%= qn_url(item.user.avatar) %>">
+            </td>
+            <td class="name">
+              <%= link item.user.username, to: user_path(@conn, :show, item.user.username), class: "user-name" %>
+            </td>
+            <td class="role">
+              <%= item.role %>
+            </td>
+            <td class="status">
+              <%= item.status %>
+            </td>
+            <td class="buttons">
+              <a href="/mipha/people/4/edit"><i class="fa fa-pencil"></i> </a>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

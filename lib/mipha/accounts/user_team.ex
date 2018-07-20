@@ -2,7 +2,7 @@ defmodule Mipha.Accounts.UserTeam do
   @moduledoc false
 
   use Ecto.Schema
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
   import EctoEnum, only: [defenum: 3]
 
   alias Mipha.Accounts.{User, Team}
@@ -15,7 +15,7 @@ defmodule Mipha.Accounts.UserTeam do
   defenum UTStatus, :ut_status, [
     :pending,
     :accepted,
-    :refused
+    :rejected
   ]
 
   schema "users_teams" do
@@ -27,6 +27,20 @@ defmodule Mipha.Accounts.UserTeam do
 
     timestamps()
   end
+
+  @doc """
+  Filters the user of user_teams.
+  """
+  @spec by_user(Ecto.Queryable.t(), User.t()) :: Ecto.Query.t()
+  def by_user(query \\ __MODULE__, %User{id: user_id}),
+    do: where(query, [..., ut], ut.user_id == ^user_id)
+
+  @doc """
+  Filters the team of user_teams.
+  """
+  @spec by_team(Ecto.Queryable.t(), Team.t()) :: Ecto.Query.t()
+  def by_team(query \\ __MODULE__, %Team{id: team_id}),
+    do: where(query, [..., ut], ut.team_id == ^team_id)
 
   @doc """
   Changeset

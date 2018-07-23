@@ -10,7 +10,7 @@ defmodule MiphaWeb.Plug.Attack do
   rule("throttle by ip every 2 minutes only allow register 1 person", conn) do
     if conn.method == "POST" and conn.path_info == ["join"] do
       throttle conn.remote_ip,
-        period: 120_000, limit: 1,
+        period: 120_000, limit: 10,
         storage: {PlugAttack.Storage.Ets, Mipha.PlugAttack.Storage}
     end
   end
@@ -28,7 +28,7 @@ defmodule MiphaWeb.Plug.Attack do
   rule("throttle by ip every 2 minutes only allow create 2 reply", conn) do
     if conn.method == "POST" and conn.path_info == ["topics"] do
       throttle conn.remote_ip,
-        period: 120_000, limit: 2,
+        period: 120_000, limit: 20,
         storage: {PlugAttack.Storage.Ets, Mipha.PlugAttack.Storage}
     end
   end

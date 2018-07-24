@@ -35,6 +35,7 @@ defmodule MiphaWeb.Router do
 
     get   "/", PageController, :index
     get   "/search", SearchController, :index
+    get   "/search/users", SearchController, :users
     get   "/markdown", PageController, :markdown
     get   "/join", SessionController, :new, as: :join
     post  "/join", SessionController, :create, as: :join
@@ -123,7 +124,6 @@ defmodule MiphaWeb.Router do
 
     post "/topics/preview", TopicController, :preview
     post "/callback/qiniu", CallbackController, :qiniu
-    get "/search/users", SearchController, :users
   end
 
   if Mix.env == :dev do

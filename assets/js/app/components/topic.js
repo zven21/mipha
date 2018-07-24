@@ -77,7 +77,6 @@ const setReplyTo = id => {
 }
 
 const hookMention = () => {
-  const logins = ['zven']
   $('textarea').atwho({
     at: '@',
     limit: 8,
@@ -90,13 +89,8 @@ const hookMention = () => {
         return items
       },
       remoteFilter: function(query, callback) {
-        // var localMatches, r;
-        // r = new RegExp("^" + query);
-        // localMatches = _.filter(logins, function (u) {
-        //   return r.test(u.login) || r.test(u.name);
-        // });
         $.getJSON(
-          '/api/search/users',
+          '/search/users',
           {
             q: query
           },

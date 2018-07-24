@@ -10,6 +10,7 @@ defmodule Mipha.Accounts do
   alias Mipha.Repo
   alias Mipha.Accounts.{User, Team}
   alias Mipha.Utils.Store
+  alias Mipha.Follows.Follow
 
   @doc """
   Returns the list of users.
@@ -350,6 +351,22 @@ defmodule Mipha.Accounts do
   end
   def github_handle(%Team{} = team) do
     team.github_handle || team.name
+  end
+
+  @doc """
+  添加 帖子与评论内容时，mention user.
+  """
+  @spec search_mention_user(User.t(), String.t()) :: any
+  def search_mention_user(%User{} = user, q) do
+    query =
+      from u in User,
+        join: f in Follow,
+        on: f.follower_id == ^user.id,
+        where: like(u.username, ^"#{q}%")
+
+    query
+    |> Repo.all()
+    |> Enum.uniq()
   end
 
   alias Mipha.Accounts.Location

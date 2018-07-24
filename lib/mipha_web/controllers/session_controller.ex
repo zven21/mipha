@@ -50,7 +50,7 @@ defmodule MiphaWeb.SessionController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:danger, "有一个错误就在你注册的时候不小心发生了，请重新注册一下。")
+        |> put_flash(:danger, "注册失败，请重新注册一下。")
         |> render(:new, changeset: changeset)
     end
   end

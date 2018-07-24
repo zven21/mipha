@@ -3,6 +3,7 @@
   <%= form_for @changeset, @action, fn f -> %>
     <input name="utf8" type="hidden" value="&#x2713;" />
     <%= hidden_input f, :node_id %>
+    <%= error_tag f, :node_id %>
     <div class="form-group">
       <div class="input-group">
         <div class="input-group-prepend">

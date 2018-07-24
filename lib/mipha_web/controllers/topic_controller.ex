@@ -121,9 +121,11 @@ defmodule MiphaWeb.TopicController do
         |> put_flash(:success, "Topic created successfully.")
         |> redirect(to: topic_path(conn, :show, topic))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, :topic, %Ecto.Changeset{} = changeset, _} ->
         parent_nodes = Topics.list_parent_nodes
-        render conn, :new, changeset: changeset, parent_nodes: parent_nodes
+        conn
+        |> put_flash(:danger, "创建失败，请选择节点。")
+        |> render(:new, changeset: changeset, parent_nodes: parent_nodes)
     end
   end
 

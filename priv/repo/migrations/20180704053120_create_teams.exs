@@ -8,6 +8,11 @@ defmodule Mipha.Repo.Migrations.CreateTeams do
       add :name, :string
       add :summary, :string
       add :avatar, :string
+      add :email, :string
+      add :email_public, :boolean
+      add :twitter_handle, :string
+      add :slug, :string
+      add :website, :string
 
       timestamps()
     end

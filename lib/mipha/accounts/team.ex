@@ -9,9 +9,14 @@ defmodule Mipha.Accounts.Team do
 
   schema "teams" do
     field :name, :string
+    field :slug, :string
     field :avatar, :string
     field :summary, :string
+    field :website, :string
     field :github_handle, :string
+    field :twitter_handle, :string
+    field :email, :string
+    field :email_public, :boolean
 
     belongs_to :owner, User
 

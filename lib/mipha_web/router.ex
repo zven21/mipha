@@ -34,7 +34,8 @@ defmodule MiphaWeb.Router do
     pipe_through :browser
 
     get   "/", PageController, :index
-    get   "/search", PageController, :search
+    get   "/search", SearchController, :index
+    get   "/search/users", SearchController, :users
     get   "/markdown", PageController, :markdown
     get   "/join", SessionController, :new, as: :join
     post  "/join", SessionController, :create, as: :join

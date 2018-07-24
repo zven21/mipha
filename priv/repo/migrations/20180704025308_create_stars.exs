@@ -10,5 +10,7 @@ defmodule Mipha.Repo.Migrations.CreateStars do
       timestamps()
     end
 
+    create unique_index(:stars, [:user_id, :topic_id])
+    create unique_index(:stars, [:user_id, :reply_id])
   end
 end

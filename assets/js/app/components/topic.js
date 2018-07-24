@@ -1,3 +1,8 @@
+import 'jquery'
+import 'jquery.caret'
+import _ from 'lodash'
+import 'static/atwho/jquery.atwho.min'
+
 const selectorNode = () => {
   $('#node-selector .nodes .name a').click(function(e) {
     const el = $(e.currentTarget)
@@ -20,7 +25,7 @@ const hookPreview = (switcher, textarea) => {
   preview_box.addClass('markdown form-control')
   $(textarea).after(preview_box)
   preview_box.hide()
-  return $('.preview', switcher).click(function() {
+  $('.preview', switcher).click(function() {
     if ($(this).hasClass('active')) {
       $(this).removeClass('active')
       $(preview_box).hide()
@@ -32,7 +37,6 @@ const hookPreview = (switcher, textarea) => {
       $(preview_box).css('height', $(textarea).height())
       preview($(textarea).val())
     }
-    return false
   })
 }
 
@@ -56,7 +60,6 @@ const hookReply = () => {
     setReplyTo(replyId)
     const reply_body = $('#new_reply textarea')
     reply_body.focus()
-    return false
   })
 }
 
@@ -73,10 +76,47 @@ const setReplyTo = id => {
   replyToPanel.show()
 }
 
+const hookMention = () => {
+  const logins = ['zven']
+  $('textarea').atwho({
+    at: '@',
+    limit: 8,
+    searchKey: 'login',
+    callbacks: {
+      filter: function(query, data, searchKey) {
+        return data
+      },
+      sorter: function(query, items, searchKey) {
+        return items
+      },
+      remoteFilter: function(query, callback) {
+        // var localMatches, r;
+        // r = new RegExp("^" + query);
+        // localMatches = _.filter(logins, function (u) {
+        //   return r.test(u.login) || r.test(u.name);
+        // });
+        $.getJSON(
+          '/api/search/users',
+          {
+            q: query
+          },
+          function(data) {
+            callback(data)
+          }
+        )
+      }
+    },
+    displayTpl:
+      "<li data-value='${login}'><img src='${avatar_url}' height='20' width='20'/> ${login} </li>",
+    insertTpl: '@${login}'
+  })
+}
+
 const Topic = {
   selectorNode,
   hookPreview,
-  hookReply
+  hookReply,
+  hookMention
 }
 
 export default Topic

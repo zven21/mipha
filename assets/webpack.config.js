@@ -1,9 +1,10 @@
-const path = require('path');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const assets = path.normalize(__dirname)
 
 module.exports = (env, options) => ({
   optimization: {
@@ -25,7 +26,8 @@ module.exports = (env, options) => ({
     path: path.resolve(__dirname, '../priv/static/js')
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -38,28 +40,37 @@ module.exports = (env, options) => ({
       },
       {
         test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: '../css/fonts/' // where the fonts will go
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: '../css/fonts/' // where the fonts will go
+            }
           }
-        }]
-      },
+        ]
+      }
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: '../css/[name].css'
     }),
-    new CopyWebpackPlugin([{
-      from: 'static/',
-      to: '../'
-    }]),
+    new CopyWebpackPlugin([
+      {
+        from: 'static/',
+        to: '../'
+      }
+    ]),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
     })
-  ]
-});
+  ],
+  resolve: {
+    alias: {
+      static: `${assets}/static`
+    }
+  }
+})

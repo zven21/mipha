@@ -6,6 +6,9 @@ defmodule Mipha.Accounts.UserTeam do
   alias Mipha.Accounts.{User, Team}
 
   schema "users_teams" do
+    field :role, :string
+    field :status, :string
+
     belongs_to :team, Team
     belongs_to :user, User
 

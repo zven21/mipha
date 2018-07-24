@@ -65,7 +65,7 @@ for parent_node <- ~w(ruby elixir erlang) do
     summary: Faker.Lorem.sentence(10),
     position: 1..10 |> Enum.random
   }
-  for idx <- 1..5 do
+  for idx <- 1..3 do
     Repo.insert! %Node{
       name: "#{node.name}-node#{idx}",
       summary: Faker.Lorem.sentence(10),

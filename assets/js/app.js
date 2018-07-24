@@ -17,6 +17,7 @@ Utils.navActive()
 Topic.selectorNode()
 Topic.hookPreview($('.editor-toolbar'), $('.topic-editor'))
 Topic.hookReply()
+Topic.hookMention()
 // Editor
 window._editor = new Editor()
 // 刷新 Captcha

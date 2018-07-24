@@ -25,7 +25,7 @@
         <% end %>
       </div>
       <div class="card-footer">
-        <%= link "所有成员...", to: team_path(@conn, :people, @team) %>
+        <%= link "所有成员...", to: person_path(@conn, :index, @team.slug) %>
       </div>
     </div>
 

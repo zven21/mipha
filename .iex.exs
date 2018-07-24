@@ -14,7 +14,7 @@ alias Mipha.{
   Utils
 }
 
-alias Accounts.{User, Location, Company, Team}
+alias Accounts.{User, Location, Company, Team, UserTeam}
 alias Topics.{Node, Topic}
 alias Replies.Reply
 alias Stars.Star

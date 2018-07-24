@@ -3,9 +3,29 @@ defmodule MiphaWeb.Admin.TeamControllerTest do
 
   alias Mipha.Accounts
 
-  @create_attrs %{avatar: "some avatar", github_handle: "some github_handle", name: "some name", owner_id: 42, summary: "some summary"}
-  @update_attrs %{avatar: "some updated avatar", github_handle: "some updated github_handle", name: "some updated name", owner_id: 43, summary: "some updated summary"}
-  @invalid_attrs %{avatar: nil, github_handle: nil, name: nil, owner_id: nil, summary: nil}
+  @create_attrs %{
+    avatar: "some avatar",
+    github_handle: "some github_handle",
+    name: "some name", owner_id: 42,
+    summary: "some summary",
+    slug: "some slug"
+  }
+  @update_attrs %{
+    avatar: "some updated avatar",
+    github_handle: "some updated github_handle",
+    name: "some updated name",
+    owner_id: 43,
+    summary: "some updated summary",
+    slug: "some slug"
+  }
+  @invalid_attrs %{
+    avatar: nil,
+    github_handle: nil,
+    name: nil,
+    owner_id: nil,
+    summary: nil,
+    slug: nil
+  }
 
   def fixture(:team) do
     {:ok, team} = Accounts.create_team(@create_attrs)

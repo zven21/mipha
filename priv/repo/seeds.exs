@@ -52,10 +52,10 @@ bencode = User.register_changeset(%User{}, %{
 # Gen teams helijia_web
 Repo.insert! %Team{
   name: "helijia-web",
+  slug: "helijia-web",
   summary: Faker.Lorem.sentence(10),
   owner: zven,
   github_handle: "helijia-web",
-  avatar: Faker.Avatar.image_url,
   users: [qhwa, zven, bencode]
 }
 

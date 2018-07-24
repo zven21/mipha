@@ -4,11 +4,11 @@ defmodule Mipha.Accounts do
   """
 
   import Ecto.Query, warn: false
-
+  alias Ecto.Multi
   alias Comeonin.Bcrypt
   alias HTTPoison
   alias Mipha.Repo
-  alias Mipha.Accounts.{User, Team}
+  alias Mipha.Accounts.{User, Team, UserTeam}
   alias Mipha.Utils.Store
 
   @doc """
@@ -220,7 +220,7 @@ defmodule Mipha.Accounts do
   end
 
   @doc """
-  Updates user password.
+  个人中心-修改密码
   """
   @spec update_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, any()}
   def update_user_password(user, attrs) do
@@ -237,6 +237,7 @@ defmodule Mipha.Accounts do
   @doc """
   Mark the current user verified
   """
+  @spec mark_as_verified(User.t()) :: {:ok, User.t()} | {:error, %Ecto.Changeset{}}
   def mark_as_verified(user) do
     attrs = %{"email_verified_at" => Timex.now}
     update_user(user, attrs)
@@ -646,7 +647,51 @@ defmodule Mipha.Accounts do
     Team.changeset(team, %{})
   end
 
-  alias Mipha.Accounts.UserTeam
+  @doc """
+  Inserts a team.
+
+  ## Examples
+
+      iex> insert_topic(%User{}, %{field: value})
+      {:ok, %Team{}}
+
+      iex> insert_topic(%User{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec insert_team(User.t(), map()) :: {:ok, Team.t()} | {:error, Ecto.Changeset.t()}
+  def insert_team(user, attrs) do
+    attrs = attrs |> Map.put("owner_id", user.id)
+
+    team_changeset = Team.changeset(%Team{}, attrs)
+
+    Multi.new()
+    |> Multi.insert(:team, team_changeset)
+    |> build_the_owner_of_new_team()
+    |> Repo.transaction()
+  end
+
+  # 创建 team 的同时，添加 这个 team 的 owner
+  defp build_the_owner_of_new_team(multi) do
+    insert_user_team_fn = fn %{team: team} ->
+      attrs = %{
+        user_id: team.owner_id,
+        team_id: team.id,
+        role: "owner",
+        status: "accepted"
+      }
+      # 创建 team owner
+      create_user_team(attrs)
+    end
+
+    Multi.run(multi, :build_the_owner_of_new_team, insert_user_team_fn)
+  end
+
+  def get_team_by_slug(slug) do
+    Team
+    |> Repo.get_by([slug: slug])
+    |> Repo.preload([:users, :owner])
+  end
 
   @doc """
   Returns the list of users_teams.
@@ -741,4 +786,32 @@ defmodule Mipha.Accounts do
   def change_user_team(%UserTeam{} = user_team) do
     UserTeam.changeset(user_team, %{})
   end
+
+  @doc """
+  获取对应 team 或 user 关联的 user_teams 对象
+
+  ## Example
+
+      iex> get_user_teams(%Team{})
+      [UserTeam]
+
+      iex> get_user_teams(%User{})
+      [UserTeam]
+
+  """
+  def get_user_teams(%Team{} = team) do
+    team
+    |> UserTeam.by_team
+    |> preload([:user, :team])
+    |> Repo.all()
+  end
+
+  def get_user_teams(%User{} = user) do
+    user
+    |> UserTeam.by_user
+    |> preload([:user, :team])
+    |> Repo.all()
+  end
+
+  def get_user_teams(nil), do: nil
 end

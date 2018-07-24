@@ -1,0 +1,87 @@
+<%= render "_nav.html", assigns %>
+<div class="row">
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for @changeset, team_path(@conn, :update, @team.slug), [multipart: true], fn f -> %>
+          <div class="form-group">
+            <%= label f, :slug %>
+            <%= text_input f, :slug, class: "form-control", placeholder: "http://localhost:3000/:slug" %>
+            <%= error_tag f, :slug %>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :name, "组织名称" %>
+            <%= text_input f, :name, class: "form-control", placeholder: "请添加名称" %>
+            <%= error_tag f, :name %>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :email, "Email" %>
+            <%= text_input f, :email, class: "form-control", placeholder: "请添加邮箱" %>
+            <%= error_tag f, :email %>
+          </div>
+
+          <div class="form-group form-check">
+            <input name="team[email_public]" type="hidden" value="0">
+            <input class="form-check-input" type="checkbox" value="1" name="team[email_public]" id="team_email_public">
+            <label for="user_email_public" class="checkbox">公开 Email</label>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-7">
+              <%= label f, :avatar %>
+              <%= file_input f, :avatar %>
+              <%= error_tag f, :avatar %>
+            </div>
+            <div class="col-sm-5">
+              <img class="media-object avatar-96" src="<%= qn_url(@team.avatar) %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :github_handle, "Github" %>
+            <div class="input-group">
+              <span class="input-group-prepend">
+                <span class="input-group-text">https://github.com/</span>
+              </span>
+              <%= text_input f, :github_handle, class: "form-control" %>
+              <%= error_tag f, :github_handle %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :twitter_handle, "Twitter" %>
+            <div class="input-group">
+              <span class="input-group-prepend">
+                <span class="input-group-text">https://twitter.com/</span>
+              </span>
+              <%= text_input f, :twitter_handle, class: "form-control" %>
+              <%= error_tag f, :twitter_handle %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :website, "组织网址" %>
+            <%= text_input f, :website, class: "form-control" %>
+            <%= error_tag f, :website %>
+          </div>
+
+          <div class="form-group">
+            <%= label f, :summary, "组织介绍" %>
+            <%= textarea f, :summary, rows: 3, class: "form-control", placeholder: "请添加备注" %>
+            <%= error_tag f, :summary %>
+          </div>
+
+          <div class="form-group">
+            <%= submit "保存", class: "btn btn-primary btn-block" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <%= render "_right.html", assigns %>
+  </div>
+</div>

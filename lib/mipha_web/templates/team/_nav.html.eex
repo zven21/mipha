@@ -1,8 +1,13 @@
 <ul class="nav nav-tabs team-menu mi-nav">
   <li class="nav-item">
-    <%= link "成员的话题列表", to: team_path(@conn, :show, @team), class: "nav-link" %>
+    <%= link "成员的话题列表", to: team_path(@conn, :show, @team.slug), class: "nav-link" %>
   </li>
   <li class="nav-item">
-    <%= link "成员列表", to: team_path(@conn, :people, @team), class: "nav-link" %>
+    <%= link "成员列表", to: person_path(@conn, :index, @team.slug), class: "nav-link" %>
   </li>
+  <%= if @current_user && @current_user.id == @team.owner_id do %>
+    <li class="nav-item">
+      <%= link "设置", to: team_path(@conn, :edit, @team.slug), class: "nav-link" %>
+    </li>
+  <% end %>
 </ul>

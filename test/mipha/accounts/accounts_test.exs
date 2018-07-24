@@ -227,9 +227,30 @@ defmodule Mipha.AccountsTest do
   describe "teams" do
     alias Mipha.Accounts.Team
 
-    @valid_attrs %{avatar: "some avatar", github_handle: "some github_handle", name: "some name", owner_id: 42, summary: "some summary"}
-    @update_attrs %{avatar: "some updated avatar", github_handle: "some updated github_handle", name: "some updated name", owner_id: 43, summary: "some updated summary"}
-    @invalid_attrs %{avatar: nil, github_handle: nil, name: nil, owner_id: nil, summary: nil}
+    @valid_attrs %{
+      avatar: "some avatar",
+      github_handle: "some github_handle",
+      name: "some name",
+      owner_id: 42,
+      slug: "some slug",
+      summary: "some summary"
+    }
+    @update_attrs %{
+      avatar: "some updated avatar",
+      github_handle: "some updated github_handle",
+      name: "some updated name",
+      slug: "some slug",
+      owner_id: 43,
+      summary: "some updated summary"
+    }
+    @invalid_attrs %{
+      avatar: nil,
+      github_handle: nil,
+      slug: nil,
+      name: nil,
+      owner_id: nil,
+      summary: nil
+    }
 
     def team_fixture(attrs \\ %{}) do
       {:ok, team} =
@@ -295,9 +316,22 @@ defmodule Mipha.AccountsTest do
   describe "users_teams" do
     alias Mipha.Accounts.UserTeam
 
-    @valid_attrs %{team_id: 42, user_id: 42}
-    @update_attrs %{team_id: 43, user_id: 43}
-    @invalid_attrs %{team_id: nil, user_id: nil}
+    @valid_attrs %{
+      team_id: 42,
+      user_id: 42,
+      role: "owner",
+      status: "pending"
+    }
+    @update_attrs %{
+      team_id: 43,
+      user_id: 43
+    }
+    @invalid_attrs %{
+      team_id: nil,
+      user_id: nil,
+      role: nil,
+      status: nil
+    }
 
     def user_team_fixture(attrs \\ %{}) do
       {:ok, user_team} =

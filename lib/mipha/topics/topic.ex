@@ -20,7 +20,7 @@ defmodule Mipha.Topics.Topic do
   # Topic 状态包含:
   # 正常的帖子：normal
   # 加精的帖子：featured
-  # 有建设性的帖子：educational
+  # 有教学意义的帖子：educational
   # 招聘帖子：job
   defenum TopicType, :topic_type, [
     :normal,

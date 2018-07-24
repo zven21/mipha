@@ -5,7 +5,7 @@
   </div>
   <div class="items card-body">
     <%= for {item, idx} <- Enum.with_index(@topic.replies) do %>
-      <div class="reply" data-id="<%= item.id %>" id="reply<%= item.id %>">
+      <div class="reply <%= popular(item) %>" data-id="<%= item.id %>" id="reply<%= item.id %>">
         <div id="reply-<%= item.id %>" data-floor="<%= idx + 1 %>">
           <div class="avatar">
             <%= link to: user_path(@conn, :show, item.user.username), title: item.user.username do %>
@@ -29,12 +29,12 @@
                 <%= if has_starred?(user: @current_user, reply: item) do %>
                   <%= link to: topic_reply_reply_path(@conn, :unstar, @topic, item), method: :post, title: "取消赞", class: "likeable active" do %>
                     <i class="fa fa-heart"></i>
-                    <span><%= get_starred_count(reply: item) %> 个赞</span>
+                    <span><%= item.star_count %> 个赞</span>
                   <% end %>
                 <% else %>
                   <%= link to: topic_reply_reply_path(@conn, :star, @topic, item), method: :post, title: "赞", class: "likeable deactive" do %>
                     <i class="fa fa-heart"></i>
-                    <span><%= get_starred_count(reply: item) %> 个赞</span>
+                    <span><%= item.star_count %> 个赞</span>
                   <% end %>
                 <% end %>
               </span>

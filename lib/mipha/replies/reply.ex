@@ -84,6 +84,7 @@ defmodule Mipha.Replies.Reply do
   @doc false
   def changeset(reply, attrs) do
     permitted_attrs = ~w(
+      star_count
       topic_id
       user_id
       parent_id

@@ -11,9 +11,10 @@ defmodule Mipha.Qiniu do
   end
 
   @doc """
+  获取七牛的链接地址
   """
   def q_url(value) when is_nil(value) do
-    @base_url <> "cool.jpg"
+    @base_url <> "default.jpg"
   end
   def q_url(value) do
     @base_url <> value

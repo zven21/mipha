@@ -15,9 +15,11 @@ defmodule Mipha.Repo.Migrations.CreateTopics do
       add :last_reply_user_id, :integer
       add :replied_at, :naive_datetime
       add :suggested_at, :naive_datetime
+      add :star_count, :integer
 
       timestamps()
     end
 
+    create index(:topics, [:user_id])
   end
 end

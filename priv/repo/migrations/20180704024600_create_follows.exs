@@ -9,5 +9,6 @@ defmodule Mipha.Repo.Migrations.CreateFollows do
       timestamps()
     end
 
+    create unique_index(:follows, [:follower_id, :user_id])
   end
 end

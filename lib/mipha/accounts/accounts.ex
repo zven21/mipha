@@ -191,7 +191,7 @@ defmodule Mipha.Accounts do
   defp check_user_password(user, password) do
     case user do
       nil -> false
-      _   -> Bcrypt.checkpw(password, user.password_hash)
+      _   -> !is_nil(user.password_hash) && Bcrypt.checkpw(password, user.password_hash)
     end
   end
 

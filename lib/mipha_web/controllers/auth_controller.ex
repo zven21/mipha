@@ -38,10 +38,12 @@ defmodule MiphaWeb.AuthController do
         case Accounts.authenticate(attrs) do
           {:ok, user} ->
             conn |> ok_login(user)
+
           {:error, %Ecto.Changeset{} = changeset} ->
             conn
             |> put_flash(:danger, "Login unsuccessful")
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
+
           {:error, reason} ->
             changeset = User.login_changeset(%User{}, %{})
             conn

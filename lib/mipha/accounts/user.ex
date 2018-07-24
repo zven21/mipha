@@ -29,7 +29,7 @@ defmodule Mipha.Accounts.User do
     field :tagline, :string
     field :github_handle, :string
     field :is_admin, :boolean, default: false
-    field :password_hash, :string
+    field :password_hash, :string, default: ""
     field :website, :string
     field :alipay, :string
     field :wechat, :string

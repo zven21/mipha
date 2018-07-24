@@ -238,7 +238,7 @@ defmodule Mipha.Replies do
       attrs = %{
         actor_id: reply.user_id,
         action: "reply_mentioned",
-        topic_id: reply.id,
+        reply_id: reply.id,
         notified_users: notified_users
       }
 

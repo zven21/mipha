@@ -361,7 +361,8 @@ defmodule Mipha.Accounts do
     query =
       from u in User,
         join: f in Follow,
-        on: f.follower_id == ^user.id,
+        on: f.user_id == u.id,
+        where: f.follower_id == ^user.id,
         where: like(u.username, ^"#{q}%")
 
     query

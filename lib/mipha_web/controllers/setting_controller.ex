@@ -28,28 +28,21 @@ defmodule MiphaWeb.SettingController do
   end
 
   defp update_account(conn, user_params) do
-    attrs = %{
-      "bio" => user_params["bio"],
-      "email_public" => user_params["email_public"]
-    }
-
+    # FIXME 应该有更好的处理方式。
     attrs =
-      with {:ok, avatar} <- parse(user_params["avatar"]),
-           {:ok, avatar_path} = avatar.path,
-           {:ok, key} = upload(conn, avatar_path)
-      do
-        Map.merge(attrs, %{"avatar" => key})
-      end
+      user_params
+      |> Map.pop("avatar")
+      |> build_attrs("avatar")
 
     case Accounts.update_user(current_user(conn), attrs) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, "用户资料更新成功。")
         |> render(:show, changeset: Accounts.change_user(user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:danger, "User updated failed.")
+        |> put_flash(:danger, "用户资料更新失败。")
         |> render(:show, changeset: changeset)
     end
   end
@@ -91,20 +84,11 @@ defmodule MiphaWeb.SettingController do
 
   defp update_reward(conn, user_params) do
     attrs =
-      with {:ok, wechat} <- parse(user_params["wechat"]),
-           {:ok, wechat_path} <- parse(wechat.path),
-           {:ok, key} = upload(conn, wechat_path)
-      do
-        Map.merge(%{}, %{"wechat" => key})
-      end
-
-    attrs =
-      with {:ok, alipay} <- parse(user_params["alipay"]),
-           {:ok, alipay_path} <- parse(alipay.path),
-           {:ok, key} = upload(conn, alipay_path)
-      do
-        Map.merge(attrs, %{"alipay" => key})
-      end
+      user_params
+      |> Map.pop("wechat")
+      |> build_attrs("wechat")
+      |> Map.pop("alipay")
+      |> build_attrs("alipay")
 
     case Accounts.update_user(current_user(conn), attrs) do
       {:ok, user} ->
@@ -121,18 +105,11 @@ defmodule MiphaWeb.SettingController do
     end
   end
 
-  defp upload(conn, path) do
-    case Qiniu.upload(path) do
-      %HTTPoison.Response{status_code: 200, body: body} ->
-        {:ok, body["key"]}
-
-      %HTTPoison.Response{status_code: _} ->
-        conn
-        |> put_flash(:danger, "上传失败")
-        |> render(:show, changeset: Accounts.change_user(current_user(conn)))
+  defp build_attrs({nil, params}, _), do: params
+  defp build_attrs({%Plug.Upload{} = avatar, params}, field) do
+    # FIXME 如果上传失败，callback 统一处理。
+    with %HTTPoison.Response{status_code: 200, body: body} <- Qiniu.upload(avatar.path) do
+      Map.merge(params, %{field => body["key"]})
     end
   end
-
-  defp parse(nil), do: {:error, "nil"}
-  defp parse(valid), do: {:ok, valid}
 end

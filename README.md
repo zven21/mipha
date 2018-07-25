@@ -16,6 +16,7 @@
 ## 简介
 
 Mipha 是一个用 Elixir 模(chao)仿(xi) [RubyChina](https://ruby-china.org/) 的开源论坛。
+有兴趣参与开发的童鞋，可以加入 [Slack channel](https://elixir-mipha.slack.com/)
 
 ## 启动程序
 
@@ -45,13 +46,14 @@ export GITHUB_CLIENT_SECRET
 ```
 
 ## 数据库表关系
-![](https://l.ruby-china.com/photo/2018/b96739ac-94d4-433e-9693-de528466c6d3.jpeg!large)
+
+![ ](https://l.ruby-china.com/photo/2018/b96739ac-94d4-433e-9693-de528466c6d3.jpeg!large)
 
 ## 项目结构
 
 目前的项目结构设计很直接，不属于 web 部分的功能，都放到了 lib/mipha 内，后续会根据业务需求调整。
 
-```
+```bash
 .
 ├── assets                     # JS CSS 与静态资源
 ├── lib                        # 项目 elixir 代码
@@ -70,7 +72,7 @@ export GITHUB_CLIENT_SECRET
 │   │   ├── qiniu.ex           # 七牛上传图片
 │   │   ├── regexp.ex          # 正则表达式
 │   │   ├── token.ex           # token 验证
-│   ├── mipha_web 
+│   ├── mipha_web
 │   │   ├── channels           # socket WS 协议相关代码
 │   │   ├── controllers        # Controllers
 │   │   │   ├── admin          # admin 管理台
@@ -79,12 +81,11 @@ export GITHUB_CLIENT_SECRET
 │   │   ├── views              # Views
 │   │   ├── email.ex           # 发送邮件方法及调用邮件模板
 │   │   ├── session.ex         # 用户登录相关的 session 处理
-│   ├── mipha.ex                
-│   ├── mipha_web.ex            
+│   ├── mipha.ex
+│   ├── mipha_web.ex
 └── test                       # 测试
 
 ```
-
 
 ## 进度与计划
 
@@ -92,4 +93,4 @@ export GITHUB_CLIENT_SECRET
 
 ## 其他
 
-- [[开源项目] 用 Elixir 撸了一个 RubyChina](https://ruby-china.org/topics/37158)
+* [[开源项目] 用 Elixir 撸了一个 RubyChina](https://ruby-china.org/topics/37158)

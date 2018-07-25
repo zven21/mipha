@@ -1,5 +1,7 @@
 defmodule Mipha.Regexp do
-  @moduledoc false
+  @moduledoc """
+  Regex
+  """
 
   def username do
     ~r/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){1,64}$/

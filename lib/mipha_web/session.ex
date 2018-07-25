@@ -11,7 +11,7 @@ defmodule MiphaWeb.Session do
   def current_user(conn) do
     case get_current_user(conn) do
       nil -> nil
-      id  -> Accounts.get_user!(id)
+      id  -> Accounts.get_user(id)
     end
   end
 
@@ -36,6 +36,6 @@ defmodule MiphaWeb.Session do
   end
 
   defp get_session_from_cookies do
-    Application.get_env(:mipha_web, :get_session_from_cookies) || false
+    Application.get_env(:mipha_web, :get_session_from_cookies, false)
   end
 end

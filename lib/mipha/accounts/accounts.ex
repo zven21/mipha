@@ -342,7 +342,7 @@ defmodule Mipha.Accounts do
 
   # 请求获取 github 用户的 repos 的 Url
   defp github_repos_url(target) do
-    "https://api.github.com/users/#{github_handle(target)}/repos?type=owner&sort=pushed"
+    "https://api.github.com/users/#{github_handle(target)}/repos?type=owner&sort=pushed&client_id=#{System.get_env("GITHUB_CLIENT_ID")}&client_secret=#{System.get_env("GITHUB_CLIENT_SECRET")}"
   end
 
   @doc """

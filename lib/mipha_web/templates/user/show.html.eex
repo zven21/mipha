@@ -30,7 +30,7 @@
                     <% end %>
                   </div>
                   <div class="info">
-                    <span class="counter"><%= get_starred_count(topic: item) %> 个赞 • <%= item.reply_count %> 条回复</span>
+                    <span class="counter"><%= item.star_count %> 个赞 • <%= item.reply_count %> 条回复</span>
                   </div>
                 </li>
               <% end %>

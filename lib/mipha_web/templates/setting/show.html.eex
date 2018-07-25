@@ -14,12 +14,8 @@
                 <%= text_input f, :email, class: "form-control", disabled: true %>
               </div>
 
-              <div class="form-group form-check">
-                <label for="user_email_public" class="form-check-label">
-                  <input name="user[email_public]" type="hidden" value="0" />
-                  <input class="form-check-input" type="checkbox" value="1" checked="checked" name="user[email_public]" id="user_email_public"
-                  /> 公开 Email
-                </label>
+              <div class="form-group">
+                <%= checkbox(f, :email_public) %> 公开 Email
               </div>
 
               <div class="form-group">
@@ -28,7 +24,7 @@
               </div>
 
               <div class="form-group">
-                <%= textarea f, :bio, class: "form-control", required: true, placeholder: "添加描述", rows: 4 %>
+                <%= textarea f, :bio, class: "form-control", placeholder: "添加个人简介", rows: 4 %>
                 <%= error_tag f, :bio %>
               </div>
             </div>

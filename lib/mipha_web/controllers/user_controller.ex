@@ -19,8 +19,14 @@ defmodule MiphaWeb.UserController do
 
   def action(conn, _) do
     if conn.params["name"] do
-      user = Accounts.get_user_by_username(conn.params["name"])
-      apply(__MODULE__, action_name(conn), [conn, conn.params, user])
+      case Accounts.get_user_by_username(conn.params["name"]) do
+        nil ->
+          conn
+          |> put_flash(:danger, "该用户不存在")
+          |> redirect(to: page_path(conn, :index))
+
+        user -> apply(__MODULE__, action_name(conn), [conn, conn.params, user])
+      end
     else
       apply(__MODULE__, action_name(conn), [conn, conn.params])
     end

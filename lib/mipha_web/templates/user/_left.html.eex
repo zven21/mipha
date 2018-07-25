@@ -34,7 +34,7 @@
           <%= if @user.github_handle do %>
             <a target="_blank" rel="nofollow" href="//github.com/<%= @user.github_handle %>"><i class="fa fa-github"></i></a>
           <% end %>
-          <%= if @user.email do %>
+          <%= if @user.email_public do %>
             <a href="mailto: <%= @user.email %>"><i class="fa fa-envelope-o"></i></a>
           <% end %>
         </div>

@@ -10,7 +10,8 @@ defmodule MiphaWeb.SearchController do
   def users(conn, params) do
     # 匹配已关注用户
     users =
-      current_user(conn)
+      conn
+      |> current_user()
       |> Accounts.search_mention_user(params["q"])
       |> Enum.map(&(%{login: &1.username, avatar_url: Qiniu.q_url(&1.avatar)}))
 

@@ -183,6 +183,7 @@ defmodule Mipha.Topics.Topic do
       node_id
       visit_count
       reply_count
+      star_count
       last_reply_id
       last_reply_user_id
       replied_at

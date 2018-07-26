@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Elixir Admin Dashboard!</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/admin.css") %>">
   </head>
 

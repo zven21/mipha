@@ -5,7 +5,7 @@ import 'dropzone/dist/dropzone-amd-module'
 
 // JS components
 import Times from './app/components/times'
-import Utils from './app/components/utils'
+import Utils from './common/components/utils'
 import Topic from './app/components/topic'
 import Editor from './app/components/editor'
 import Session from './app/components/session'

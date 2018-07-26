@@ -50,6 +50,6 @@ defmodule MiphaWeb.TopicView do
   是否是受欢迎的帖子评论。
   """
   def popular(reply) do
-    if reply.star_count >=5, do: "popular"
+    if reply.star_count >= 5, do: "popular"
   end
 end

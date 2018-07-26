@@ -1,34 +1,29 @@
-<h2>Listing Teams</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Owner</th>
-      <th>Github handle</th>
-      <th>Name</th>
-      <th>Summary</th>
-      <th>Avatar</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for team <- @teams do %>
-    <tr>
-      <td><%= team.owner_id %></td>
-      <td><%= team.github_handle %></td>
-      <td><%= team.name %></td>
-      <td><%= team.summary %></td>
-      <td><%= team.avatar %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: admin_team_path(@conn, :show, team), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: admin_team_path(@conn, :edit, team), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: admin_team_path(@conn, :delete, team), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Team", to: admin_team_path(@conn, :new) %></span>
+<div class="card bg-light">
+  <div class="card-body">
+    <table class="table table-bordered table-hover table-sm text-center">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>名称</th>
+          <th>拥有者</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for team <- @teams do %>
+        <tr>
+          <td><%= team.id %></td>
+          <td><%= team.name %></td>
+          <td><%= team.owner_id %></td>
+          <td><%= team.inserted_at %></td>
+          <td>
+            <span><%= link "", to: team_path(@conn, :show, team), class: "fa fa-arrows-alt" %></span>
+            <span><%= link "", to: admin_team_path(@conn, :delete, team), method: :delete, data: [confirm: "Are you sure?"], class: "fa fa-trash" %></span>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

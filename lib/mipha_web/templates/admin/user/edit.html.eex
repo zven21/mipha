@@ -1,9 +1,0 @@
-<h2>Edit User</h2>
-<div class="card">
-  <span><%= link "Back", to: admin_user_path(@conn, :index), class: "btn btn-sm" %></span>
-  <div class="card-body">
-    <%= render "form.html", Map.put(assigns, :action, admin_user_path(@conn, :update, @user)) %>
-  </div>
-</div>
-
-

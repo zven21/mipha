@@ -1,35 +1,24 @@
-<h2>Listing Users</h2>
 <div class="card bg-light">
-  <span><%= link "New User", to: admin_user_path(@conn, :new), class: "btn btn-sm" %></span>
   <div class="card-body">
     <table class="table table-bordered table-hover table-sm text-center">
       <thead>
         <tr>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Avatar</th>
-          <th>Bio</th>
-          <th>Website</th>
-          <th>Github handle</th>
-          <th>Is admin</th>
-          <th></th>
+          <th>#</th>
+          <th>用户名</th>
+          <th>邮箱</th>
+          <th>注册时间</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <%= for user <- @users do %>
         <tr>
+          <td><%= user.id %></td>
           <td><%= user.username %></td>
           <td><%= user.email %></td>
-          <td><%= user.avatar %></td>
-          <td><%= user.bio %></td>
-          <td><%= user.website %></td>
-          <td><%= user.github_handle %></td>
-          <td><%= user.is_admin %></td>
-
-          <td class="text-right">
-            <span><%= link "", to: admin_user_path(@conn, :show, user), class: "fa fa-arrows-alt" %></span>
-            <span><%= link "", to: admin_user_path(@conn, :edit, user), class: "fa fa-pencil" %></span>
-            <span><%= link "", to: admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "fa fa-trash" %></span>
+          <td><%= user.inserted_at %></td>
+          <td>
+            <span><%= link "", to: user_path(@conn, :show, user.username), class: "fa fa-arrows-alt" %></span>
           </td>
         </tr>
         <% end %>

@@ -1,48 +1,40 @@
-<h2>Listing Topics</h2>
+<div class="card bg-light">
+  <div class="card-body">
+    <table class="table table-bordered table-hover table-sm text-center">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>标题</th>
+          <th>作者</th>
+          <th>类型</th>
+          <th>节点</th>
+          <th>访问次数</th>
+          <th>评论次数</th>
+          <th>点赞次数</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for topic <- @topics do %>
+        <tr>
+          <td><%= topic.id %></td>
+          <td><%= topic.title %></td>
+          <td><%= topic.user_id %></td>
+          <td><%= topic.type %></td>
+          <td><%= topic.node_id %></td>
+          <td><%= topic.visit_count %></td>
+          <td><%= topic.reply_count %></td>
+          <td><%= topic.star_count %></td>
+          <td><%= topic.inserted_at %></td>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Closed at</th>
-      <th>User</th>
-      <th>Type</th>
-      <th>Node</th>
-      <th>Visit count</th>
-      <th>Reply count</th>
-      <th>Last reply</th>
-      <th>Last reply user</th>
-      <th>Replied at</th>
-      <th>Suggested at</th>
+          <td class="text-right">
+            <span><%= link "", to: topic_path(@conn, :show, topic), class: "fa fa-arrows-alt" %></span>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for topic <- @topics do %>
-    <tr>
-      <td><%= topic.title %></td>
-      <td><%= topic.body %></td>
-      <td><%= topic.closed_at %></td>
-      <td><%= topic.user_id %></td>
-      <td><%= topic.type %></td>
-      <td><%= topic.node_id %></td>
-      <td><%= topic.visit_count %></td>
-      <td><%= topic.reply_count %></td>
-      <td><%= topic.last_reply_id %></td>
-      <td><%= topic.last_reply_user_id %></td>
-      <td><%= topic.replied_at %></td>
-      <td><%= topic.suggested_at %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: admin_topic_path(@conn, :show, topic), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: admin_topic_path(@conn, :edit, topic), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: admin_topic_path(@conn, :delete, topic), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Topic", to: admin_topic_path(@conn, :new) %></span>

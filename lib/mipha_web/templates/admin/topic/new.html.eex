@@ -1,5 +1,0 @@
-<h2>New Topic</h2>
-
-<%= render "form.html", Map.put(assigns, :action, admin_topic_path(@conn, :create)) %>
-
-<span><%= link "Back", to: admin_topic_path(@conn, :index) %></span>

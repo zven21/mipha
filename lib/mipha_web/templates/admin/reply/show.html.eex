@@ -1,28 +1,23 @@
-<h2>Show Reply</h2>
+<div class="card bg-light">
+  <div class="card-body">
+    <ul>
+      <li>
+        <strong>Topic:</strong>
+        <%= @reply.topic_id %>
+      </li>
+      <li>
+        <strong>User:</strong>
+        <%= @reply.user_id %>
+      </li>
+      <li>
+        <strong>Parent:</strong>
+        <%= @reply.parent_id %>
+      </li>
+      <li>
+        <strong>Content:</strong>
+        <%= @reply.content %>
+      </li>
+    </ul>
+  </div>
+</div>
 
-<ul>
-
-  <li>
-    <strong>Topic:</strong>
-    <%= @reply.topic_id %>
-  </li>
-
-  <li>
-    <strong>User:</strong>
-    <%= @reply.user_id %>
-  </li>
-
-  <li>
-    <strong>Parent:</strong>
-    <%= @reply.parent_id %>
-  </li>
-
-  <li>
-    <strong>Content:</strong>
-    <%= @reply.content %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: admin_reply_path(@conn, :edit, @reply) %></span>
-<span><%= link "Back", to: admin_reply_path(@conn, :index) %></span>

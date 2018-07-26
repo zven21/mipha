@@ -20,7 +20,6 @@ defmodule MiphaWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import MiphaWeb.Router.Helpers
-
       # The default endpoint for testing
       @endpoint MiphaWeb.Endpoint
     end

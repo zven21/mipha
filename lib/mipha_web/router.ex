@@ -19,6 +19,10 @@ defmodule MiphaWeb.Router do
 
   pipeline :admin do
     plug :put_layout, {MiphaWeb.LayoutView, :admin}
+    # FIXME
+    if Mix.env != :test do
+      plug MiphaWeb.Plug.RequireAdmin
+    end
   end
 
   scope "/auth", MiphaWeb do
@@ -109,13 +113,13 @@ defmodule MiphaWeb.Router do
     pipe_through ~w(browser admin)a
 
     get "/", PageController, :index
-    resources "/users", UserController
+    resources "/users", UserController, only: ~w(index delete)a
     resources "/nodes", NodeController
-    resources "/topics", TopicController
-    resources "/repies", ReplyController
-    resources "/companies", CompanyController
-    resources "/teams", TeamController
-    resources "/notifications", NotificationController
+    resources "/topics", TopicController, only: ~w(index)a
+    resources "/repies", ReplyController, only: ~w(index show delete)a
+    resources "/companies", CompanyController, only: ~w(index delete)a
+    resources "/teams", TeamController, only: ~w(index delete)a
+    resources "/notifications", NotificationController, only: ~w(index show delete)a
   end
 
   # Other scopes may use custom stacks.

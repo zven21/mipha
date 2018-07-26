@@ -1,5 +1,5 @@
-<h2>New Team</h2>
-
-<%= render "form.html", Map.put(assigns, :action, admin_team_path(@conn, :create)) %>
-
-<span><%= link "Back", to: admin_team_path(@conn, :index) %></span>
+<div class="card bg-light">
+  <div class="card-body">
+    <%= render "form.html", Map.put(assigns, :action, admin_team_path(@conn, :create)) %>
+  </div>
+</div>

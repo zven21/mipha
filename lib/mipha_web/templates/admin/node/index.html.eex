@@ -1,32 +1,35 @@
-<h2>Listing Nodes</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Summary</th>
-      <th>Position</th>
-      <th>Parent</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for node <- @nodes do %>
-    <tr>
-      <td><%= node.name %></td>
-      <td><%= node.summary %></td>
-      <td><%= node.position %></td>
-      <td><%= node.parent_id %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: admin_node_path(@conn, :show, node), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: admin_node_path(@conn, :edit, node), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: admin_node_path(@conn, :delete, node), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Node", to: admin_node_path(@conn, :new) %></span>
+<div class="card bg-light">
+  <span><%= link "新建节点", to: admin_node_path(@conn, :new), class: "btn btn-default btn-sm" %></span>
+  <div class="card-body">
+    <table class="table table-bordered table-hover table-sm text-center">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>名称</th>
+          <th>概况</th>
+          <th>排序</th>
+          <th>父节点</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for node <- @nodes do %>
+        <tr>
+          <td><%= node.id %></td>
+          <td><%= node.name %></td>
+          <td><%= node.summary %></td>
+          <td><%= node.position %></td>
+          <td><%= node.parent_id %></td>
+          <td><%= node.inserted_at %></td>
+          <td>
+            <span><%= link "", to: admin_node_path(@conn, :show, node), class: "fa fa-arrows-alt" %></span>
+            <span><%= link "", to: admin_node_path(@conn, :edit, node), class: "fa fa-pencil" %></span>
+            <span><%= link "", to: admin_node_path(@conn, :delete, node), method: :delete, data: [confirm: "Are you sure?"], class: "fa fa-trash" %></span>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

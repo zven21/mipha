@@ -10,8 +10,6 @@
       <li><a href="/topics">默认</a></li>
       <li><a href="/topics/featured"><i class="fa fa-diamond"></i>精华帖</a></li>
       <li><a href="/topics/popular">优质帖子</a></li>
-      <li><a href="/topics/jobs">招聘</a></li>
-      <li><a href="/topics/educational">WIKI</a></li>
       <li><a href="/topics/no_reply">无人问津</a></li>
     </ul>
   </div>

@@ -1,13 +1,4 @@
 <footer class="footer" id="footer">
   <div class="container">
-    <div class="media">
-      <div class="media-body">
-        <div class="links">
-          <a href="/users">活跃会员</a> /
-          <a href="/teams">组织</a> /
-          <a href="https://github.com/zven21/mipha" target="_blank">Github</a>
-        </div>
-      </div>
-    </div>
   </div>
 </footer>

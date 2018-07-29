@@ -37,7 +37,7 @@ defmodule MiphaWeb.Router do
     # Use the default browser stack
     pipe_through :browser
 
-    get   "/", PageController, :index
+    get   "/", TopicController, :index
     get   "/search", SearchController, :index
     get   "/search/users", SearchController, :users
     get   "/markdown", PageController, :markdown
@@ -69,7 +69,7 @@ defmodule MiphaWeb.Router do
     get "/teams/:id/people", TeamController, :people
 
     # topic
-    get "/topics/jobs", TopicController, :jobs
+    get "/jobs", TopicController, :jobs
     get "/topics/no_reply", TopicController, :no_reply
     get "/topics/popular", TopicController, :popular
     get "/topics/featured", TopicController, :featured

@@ -1,12 +1,12 @@
 <div class="card bg-light">
   <div class="card-body">
     <div class="toolbar">
-      <form class="form-inline" action="/admin/topics">
+      <%= form_for @conn, admin_topic_path(@conn, :index), [method: :get, class: "form-inline"], fn f -> %>
         <div class="form-group mr-sm-2">
-          <input type="text" name="q[title_like]" class="form-control btn-sm" value="" placeholder="标题">
+          <%= ransack_search_input f, "q[title_like]", class: "form-control btn-sm", value: @conn.params["q"]["title_like"], placeholder: "标题" %>
         </div>
         <button class="btn btn-primary btn-sm">搜索</button>
-      </form>
+      <% end %>
     </div>
     <table class="table table-bordered table-hover table-sm text-center">
       <thead>
@@ -35,14 +35,16 @@
           <td><%= topic.reply_count %></td>
           <td><%= topic.star_count %></td>
           <td><%= topic.inserted_at %></td>
-
-          <td class="text-right">
+          <td>
             <span><%= link "", to: topic_path(@conn, :show, topic), class: "fa fa-arrows-alt" %></span>
           </td>
         </tr>
         <% end %>
       </tbody>
     </table>
+  </div>
+  <div class="card-footer">
+    <%= render MiphaWeb.SharedView, "_ransack_paginate.html", page: decorator_paginate(@conn, @paginate) %>
   </div>
 </div>
 

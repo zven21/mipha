@@ -16,7 +16,7 @@ defmodule MiphaWeb.Plug.RequireAdmin do
     else
       conn
       |> put_flash(:danger, "Admin only")
-      |> redirect(to: Helpers.page_path(conn, :index))
+      |> redirect(to: Helpers.topic_path(conn, :index))
       |> halt()
     end
   end

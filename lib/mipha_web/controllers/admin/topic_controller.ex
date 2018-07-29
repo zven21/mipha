@@ -1,7 +1,6 @@
 defmodule MiphaWeb.Admin.TopicController do
   use MiphaWeb, :controller
 
-  alias Mipha.Topics
   alias Mipha.Topics.Topic
   alias Mipha.Ransack
 

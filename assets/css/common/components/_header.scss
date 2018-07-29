@@ -31,7 +31,7 @@
     margin-left: 1em;
     border-bottom: 0px;
     b {
-      color: $blue;
+      color: $grape;
     }
   }
   @include media-breakpoint-down(md) {
@@ -70,9 +70,9 @@
       a.active,
       a.active:focus,
       a.active:hover {
-        color: $red;
+        color: $grape;
         background: transparent;
-        border-bottom-color: $red;
+        border-bottom-color: $grape;
       }
     }
   }

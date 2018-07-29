@@ -5,13 +5,14 @@ $gray: #F2F2F2;
 $red: #EB5424;
 $yellow: #FEE209;
 $blue: #2275da;
+$grape: #9A54B1;
 $green: #19A302;
 $body-bg: #FFF;
 $theme-colors: ( "primary": $blue, "warning": $yellow, );
 $input-border: $default;
 $input-color-placeholder: $default;
 $link-color: $primary;
-$colors: ( "blue": $blue, "red": $red, "yellow": $yellow, "green": $green, "white": #FFF, "gray": $gray, "gray-dark": $gray) !default;
+$colors: ( "blue": $blue, "grape": $grape, "red": $red, "yellow": $yellow, "green": $green, "white": #FFF, "gray": $gray, "gray-dark": $gray) !default;
 $font-size-base: 0.875rem;
 $spacer: 15px;
 /* Animations */

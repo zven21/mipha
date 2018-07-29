@@ -10,7 +10,7 @@ defmodule MiphaWeb.TopicController do
     unsuggest suggest close open excellent normal
   )a
 
-  @intercepted_action ~w(index jobs no_reply popular featured educational)a
+  @intercepted_action ~w(index no_reply popular featured educational)a
 
   def action(conn, _) do
     conn
@@ -92,6 +92,17 @@ defmodule MiphaWeb.TopicController do
     conn
     |> put_flash(:success, flash)
     |> redirect(to: topic_path(conn, :show, topic))
+  end
+
+  def jobs(conn, params) do
+    parent_nodes = Topics.list_parent_nodes
+
+    page =
+      [type: action_name(conn)]
+      |> Topics.cond_topics
+      |> Repo.paginate(conn.params)
+
+    render conn, :jobs, topics: page.entries, page: page, parent_nodes: parent_nodes
   end
 
   def new(conn, _params) do

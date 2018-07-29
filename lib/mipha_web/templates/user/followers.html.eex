@@ -24,7 +24,7 @@
                     <div class="item opts">
                       <%= if @current_user && @current_user.id != item.follower.id do %>
                         <%= if has_followed?(@current_user, item.follower) do %>
-                          <%= link to: user_unfollow_path(@conn, :unfollow, item.follower.username), method: :post, class: "button-follow-user active" do %>
+                          <%= link to: user_unfollow_path(@conn, :unfollow, item.follower.username), method: :post, class: "button-follow-user unactive" do %>
                             <i class="fa fa-user"></i> <span>取消关注</span>
                           <% end %>
                         <% else %>

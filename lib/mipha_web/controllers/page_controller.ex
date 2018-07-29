@@ -1,17 +1,10 @@
 defmodule MiphaWeb.PageController do
   use MiphaWeb, :controller
 
-  alias Mipha.{Topics, Accounts, Markdown}
+  alias Mipha.Markdown
 
   def index(conn, _params) do
-    parent_nodes = Topics.list_parent_nodes
-    locations = Accounts.list_locations
-    topics = Topics.list_featured_topics
-
-    render conn, :index,
-      topics: topics,
-      parent_nodes: parent_nodes,
-      locations: locations
+    render conn, :index
   end
 
   def markdown(conn, _) do

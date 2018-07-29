@@ -9,6 +9,15 @@
         <li class="nav-item">
           <a class="nav-link" href="/topics">社区</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/jobs">招聘</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users">用户</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/zven21/mipha" target="_blank">源代码</a>
+        </li>
       </ul>
     </div>
     <div class="ml-auto d-md-flex">

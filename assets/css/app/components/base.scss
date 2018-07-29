@@ -573,13 +573,12 @@ img.emoji {
 
 .node-list {
   .node {
-    margin-bottom: 10px;
     margin-top: 0px;
     &:last-child {
       margin-bottom: 0px;
     }
     .media-left {
-      min-width: 130px;
+      min-width: 50px;
     }
     label {
       font-weight: normal;

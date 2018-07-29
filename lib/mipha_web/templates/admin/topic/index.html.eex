@@ -44,5 +44,8 @@
       </tbody>
     </table>
   </div>
+  <div class="card-footer">
+    <%= render MiphaWeb.SharedView, "_ransack_paginate.html", page: decorator_paginate(@conn, @paginate) %>
+  </div>
 </div>
 

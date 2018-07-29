@@ -68,7 +68,7 @@ defmodule Mipha.Ransack.Paginate do
 
   # 格式化数据，如果是 string 类型，修改成 integer.
   defp format_integer(value) do
-    unless is_integer(value), do: String.to_integer(value), else: value
+    if is_integer(value), do: value, else: String.to_integer(value)
   end
 
   def get_paginate(queryable, params) do
@@ -77,17 +77,24 @@ defmodule Mipha.Ransack.Paginate do
     per_page = Map.get(formated_params, :per_page)
     total_count = get_total_count(queryable)
 
-    max_page =
+    total_pages =
       total_count
       |> (&(&1/per_page)).()
       |> Float.ceil()
       |> trunc()
 
+    current_page = Map.get(formated_params, :page)
+    # total_pages
+    next_page = if (total_pages - current_page) >= 1, do: current_page + 1, else: nil
+    prev_page = if total_pages >= current_page && current_page > 1, do: current_page - 1, else: nil
+
     %{
-      page: Map.get(formated_params, :page),
+      current_page: current_page,
       per_page: per_page,
       total_count: total_count,
-      max_page: max_page
+      total_pages: total_pages,
+      next_page: next_page,
+      prev_page: prev_page
     }
   end
 

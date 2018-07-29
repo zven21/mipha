@@ -11,4 +11,11 @@ defmodule MiphaWeb.ViewHelpers do
     |> Markdown.render
     |> raw
   end
+
+  @doc """
+  装饰 paginate 参数，添加 params 和 path_info
+  """
+  def decorator_paginate(conn, paginate) do
+    Map.merge(paginate, %{path_info: conn.path_info, params: conn.params})
+  end
 end

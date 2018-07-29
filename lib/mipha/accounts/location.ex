@@ -4,7 +4,7 @@ defmodule Mipha.Accounts.Location do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Mipha.Accounts.{User, Location}
+  alias Mipha.Accounts.{User, Location, Company}
 
   @type t :: %Location{}
 
@@ -12,6 +12,7 @@ defmodule Mipha.Accounts.Location do
     field :name, :string
 
     has_many :users, User
+    has_many :companies, Company
 
     timestamps()
   end

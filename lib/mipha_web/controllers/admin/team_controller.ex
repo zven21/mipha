@@ -2,10 +2,12 @@ defmodule MiphaWeb.Admin.TeamController do
   use MiphaWeb, :controller
 
   alias Mipha.Accounts
+  alias Mipha.Accounts.Team
+  alias Mipha.Ransack
 
-  def index(conn, _params) do
-    teams = Accounts.list_teams()
-    render(conn, "index.html", teams: teams)
+  def index(conn, params) do
+    result = Ransack.ransack(Team, params)
+    render conn, :index, teams: result.datas, paginate: result.paginate
   end
 
   def delete(conn, %{"id" => id}) do

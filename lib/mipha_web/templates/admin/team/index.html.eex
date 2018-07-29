@@ -1,5 +1,13 @@
 <div class="card bg-light">
   <div class="card-body">
+    <div class="toolbar">
+      <form class="form-inline" action="/admin/teams">
+        <div class="form-group mr-sm-2">
+          <input type="text" name="q[name_like]" class="form-control btn-sm" value="" placeholder="名称">
+        </div>
+        <button class="btn btn-primary btn-sm">搜索</button>
+      </form>
+    </div>
     <table class="table table-bordered table-hover table-sm text-center">
       <thead>
         <tr>

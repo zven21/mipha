@@ -2,10 +2,12 @@ defmodule MiphaWeb.Admin.UserController do
   use MiphaWeb, :controller
 
   alias Mipha.Accounts
+  alias Mipha.Accounts.User
+  alias Mipha.Ransack
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
-    render(conn, "index.html", users: users)
+  def index(conn, params) do
+    result = Ransack.ransack(User, params)
+    render conn, :index, users: result.datas, paginate: result.paginate
   end
 
   def delete(conn, %{"id" => id}) do

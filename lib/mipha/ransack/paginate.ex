@@ -47,21 +47,28 @@ defmodule Mipha.Ransack.Paginate do
   end
 
   # 格式填充 paginate params
+  # 可能获取的是 string 类型，不太好。
   defp format_params(params) do
     params
-    |> Map.put_new(:per_page, Map.get(params, "per_page", @per_page))
-    |> Map.put_new(:page, Map.get(params, "page", 1))
+    |> Map.put_new(:per_page, format_integer(Map.get(params, "per_page", @per_page)))
+    |> Map.put_new(:page, format_integer(Map.get(params, "page", 1)))
   end
 
   # build queryable
   defp handle_paginate(formated_params, queryable) do
     per_page = Map.get(formated_params, :per_page)
     page = Map.get(formated_params, :page)
+
     offset = per_page * (page - 1)
 
     queryable
     |> limit(^per_page)
     |> offset(^offset)
+  end
+
+  # 格式化数据，如果是 string 类型，修改成 integer.
+  defp format_integer(value) do
+    unless is_integer(value), do: String.to_integer(value), else: value
   end
 
   def get_paginate(queryable, params) do

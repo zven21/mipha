@@ -3,6 +3,8 @@ defmodule MiphaWeb.AuthController do
   alias Mipha.Accounts
   alias Mipha.Accounts.User
 
+  plug :authorized_user
+
   def login(conn, _params) do
     changeset = User.login_changeset(%User{}, %{})
     render(conn, :login, changeset: changeset)
@@ -75,5 +77,14 @@ defmodule MiphaWeb.AuthController do
     |> put_flash(:info, "登录成功。")
     |> put_session(:current_user, user.id)
     |> redirect(to: "/")
+  end
+
+  # if user login,can't reach this controller.
+  defp authorized_user(conn, _) do
+    if current_user(conn) do
+      conn
+      |> put_flash(:danger, "你已登录")
+      |> redirect(to: "/")
+    end
   end
 end

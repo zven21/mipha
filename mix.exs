@@ -20,7 +20,7 @@ defmodule Mipha.Mixfile do
   def application do
     [
       mod: {Mipha.Application, []},
-      extra_applications: [:logger, :runtime_tools, :captcha]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -61,7 +61,7 @@ defmodule Mipha.Mixfile do
       {:cachex, "~> 3.0"},
       {:jason, "~> 1.1"},
       {:poison, "~> 3.0", override: true},
-      {:captcha, "~> 0.1.0"},
+      {:captcha, github: "zven21/elixir-captcha"},
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"}

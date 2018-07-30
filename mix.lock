@@ -4,7 +4,7 @@
   "bcrypt_elixir": {:hex, :bcrypt_elixir, "1.0.8", "940ce8156519574142a3c6e925e7a0eea7367c55b2817b3bd18806b0bbd4254e", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},
   "cachex": {:hex, :cachex, "3.0.2", "1351caa4e26e29f7d7ec1d29b53d6013f0447630bbf382b4fb5d5bad0209f203", [:mix], [{:eternal, "~> 1.2", [hex: :eternal, repo: "hexpm", optional: false]}, {:unsafe, "~> 1.0", [hex: :unsafe, repo: "hexpm", optional: false]}], "hexpm"},
-  "captcha": {:hex, :captcha, "0.1.0", "ded2b60e400598b1c6c90ec2b493a08369cc325ae82c20c3f2731dacef38a512", [:make, :mix], [], "hexpm"},
+  "captcha": {:git, "https://github.com/zven21/elixir-captcha.git", "549c759ef07545e4a657dd77cea6e176a95f5884", []},
   "certifi": {:hex, :certifi, "2.3.1", "d0f424232390bf47d82da8478022301c561cf6445b5b5fb6a84d49a9e76d2639", [:rebar3], [{:parse_trans, "3.2.0", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
   "combine": {:hex, :combine, "0.10.0", "eff8224eeb56498a2af13011d142c5e7997a80c8f5b97c499f84c841032e429f", [:mix], [], "hexpm"},
   "comeonin": {:hex, :comeonin, "4.1.1", "c7304fc29b45b897b34142a91122bc72757bc0c295e9e824999d5179ffc08416", [:mix], [{:argon2_elixir, "~> 1.2", [hex: :argon2_elixir, repo: "hexpm", optional: true]}, {:bcrypt_elixir, "~> 0.12.1 or ~> 1.0", [hex: :bcrypt_elixir, repo: "hexpm", optional: true]}, {:pbkdf2_elixir, "~> 0.12", [hex: :pbkdf2_elixir, repo: "hexpm", optional: true]}], "hexpm"},

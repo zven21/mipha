@@ -3,7 +3,12 @@
     <a class="btn btn-primary btn-block" href="/topics/new">发布新话题</a>
   </div>
 </div>
-
+<div class="card">
+  <div class="card-header">小帖士</div>
+  <div class="card-body">
+    如果遇到 BUG 或有建设性的想法，欢迎提 Issue。
+  </div>
+</div>
 <div class="card">
   <div class="card-header">友情社区</div>
   <ul class="list-group list-group-flush" style="text-align: center;">

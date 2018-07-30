@@ -2,11 +2,10 @@ defmodule MiphaWeb.Admin.TeamController do
   use MiphaWeb, :controller
 
   alias Mipha.Accounts
-  alias Mipha.Accounts.Team
-  alias Mipha.Ransack
+  alias Mipha.Accounts.Queries
 
   def index(conn, params) do
-    result = Ransack.ransack(Team, params)
+    result = Queries.teams(params)
     render conn, :index, teams: result.datas, paginate: result.paginate
   end
 

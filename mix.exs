@@ -41,7 +41,7 @@ defmodule Mipha.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:credo, "~> 0.9.3"},
+      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:ueberauth, "~> 0.5.0"},
@@ -62,9 +62,10 @@ defmodule Mipha.Mixfile do
       {:jason, "~> 1.1"},
       {:poison, "~> 3.0", override: true},
       {:captcha, github: "zven21/elixir-captcha"},
+      {:trubo_ecto, "0.1.0"},
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
-      {:sentry, "~> 6.4"}
+      {:sentry, "~> 6.4"},
     ]
   end
 
@@ -78,7 +79,7 @@ defmodule Mipha.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

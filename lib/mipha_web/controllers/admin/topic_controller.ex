@@ -1,11 +1,10 @@
 defmodule MiphaWeb.Admin.TopicController do
   use MiphaWeb, :controller
 
-  alias Mipha.Topics.Topic
-  alias Mipha.Ransack
+  alias Mipha.Topics.Queries
 
   def index(conn, params) do
-    result = Ransack.ransack(Topic, params)
+    result = Queries.topics(params)
     render conn, :index, topics: result.datas, paginate: result.paginate
   end
 end

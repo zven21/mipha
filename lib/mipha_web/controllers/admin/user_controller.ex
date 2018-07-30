@@ -2,11 +2,10 @@ defmodule MiphaWeb.Admin.UserController do
   use MiphaWeb, :controller
 
   alias Mipha.Accounts
-  alias Mipha.Accounts.User
-  alias Mipha.Ransack
+  alias Mipha.Accounts.Queries
 
   def index(conn, params) do
-    result = Ransack.ransack(User, params)
+    result = Queries.users(params)
     render conn, :index, users: result.datas, paginate: result.paginate
   end
 

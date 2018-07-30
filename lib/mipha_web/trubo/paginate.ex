@@ -1,7 +1,7 @@
-defmodule MiphaWeb.Ransack.Paginate do
+defmodule Trubo.HTML.Paginate do
   @moduledoc """
   借鉴 https://raw.githubusercontent.com/mgwidmann/scrivener_html/master/lib/scrivener/html.ex
-  适配 现有的 Ransack Paginate.
+  适配 现有的 Trubo Paginate.
   """
   use Phoenix.HTML
 
@@ -17,8 +17,8 @@ defmodule MiphaWeb.Ransack.Paginate do
   @doc """
   分页处理
   """
-  # @spec ransack_pagination_links(Map.t()) :: any
-  def ransack_pagination_links(paginator) do
+  # @spec quest_pagination_links(Map.t()) :: any
+  def quest_pagination_links(paginator) do
     content_tag :ul, class: "pagination pagination-sm" do
       paginator
       |> raw_pagination_links()

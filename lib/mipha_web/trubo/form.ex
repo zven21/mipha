@@ -1,11 +1,11 @@
-defmodule MiphaWeb.Ransack.Form do
+defmodule Trubo.HTML.Form do
   @moduledoc """
   搜索 form 装饰器
   """
 
   use Phoenix.HTML
 
-  def ransack_search_input(conn, field, opts \\ []) do
+  def trubo_search_input(conn, field, opts \\ []) do
     value =
       conn.params
       |> Plug.Conn.Query.encode()

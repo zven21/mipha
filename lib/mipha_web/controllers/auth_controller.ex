@@ -1,9 +1,10 @@
 defmodule MiphaWeb.AuthController do
   use MiphaWeb, :controller
+
   alias Mipha.Accounts
   alias Mipha.Accounts.User
 
-  plug :authorized_user
+  plug :authorized_user when action not in ~w(delete)a
 
   def login(conn, _params) do
     changeset = User.login_changeset(%User{}, %{})

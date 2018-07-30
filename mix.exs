@@ -63,6 +63,7 @@ defmodule Mipha.Mixfile do
       {:poison, "~> 3.0", override: true},
       {:captcha, github: "zven21/elixir-captcha"},
       {:trubo_ecto, "0.1.0"},
+      {:trubo_html, "0.1.0"},
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"},

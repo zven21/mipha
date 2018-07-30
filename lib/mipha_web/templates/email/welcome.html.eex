@@ -1,5 +1,5 @@
 <p class="lead">你好 <%= @user.username %></p>
-<p>你已经成功在 <%= link "Elixir China", to: page_url(MiphaWeb.Endpoint, :index) %> 注册了账号。</p>
+<p>你已经成功在 <%= link "Elixir China", to: topic_url(MiphaWeb.Endpoint, :index) %> 注册了账号。</p>
 欢迎加入 Elixir China
 <p><%= link "立即登录", to: join_url(MiphaWeb.Endpoint, :new), class: "btn btn-primary" %></p>
 <p>登录页面地址：<%= link join_url(MiphaWeb.Endpoint, :new), to: join_url(MiphaWeb.Endpoint, :new) %></p>

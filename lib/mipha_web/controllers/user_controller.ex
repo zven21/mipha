@@ -23,7 +23,7 @@ defmodule MiphaWeb.UserController do
         nil ->
           conn
           |> put_flash(:danger, "该用户不存在")
-          |> redirect(to: page_path(conn, :index))
+          |> redirect(to: "/")
 
         user -> apply(__MODULE__, action_name(conn), [conn, conn.params, user])
       end

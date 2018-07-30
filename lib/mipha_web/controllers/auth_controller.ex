@@ -85,6 +85,8 @@ defmodule MiphaWeb.AuthController do
       conn
       |> put_flash(:danger, "你已登录")
       |> redirect(to: "/")
+    else
+      conn
     end
   end
 end

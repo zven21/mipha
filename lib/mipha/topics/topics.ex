@@ -5,6 +5,7 @@ defmodule Mipha.Topics do
 
   import Ecto.Query, warn: false
   alias Ecto.Multi
+
   alias Mipha.{
     Repo,
     Accounts,

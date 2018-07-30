@@ -3,7 +3,7 @@
     <div class="toolbar">
       <%= form_for @conn, admin_topic_path(@conn, :index), [method: :get, class: "form-inline"], fn f -> %>
         <div class="form-group mr-sm-2">
-          <%= ransack_search_input f, "q[title_like]", class: "form-control btn-sm", value: @conn.params["q"]["title_like"], placeholder: "标题" %>
+          <%= trubo_search_input f, "q[title_like]", class: "form-control btn-sm", value: @conn.params["q"]["title_like"], placeholder: "标题" %>
         </div>
         <button class="btn btn-primary btn-sm">搜索</button>
       <% end %>
@@ -44,7 +44,7 @@
     </table>
   </div>
   <div class="card-footer">
-    <%= render MiphaWeb.SharedView, "_ransack_paginate.html", page: decorator_paginate(@conn, @paginate) %>
+    <%= render MiphaWeb.SharedView, "_trubo_paginate.html", page: decorator_paginate(@conn, @paginate) %>
   </div>
 </div>
 

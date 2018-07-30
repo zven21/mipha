@@ -1,5 +1,5 @@
 <%= if @page.total_pages > 1 do %>
   <div class="pagination">
-    <%= ransack_pagination_links @page %>
+    <%= trubo_pagination_links @page %>
   </div>
 <% end %>

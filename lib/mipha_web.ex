@@ -44,7 +44,7 @@ defmodule MiphaWeb do
       import MiphaWeb.Session
       import MiphaWeb.ViewHelpers
       import MiphaWeb.TagHelpers
-      import MiphaWeb.Ransack
+      import Trubo.HTML
     end
   end
 

@@ -94,7 +94,7 @@ defmodule MiphaWeb.TopicController do
     |> redirect(to: topic_path(conn, :show, topic))
   end
 
-  def jobs(conn, params) do
+  def jobs(conn, _params) do
     parent_nodes = Topics.list_parent_nodes
 
     page =

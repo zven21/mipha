@@ -1,7 +1,7 @@
 defmodule Mipha.Accounts.Queries do
   @moduledoc false
 
-  alias Mipha.Accounts.User
+  alias Mipha.Accounts.{User, Team}
 
   @doc """
   Returns the list users.

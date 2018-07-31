@@ -32,11 +32,6 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: System.get_env("GITHUB_CLIENT_ID"),
   client_secret: System.get_env("GITHUB_CLIENT_SECRET")
 
-# scrivener_html
-config :scrivener_html,
-  routes_helper: MiphaWeb.Router.Helpers,
-  view_style: :bootstrap_v4
-
 config :qiniu, Qiniu,
   access_key: System.get_env("QINIU_ACCESS_KEY"),
   secret_key: System.get_env("QINIU_SECRET_KEY")

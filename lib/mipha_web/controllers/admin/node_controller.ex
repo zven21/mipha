@@ -2,11 +2,12 @@ defmodule MiphaWeb.Admin.NodeController do
   use MiphaWeb, :controller
 
   alias Mipha.Topics
+  alias Mipha.Topics.Queries
   alias Mipha.Topics.Node
 
-  def index(conn, _params) do
-    nodes = Topics.list_nodes()
-    render(conn, "index.html", nodes: nodes)
+  def index(conn, params) do
+    result = Queries.list_nodes() |> Trubo.Ecto.trubo(params)
+    render conn, :index, nodes: result.datas, paginate: result.paginate
   end
 
   def new(conn, _params) do

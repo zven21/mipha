@@ -1,5 +1,13 @@
 <div class="card bg-light">
   <div class="card-body">
+    <div class="toolbar">
+      <%= form_for @conn, admin_reply_path(@conn, :index), [method: :get, class: "form-inline"], fn f -> %>
+        <div class="form-group mr-sm-2">
+          <%= trubo_search_input f, "q[content_like]", class: "form-control btn-sm", placeholder: "内容" %>
+        </div>
+        <button class="btn btn-primary btn-sm">搜索</button>
+      <% end %>
+    </div>
     <table class="table table-bordered table-hover table-sm text-center">
       <thead>
         <tr>
@@ -13,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for reply <- @repies do %>
+        <%= for reply <- @replies do %>
         <tr>
           <td><%= reply.id %></td>
           <td><%= reply.user_id %></td>
@@ -29,5 +37,8 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+  <div class="card-footer">
+    <%= render MiphaWeb.SharedView, "_pagination.html", assigns %>
   </div>
 </div>

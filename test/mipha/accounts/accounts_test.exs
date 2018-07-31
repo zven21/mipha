@@ -46,11 +46,6 @@ defmodule Mipha.AccountsTest do
       user
     end
 
-    test "list_users/0 returns all users" do
-      user = user_fixture()
-      assert Accounts.list_users() == [user]
-    end
-
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
       assert Accounts.get_user!(user.id) == user
@@ -176,11 +171,6 @@ defmodule Mipha.AccountsTest do
         |> Accounts.create_company()
 
       company
-    end
-
-    test "list_companies/0 returns all companies" do
-      company = company_fixture()
-      assert Accounts.list_companies() == [company]
     end
 
     test "get_company!/1 returns the company with given id" do

@@ -2,7 +2,6 @@ defmodule MiphaWeb.UserController do
   use MiphaWeb, :controller
 
   alias Mipha.{
-    Repo,
     Mailer,
     Accounts,
     Topics,
@@ -32,8 +31,8 @@ defmodule MiphaWeb.UserController do
     end
   end
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
+  def index(conn, params) do
+    users = Accounts.Queries.list_users() |> Trubo.Ecto.search(params)
     user_count = Accounts.get_user_count()
 
     render conn, :index,
@@ -51,64 +50,49 @@ defmodule MiphaWeb.UserController do
       replies: replies
   end
 
-  def topics(conn, _params, user) do
-    page =
-      [user: user]
-      |> Topics.cond_topics()
-      |> Repo.paginate(conn.params)
+  def topics(conn, params, user) do
+    result = Topics.Queries.cond_topics([user: user]) |> Trubo.Ecto.trubo(params)
 
     render conn, :topics,
       user: user,
-      page: page,
-      topics: page.entries
+      paginate: result.paginate,
+      topics: result.datas
   end
 
-  def replies(conn, _params, user) do
-    page =
-      [user: user]
-      |> Replies.cond_replies()
-      |> Repo.paginate(conn.params)
+  def replies(conn, params, user) do
+    result = Replies.Queries.cond_replies([user: user]) |> Trubo.Ecto.trubo(params)
 
     render conn, :replies,
       user: user,
-      page: page,
-      replies: page.entries
+      paginate: result.paginate,
+      replies: result.datas
   end
 
-  def following(conn, _params, user) do
-    page =
-      [follower: user]
-      |> Follows.cond_follows()
-      |> Repo.paginate(conn.params)
+  def following(conn, params, user) do
+    result = Follows.Queries.cond_follows([follower: user]) |> Trubo.Ecto.trubo(params)
 
     render conn, :following,
       user: user,
-      page: page,
-      following: page.entries
+      paginate: result.paginate,
+      following: result.datas
   end
 
-  def followers(conn, _params, user) do
-    page =
-      [user: user]
-      |> Follows.cond_follows()
-      |> Repo.paginate(conn.params)
+  def followers(conn, params, user) do
+    result = Follows.Queries.cond_follows([user: user]) |> Trubo.Ecto.trubo(params)
 
     render conn, :followers,
       user: user,
-      page: page,
-      followers: page.entries
+      paginate: result.paginate,
+      followers: result.datas
   end
 
-  def collections(conn, _params, user) do
-    page =
-      [user: user]
-      |> Collections.cond_collections()
-      |> Repo.paginate(conn.params)
+  def collections(conn, params, user) do
+    result = Collections.Queries.cond_collections([user: user]) |> Trubo.Ecto.trubo(params)
 
     render conn, :collections,
       user: user,
-      page: page,
-      collections: page.entries
+      paginate: result.paginate,
+      collections: result.datas
   end
 
   def follow(conn, _params, user) do

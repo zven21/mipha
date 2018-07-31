@@ -2,10 +2,11 @@ defmodule MiphaWeb.Admin.CompanyController do
   use MiphaWeb, :controller
 
   alias Mipha.Accounts
+  alias Mipha.Accounts.Queries
 
-  def index(conn, _params) do
-    companies = Accounts.list_companies()
-    render(conn, "index.html", companies: companies)
+  def index(conn, params) do
+    result = Queries.list_companies() |> Trubo.Ecto.trubo(params)
+    render conn, :index, companies: result.datas, paginate: result.paginate
   end
 
   def delete(conn, %{"id" => id}) do

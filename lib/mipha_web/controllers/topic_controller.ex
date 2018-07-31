@@ -1,7 +1,8 @@
 defmodule MiphaWeb.TopicController do
   use MiphaWeb, :controller
 
-  alias Mipha.{Repo, Topics, Stars, Collections, Markdown}
+  alias Mipha.{Topics, Stars, Collections, Markdown}
+  alias Mipha.Topics.Queries
   alias Topics.Topic
 
   plug MiphaWeb.Plug.RequireUser when action in ~w(
@@ -27,16 +28,15 @@ defmodule MiphaWeb.TopicController do
       end
 
     parent_nodes = Topics.list_parent_nodes
-
-    page =
+    result =
       opts
-      |> Topics.cond_topics
-      |> Repo.paginate(conn.params)
+      |> Queries.cond_topics
+      |> Trubo.Ecto.trubo(conn.params)
 
     render conn, action_name(conn),
       asset: "topics",
-      topics: page.entries,
-      page: page,
+      topics: result.datas,
+      paginate: result.paginate,
       parent_nodes: parent_nodes
   end
   defp do_fragment(:suggest, conn) do
@@ -94,15 +94,14 @@ defmodule MiphaWeb.TopicController do
     |> redirect(to: topic_path(conn, :show, topic))
   end
 
-  def jobs(conn, _params) do
+  def jobs(conn, params) do
     parent_nodes = Topics.list_parent_nodes
+    result = Trubo.Ecto.trubo(Queries.job_topics, params)
 
-    page =
-      [type: action_name(conn)]
-      |> Topics.cond_topics
-      |> Repo.paginate(conn.params)
-
-    render conn, :jobs, topics: page.entries, page: page, parent_nodes: parent_nodes
+    render conn, :jobs,
+      parent_nodes: parent_nodes,
+      topics: result.datas,
+      paginate: result.paginate
   end
 
   def new(conn, _params) do

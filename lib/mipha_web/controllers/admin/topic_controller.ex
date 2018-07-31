@@ -4,7 +4,7 @@ defmodule MiphaWeb.Admin.TopicController do
   alias Mipha.Topics.Queries
 
   def index(conn, params) do
-    result = Queries.topics(params)
+    result = Queries.list_topics() |> Trubo.Ecto.trubo(params)
     render conn, :index, topics: result.datas, paginate: result.paginate
   end
 end

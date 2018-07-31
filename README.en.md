@@ -8,13 +8,13 @@ English | [简体中文](./README.md)
 
 * [Introduction](#introduction)
 * [Getting started](#getting-started)
-* [Database relationship](#Database relationship)
-* [Project structure](#Project structure)
+* [Database relationship](#database-relationship)
+* [Project structure](#project-structure)
 * [Features](#features)
 
 ## Introduction
 
-Mipha is an open-source platform (copy from [homeland](https://ruby-china.org)).
+Mipha is an open-source elixir forum (inspire by [homeland](https://ruby-china.org)).
 
 ## Getting started
 
@@ -70,4 +70,4 @@ mix phx.serve
 
 ## Features
 
-Here is: [Milestone 1](https://github.com/zven21/mipha/milestone/1)
+[Milestone 1](https://github.com/zven21/mipha/milestone/1)

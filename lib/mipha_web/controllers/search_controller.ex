@@ -7,8 +7,10 @@ defmodule MiphaWeb.SearchController do
     render conn, :index
   end
 
+  @doc """
+  Filters the mention users.
+  """
   def users(conn, params) do
-    # 匹配已关注用户
     users =
       conn
       |> current_user()

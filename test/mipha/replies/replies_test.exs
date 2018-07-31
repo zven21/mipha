@@ -57,12 +57,6 @@ defmodule Mipha.RepliesTest do
       assert reply == Replies.get_reply!(reply.id)
     end
 
-    test "delete_reply/1 deletes the reply" do
-      reply = reply_fixture()
-      assert {:ok, %Reply{}} = Replies.delete_reply(reply)
-      assert_raise Ecto.NoResultsError, fn -> Replies.get_reply!(reply.id) end
-    end
-
     test "change_reply/1 returns a reply changeset" do
       reply = reply_fixture()
       assert %Ecto.Changeset{} = Replies.change_reply(reply)

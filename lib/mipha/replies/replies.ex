@@ -5,6 +5,7 @@ defmodule Mipha.Replies do
 
   import Ecto.Query, warn: false
   alias Ecto.Multi
+
   alias Mipha.{
     Repo,
     Topics,
@@ -98,7 +99,24 @@ defmodule Mipha.Replies do
 
   """
   def delete_reply(%Reply{} = reply) do
-    Repo.delete(reply)
+    Multi.new()
+    |> Multi.delete(:reply, reply)
+    |> decrease_topic_reply_count()
+    |> Repo.transaction()
+  end
+
+  defp decrease_topic_reply_count(multi) do
+    update_topic_fn = fn %{reply: reply} ->
+      topic =
+        reply
+        |> Reply.preload_topic()
+        |> Map.fetch!(:topic)
+
+      attrs = %{reply_count: (topic.reply_count - 1)}
+      Topics.update_topic(topic, attrs)
+    end
+
+    Multi.run(multi, :decrease_topic_reply_count, update_topic_fn)
   end
 
   @doc """
@@ -143,7 +161,7 @@ defmodule Mipha.Replies do
   end
 
   @doc """
-  获取全部 reply 个数
+  Gets all reply count.
   """
   @spec get_total_reply_count :: non_neg_integer()
   def get_total_reply_count do
@@ -198,10 +216,9 @@ defmodule Mipha.Replies do
     |> Repo.transaction()
   end
 
-  # 通知被@的用户
+  # Notification mention @ users.
   def maybe_notify_mention_users_of_new_reply(multi, attrs) do
     insert_notification_fn = fn %{reply: reply} ->
-      # FIXME 和 topic 类似的方法，后续考虑单独处理
       notified_users =
         @username_regex
         |> Regex.scan(attrs["content"])
@@ -224,7 +241,7 @@ defmodule Mipha.Replies do
     Multi.run(multi, :notify_mention_users_of_new_reply, insert_notification_fn)
   end
 
-  # 更新关联话题信息
+  # Update assoc topic.
   defp update_related_topic(multi) do
     update_topic_fn = fn %{reply: reply} ->
       topic =
@@ -247,7 +264,7 @@ defmodule Mipha.Replies do
     Multi.run(multi, :update_related_topic, update_topic_fn)
   end
 
-  # 通知 topic 的作者
+  # Notificaton topic owner.
   defp notify_topic_owner_of_new_reply(multi) do
     insert_notification_fn = fn %{reply: reply} ->
       # reply -> topic -> user
@@ -333,7 +350,7 @@ defmodule Mipha.Replies do
   end
 
   @doc """
-  获取评论作者
+  Gets reply author.
 
   ## Example
 

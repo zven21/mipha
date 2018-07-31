@@ -2,12 +2,11 @@ defmodule MiphaWeb.AuthController do
   use MiphaWeb, :controller
 
   alias Mipha.Accounts
-  alias Mipha.Accounts.User
 
   plug :authorized_user when action not in ~w(delete)a
 
   def login(conn, _params) do
-    changeset = User.login_changeset(%User{}, %{})
+    changeset = Accounts.user_login_changeset()
     render(conn, :login, changeset: changeset)
   end
 
@@ -21,7 +20,7 @@ defmodule MiphaWeb.AuthController do
   alias Ueberauth.Strategy.Helpers
 
   def request(conn, %{"provider" => "identity"}) do
-    changeset = User.register_changeset(%User{}, %{})
+    changeset = Accounts.user_register_changeset()
     render(conn, :request, callback_url: Helpers.callback_url(conn), changeset: changeset)
   end
 
@@ -48,7 +47,7 @@ defmodule MiphaWeb.AuthController do
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
 
           {:error, reason} ->
-            changeset = User.login_changeset(%User{}, %{})
+            changeset = Accounts.user_login_changeset()
             conn
             |> put_flash(:danger, reason)
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)

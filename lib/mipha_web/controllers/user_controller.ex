@@ -1,18 +1,8 @@
 defmodule MiphaWeb.UserController do
   use MiphaWeb, :controller
 
-  alias Mipha.{
-    Mailer,
-    Accounts,
-    Topics,
-    Replies,
-    Follows,
-    Collections,
-    Token
-  }
-
+  alias Mipha.{Mailer, Accounts, Topics, Replies, Follows, Collections, Token}
   alias MiphaWeb.Email
-  alias Accounts.User
 
   plug MiphaWeb.Plug.RequireUser when action in [:follow, :unfollow]
 
@@ -161,7 +151,7 @@ defmodule MiphaWeb.UserController do
   def reset_password(conn, %{"token" => token}) do
     with {:ok, user_id} <- Token.verify_token(token) do
       user = Accounts.get_user!(user_id)
-      changeset = User.reset_password_changeset(user, %{})
+      changeset = Accounts.change_user_reset_password(user)
 
       render conn, :reset_password,
         user: user,
@@ -200,22 +190,22 @@ defmodule MiphaWeb.UserController do
     end
   end
 
-  def verify_email(conn, %{"token" => token}) do
-    with {:ok, user_id} <- Token.verify_token(token),
-         %User{email_verified_at: nil} = user <- Accounts.get_user!(user_id)
-    do
-      Accounts.mark_as_verified(user)
-      render conn, :verified
-    else
-      _ -> render conn, :invalid_token
-    end
-  end
+  # def verify_email(conn, %{"token" => token}) do
+  #   with {:ok, user_id} <- Token.verify_token(token),
+  #        %User{email_verified_at: nil} = user <- Accounts.get_user!(user_id)
+  #   do
+  #     Accounts.mark_as_verified(user)
+  #     render conn, :verified
+  #   else
+  #     _ -> render conn, :invalid_token
+  #   end
+  # end
 
-  def verify_email(conn, _) do
-    conn
-    |> put_flash(:danger, "The verification link is invalid.")
-    |> redirect(to: "/")
-  end
+  # def verify_email(conn, _) do
+  #   conn
+  #   |> put_flash(:danger, "The verification link is invalid.")
+  #   |> redirect(to: "/")
+  # end
 
   defp parse(nil), do: {:error, "nil"}
   defp parse(valid), do: {:ok, valid}

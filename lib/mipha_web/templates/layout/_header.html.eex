@@ -53,7 +53,6 @@
             <a class="dropdown-item" href="/u/<%= @current_user.username %>"><%= @current_user.username %></a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/setting">个人资料设置</a>
-            <a class="dropdown-item" href="/topics/favorites">我的收藏</a>
 
             <div class="dropdown-divider"></div>
             <%= link "退出", to: logout_path(@conn, :delete), class: "dropdown-item" %>

@@ -2,7 +2,6 @@ defmodule MiphaWeb.ReplyController do
   use MiphaWeb, :controller
 
   alias Mipha.{Stars, Replies, Topics}
-  alias Topics.Topic
 
   plug MiphaWeb.Plug.RequireUser when action in ~w(create edit update delete star unstar)a
 
@@ -54,9 +53,6 @@ defmodule MiphaWeb.ReplyController do
   def delete(conn, %{"id" => id}, topic) do
     reply = Replies.get_reply!(id)
     {:ok, _reply} = Replies.delete_reply(reply)
-
-    # 删除回复，topic reply_count -1
-    Topic.counter(topic, :dec, :reply_count)
 
     conn
     |> put_flash(:info, "Reply deleted successfully.")

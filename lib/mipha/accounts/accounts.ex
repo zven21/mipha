@@ -359,6 +359,30 @@ defmodule Mipha.Accounts do
     |> Enum.uniq()
   end
 
+  @doc """
+  Returns the user register changeset.
+  """
+  @spec user_register_changeset(Map.t()) :: Ecto.Changeset.t()
+  def user_register_changeset(attrs \\ %{}), do: User.register_changeset(%User{}, attrs)
+
+  @doc """
+  Returns the user login changeset.
+  """
+  @spec user_login_changeset(Map.t()) :: Ecto.Changeset.t()
+  def user_login_changeset(attrs \\ %{}), do: User.login_changeset(%User{}, attrs)
+
+  @doc """
+  Returns the user update_password changeset
+  """
+  @spec user_update_password_changeset(Map.t()) :: Ecto.Changeset.t()
+  def user_update_password_changeset(attrs \\ %{}), do: User.update_password_changeset(%User{}, attrs)
+
+  @doc """
+  Returns the change user reset password.
+  """
+  @spec change_user_reset_password(User.t(), Map.t()) :: Ecto.Changeset.t()
+  def change_user_reset_password(%User{} = user, attrs \\ %{}), do: User.reset_password_changeset(user, attrs)
+
   alias Mipha.Accounts.Location
 
   @doc """

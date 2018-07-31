@@ -113,9 +113,13 @@ defmodule Mipha.Topics do
       %Ecto.Changeset{source: %Topic{}}
 
   """
-  def change_topic(%Topic{} = topic) do
-    Topic.changeset(topic, %{})
-  end
+  @spec change_topic(Topic.t()) :: Ecto.Changeset.t()
+  def change_topic(%Topic{} = topic \\ %Topic{}), do: Topic.changeset(topic, %{})
+
+  @doc """
+  Increment topic visit count.
+  """
+  def topic_visit_counter(%Topic{} = topic), do: Topic.counter(topic, :inc, :visit_count)
 
   @doc """
   Inserts a topic.
@@ -352,9 +356,8 @@ defmodule Mipha.Topics do
       %Ecto.Changeset{source: %Node{}}
 
   """
-  def change_node(%Node{} = node) do
-    Node.changeset(node, %{})
-  end
+  @spec change_node(Node.t()) :: Ecto.Changeset.t()
+  def change_node(%Node{} = node \\ %Node{}), do: Node.changeset(node, %{})
 
   @doc """
   Returns the parent of nodes

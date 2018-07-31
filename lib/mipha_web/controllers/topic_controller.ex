@@ -3,7 +3,6 @@ defmodule MiphaWeb.TopicController do
 
   alias Mipha.{Topics, Stars, Collections, Markdown}
   alias Mipha.Topics.Queries
-  alias Topics.Topic
 
   plug MiphaWeb.Plug.RequireUser when action in ~w(
     new create edit update
@@ -105,7 +104,7 @@ defmodule MiphaWeb.TopicController do
   end
 
   def new(conn, _params) do
-    changeset = Topics.change_topic(%Topic{})
+    changeset = Topics.change_topic()
     parent_nodes = Topics.list_parent_nodes
 
     render conn, :new,
@@ -156,10 +155,10 @@ defmodule MiphaWeb.TopicController do
   def show(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
 
-    # 用户访问，自增+1
+    # Same session, same visit counter.
     if is_nil(get_session(conn, "visited_topic_#{topic.id}")) do
-      # 暂无实时展示 visit_count
-      Topic.counter(topic, :inc, :visit_count)
+      # increment topic visit count.
+      Topics.topic_visit_counter(topic)
       conn
       |> put_session("visited_topic_#{topic.id}", topic.id)
       |> render(:show, topic: topic)

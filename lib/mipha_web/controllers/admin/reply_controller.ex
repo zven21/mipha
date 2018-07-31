@@ -2,10 +2,11 @@ defmodule MiphaWeb.Admin.ReplyController do
   use MiphaWeb, :controller
 
   alias Mipha.Replies
+  alias Mipha.Replies.Queries
 
-  def index(conn, _params) do
-    repies = Replies.list_repies()
-    render(conn, "index.html", repies: repies)
+  def index(conn, params) do
+    result = Queries.list_replies() |> Trubo.Ecto.trubo(params)
+    render conn, :index, replies: result.datas, paginate: result.paginate
   end
 
   def show(conn, %{"id" => id}) do

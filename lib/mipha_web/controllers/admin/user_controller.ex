@@ -5,7 +5,7 @@ defmodule MiphaWeb.Admin.UserController do
   alias Mipha.Accounts.Queries
 
   def index(conn, params) do
-    result = Queries.users(params)
+    result = Queries.list_users() |> Trubo.Ecto.trubo(params)
     render conn, :index, users: result.datas, paginate: result.paginate
   end
 

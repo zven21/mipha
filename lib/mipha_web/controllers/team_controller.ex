@@ -1,25 +1,26 @@
 defmodule MiphaWeb.TeamController do
   use MiphaWeb, :controller
 
-  alias Mipha.{Repo, Accounts, Topics}
+  alias Mipha.{Accounts, Topics}
+  alias Topics.Queries
 
   def index(conn, _params) do
     render conn, :index
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id} = params) do
     team = Accounts.get_team!(id)
     team_user_ids = Enum.map(team.users, &(&1.id))
 
-    page =
+    result =
       [user_ids: team_user_ids]
-      |> Topics.cond_topics
-      |> Repo.paginate(conn.params)
+      |> Queries.cond_topics
+      |> Trubo.Ecto.trubo(params)
 
     render conn, :show,
       team: team,
-      topics: page.entries,
-      page: page
+      topics: result.datas,
+      paginate: result.paginate
   end
 
   def people(conn, %{"id" => id}) do

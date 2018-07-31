@@ -16,7 +16,7 @@ defmodule MiphaWeb.Admin.ReplyControllerTest do
   end
 
   describe "index" do
-    test "lists all repies", %{conn: conn} do
+    test "lists all replies", %{conn: conn} do
       conn = get conn, admin_reply_path(conn, :index)
       assert html_response(conn, 200) =~ "#"
     end

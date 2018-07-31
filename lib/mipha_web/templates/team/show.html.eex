@@ -9,7 +9,7 @@
         <% end %>
       </div>
       <div class="card-footer">
-        <%= render MiphaWeb.SharedView, "_pagination.html", page: @page %>
+        <%= render MiphaWeb.SharedView, "_pagination.html", assigns %>
       </div>
     </div>
   </div>

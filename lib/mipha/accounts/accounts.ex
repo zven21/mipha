@@ -13,19 +13,6 @@ defmodule Mipha.Accounts do
   alias Mipha.Follows.Follow
 
   @doc """
-  Returns the list of users.
-
-  ## Examples
-
-      iex> list_users()
-      [%User{}, ...]
-
-  """
-  def list_users do
-    Repo.all(User)
-  end
-
-  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.
@@ -473,19 +460,6 @@ defmodule Mipha.Accounts do
   end
 
   alias Mipha.Accounts.Company
-
-  @doc """
-  Returns the list of companies.
-
-  ## Examples
-
-      iex> list_companies()
-      [%Company{}, ...]
-
-  """
-  def list_companies do
-    Repo.all(Company)
-  end
 
   @doc """
   Gets a single company.

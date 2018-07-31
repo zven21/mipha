@@ -1,5 +1,13 @@
 <div class="card bg-light">
   <span><%= link "新建节点", to: admin_node_path(@conn, :new), class: "btn btn-default btn-sm" %></span>
+  <div class="toolbar">
+    <%= form_for @conn, admin_node_path(@conn, :index), [method: :get, class: "form-inline"], fn f -> %>
+      <div class="form-group mr-sm-2">
+        <%= trubo_search_input f, "q[name_like]", class: "form-control btn-sm", placeholder: "名称" %>
+      </div>
+      <button class="btn btn-primary btn-sm">搜索</button>
+    <% end %>
+  </div>
   <div class="card-body">
     <table class="table table-bordered table-hover table-sm text-center">
       <thead>
@@ -31,5 +39,8 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+  <div class="card-footer">
+    <%= render MiphaWeb.SharedView, "_pagination.html", assigns %>
   </div>
 </div>

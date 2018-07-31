@@ -32,6 +32,6 @@
     <% end %>
   </div>
   <div class="card-footer hide-ios">
-    <%= render MiphaWeb.SharedView, "_pagination.html", page: @page %>
+    <%= render MiphaWeb.SharedView, "_pagination.html", assigns %>
   </div>
 </div>

@@ -1,23 +1,20 @@
 defmodule MiphaWeb.NotificationController do
   use MiphaWeb, :controller
 
-  alias Mipha.{
-    Repo,
-    Notifications
-  }
+  alias Mipha.Notifications
 
   plug MiphaWeb.Plug.RequireUser
 
-  def index(conn, _) do
-    page =
+  def index(conn, params) do
+    result =
       conn
       |> current_user()
-      |> Notifications.cond_user_notifications
-      |> Repo.paginate(conn.params)
+      |> Notifications.Queries.cond_user_notifications()
+      |> Trubo.Ecto.trubo(params)
 
     render conn, :index,
-      notifications: page.entries,
-      page: page
+      notifications: result.datas,
+      paginate: result.paginate
   end
 
   def make_read(conn, _params) do

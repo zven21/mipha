@@ -1,20 +1,13 @@
 defmodule MiphaWeb.SessionController do
   use MiphaWeb, :controller
 
-  alias Mipha.{
-    Accounts,
-    Mailer,
-    Token
-  }
-
-  alias Mipha.Accounts.User
+  alias Mipha.{Accounts, Mailer, Token}
   alias MiphaWeb.Email
-  alias Captcha
 
   plug :authorized_user
 
   def new(conn, _params) do
-    changeset = User.register_changeset(%User{}, %{})
+    changeset = Accounts.user_register_changeset()
     render conn, :new, changeset: changeset
   end
 
@@ -30,14 +23,14 @@ defmodule MiphaWeb.SessionController do
   end
 
   def create(conn, %{"user" => user_params, "_rucaptcha" => captcha}) do
-    # 确定验证码是否正确。
+    # Validation captcha.
     is_true_captcha =
       conn
       |> get_session(:rucaptcha)
       |> String.equivalent?(captcha)
 
     unless is_true_captcha do
-      changeset = User.register_changeset(%User{}, user_params)
+      changeset = Accounts.user_register_changeset(user_params)
 
       conn
       |> put_flash(:danger, "验证码错误，请重新输入")

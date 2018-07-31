@@ -1,9 +1,7 @@
 defmodule MiphaWeb.SettingController do
   use MiphaWeb, :controller
 
-  alias Mipha.Accounts
-  alias Mipha.Accounts.User
-  alias Mipha.Qiniu
+  alias Mipha.{Accounts, Qiniu}
 
   plug MiphaWeb.Plug.RequireUser
 
@@ -75,7 +73,7 @@ defmodule MiphaWeb.SettingController do
         |> render(:password, changeset: changeset)
 
       {:error, reason} ->
-        changeset = User.update_password_changeset(%User{}, %{})
+        changeset = Accounts.user_update_password_changeset()
         conn
         |> put_flash(:danger, reason)
         |> render(:password, changeset: changeset)
@@ -107,7 +105,7 @@ defmodule MiphaWeb.SettingController do
 
   defp build_attrs({nil, params}, _), do: params
   defp build_attrs({%Plug.Upload{} = avatar, params}, field) do
-    # FIXME 如果上传失败，callback 统一处理。
+    # FIXME need set global callback
     with %HTTPoison.Response{status_code: 200, body: body} <- Qiniu.upload(avatar.path) do
       Map.merge(params, %{field => body["key"]})
     end

@@ -3,7 +3,6 @@ defmodule MiphaWeb.Admin.NodeController do
 
   alias Mipha.Topics
   alias Mipha.Topics.Queries
-  alias Mipha.Topics.Node
 
   def index(conn, params) do
     result = Queries.list_nodes() |> Trubo.Ecto.trubo(params)
@@ -11,7 +10,7 @@ defmodule MiphaWeb.Admin.NodeController do
   end
 
   def new(conn, _params) do
-    changeset = Topics.change_node(%Node{})
+    changeset = Topics.change_node()
     render(conn, "new.html", changeset: changeset)
   end
 

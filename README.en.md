@@ -8,6 +8,8 @@ English | [简体中文](./README.md)
 
 * [Introduction](#introduction)
 * [Getting started](#getting-started)
+* [Database relationship](#Database relationship)
+* [Project structure](#Project structure)
 * [Features](#features)
 
 ## Introduction
@@ -27,6 +29,45 @@ mix ecto.reset
 mix phx.serve
 ```
 
+## Database relationship
+
+![ ](https://l.ruby-china.com/photo/2018/b96739ac-94d4-433e-9693-de528466c6d3.jpeg!large)
+
+## Project structure
+
+```bash
+.
+├── assets                     # JS CSS and static file.
+├── lib                        #
+│   ├── mipha                  #
+│   │   ├── accounts           # user team company location model.
+│   │   ├── collections        # user collection.
+│   │   ├── follows            # follows
+│   │   ├── markdown           # markdown
+│   │   ├── notifications      # notification
+│   │   ├── replies            # the reply of topic.
+│   │   ├── stars              # like topic or reply
+│   │   ├── topics             # topic and node.
+│   │   ├── utils              #
+│   │   ├── mailer.ex          # send email.
+│   │   ├── markdown.ex        #
+│   │   ├── qiniu.ex           # image upload
+│   │   ├── regexp.ex          # regex
+│   │   ├── token.ex           # token verification, reset password etc.
+│   ├── mipha_web
+│   │   ├── channels           # socket
+│   │   ├── controllers        # Controllers
+│   │   │   ├── admin          # admin dashboard
+│   │   ├── plugs              # Plugs
+│   │   ├── templates          # Templates
+│   │   ├── views              # Views
+│   │   ├── email.ex           #
+│   │   ├── session.ex         #
+│   ├── mipha.ex
+│   ├── mipha_web.ex
+└── test                       # test
+```
+
 ## Features
 
-[Milestone 1](https://github.com/zven21/mipha/milestone/1)
+Here is: [Milestone 1](https://github.com/zven21/mipha/milestone/1)

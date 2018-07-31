@@ -11,7 +11,8 @@ alias Mipha.{
   Markdown,
   Mailer,
   Notifications,
-  Utils
+  Utils,
+  Token
 }
 
 alias Accounts.{User, Location, Company, Team}

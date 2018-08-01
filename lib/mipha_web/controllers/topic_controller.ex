@@ -30,7 +30,7 @@ defmodule MiphaWeb.TopicController do
     result =
       opts
       |> Queries.cond_topics
-      |> Trubo.Ecto.trubo(conn.params)
+      |> Turbo.Ecto.turbo(conn.params)
 
     render conn, action_name(conn),
       asset: "topics",
@@ -95,7 +95,7 @@ defmodule MiphaWeb.TopicController do
 
   def jobs(conn, params) do
     parent_nodes = Topics.list_parent_nodes
-    result = Trubo.Ecto.trubo(Queries.job_topics, params)
+    result = Turbo.Ecto.turbo(Queries.job_topics, params)
 
     render conn, :jobs,
       parent_nodes: parent_nodes,

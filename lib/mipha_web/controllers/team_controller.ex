@@ -15,7 +15,7 @@ defmodule MiphaWeb.TeamController do
     result =
       [user_ids: team_user_ids]
       |> Queries.cond_topics
-      |> Trubo.Ecto.trubo(params)
+      |> Turbo.Ecto.turbo(params)
 
     render conn, :show,
       team: team,

@@ -5,7 +5,7 @@ defmodule MiphaWeb.Admin.ReplyController do
   alias Mipha.Replies.Queries
 
   def index(conn, params) do
-    result = Queries.list_replies() |> Trubo.Ecto.trubo(params)
+    result = Queries.list_replies() |> Turbo.Ecto.turbo(params)
     render conn, :index, replies: result.datas, paginate: result.paginate
   end
 

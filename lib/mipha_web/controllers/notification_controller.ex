@@ -10,7 +10,7 @@ defmodule MiphaWeb.NotificationController do
       conn
       |> current_user()
       |> Notifications.Queries.cond_user_notifications()
-      |> Trubo.Ecto.trubo(params)
+      |> Turbo.Ecto.turbo(params)
 
     render conn, :index,
       notifications: result.datas,

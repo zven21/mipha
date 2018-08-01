@@ -5,7 +5,7 @@ defmodule MiphaWeb.Admin.NodeController do
   alias Mipha.Topics.Queries
 
   def index(conn, params) do
-    result = Queries.list_nodes() |> Trubo.Ecto.trubo(params)
+    result = Queries.list_nodes() |> Turbo.Ecto.turbo(params)
     render conn, :index, nodes: result.datas, paginate: result.paginate
   end
 

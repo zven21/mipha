@@ -47,7 +47,7 @@ config :sentry,
   enable_source_code_context: true,
   root_source_code_path: File.cwd!()
 
-config :trubo_ecto, Trubo.Ecto,
+config :turbo_ecto, Turbo.Ecto,
   repo: Mipha.Repo
 
 # Import environment specific config. This must remain at the bottom

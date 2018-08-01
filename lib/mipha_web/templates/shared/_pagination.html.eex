@@ -1,5 +1,5 @@
 <%= if @paginate.total_pages > 1 do %>
   <div class="pagination">
-    <%= trubo_pagination_links decorator_paginate(@conn, @paginate) %>
+    <%= turbo_pagination_links decorator_paginate(@conn, @paginate) %>
   </div>
 <% end %>

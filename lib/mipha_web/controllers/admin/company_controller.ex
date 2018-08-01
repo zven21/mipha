@@ -5,7 +5,7 @@ defmodule MiphaWeb.Admin.CompanyController do
   alias Mipha.Accounts.Queries
 
   def index(conn, params) do
-    result = Queries.list_companies() |> Trubo.Ecto.trubo(params)
+    result = Queries.list_companies() |> Turbo.Ecto.turbo(params)
     render conn, :index, companies: result.datas, paginate: result.paginate
   end
 

@@ -22,7 +22,7 @@ defmodule MiphaWeb.UserController do
   end
 
   def index(conn, params) do
-    users = Accounts.Queries.list_users() |> Trubo.Ecto.search(params)
+    users = Accounts.Queries.list_users() |> Turbo.Ecto.search(params)
     user_count = Accounts.get_user_count()
 
     render conn, :index,
@@ -41,7 +41,7 @@ defmodule MiphaWeb.UserController do
   end
 
   def topics(conn, params, user) do
-    result = Topics.Queries.cond_topics([user: user]) |> Trubo.Ecto.trubo(params)
+    result = Topics.Queries.cond_topics([user: user]) |> Turbo.Ecto.turbo(params)
 
     render conn, :topics,
       user: user,
@@ -50,7 +50,7 @@ defmodule MiphaWeb.UserController do
   end
 
   def replies(conn, params, user) do
-    result = Replies.Queries.cond_replies([user: user]) |> Trubo.Ecto.trubo(params)
+    result = Replies.Queries.cond_replies([user: user]) |> Turbo.Ecto.turbo(params)
 
     render conn, :replies,
       user: user,
@@ -59,7 +59,7 @@ defmodule MiphaWeb.UserController do
   end
 
   def following(conn, params, user) do
-    result = Follows.Queries.cond_follows([follower: user]) |> Trubo.Ecto.trubo(params)
+    result = Follows.Queries.cond_follows([follower: user]) |> Turbo.Ecto.turbo(params)
 
     render conn, :following,
       user: user,
@@ -68,7 +68,7 @@ defmodule MiphaWeb.UserController do
   end
 
   def followers(conn, params, user) do
-    result = Follows.Queries.cond_follows([user: user]) |> Trubo.Ecto.trubo(params)
+    result = Follows.Queries.cond_follows([user: user]) |> Turbo.Ecto.turbo(params)
 
     render conn, :followers,
       user: user,
@@ -77,7 +77,7 @@ defmodule MiphaWeb.UserController do
   end
 
   def collections(conn, params, user) do
-    result = Collections.Queries.cond_collections([user: user]) |> Trubo.Ecto.trubo(params)
+    result = Collections.Queries.cond_collections([user: user]) |> Turbo.Ecto.turbo(params)
 
     render conn, :collections,
       user: user,

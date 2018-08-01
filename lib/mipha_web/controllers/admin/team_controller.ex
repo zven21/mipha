@@ -5,7 +5,7 @@ defmodule MiphaWeb.Admin.TeamController do
   alias Mipha.Accounts.Queries
 
   def index(conn, params) do
-    result = Queries.list_teams() |> Trubo.Ecto.trubo(params)
+    result = Queries.list_teams() |> Turbo.Ecto.turbo(params)
     render conn, :index, teams: result.datas, paginate: result.paginate
   end
 

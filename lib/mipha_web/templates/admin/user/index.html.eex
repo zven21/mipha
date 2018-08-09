@@ -3,7 +3,7 @@
     <div class="toolbar">
       <%= form_for @conn, admin_user_path(@conn, :index), [method: :get, class: "form-inline"], fn f -> %>
         <div class="form-group mr-sm-2">
-          <%= turbo_search_input f, "q[username_like]", class: "form-control btn-sm", placeholder: "标题" %>
+          <%= turbo_search_input f, "q[username_like]", class: "form-control btn-sm", placeholder: "用户名" %>
         </div>
         <button class="btn btn-primary btn-sm">搜索</button>
       <% end %>

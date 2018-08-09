@@ -33,7 +33,7 @@ defmodule MiphaWeb.SessionController do
       changeset = Accounts.user_register_changeset(user_params)
 
       conn
-      |> put_flash(:danger, "验证码错误，请重新输入")
+      |> put_flash(:danger, gettext("captcha error, pls input again."))
       |> render(:new, changeset: changeset)
     end
 
@@ -45,7 +45,7 @@ defmodule MiphaWeb.SessionController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:danger, "注册失败，请重新注册一下。")
+        |> put_flash(:danger, gettext("Register failed. pls try again."))
         |> render(:new, changeset: changeset)
     end
   end
@@ -59,7 +59,7 @@ defmodule MiphaWeb.SessionController do
 
   defp ok_login(conn, user) do
     conn
-    |> put_flash(:info, "注册成功")
+    |> put_flash(:info, gettext("Registered successfully"))
     |> put_session(:current_user, user.id)
     |> redirect(to: "/")
   end
@@ -68,7 +68,7 @@ defmodule MiphaWeb.SessionController do
   defp authorized_user(conn, _) do
     if current_user(conn) do
       conn
-      |> put_flash(:danger, "你已登录")
+      |> put_flash(:danger, "You has logged in")
       |> redirect(to: "/")
     else
       conn

@@ -2,22 +2,22 @@
   <%= if has_starred?(user: @current_user, topic: @topic) do %>
     <%= link to: topic_path(@conn, :unstar, @topic), method: :post, class: "likeable active" do %>
       <i class="fa fa-heart"></i>
-      <span><%= @topic.star_count %> 个赞</span>
+      <span><%= gettext "%{star_count} stars", star_count: @topic.star_count %></span>
     <% end %>
   <% else %>
     <%= link to: topic_path(@conn, :star, @topic), method: :post, class: "likeable deactive" do %>
       <i class="fa fa-heart"></i>
-      <span><%= @topic.star_count %> 个赞</span>
+      <span><%= gettext "%{star_count} stars", star_count: @topic.star_count %></span>
     <% end %>
   <% end %>
 
   <%= if has_collected?(@current_user, @topic) do %>
     <%= link to: topic_path(@conn, :uncollection, @topic), method: :post, class: "bookmark active" do %>
-      <i class="fa fa-bookmark"></i> 取消收藏
+      <i class="fa fa-bookmark"></i> <%= gettext "Uncollection" %>
     <% end %>
   <% else %>
     <%= link to: topic_path(@conn, :collection, @topic), method: :post, class: "bookmark" do %>
-      <i class="fa fa-bookmark"></i> 收藏
+      <i class="fa fa-bookmark"></i> <%= gettext "Collection" %>
     <% end %>
   <% end %>
 
@@ -25,21 +25,21 @@
   <%= if @current_user && @current_user.is_admin do %>
     <%= if @topic.suggested_at do %>
       <%= link to: topic_path(@conn, :unsuggest, @topic), method: :post do %>
-        <i class="fa fa-angle-double-down"></i> 取消置顶
+        <i class="fa fa-angle-double-down"></i> <%= gettext "Unpin" %>
       <% end %>
     <% else %>
       <%= link to: topic_path(@conn, :suggest, @topic), method: :post do %>
-        <i class="fa fa-angle-double-up"></i> 置顶
+        <i class="fa fa-angle-double-up"></i> <%= gettext "Pin" %>
       <% end %>
     <% end %>
 
     <%= if @topic.type == :featured do %>
-      <%= link to: topic_path(@conn, :normal, @topic), method: :post, title: "取消精华帖" do %>
-        <i class="fa fa-diamond"></i> 取消加精
+      <%= link to: topic_path(@conn, :normal, @topic), method: :post, title: "Unmark featured" do %>
+        <i class="fa fa-diamond"></i> <%= gettext "Unmark featured" %>
       <% end %>
     <% else %>
-      <%= link to: topic_path(@conn, :excellent, @topic), method: :post, title: "设为精华帖" do %>
-        <i class="fa fa-diamond"></i> 加精
+      <%= link to: topic_path(@conn, :excellent, @topic), method: :post, title: "Mark featured" do %>
+        <i class="fa fa-diamond"></i> <%= gettext "Mark featured" %>
       <% end %>
     <% end %>
   <% end %>
@@ -48,12 +48,12 @@
   <%= if @current_user && @current_user.id == @topic.user_id do %>
     <span class="pull-right opts">
       <%= if @topic.closed_at do %>
-        <%= link "", to: topic_path(@conn, :open, @topic), method: :post, title: "重新开启话题", class: "fa fa-undo" %>
+        <%= link "", to: topic_path(@conn, :open, @topic), method: :post, title: "Reopen", class: "fa fa-undo" %>
       <% else %>
-        <%= link "", to: topic_path(@conn, :close, @topic), method: :post, title: "关闭讨论／问题已解决", class: "fa fa-check" %>
+        <%= link "", to: topic_path(@conn, :close, @topic), method: :post, title: "Closed", class: "fa fa-check" %>
       <% end %>
-      <%= link "", to: topic_path(@conn, :edit, @topic), title: "修改本帖", class: "fa fa-pencil" %>
-      <%= link "", to: topic_path(@conn, :delete, @topic), title: "删除本帖", class: "fa fa-trash", method: :delete, data: [confirm: "确定要删除吗？"] %>
+      <%= link "", to: topic_path(@conn, :edit, @topic), title: "Change Topic", class: "fa fa-pencil" %>
+      <%= link "", to: topic_path(@conn, :delete, @topic), title: "Delete Topic", class: "fa fa-trash", method: :delete, data: [confirm: "Are you sure?"] %>
     </span>
   <% end %>
 </div>

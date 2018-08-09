@@ -26,11 +26,11 @@
                       <%= if @current_user && @current_user != item.user.id do %>
                         <%= if has_followed?(@current_user, item.user) do %>
                           <%= link to: user_unfollow_path(@conn, :unfollow, item.user.username), method: :post, class: "button-follow-user unactive" do %>
-                            <i class="fa fa-user"></i> <span>取消关注</span>
+                            <i class="fa fa-user"></i> <span><%= gettext "UnFollow" %></span>
                           <% end %>
                         <% else %>
                           <%= link to: user_follow_path(@conn, :follow, item.user.username), method: :post, class: "button-follow-user active" do %>
-                            <i class="fa fa-user"></i> <span>关注</span>
+                            <i class="fa fa-user"></i> <span><%= gettext "Follow" %></span>
                           <% end %>
                         <% end %>
                       <% end %>

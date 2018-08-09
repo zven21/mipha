@@ -21,11 +21,11 @@
             <div class="btn-group" role="group">
               <%= if has_collected?(@current_user, @topic) do %>
                 <%= link to: topic_path(@conn, :uncollection, @topic), method: :post, class: "bookmark active btn btn-default" do %>
-                  <i class="fa fa-bookmark"></i> 取消收藏
+                  <i class="fa fa-bookmark"></i> <%= gettext "Uncollection" %>
                 <% end %>
               <% else %>
                 <%= link to: topic_path(@conn, :collection, @topic), method: :post, class: "bookmark btn btn-default" do %>
-                  <i class="fa fa-bookmark"></i> 收藏
+                  <i class="fa fa-bookmark"></i> <%= gettext "Collection" %>
                 <% end %>
               <% end %>
             </div>
@@ -34,8 +34,7 @@
         <hr>
         <div class="reply-buttons">
           <div class="total">
-            共收到
-            <b><%= @topic.reply_count %></b> 条回复
+            <%= gettext "Total %{topic_count} repleis", topic_count: @topic.reply_count %>
           </div>
         </div>
         <hr>

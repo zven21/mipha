@@ -12,20 +12,20 @@
         </span>
         </div>
         <div class="item number">
-          第 <%= @user.id %> 位会员 / <span title="注册日期"><%= format_inserted_date(@user.inserted_at) %></span>
+          第 <%= @user.id %> 位会员 / <span title=""><%= format_inserted_date(@user.inserted_at) %></span>
         </div>
         <div class="item company">
           <%= if @user.company do %>
             <span><%= link @user.company.name, to: company_path(@conn, :show, @user.company) %></span>
           <% end %>
           <% if @user.location do %>
-             <span title="所在地">
+             <span>
                <%= link @user.location.name, to: location_path(@conn, :show, @user.location) %>
              </span>
           <% end %>
         </div>
         <div class="item counts">
-          <span><%= user_topics_count(@user) %></span> 篇帖子 • <span><%= user_replies_count(@user) %></span> 条回帖
+          <span><%= user_topics_count(@user) %></span> topics • <span><%= user_replies_count(@user) %></span> replies
         </div>
         <div class="item social">
           <%= if @user.website do %>
@@ -43,15 +43,15 @@
     <div class="follow-info row hide-ios">
       <div class="col-sm-4 followers" data-login="huacnlee">
         <%= link user_followers_count(@user), to: user_followers_path(@conn, :followers, @user.username), class: "counter" %>
-        <%= link "关注者", to: user_followers_path(@conn, :followers, @user), class: "text" %>
+        <%= link gettext("Follower"), to: user_followers_path(@conn, :followers, @user), class: "text" %>
       </div>
       <div class="col-sm-4 following">
         <%= link user_following_count(@user), to: user_following_path(@conn, :following, @user.username), class: "counter" %>
-        <%= link "正在关注", to: user_following_path(@conn, :following, @user), class: "text" %>
+        <%= link gettext("Following"), to: user_following_path(@conn, :following, @user), class: "text" %>
       </div>
       <div class="col-sm-4 stars">
         <%= link user_collections_count(@user), to: user_collections_path(@conn, :collections, @user.username), class: "counter" %>
-        <%= link "收藏", to: user_collections_path(@conn, :collections, @user), class: "text" %>
+        <%= link gettext("Collection"), to: user_collections_path(@conn, :collections, @user), class: "text" %>
       </div>
     </div>
     <div class="buttons row">
@@ -60,12 +60,12 @@
         <%= if has_followed?(@current_user, @user) do %>
           <%= link to: user_unfollow_path(@conn, :unfollow, @user.username), method: :post, class: "button-follow-user btn btn-default btn-block" do %>
             <i class="fa fa-user"></i>
-            <span>取消关注</span>
+            <span><%= gettext "UnFollow" %></span>
           <% end %>
         <% else %>
           <%= link to: user_follow_path(@conn, :follow, @user.username), method: :post, class: "button-follow-user btn btn-primary btn-block" do %>
             <i class="fa fa-user"></i>
-            <span>关注</span>
+            <span><%= gettext "Follow" %></span>
           <% end %>
         <% end %>
       </div>
@@ -78,7 +78,7 @@
 
     <div class="buttons">
       <button type="button" class="btn-block btn btn-default" id="node-selector-button" data-toggle="modal" data-target="#reward-modal">
-        <i class='fa fa-qrcode'></i> <span>打赏支持</span>
+        <i class='fa fa-qrcode'></i> <span><%= gettext "Reward" %></span>
       </button>
     </div>
   </div>

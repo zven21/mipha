@@ -2,14 +2,14 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-title">讨论区节点</div>
+        <div class="modal-title"><%= gettext "Nodes" %></div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="index-sections card">
-          <div class="card-header">讨论节点分类导航</div>
+          <div class="card-header"><%= gettext "Nodes" %></div>
           <div class="card-body">
             <div class="row node-list">
               <%= for parent_node <- @parent_nodes do %>

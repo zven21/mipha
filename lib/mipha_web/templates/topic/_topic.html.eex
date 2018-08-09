@@ -11,24 +11,24 @@
         <span><%= @item.title %></span>
       <% end %>
       <%= if @item.type == :featured do %>
-        <i title="精华帖" class="fa fa-diamond"></i>
+        <i title="Featured" class="fa fa-diamond"></i>
       <% end %>
       <%= if @item.suggested_at do %>
-        <i class="fa fa-angle-double-up" title="置顶"></i>
+        <i class="fa fa-angle-double-up" title="Suggested"></i>
       <% end %>
     </div>
     <div class="info">
       <a class="user-name" href="/u/<%= @item.user.username %>"><%= @item.user.username %></a>
       <%= if @item.reply_count != 0 do %>
         <span class="hidden-mobile">
-          • 最后由
+          • <%= gettext "Last by" %>
           <a class="user-name" href="/u/<%= @item.last_reply_user.username %>">
             <%= @item.last_reply_user && @item.last_reply_user.username %>
           </a>
-          回复于 <%= time_tag(@item.updated_at) %>
+          <%= gettext "replied at" %> <%= time_tag(@item.updated_at) %>
         </span>
       <% else %>
-        • 发布于 <%= time_tag(@item.updated_at) %>
+        • <%= gettext "Created at" %> <%= time_tag(@item.updated_at) %>
       <% end %>
     </div>
   </div>

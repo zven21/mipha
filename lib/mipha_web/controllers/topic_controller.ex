@@ -41,42 +41,42 @@ defmodule MiphaWeb.TopicController do
   defp do_fragment(:suggest, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"suggested_at" => Timex.now}
-    flash = "置顶成功"
+    flash = gettext("Pin")
 
     do_update(conn, topic, attrs, flash)
   end
   defp do_fragment(:unsuggest, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"suggested_at" => nil}
-    flash = "取消置顶"
+    flash = gettext("Unpin")
 
     do_update(conn, topic, attrs, flash)
   end
   defp do_fragment(:close, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"closed_at" => Timex.now}
-    flash = "该话题已关闭"
+    flash = gettext("Closed")
 
     do_update(conn, topic, attrs, flash)
   end
   defp do_fragment(:open, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"closed_at" => nil}
-    flash = "该话题已打开"
+    flash = gettext("Opened")
 
     do_update(conn, topic, attrs, flash)
   end
   defp do_fragment(:excellent, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"type" => "featured"}
-    flash = "该话题设置为精华帖"
+    flash = gettext("Featured topic")
 
     do_update(conn, topic, attrs, flash)
   end
   defp do_fragment(:normal, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"type" => "normal"}
-    flash = "该话题设置为正常帖"
+    flash = gettext("Normal topic")
 
     do_update(conn, topic, attrs, flash)
   end
@@ -127,13 +127,13 @@ defmodule MiphaWeb.TopicController do
     case Topics.insert_topic(current_user(conn), topic_params) do
       {:ok, %{topic: topic}} ->
         conn
-        |> put_flash(:success, "Topic created successfully.")
+        |> put_flash(:success, gettext("Topic created successfully."))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, :topic, %Ecto.Changeset{} = changeset, _} ->
         parent_nodes = Topics.list_parent_nodes
         conn
-        |> put_flash(:danger, "创建失败，请选择节点。")
+        |> put_flash(:danger, gettext("Create topic failed, pls select node_id."))
         |> render(:new, changeset: changeset, parent_nodes: parent_nodes)
     end
   end
@@ -143,7 +143,7 @@ defmodule MiphaWeb.TopicController do
     case Topics.update_topic(topic, topic_params) do
       {:ok, topic} ->
         conn
-        |> put_flash(:success, "Topic updated successfully.")
+        |> put_flash(:success, gettext("Topic updated successfully."))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -172,7 +172,7 @@ defmodule MiphaWeb.TopicController do
     {:ok, _topic} = Topics.delete_topic(topic)
 
     conn
-    |> put_flash(:info, "Topic deleted successfully.")
+    |> put_flash(:info, gettext("Topic deleted successfully."))
     |> redirect(to: topic_path(conn, :index))
   end
 
@@ -189,12 +189,12 @@ defmodule MiphaWeb.TopicController do
     case Stars.insert_star(attrs) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "star successfully")
+        |> put_flash(:info, gettext("Star successfully"))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, _} ->
         conn
-        |> put_flash(:danger, "star error")
+        |> put_flash(:danger, gettext("Star failed"))
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -208,11 +208,11 @@ defmodule MiphaWeb.TopicController do
     case Stars.delete_star(attrs) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "unstar successfully")
+        |> put_flash(:info, gettext("Unstar successfully"))
         |> redirect(to: topic_path(conn, :show, topic))
       {:error, _} ->
         conn
-        |> put_flash(:danger, "unstar error")
+        |> put_flash(:danger, gettext("Unstar failed"))
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -226,12 +226,12 @@ defmodule MiphaWeb.TopicController do
     case Collections.insert_collection(attrs) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "collection successfully")
+        |> put_flash(:info, gettext("Collection successfully"))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, _} ->
         conn
-        |> put_flash(:danger, "collection error")
+        |> put_flash(:danger, gettext("Collection failed"))
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -245,12 +245,12 @@ defmodule MiphaWeb.TopicController do
     case Collections.delete_collection(attrs) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "uncollection successfully")
+        |> put_flash(:info, gettext("Uncollection successfully"))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, _} ->
         conn
-        |> put_flash(:danger, "uncollection error")
+        |> put_flash(:danger, gettext("Uncollection failed"))
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end

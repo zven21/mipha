@@ -12,7 +12,7 @@ defmodule MiphaWeb.AuthController do
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "退出成功。")
+    |> put_flash(:info, gettext("Sign out successful"))
     |> configure_session(drop: true)
     |> redirect(to: "/")
   end
@@ -26,7 +26,7 @@ defmodule MiphaWeb.AuthController do
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
     conn
-    |> put_flash(:danger, "Failed to authenticate.")
+    |> put_flash(:danger, gettext("Failed to authenticate."))
     |> redirect(to: "/")
   end
 
@@ -43,7 +43,7 @@ defmodule MiphaWeb.AuthController do
 
           {:error, %Ecto.Changeset{} = changeset} ->
             conn
-            |> put_flash(:danger, "Login unsuccessful")
+            |> put_flash(:danger, "Login Unsuccessful")
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
 
           {:error, reason} ->
@@ -74,7 +74,7 @@ defmodule MiphaWeb.AuthController do
 
   defp ok_login(conn, user) do
     conn
-    |> put_flash(:info, "登录成功。")
+    |> put_flash(:info, gettext("Login successfully"))
     |> put_session(:current_user, user.id)
     |> redirect(to: "/")
   end
@@ -83,7 +83,7 @@ defmodule MiphaWeb.AuthController do
   defp authorized_user(conn, _) do
     if current_user(conn) do
       conn
-      |> put_flash(:danger, "你已登录")
+      |> put_flash(:danger, gettext("You has logged in"))
       |> redirect(to: "/")
     else
       conn

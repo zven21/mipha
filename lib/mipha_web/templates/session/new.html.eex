@@ -2,7 +2,7 @@
   <div class="col"></div>
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">注册新用户</div>
+      <div class="card-header"><%= gettext "Sign Up" %></div>
       <div class="card-body">
         <%= form_for @changeset, join_path(@conn, :create), fn f -> %>
           <%= if @changeset.action do %>
@@ -11,15 +11,15 @@
             </div>
           <% end %>
           <div class="form-group">
-            <%= text_input f, :username, class: "form-control", required: true, placeholder: "请输入用户名", tabindex: 1 %>
+            <%= text_input f, :username, class: "form-control", required: true, placeholder: "Username", tabindex: 1 %>
             <%= error_tag f, :username %>
           </div>
           <div class="form-group">
-            <%= text_input f, :email, class: "form-control", required: true, placeholder: "请输入邮箱", tabindex: 2 %>
+            <%= text_input f, :email, class: "form-control", required: true, placeholder: "Email", tabindex: 2 %>
             <%= error_tag f, :email %>
           </div>
           <div class="form-group">
-            <%= password_input f, :password, class: "form-control", required: true, placeholder: "请输入密码", tabindex: 3 %>
+            <%= password_input f, :password, class: "form-control", required: true, placeholder: "Password", tabindex: 3 %>
           </div>
           <div class="form-group">
             <div class="input-group">
@@ -30,7 +30,7 @@
           <div class="form-group text-center">
             <%= submit class: "btn btn-primary btn-block btn-lg", tabindex: 4 do %>
               <i class="fa fa-sign-in" aria-hidden="true"></i>
-              <span>注册</span>
+              <span><%= gettext "Sign Up" %></span>
             <% end %>
           </div>
         <% end %>

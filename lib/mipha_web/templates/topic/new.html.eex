@@ -1,4 +1,6 @@
 <div class="card">
-  <div class="card-header hide-ios">发布新话题</div>
+  <div class="card-header hide-ios">
+    <%= gettext "New Topic" %>
+  </div>
   <%= render "_form.html", Map.put(assigns, :action, topic_path(@conn, :create)) %>
 </div>

@@ -11,6 +11,7 @@ defmodule MiphaWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug MiphaWeb.Plug.CurrentUser
+    plug MiphaWeb.Plug.Locale
   end
 
   pipeline :api do

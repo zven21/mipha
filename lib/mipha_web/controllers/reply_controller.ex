@@ -40,12 +40,12 @@ defmodule MiphaWeb.ReplyController do
     case Replies.update_reply(reply, reply_params) do
       {:ok, _} ->
         conn
-        |> put_flash(:success, "Reply updated successfully.")
+        |> put_flash(:success, gettext("Reply updated successfully."))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, _} ->
         conn
-        |> put_flash(:success, "Reply updated error.")
+        |> put_flash(:success, gettext("Reply updated error."))
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -55,7 +55,7 @@ defmodule MiphaWeb.ReplyController do
     {:ok, _reply} = Replies.delete_reply(reply)
 
     conn
-    |> put_flash(:info, "Reply deleted successfully.")
+    |> put_flash(:info, gettext("Reply deleted successfully."))
     |> redirect(to: topic_path(conn, :show, topic))
   end
 
@@ -68,12 +68,12 @@ defmodule MiphaWeb.ReplyController do
     case Stars.insert_star(attrs) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "star successfully")
+        |> put_flash(:info, gettext("Star successfully"))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, _} ->
         conn
-        |> put_flash(:danger, "star error")
+        |> put_flash(:danger, gettext("Star failed"))
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end
@@ -87,12 +87,12 @@ defmodule MiphaWeb.ReplyController do
     case Stars.delete_star(attrs) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "unstar successfully")
+        |> put_flash(:info, gettext("Unstar successfully"))
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, _} ->
         conn
-        |> put_flash(:danger, "unstar error")
+        |> put_flash(:danger, gettext("Unstar failed"))
         |> redirect(to: topic_path(conn, :show, topic))
     end
   end

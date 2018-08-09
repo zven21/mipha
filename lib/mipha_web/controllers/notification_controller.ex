@@ -23,7 +23,7 @@ defmodule MiphaWeb.NotificationController do
     |> Notifications.mark_read_notification()
 
     conn
-    |> put_flash(:info, "已全部标记为已读。")
+    |> put_flash(:info, gettext("Marked all notifications readed."))
     |> redirect(to: notification_path(conn, :index))
   end
 
@@ -33,7 +33,7 @@ defmodule MiphaWeb.NotificationController do
     |> Notifications.clean_notification()
 
     conn
-    |> put_flash(:info, "已清空通知。")
+    |> put_flash(:info, gettext("Cleaned notification successfully"))
     |> redirect(to: notification_path(conn, :index))
   end
 end

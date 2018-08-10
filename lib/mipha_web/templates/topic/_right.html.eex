@@ -1,16 +1,17 @@
 <div class="card">
   <div class="card-body">
-    <a class="btn btn-primary btn-block" href="/topics/new">发布新话题</a>
+    <a class="btn btn-primary btn-block" href="/topics/new"><%= gettext "New Topic" %></a>
   </div>
 </div>
 <div class="card">
-  <div class="card-header">小帖士</div>
+  <div class="card-header"><%= gettext "Note" %></div>
   <div class="card-body">
-    如果遇到 BUG 或有建设性的想法，欢迎提 Issue。
+    <%= gettext "It's open source project, for more information, please visit: " %>
+    <a href="https://github.com/zven21/mipha" target="_blank">Mipha</a>
   </div>
 </div>
 <div class="card">
-  <div class="card-header">友情社区</div>
+  <div class="card-header"><%= gettext "Friendship community" %></div>
   <ul class="list-group list-group-flush" style="text-align: center;">
     <li class="list-group-item">
       <a href="http://cnodejs.org" rel="nofollow" title="CNode 社区" target="_blank">
@@ -28,11 +29,6 @@
       </a>
     </li>
     <li class="list-group-item">
-      <a href="http://elixir-cn.com" target="_blank" rel="nofollow">
-        <img src="//l.ruby-china.com/photo/2017/2720bc62-2348-40c0-88f6-95500067c648.png" style="width: 130px; ">
-      </a>
-    </li>
-    <li class="list-group-item">
       <a href="https://testerhome.com/" target="_blank" rel="nofollow">
         <img src="//l.ruby-china.com/photo/2016/5cd78b730062ab3c768bcc2592c5c7fa.png" style="width: 150px;">
       </a>
@@ -46,10 +42,10 @@
 </div>
 
 <div class="card">
-  <div class="card-header">统计信息</div>
+  <div class="card-header"><%= gettext "Statistics" %></div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">社区会员: <%= get_user_count() %> 人</li>
-    <li class="list-group-item">帖子数: <%= get_topic_count() %> 个</li>
-    <li class="list-group-item">回帖数: <%= get_reply_count() %> 条</li>
+    <li class="list-group-item"><%= gettext "Users Count: %{user_count}", user_count: get_user_count() %></li>
+    <li class="list-group-item"><%= gettext "Topics Count: %{topic_count}", topic_count: get_topic_count() %></li>
+    <li class="list-group-item"><%= gettext "Replies Count: %{reply_count}", reply_count: get_reply_count() %></li>
   </ul>
 </div>

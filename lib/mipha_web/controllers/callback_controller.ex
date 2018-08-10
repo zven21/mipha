@@ -4,7 +4,7 @@ defmodule MiphaWeb.CallbackController do
   alias Mipha.Qiniu
 
   @doc """
-  上传图片回调方法。
+  Upload image callback method.
   """
   def qiniu(conn, %{"file" => file_params}) do
     with %HTTPoison.Response{status_code: 200, body: body} <- Qiniu.upload(file_params.path) do

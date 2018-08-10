@@ -1,5 +1,7 @@
 <div class="index-locations card">
-  <div class="card-header">热门城市</div>
+  <div class="card-header">
+    <%= gettext "Hot Cities" %>
+  </div>
   <div class="card-body location-list" style="text-align:center;">
     <%= for item <- @locations do %>
       <span class="name">

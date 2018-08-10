@@ -1,7 +1,7 @@
 <div id="replies" class="card" data-last-floor="43">
   <div class="total card-header hide-ios">
-    共收到
-    <b><%= @topic.reply_count %></b> 条回复
+    <%= gettext "Total" %>
+    <b><%= @topic.reply_count %></b> <%= gettext "replies" %>
   </div>
   <div class="items card-body">
     <%= for {item, idx} <- Enum.with_index(@topic.replies) do %>
@@ -23,18 +23,18 @@
               </span>
               <span class="opts pull-right">
                 <span class="hideable">
-                  <%= link "", to: topic_reply_path(@conn, :edit, @topic, item), title: "修改回帖", class: "fa fa-pencil" %>
-                  <a data-id="<%= item.id %>" data-login="<%= item.user.username %>" title="回复此楼" class="btn-reply fa fa-mail-reply" href="#"></a>
+                  <%= link "", to: topic_reply_path(@conn, :edit, @topic, item), title: gettext("Edit reply"), class: "fa fa-pencil" %>
+                  <a data-id="<%= item.id %>" data-login="<%= item.user.username %>" title="" class="btn-reply fa fa-mail-reply" href="#"></a>
                 </span>
                 <%= if has_starred?(user: @current_user, reply: item) do %>
-                  <%= link to: topic_reply_reply_path(@conn, :unstar, @topic, item), method: :post, title: "取消赞", class: "likeable active" do %>
+                  <%= link to: topic_reply_reply_path(@conn, :unstar, @topic, item), method: :post, title: "", class: "likeable active" do %>
                     <i class="fa fa-heart"></i>
                     <span><%= item.star_count %> 个赞</span>
                   <% end %>
                 <% else %>
-                  <%= link to: topic_reply_reply_path(@conn, :star, @topic, item), method: :post, title: "赞", class: "likeable deactive" do %>
+                  <%= link to: topic_reply_reply_path(@conn, :star, @topic, item), method: :post, title: "", class: "likeable deactive" do %>
                     <i class="fa fa-heart"></i>
-                    <span><%= item.star_count %> 个赞</span>
+                    <span><%= gettext "%{star_count} stars", star_count: item.star_count %></span>
                   <% end %>
                 <% end %>
               </span>
@@ -42,11 +42,11 @@
             <%= if item.parent_id do %>
               <div class="reply-to-block">
                 <div class="info">
-                  对
+                  <%= gettext "Replied to" %>
                   <a>
                     <img class="media-object avatar-16" src="<%= qn_url(item.parent.user.avatar) %>">
                     <span class="user-name"><%= item.parent.user.username %></span>
-                  </a>回复
+                  </a>
                 </div>
               </div>
             <% end %>

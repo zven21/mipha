@@ -15,16 +15,18 @@
               </div>
 
               <div class="form-group">
-                <%= checkbox(f, :email_public) %> 公开 Email
+                <%= checkbox(f, :email_public) %> Public Email
               </div>
 
               <div class="form-group">
                 <%= file_input f, :avatar %>
-                <div class="form-text">选择上传头像</div>
+                <div class="form-text">
+                <%= gettext "Upload avatar" %>
+                </div>
               </div>
 
               <div class="form-group">
-                <%= textarea f, :bio, class: "form-control", placeholder: "添加个人简介", rows: 4 %>
+                <%= textarea f, :bio, class: "form-control", placeholder: "Add user bio", rows: 4 %>
                 <%= error_tag f, :bio %>
               </div>
             </div>
@@ -35,7 +37,7 @@
             </div>
           </div>
           <div class="form-actions hide-ios">
-            <%= submit "更新资料", class: "btn btn-primary" %>
+            <%= submit gettext("Update"), class: "btn btn-primary" %>
           </div>
         <% end %>
       </div>

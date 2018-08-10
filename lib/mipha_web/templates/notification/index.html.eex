@@ -1,9 +1,9 @@
 <div class="notifications card">
   <div class="card-header hide-ios clearfix">
-    所有通知
+    <%= gettext "Notifications" %>
     <span class="pull-right">
-      <%= link "全部标记已读", to: notification_path(@conn, :make_read), method: :post, class: "btn btn-sm btn-default" %>
-      <%= link "全部清空", to: notification_path(@conn, :clean), method: :delete, class: "btn btn-sm btn-danger" %>
+      <%= link gettext("Mark all readed"), to: notification_path(@conn, :make_read), method: :post, class: "btn btn-sm btn-default" %>
+      <%= link gettext("Clean all"), to: notification_path(@conn, :clean), method: :delete, class: "btn btn-sm btn-danger" %>
     </span>
   </div>
   <div class="card-body list item-list">

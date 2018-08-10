@@ -1,12 +1,11 @@
 defmodule MiphaWeb.Plug.Attack do
   @moduledoc """
-  安全应对，防灌水。
+  attack
   """
 
   import Plug.Conn
   use PlugAttack
 
-  # 注册限制, 每10分钟最多注册一个用户
   rule("throttle by ip every 2 minutes only allow register 10 person", conn) do
     if conn.method == "POST" and conn.path_info == ["join"] do
       throttle conn.remote_ip,
@@ -15,7 +14,6 @@ defmodule MiphaWeb.Plug.Attack do
     end
   end
 
-  # 发帖限制, 每小时只允许发一个帖。
   rule("throttle by ip every 1 hours only allow create 20 topic", conn) do
     if conn.method == "POST" and conn.path_info == ["topics"] do
       throttle conn.remote_ip,
@@ -24,7 +22,6 @@ defmodule MiphaWeb.Plug.Attack do
     end
   end
 
-  # 评论限制，每2分钟只允许发2个评论
   rule("throttle by ip every 2 minutes only allow create 20 reply", conn) do
     if conn.method == "POST" and conn.path_info == ["topics"] do
       throttle conn.remote_ip,

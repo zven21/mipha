@@ -11,7 +11,7 @@ defmodule MiphaWeb.UserController do
       case Accounts.get_user_by_username(conn.params["name"]) do
         nil ->
           conn
-          |> put_flash(:danger, "该用户不存在")
+          |> put_flash(:danger, gettext("User not exist."))
           |> redirect(to: "/")
 
         user -> apply(__MODULE__, action_name(conn), [conn, conn.params, user])
@@ -89,12 +89,12 @@ defmodule MiphaWeb.UserController do
     case Follows.follow_user(follower: current_user(conn), user: user) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "Follow successfully.")
+        |> put_flash(:info, gettext("Follow successfully."))
         |> redirect(to: user_path(conn, :show, user.username))
 
       {:error, %Ecto.Changeset{}} ->
         conn
-        |> put_flash(:danger, "Follow Error.")
+        |> put_flash(:danger, gettext("Follow failed."))
         |> redirect(to: user_path(conn, :show, user.username))
 
       {:error, reason} ->
@@ -108,12 +108,12 @@ defmodule MiphaWeb.UserController do
     case Follows.unfollow_user(follower: current_user(conn), user: user) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "Unfollow successfully.")
+        |> put_flash(:info, gettext("Unfollow successfully."))
         |> redirect(to: user_path(conn, :show, user.username))
 
       {:error, %Ecto.Changeset{}} ->
         conn
-        |> put_flash(:danger, "Unfollow error.")
+        |> put_flash(:danger, gettext("Unfollow failed."))
         |> redirect(to: user_path(conn, :show, user.username))
 
       {:error, reason} ->
@@ -134,12 +134,12 @@ defmodule MiphaWeb.UserController do
       |> Mailer.deliver_later()
 
       conn
-      |> put_flash(:success, "稍后，您将收到重置密码的电子邮件。")
+      |> put_flash(:success, gettext("You will receive an email to reset your password."))
       |> redirect(to: "/")
     else
       _ ->
         conn
-        |> put_flash(:danger, "The email is invalid.")
+        |> put_flash(:danger, gettext("The email is invalid."))
         |> redirect(to: "/forgot_password")
     end
   end
@@ -164,7 +164,7 @@ defmodule MiphaWeb.UserController do
 
   def reset_password(conn, _) do
     conn
-    |> put_flash(:danger, "The verification link is invalid.")
+    |> put_flash(:danger, gettext("The verification link is invalid."))
     |> redirect(to: "/")
   end
 
@@ -176,7 +176,7 @@ defmodule MiphaWeb.UserController do
       case Accounts.update_reset_password(user, user_params) do
         {:ok, _} ->
           conn
-          |> put_flash(:success, "reset password successfully.")
+          |> put_flash(:success, gettext("Reset password successfully."))
           |> redirect(to: "/login")
 
         {:error, %Ecto.Changeset{} = changeset} ->

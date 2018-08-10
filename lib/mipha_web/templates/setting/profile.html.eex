@@ -10,7 +10,7 @@
           <%= hidden_input f, :by, value: "profile" %>
 
           <div class="form-group">
-            <%= label f, :location_id, "城市" %>
+            <%= label f, :location_id, gettext("Location") %>
             <%= select f, :location_id, location_option(), class: "form-control", style: "width: 400px" %>
           </div>
 
@@ -25,17 +25,17 @@
           </div>
 
           <div class="form-group">
-            <%= label f, :website, "个人主页" %>
+            <%= label f, :website, gettext("Website") %>
             <%= text_input f, :website, class: "form-control", placeholder: "http://" %>
           </div>
 
           <div class="form-group">
-            <%= label f, :tagline, "签名" %>
+            <%= label f, :tagline, gettext("Tagline") %>
             <%= text_input f, :tagline, class: "form-control" %>
           </div>
 
           <div class="form-actions hide-ios">
-            <%= submit "更新资料", class: "btn btn-primary" %>
+            <%= submit gettext("Update"), class: "btn btn-primary" %>
           </div>
         <% end %>
       </div>

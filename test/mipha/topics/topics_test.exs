@@ -135,11 +135,6 @@ defmodule Mipha.TopicsTest do
       node
     end
 
-    test "list_nodes/0 returns all nodes" do
-      node = node_fixture()
-      assert Topics.list_nodes() == [node]
-    end
-
     test "get_node!/1 returns the node with given id" do
       node = node_fixture()
       assert Topics.get_node!(node.id) == node

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Elixir China</title>
+    <title>Elixir Mipha</title>
     <link rel="shortcut icon" type="image/x-icon" href="<%= static_path(@conn, "/favicon.ico") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>

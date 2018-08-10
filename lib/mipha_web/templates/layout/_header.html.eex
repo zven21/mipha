@@ -2,7 +2,7 @@
   <div class="container d-sm-flex">
     <div class="navbar-header d-none d-md-flex" id="navbar-header">
       <a href="/" class="navbar-brand">
-        <b>Elixir</b> China</a>
+        <b>Elixir</b> Mipha</a>
     </div>
     <div class="navbar-nav-scroll">
       <ul id="main-nav-menu" class="navbar-nav d-flex mi-nav">

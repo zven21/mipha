@@ -26,7 +26,7 @@ defmodule MiphaWeb.Email do
   欢迎邮件。
   """
   def welcome(token, user) do
-    subject = "欢迎加入 Elixir China 社区"
+    subject = "欢迎加入 Elixir Mipha 社区"
 
     normal_email()
     |> from(@from)

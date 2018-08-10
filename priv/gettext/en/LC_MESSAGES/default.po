@@ -65,7 +65,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/mipha_web/templates/user/index.html.eex:5
-msgid "Current have %{user_count} users joined Elixir China"
+msgid "Current have %{user_count} users joined Elixir Mipha"
 msgstr ""
 
 #, elixir-format

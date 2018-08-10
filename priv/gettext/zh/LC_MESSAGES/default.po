@@ -65,8 +65,8 @@ msgstr "发布于"
 
 #, elixir-format
 #: lib/mipha_web/templates/user/index.html.eex:5
-msgid "Current have %{user_count} users joined Elixir China"
-msgstr "目前已经有 %{user_count} 位会员加入了 Elixir China"
+msgid "Current have %{user_count} users joined Elixir Mipha"
+msgstr "目前已经有 %{user_count} 位会员加入了 Elixir Mipha"
 
 #, elixir-format
 #: lib/mipha_web/templates/setting/password.html.eex:17

@@ -2,7 +2,7 @@
   <div id="hot_users" class="user-list card">
     <div class="card-header">
       <strong><%= gettext "TOP 100 active users" %></strong>
-      <div class="pull-right"><%= gettext "Current have %{user_count} users joined Elixir China", user_count: @user_count %></div>
+      <div class="pull-right"><%= gettext "Current have %{user_count} users joined Elixir Mipha", user_count: @user_count %></div>
     </div>
     <div class="card-body">
       <div class="row">

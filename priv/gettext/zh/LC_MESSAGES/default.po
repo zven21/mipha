@@ -1,0 +1,700 @@
+#, elixir-format
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:5
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:10
+#: lib/mipha_web/templates/topic/_replies.html.eex:37
+msgid "%{star_count} stars"
+msgstr "%{star_count} 个 赞"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_header.html.eex:63
+msgid "Account Profile"
+msgstr "个人资料设置"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_sub_header.html.eex:7
+msgid "All Nodes"
+msgstr "所有节点"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/_sidebar.html.eex:18
+msgid "Change Password"
+msgstr "修改密码"
+
+#, elixir-format
+#: lib/mipha_web/templates/notification/index.html.eex:6
+msgid "Clean all"
+msgstr "清空全部"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:58
+msgid "Closed"
+msgstr "关闭"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:20
+#: lib/mipha_web/templates/topic/_right_sidebar.html.eex:28
+#: lib/mipha_web/templates/user/_left.html.eex:54
+#: lib/mipha_web/templates/user/_menu.html.eex:5
+msgid "Collection"
+msgstr "收藏"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:234
+msgid "Collection failed"
+msgstr "收藏失败"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:229
+msgid "Collection successfully"
+msgstr "已收藏成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/password.html.eex:29
+msgid "Confirmation Password"
+msgstr "重新密码"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:136
+msgid "Create topic failed, pls select node_id."
+msgstr "新建帖子失败，请选择分类节点"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_topic.html.eex:31
+msgid "Created at"
+msgstr "发布于"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/index.html.eex:5
+msgid "Current have %{user_count} users joined Elixir China"
+msgstr "目前已经有 %{user_count} 位会员加入了 Elixir China"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/password.html.eex:17
+msgid "Default Password"
+msgstr "原密码"
+
+#, elixir-format
+#: lib/mipha_web/templates/reply/edit.html.eex:18
+msgid "Delete"
+msgstr "删除"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/_sidebar.html.eex:12
+msgid "Details"
+msgstr "详细信息"
+
+#, elixir-format
+#: lib/mipha_web/templates/reply/edit.html.eex:4
+msgid "Edit Reply"
+msgstr "编辑回帖"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/edit.html.eex:3
+msgid "Edit Topic"
+msgstr "编辑话题"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_replies.html.eex:26
+msgid "Edit reply"
+msgstr "编辑回帖"
+
+#, elixir-format
+#: lib/mipha_web/controllers/auth_controller.ex:29
+msgid "Failed to authenticate."
+msgstr "用户验证失败"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_sub_header.html.eex:12
+msgid "Featured"
+msgstr "精华帖"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:72
+msgid "Featured topic"
+msgstr "该话题设置为精华帖"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/_left.html.eex:68
+#: lib/mipha_web/templates/user/followers.html.eex:32
+#: lib/mipha_web/templates/user/following.html.eex:33
+#: lib/mipha_web/templates/user/index.html.eex:30
+msgid "Follow"
+msgstr "关注"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:97
+msgid "Follow failed."
+msgstr "关注失败"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:92
+msgid "Follow successfully."
+msgstr "已关注成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/_left.html.eex:46
+#: lib/mipha_web/templates/user/_menu.html.eex:7
+msgid "Follower"
+msgstr "关注者"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/_left.html.eex:50
+#: lib/mipha_web/templates/user/_menu.html.eex:6
+msgid "Following"
+msgstr "正在关注"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/forgot_password.html.eex:5
+msgid "Forgot Password?"
+msgstr "忘记密码？"
+
+#, elixir-format
+#: lib/mipha_web/templates/auth/login.html.eex:43
+msgid "Forgot your password?"
+msgstr "友情社区"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:14
+msgid "Friendship community"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/auth/login.html.eex:35
+msgid "Github"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/page/_locations.html.eex:3
+msgid "Hot Cities"
+msgstr "热门城市"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/show.html.eex:17
+msgid "Hot Topics"
+msgstr "热门话题"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/_menu.html.eex:2
+msgid "Info"
+msgstr "个人信息"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/show.html.eex:27
+msgid "Introduction"
+msgstr "个人简介"
+
+#, elixir-format
+#: lib/mipha_web/controllers/setting_controller.ex:72
+msgid "Invalid password"
+msgstr "无效的密码"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:9
+msgid "It's open source project, for more information, please visit: "
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_header.html.eex:13
+msgid "Job"
+msgstr "招聘"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_topic.html.eex:24
+#: lib/mipha_web/templates/topic/show.html.eex:17
+msgid "Last by"
+msgstr "最后由"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/profile.html.eex:13
+msgid "Location"
+msgstr "地址"
+
+#, elixir-format
+#: lib/mipha_web/controllers/auth_controller.ex:77
+msgid "Login successfully"
+msgstr "登录成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/notification/index.html.eex:5
+msgid "Mark all readed"
+msgstr "标记全部已读"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:42
+msgid "Mark featured"
+msgstr "设置为精华帖"
+
+#, elixir-format
+#: lib/mipha_web/templates/page/markdown.html.eex:3
+#: lib/mipha_web/templates/topic/_form.html.eex:28
+#: lib/mipha_web/templates/topic/_handle_reply.html.eex:27
+msgid "Markdown Guide"
+msgstr "Markdown 排版说明"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/password.html.eex:23
+msgid "New Password"
+msgstr "新密码"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_header.html.eex:52
+#: lib/mipha_web/templates/topic/_right.html.eex:3
+#: lib/mipha_web/templates/topic/new.html.eex:3
+msgid "New Topic"
+msgstr "发布新话题"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_sub_header.html.eex:14
+msgid "No Reply"
+msgstr "无人问津"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/collections.html.eex:12
+#: lib/mipha_web/templates/user/topics.html.eex:12
+msgid "Node"
+msgstr "节点"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_node_selector.html.eex:5
+#: lib/mipha_web/templates/topic/_node_selector.html.eex:12
+#: lib/mipha_web/templates/topic/_nodes.html.eex:2
+msgid "Nodes"
+msgstr "全部节点"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_sub_header.html.eex:11
+msgid "Normal"
+msgstr "默认"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:79
+msgid "Normal topic"
+msgstr "该话题设置为正常帖"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:7
+msgid "Note"
+msgstr "小贴士"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/password.html.eex:8
+msgid "Note! You will need to log in again after updating your password."
+msgstr "注意！更新密码以后需要重新登陆。"
+
+#, elixir-format
+#: lib/mipha_web/templates/notification/index.html.eex:3
+msgid "Notifications"
+msgstr "全部通知"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:65
+msgid "Opened"
+msgstr "打开"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:44
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:32
+msgid "Pin"
+msgstr "置顶"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_sub_header.html.eex:13
+msgid "Popular"
+msgstr "优质帖"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_editor_toolbar.html.eex:34
+msgid "Preview"
+msgstr "预览"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/_sidebar.html.eex:6
+msgid "Profile"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/setting_controller.ex:43
+msgid "Profile updated failed"
+msgstr "用户信息更新失败"
+
+#, elixir-format
+#: lib/mipha_web/controllers/setting_controller.ex:38
+msgid "Profile updated successfully"
+msgstr "用户信息已更新成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/show.html.eex:22
+msgid "Recent Repleis"
+msgstr "最近回帖"
+
+#, elixir-format
+#: lib/mipha_web/controllers/session_controller.ex:48
+msgid "Register failed. pls try again."
+msgstr "注册失败，请重新注册"
+
+#, elixir-format
+#: lib/mipha_web/controllers/session_controller.ex:62
+msgid "Registered successfully"
+msgstr "注册成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/auth/login.html.eex:18
+msgid "Remember me (2 months)"
+msgstr "记住登录状态（60 天）"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_replies.html.eex:45
+msgid "Replied to"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:49
+msgid "Replies Count: %{reply_count}"
+msgstr "回帖数: %{reply_count}"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/topics.html.eex:14
+msgid "Replies/Hits"
+msgstr "回复数/访问数"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_handle_reply.html.eex:5
+#: lib/mipha_web/templates/user/_menu.html.eex:4
+msgid "Reply"
+msgstr "评论"
+
+#, elixir-format
+#: lib/mipha_web/controllers/reply_controller.ex:58
+msgid "Reply deleted successfully."
+msgstr "已成功删除回帖"
+
+#, elixir-format
+#: lib/mipha_web/controllers/reply_controller.ex:48
+msgid "Reply updated error."
+msgstr "修改回帖失败"
+
+#, elixir-format
+#: lib/mipha_web/controllers/reply_controller.ex:43
+msgid "Reply updated successfully."
+msgstr "已成功修改回帖"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/reset_password.html.eex:5
+msgid "Reset Password"
+msgstr "重置用户密码"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:179
+msgid "Reset password successfully."
+msgstr "重置密码成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/_sidebar.html.eex:24
+#: lib/mipha_web/templates/user/_left.html.eex:81
+msgid "Reward"
+msgstr "打赏"
+
+#, elixir-format
+#: lib/mipha_web/templates/reply/edit.html.eex:17
+msgid "Save"
+msgstr "保存"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/_sidebar.html.eex:30
+msgid "Setting"
+msgstr "基本信息"
+
+#, elixir-format
+#: lib/mipha_web/templates/auth/login.html.eex:5
+#: lib/mipha_web/templates/auth/login.html.eex:23
+#: lib/mipha_web/templates/layout/_header.html.eex:71
+msgid "Sign In"
+msgstr "登录"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_header.html.eex:66
+msgid "Sign Out"
+msgstr "退出"
+
+#, elixir-format
+#: lib/mipha_web/templates/auth/login.html.eex:42
+#: lib/mipha_web/templates/layout/_header.html.eex:70
+#: lib/mipha_web/templates/session/new.html.eex:5
+#: lib/mipha_web/templates/session/new.html.eex:33
+msgid "Sign Up"
+msgstr "注册"
+
+#, elixir-format
+#: lib/mipha_web/templates/auth/login.html.eex:32
+msgid "Sign in with other services"
+msgstr "第三方登录"
+
+#, elixir-format
+#: lib/mipha_web/controllers/auth_controller.ex:15
+msgid "Sign out successful"
+msgstr "退出成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_header.html.eex:19
+msgid "Source Code"
+msgstr "开源代码"
+
+#, elixir-format
+#: lib/mipha_web/controllers/reply_controller.ex:76
+#: lib/mipha_web/controllers/topic_controller.ex:197
+msgid "Star failed"
+msgstr "点赞失败"
+
+#, elixir-format
+#: lib/mipha_web/controllers/reply_controller.ex:71
+#: lib/mipha_web/controllers/topic_controller.ex:192
+msgid "Star successfully"
+msgstr "点赞成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:45
+msgid "Statistics"
+msgstr "统计信息"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_form.html.eex:25
+#: lib/mipha_web/templates/topic/_handle_reply.html.eex:19
+msgid "Submit"
+msgstr "提交"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/reset_password.html.eex:18
+msgid "Sumbit"
+msgstr "提交"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/index.html.eex:4
+msgid "TOP 100 active users"
+msgstr "TOP 100 活跃会员"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/profile.html.eex:33
+msgid "Tagline"
+msgstr "个性签名"
+
+#, elixir-format
+#: lib/mipha_web/templates/team/_nav.html.eex:6
+msgid "Team People"
+msgstr "团队成员"
+
+#, elixir-format
+#: lib/mipha_web/templates/team/_nav.html.eex:3
+msgid "Team Topics"
+msgstr "团队帖子"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:142
+msgid "The email is invalid."
+msgstr "该 Email 不存在"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:167
+msgid "The verification link is invalid."
+msgstr "无效的验证链接"
+
+#, elixir-format
+#: lib/mipha_web/templates/user/collections.html.eex:13
+#: lib/mipha_web/templates/user/topics.html.eex:13
+msgid "Title"
+msgstr "标题"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_header.html.eex:10
+#: lib/mipha_web/templates/user/_menu.html.eex:3
+msgid "Topic"
+msgstr "话题"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:130
+msgid "Topic created successfully."
+msgstr "帖子创建成功"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:175
+msgid "Topic deleted successfully."
+msgstr "帖子已删除"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:146
+msgid "Topic updated successfully."
+msgstr "帖子更新成功"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:48
+msgid "Topics Count: %{topic_count}"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_replies.html.eex:3
+msgid "Total"
+msgstr "总共"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right_sidebar.html.eex:37
+msgid "Total %{topic_count} repleis"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/user/_left.html.eex:63
+#: lib/mipha_web/templates/user/following.html.eex:29
+msgid "UnFollow"
+msgstr "取消关注"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:16
+#: lib/mipha_web/templates/topic/_right_sidebar.html.eex:24
+msgid "Uncollection"
+msgstr "取消收藏"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:253
+msgid "Uncollection failed"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:248
+msgid "Uncollection successfully"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/user/followers.html.eex:28
+#: lib/mipha_web/templates/user/index.html.eex:26
+msgid "Unfollow"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:116
+msgid "Unfollow failed."
+msgstr "取消关注失败"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:111
+msgid "Unfollow successfully."
+msgstr "已取消关注"
+
+#, elixir-format, fuzzy
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:38
+msgid "Unmark featured"
+msgstr "取消精华帖"
+
+#, elixir-format
+#: lib/mipha_web/controllers/topic_controller.ex:51
+#: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:28
+msgid "Unpin"
+msgstr "取消置顶"
+
+#, elixir-format
+#: lib/mipha_web/controllers/reply_controller.ex:95
+#: lib/mipha_web/controllers/topic_controller.ex:215
+msgid "Unstar failed"
+msgstr "取消赞失败"
+
+#, elixir-format
+#: lib/mipha_web/controllers/reply_controller.ex:90
+#: lib/mipha_web/controllers/topic_controller.ex:211
+msgid "Unstar successfully"
+msgstr "取消赞"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/profile.html.eex:38
+#: lib/mipha_web/templates/setting/show.html.eex:40
+msgid "Update"
+msgstr "更新"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/password.html.eex:35
+msgid "Update Password"
+msgstr "修改密码"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/show.html.eex:24
+msgid "Upload avatar"
+msgstr "上传头像"
+
+#, elixir-format
+#: lib/mipha_web/templates/layout/_header.html.eex:16
+msgid "User"
+msgstr "用户"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:14
+msgid "User not exist."
+msgstr "该用户不存在"
+
+#, elixir-format
+#: lib/mipha_web/controllers/setting_controller.ex:57
+#: lib/mipha_web/controllers/setting_controller.ex:101
+msgid "User updated failed."
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/setting_controller.ex:67
+msgid "User updated password successfully."
+msgstr "密码更新成功"
+
+#, elixir-format
+#: lib/mipha_web/controllers/setting_controller.ex:52
+#: lib/mipha_web/controllers/setting_controller.ex:96
+msgid "User updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:47
+msgid "Users Count: %{user_count}"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/profile.html.eex:28
+msgid "Website"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/user/forgot_password.html.eex:13
+msgid "Will send a special link to retrieve your password to your email address. You can enter the reset password page by changing the link."
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/auth_controller.ex:86
+msgid "You has logged in"
+msgstr "你已登录"
+
+#, elixir-format
+#: lib/mipha_web/controllers/user_controller.ex:137
+msgid "You will receive an email to reset your password."
+msgstr "稍后，您将收到重置密码的电子邮件。"
+
+#, elixir-format
+#: lib/mipha_web/controllers/session_controller.ex:36
+msgid "captcha error, pls input again."
+msgstr "验证码错误，请重新输入"
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/show.html.eex:24
+msgid "hits"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_topic.html.eex:28
+#: lib/mipha_web/templates/topic/show.html.eex:19
+msgid "replied at"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_replies.html.eex:4
+msgid "replies"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/notification_controller.ex:36
+msgid "Cleaned notification successfully"
+msgstr "已清空站内信"
+
+#, elixir-format
+#: lib/mipha_web/controllers/notification_controller.ex:26
+msgid "Marked all notifications readed."
+msgstr "已全部标记为已读"

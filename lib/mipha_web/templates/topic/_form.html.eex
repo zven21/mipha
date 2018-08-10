@@ -11,19 +11,23 @@
             <%= Map.get(assigns, :topic) && @topic.node.name || "选择节点..." %>
           </button>
         </div>
-        <%= text_input f, :title, class: "form-control", required: true, placeholder: "在这里填写标题" %>
+        <%= text_input f, :title, class: "form-control", required: true, placeholder: "Title" %>
         <%= error_tag f, :title %>
       </div>
     </div>
     <%= render "_editor_toolbar.html", assigns %>
 
     <div class="form-group">
-      <%= textarea f, :body, class: "form-control topic-editor closewarning", required: true, placeholder: "在这里添加内容", rows: 20 %>
+      <%= textarea f, :body, class: "form-control topic-editor closewarning", required: true, placeholder: "Body", rows: 20 %>
       <%= error_tag f, :body %>
     </div>
     <div class="form-actions hide-ios">
-      <%= submit "保存", class: "btn btn-primary" %>
-      <div class="pull-right hide-ios"><a href="/markdown" target="_blank"><i class="fa fa-tip"></i> 排版说明</a></div>
+      <%= submit gettext("Submit"), class: "btn btn-primary" %>
+      <div class="pull-right hide-ios">
+        <a href="/markdown" target="_blank"><i class="fa fa-tip"></i>
+          <%= gettext "Markdown Guide" %>
+        </a>
+      </div>
     </div>
   <% end %>
 </div>

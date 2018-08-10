@@ -3,14 +3,15 @@
     <%= render MiphaWeb.TopicView, "_node_selector.html", assigns %>
     <ul class="filter nav nav-pills mi-nav">
       <li>
-        <a href="#" class="all-nodes" data-toggle="modal" data-target="#node-selector">所有节点
+        <a href="#" class="all-nodes" data-toggle="modal" data-target="#node-selector">
+          <%= gettext "All Nodes" %>
           <span class="caret-right"></span>
         </a>
       </li>
-      <li><a href="/topics">默认</a></li>
-      <li><a href="/topics/featured"><i class="fa fa-diamond"></i>精华帖</a></li>
-      <li><a href="/topics/popular">优质帖子</a></li>
-      <li><a href="/topics/no_reply">无人问津</a></li>
+      <li><a href="/topics"><%= gettext "Normal" %></a></li>
+      <li><a href="/topics/featured"><i class="fa fa-diamond"></i><%= gettext "Featured" %></a></li>
+      <li><a href="/topics/popular"></i><%= gettext "Popular" %></a></li>
+      <li><a href="/topics/no_reply"><%= gettext "No Reply" %></a></li>
     </ul>
   </div>
 </div>

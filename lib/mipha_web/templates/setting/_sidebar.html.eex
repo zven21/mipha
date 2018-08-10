@@ -3,31 +3,31 @@
     <li class="nav-item">
       <%= link to: setting_path(@conn, :show), class: "nav-link" do %>
         <i class='fa fa-user-circle'></i>
-        <span>基本信息</span>
+        <span><%= gettext "Profile" %></span>
       <% end %>
     </li>
     <li class="nav-item">
       <%= link to: setting_profile_path(@conn, :profile), class: "nav-link hide-ios" do %>
         <i class='fa fa-address-card'></i>
-        <span>详细资料</span>
+        <span><%= gettext "Details" %></span>
       <% end %>
     </li>
     <li class="nav-item">
       <%= link to: setting_password_path(@conn, :password), class: "nav-link hide-ios" do %>
         <i class='fa fa-keyboard-o'></i>
-        <span>登陆密码</span>
+        <span><%= gettext "Change Password" %></span>
       <% end %>
     </li>
     <li class="nav-item">
       <%= link to: setting_reward_path(@conn, :reward), class: "nav-link hide-ios" do %>
         <i class='fa fa-qrcode'></i>
-        <span>打赏</span>
+        <span><%= gettext "Reward" %></span>
       <% end %>
     </li>
     <li class="nav-item">
       <%= link to: setting_account_path(@conn, :account), class: "nav-link hide-ios" do %>
         <i class='fa fa-gear'></i>
-        <span>账号设置</span>
+        <span><%= gettext "Setting" %></span>
       <% end %>
     </li>
   </ul>

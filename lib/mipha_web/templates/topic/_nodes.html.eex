@@ -1,5 +1,5 @@
 <div class="index-sections card">
-  <div class="card-header">节点导航</div>
+  <div class="card-header"><%= gettext "Nodes" %></div>
   <div class="card-body">
     <div class="row node-list">
       <%= for parent <- @parent_nodes do %>

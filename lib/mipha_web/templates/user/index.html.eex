@@ -1,8 +1,8 @@
 <div id="users">
   <div id="hot_users" class="user-list card">
     <div class="card-header">
-      <strong>TOP 100 活跃会员</strong>
-      <div class="pull-right">目前已经有 <%= @user_count %> 位会员加入了 Elixir China</div>
+      <strong><%= gettext "TOP 100 active users" %></strong>
+      <div class="pull-right"><%= gettext "Current have %{user_count} users joined Elixir China", user_count: @user_count %></div>
     </div>
     <div class="card-body">
       <div class="row">
@@ -23,11 +23,11 @@
                       <%= if @current_user && @current_user.id != user.id do %>
                         <%= if has_followed?(@current_user, user) do %>
                           <%= link to: user_unfollow_path(@conn, :unfollow, user.username), method: :post, class: "button-follow-user unactive" do %>
-                            <i class="fa fa-user"></i> <span>取消关注</span>
+                            <i class="fa fa-user"></i> <span><%= gettext "Unfollow" %></span>
                           <% end %>
                         <% else %>
                           <%= link to: user_follow_path(@conn, :follow, user.username), method: :post, class: "button-follow-user active" do %>
-                            <i class="fa fa-user"></i> <span>关注</span>
+                            <i class="fa fa-user"></i> <span><%= gettext "Follow" %></span>
                           <% end %>
                         <% end %>
                       <% end %>

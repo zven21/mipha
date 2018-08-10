@@ -9,9 +9,9 @@
       <div class="card-body">
         <table class="node-topics table">
           <tr class="head">
-            <td class="node hide-ios">节点</td>
-            <td class="title">标题</td>
-            <td class="replies">回复/赞</td>
+            <td class="node hide-ios"><%= gettext "Node" %></td>
+            <td class="title"><%= gettext "Title" %></td>
+            <td class="replies"><%= gettext "Replies/Hits" %></td>
           </tr>
           <%= for {topic, idx} <- Enum.with_index(@topics) do %>
             <tr class="topic <%= cycle_tag(idx) %> ">

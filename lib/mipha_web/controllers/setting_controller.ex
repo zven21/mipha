@@ -26,7 +26,7 @@ defmodule MiphaWeb.SettingController do
   end
 
   defp update_account(conn, user_params) do
-    # FIXME 应该有更好的处理方式。
+    # FIXME need more better method.
     attrs =
       user_params
       |> Map.pop("avatar")
@@ -35,12 +35,12 @@ defmodule MiphaWeb.SettingController do
     case Accounts.update_user(current_user(conn), attrs) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "用户资料更新成功。")
+        |> put_flash(:info, gettext("Profile updated successfully"))
         |> render(:show, changeset: Accounts.change_user(user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:danger, "用户资料更新失败。")
+        |> put_flash(:danger, gettext("Profile updated failed"))
         |> render(:show, changeset: changeset)
     end
   end
@@ -49,12 +49,12 @@ defmodule MiphaWeb.SettingController do
     case Accounts.update_user(current_user(conn), user_params) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, gettext("User updated successfully."))
         |> redirect(to: setting_profile_path(conn, :profile))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:danger, "User updated failed.")
+        |> put_flash(:danger, gettext("User updated failed."))
         |> render(:password, changeset: changeset)
     end
   end
@@ -64,12 +64,12 @@ defmodule MiphaWeb.SettingController do
       {:ok, _} ->
         conn
         |> configure_session(drop: true)
-        |> put_flash(:info, "User updated password successfully.")
+        |> put_flash(:info, gettext("User updated password successfully."))
         |> redirect(to: "/")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:danger, "Invalid password")
+        |> put_flash(:danger, gettext("Invalid password"))
         |> render(:password, changeset: changeset)
 
       {:error, reason} ->
@@ -93,12 +93,12 @@ defmodule MiphaWeb.SettingController do
         changeset = Accounts.change_user(user)
 
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, gettext("User updated successfully."))
         |> render(:show, changeset: changeset)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_flash(:danger, "User updated failed.")
+        |> put_flash(:danger, gettext("User updated failed."))
         |> render(:show, changeset: changeset)
     end
   end

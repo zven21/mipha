@@ -7,24 +7,32 @@
     <div class="navbar-nav-scroll">
       <ul id="main-nav-menu" class="navbar-nav d-flex mi-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/topics">社区</a>
+          <a class="nav-link" href="/topics"><%= gettext "Topic" %></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/jobs">招聘</a>
+          <a class="nav-link" href="/jobs"><%= gettext "Job" %></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/users">用户</a>
+          <a class="nav-link" href="/users"><%= gettext "User" %></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/zven21/mipha" target="_blank">源代码</a>
+          <a class="nav-link" href="https://github.com/zven21/mipha" target="_blank"><%= gettext "Source Code" %></a>
         </li>
       </ul>
     </div>
     <div class="ml-auto d-md-flex">
-      <form class="navbar-form d-none d-lg-flex mr-2 form-search active" action="/search" method="GET">
+      <ul id="main-nav-menu" class="navbar-nav d-flex">
+        <li class="nav-item">
+          <a href="?locale=en" class="nav-link"> English </a>
+        </li>
+        <li class="nav-item">
+          <a href="?locale=zh" class="nav-link"> 简体中文 </a>
+        </li>
+      </ul>
+      <%# <form class="navbar-form d-none d-lg-flex mr-2 form-search active" action="/search" method="GET">
         <i class="fa btn-search fa-search"></i>
         <input class="form-control" name="q" type="text" value="" placeholder="搜索本站内容">
-      </form>
+      </form> %>
       <ul class="nav navbar-nav user-bar align-items-center justify-content-end">
         <%= if user_logged_in?(@conn) do %>
           <%= if has_unread_notification?(@current_user) do %>
@@ -41,7 +49,7 @@
             <i class="fa fa-plus"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-new-menu">
-            <a class="dropdown-item" href="/topics/new">发布新话题</a>
+            <a class="dropdown-item" href="/topics/new"><%= gettext "New Topic" %></a>
           </div>
         </li>
 
@@ -52,15 +60,15 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-user-menu">
             <a class="dropdown-item" href="/u/<%= @current_user.username %>"><%= @current_user.username %></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/setting">个人资料设置</a>
+            <a class="dropdown-item" href="/setting"><%= gettext "Account Profile" %></a>
 
             <div class="dropdown-divider"></div>
-            <%= link "退出", to: logout_path(@conn, :delete), class: "dropdown-item" %>
+            <%= link (gettext "Sign Out"), to: logout_path(@conn, :delete), class: "dropdown-item" %>
           </div>
         </li>
         <% else %>
-          <li class="nav-item" ><%= link "注册", to: join_path(@conn, :new), class: "nav-link" %></li>
-          <li class="nav-item" ><%= link "登录", to: auth_path(@conn, :login), class: "nav-link" %></li>
+          <li class="nav-item" ><%= link (gettext "Sign Up"), to: join_path(@conn, :new), class: "nav-link" %></li>
+          <li class="nav-item" ><%= link (gettext "Sign In"), to: auth_path(@conn, :login), class: "nav-link" %></li>
         <% end %>
         </ul>
     </div>

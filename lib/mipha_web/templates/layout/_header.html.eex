@@ -21,6 +21,14 @@
       </ul>
     </div>
     <div class="ml-auto d-md-flex">
+      <ul id="main-nav-menu" class="navbar-nav d-flex">
+        <li class="nav-item">
+          <a href="?locale=en" class="nav-link"> English </a>
+        </li>
+        <li class="nav-item">
+          <a href="?locale=zh" class="nav-link"> 简体中文 </a>
+        </li>
+      </ul>
       <%# <form class="navbar-form d-none d-lg-flex mr-2 form-search active" action="/search" method="GET">
         <i class="fa btn-search fa-search"></i>
         <input class="form-control" name="q" type="text" value="" placeholder="搜索本站内容">

@@ -6,33 +6,13 @@ msgid "%{star_count} stars"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/layout/_header.html.eex:55
+#: lib/mipha_web/templates/layout/_header.html.eex:63
 msgid "Account Profile"
 msgstr ""
 
 #, elixir-format
 #: lib/mipha_web/templates/layout/_sub_header.html.eex:7
 msgid "All Nodes"
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/templates/notification/_reply_mentioned.html.eex:8
-msgid "At %{topic} mentioned you"
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/templates/notification/_topic_mentioned.html.eex:8
-msgid "At %{topic} mentioned you."
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/templates/notification/_reply_comment_added.html.eex:8
-msgid "At Topic %{topic} replied your's comment"
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/templates/notification/_topic_reply_added.html.eex:8
-msgid "At topic %{topic} replied"
 msgstr ""
 
 #, elixir-format
@@ -43,11 +23,6 @@ msgstr ""
 #, elixir-format
 #: lib/mipha_web/templates/notification/index.html.eex:6
 msgid "Clean all"
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/controllers/notification_controller.ex:36
-msgid "Cleared notification successful"
 msgstr ""
 
 #, elixir-format
@@ -76,11 +51,6 @@ msgstr ""
 #, elixir-format
 #: lib/mipha_web/templates/setting/password.html.eex:29
 msgid "Confirmation Password"
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/templates/notification/_topic_added.html.eex:5
-msgid "Create topic %{topic}"
 msgstr ""
 
 #, elixir-format
@@ -262,17 +232,12 @@ msgid "Markdown Guide"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/notification_controller.ex:26
-msgid "Marked all readed."
-msgstr ""
-
-#, elixir-format
 #: lib/mipha_web/templates/setting/password.html.eex:23
 msgid "New Password"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/layout/_header.html.eex:44
+#: lib/mipha_web/templates/layout/_header.html.eex:52
 #: lib/mipha_web/templates/topic/_right.html.eex:3
 #: lib/mipha_web/templates/topic/new.html.eex:3
 msgid "New Topic"
@@ -373,18 +338,6 @@ msgid "Registered successfully"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/notification/_followed.html.eex:3
-#: lib/mipha_web/templates/notification/_reply_comment_added.html.eex:3
-#: lib/mipha_web/templates/notification/_reply_mentioned.html.eex:3
-#: lib/mipha_web/templates/notification/_reply_starred.html.eex:3
-#: lib/mipha_web/templates/notification/_topic_added.html.eex:2
-#: lib/mipha_web/templates/notification/_topic_mentioned.html.eex:3
-#: lib/mipha_web/templates/notification/_topic_reply_added.html.eex:3
-#: lib/mipha_web/templates/notification/_topic_starred.html.eex:2
-msgid "Related information has been deleted"
-msgstr ""
-
-#, elixir-format
 #: lib/mipha_web/templates/auth/login.html.eex:18
 msgid "Remember me (2 months)"
 msgstr ""
@@ -454,18 +407,18 @@ msgstr ""
 #, elixir-format
 #: lib/mipha_web/templates/auth/login.html.eex:5
 #: lib/mipha_web/templates/auth/login.html.eex:23
-#: lib/mipha_web/templates/layout/_header.html.eex:63
+#: lib/mipha_web/templates/layout/_header.html.eex:71
 msgid "Sign In"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/layout/_header.html.eex:58
+#: lib/mipha_web/templates/layout/_header.html.eex:66
 msgid "Sign Out"
 msgstr ""
 
 #, elixir-format
 #: lib/mipha_web/templates/auth/login.html.eex:42
-#: lib/mipha_web/templates/layout/_header.html.eex:62
+#: lib/mipha_web/templates/layout/_header.html.eex:70
 #: lib/mipha_web/templates/session/new.html.eex:5
 #: lib/mipha_web/templates/session/new.html.eex:33
 msgid "Sign Up"
@@ -496,11 +449,6 @@ msgstr ""
 #: lib/mipha_web/controllers/reply_controller.ex:71
 #: lib/mipha_web/controllers/topic_controller.ex:192
 msgid "Star successfully"
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/templates/notification/_followed.html.eex:7
-msgid "Stared you"
 msgstr ""
 
 #, elixir-format
@@ -629,7 +577,7 @@ msgstr ""
 msgid "Unfollow successfully."
 msgstr ""
 
-#, elixir-format
+#, elixir-format, fuzzy
 #: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:38
 msgid "Unmark featured"
 msgstr ""
@@ -721,16 +669,6 @@ msgid "You will receive an email to reset your password."
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/notification/_reply_starred.html.eex:7
-msgid "Your comment in the post %{topic} was stared"
-msgstr ""
-
-#, elixir-format
-#: lib/mipha_web/templates/notification/_topic_starred.html.eex:5
-msgid "Your's topic %{topic} was stared"
-msgstr ""
-
-#, elixir-format
 #: lib/mipha_web/controllers/session_controller.ex:36
 msgid "captcha error, pls input again."
 msgstr ""
@@ -749,4 +687,14 @@ msgstr ""
 #, elixir-format
 #: lib/mipha_web/templates/topic/_replies.html.eex:4
 msgid "replies"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/notification_controller.ex:36
+msgid "Cleaned notification successfully"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/controllers/notification_controller.ex:26
+msgid "Marked all notifications readed."
 msgstr ""

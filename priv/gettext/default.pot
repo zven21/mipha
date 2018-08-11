@@ -602,7 +602,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/mipha_web/templates/setting/profile.html.eex:38
-#: lib/mipha_web/templates/setting/show.html.eex:40
+#: lib/mipha_web/templates/setting/show.html.eex:41
 msgid "Update"
 msgstr ""
 
@@ -612,7 +612,7 @@ msgid "Update Password"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/setting/show.html.eex:24
+#: lib/mipha_web/templates/setting/show.html.eex:25
 msgid "Upload avatar"
 msgstr ""
 
@@ -697,4 +697,9 @@ msgstr ""
 #, elixir-format
 #: lib/mipha_web/controllers/notification_controller.ex:26
 msgid "Marked all notifications readed."
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/show.html.eex:18
+msgid "Public Email"
 msgstr ""

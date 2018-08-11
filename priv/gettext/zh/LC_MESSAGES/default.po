@@ -310,7 +310,7 @@ msgstr "预览"
 #, elixir-format
 #: lib/mipha_web/templates/setting/_sidebar.html.eex:6
 msgid "Profile"
-msgstr ""
+msgstr "基本信息"
 
 #, elixir-format
 #: lib/mipha_web/controllers/setting_controller.ex:43
@@ -402,7 +402,7 @@ msgstr "保存"
 #, elixir-format
 #: lib/mipha_web/templates/setting/_sidebar.html.eex:30
 msgid "Setting"
-msgstr "基本信息"
+msgstr "账户设置"
 
 #, elixir-format
 #: lib/mipha_web/templates/auth/login.html.eex:5
@@ -577,7 +577,7 @@ msgstr "取消关注失败"
 msgid "Unfollow successfully."
 msgstr "已取消关注"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/mipha_web/templates/topic/_operate_toolbar.html.eex:38
 msgid "Unmark featured"
 msgstr "取消精华帖"
@@ -602,7 +602,7 @@ msgstr "取消赞"
 
 #, elixir-format
 #: lib/mipha_web/templates/setting/profile.html.eex:38
-#: lib/mipha_web/templates/setting/show.html.eex:40
+#: lib/mipha_web/templates/setting/show.html.eex:41
 msgid "Update"
 msgstr "更新"
 
@@ -612,7 +612,7 @@ msgid "Update Password"
 msgstr "修改密码"
 
 #, elixir-format
-#: lib/mipha_web/templates/setting/show.html.eex:24
+#: lib/mipha_web/templates/setting/show.html.eex:25
 msgid "Upload avatar"
 msgstr "上传头像"
 
@@ -698,3 +698,8 @@ msgstr "已清空站内信"
 #: lib/mipha_web/controllers/notification_controller.ex:26
 msgid "Marked all notifications readed."
 msgstr "已全部标记为已读"
+
+#, elixir-format
+#: lib/mipha_web/templates/setting/show.html.eex:18
+msgid "Public Email"
+msgstr "公开邮箱"

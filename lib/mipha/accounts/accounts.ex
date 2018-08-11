@@ -140,7 +140,7 @@ defmodule Mipha.Accounts do
   Gets a user by given clauses.
   """
   @spec get_user_by(Keyword.t(), Keyword.t()) :: User.t() | nil
-  def get_user_by(clauses, opts \\ []) do
+  def get_user_by(clauses, _opts \\ []) do
     User
     |> preload([:location, :company, :teams])
     |> Repo.get_by(clauses)
@@ -252,7 +252,7 @@ defmodule Mipha.Accounts do
     login_or_register_from_github(%{user | email: nickname <> "@users.noreply.github.com"})
   end
 
-  def login_or_register_from_github(%{nickname: nickname, name: name, email: email}) do
+  def login_or_register_from_github(%{nickname: nickname, name: _name, email: email}) do
     case get_user_by_username(nickname) do
       nil ->
         create_user(%{

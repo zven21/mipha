@@ -3,7 +3,7 @@ defmodule MiphaWeb.Plug.Locale do
 
   import Plug.Conn
 
-  def init(opts), do: nil
+  def init(_opts), do: nil
 
   def call(conn, _opts) do
     case conn.params["locale"] || get_session(conn, :locale) do

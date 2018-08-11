@@ -60,7 +60,7 @@ defmodule Mipha.Mixfile do
       {:jason, "~> 1.1"},
       {:poison, "~> 3.0", override: true},
       {:captcha, github: "zven21/elixir-captcha"},
-      {:turbo_ecto, "0.1.3"},
+      {:turbo_ecto, "0.1.6"},
       {:turbo_html, "0.1.4"},
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},

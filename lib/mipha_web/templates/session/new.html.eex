@@ -23,8 +23,8 @@
           </div>
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control input-lg" placeholder="验证码" name="_rucaptcha" type="text" autocorrect="off" autocapitalize="off" pattern="[a-zA-Z]*" maxlength="5" autocomplete="off">
-              <span class="input-group-addon input-group-captcha"><a class="rucaptcha-image-box" href="#"><img class="rucaptcha-image" src="<%= session_path(@conn, :rucaptcha) %>"></a></span>
+              <input class="form-control input-lg" placeholder="验证码" name="_excaptcha" type="text" autocorrect="off" autocapitalize="off" pattern="[a-zA-Z]*" maxlength="5" autocomplete="off">
+              <span class="input-group-addon input-group-captcha"><a class="excaptcha-image-box" href="#"><img class="excaptcha-image" src="<%= session_path(@conn, :excaptcha) %>"></a></span>
             </div>
           </div>
           <div class="form-group text-center">

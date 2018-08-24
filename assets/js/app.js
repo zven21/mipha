@@ -21,4 +21,4 @@ Topic.hookMention()
 // Editor
 window._editor = new Editor()
 // 刷新 Captcha
-Session.refreshRucaptcha()
+Session.refreshExcaptcha()

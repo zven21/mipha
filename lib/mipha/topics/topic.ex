@@ -17,11 +17,6 @@ defmodule Mipha.Topics.Topic do
 
   @type t :: %Topic{}
 
-  # Topic 状态包含:
-  # 正常的帖子：normal
-  # 加精的帖子：featured
-  # 有建设性的帖子：educational
-  # 招聘帖子：job
   defenum TopicType, :topic_type, [
     :normal,
     :featured,
@@ -109,14 +104,14 @@ defmodule Mipha.Topics.Topic do
     do: where(query, [..., t], t.user_id in ^list)
 
   @doc """
-  近10篇帖子
+  Returns nearly 10 topics
   """
   @spec recent(t()) :: t()
   def recent(query \\ __MODULE__),
     do: from(t in query, order_by: [desc: t.updated_at], limit: 10)
 
   @doc """
-  帖子列表的默认排序，按照 suggested_at updated_at 倒叙
+  Returns the default sort of the topic list, according to suggested_at && updated_at
   """
   @spec base_order(t()) :: t()
   def base_order(query \\ __MODULE__),
@@ -152,7 +147,7 @@ defmodule Mipha.Topics.Topic do
   end
 
   @doc """
-  Topic 自增/自减 计数器
+  Topic increment/decrement count
   """
   def counter(%Topic{id: topic_id}, :inc, :visit_count) do
     Topic

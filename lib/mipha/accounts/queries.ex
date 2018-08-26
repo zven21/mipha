@@ -2,12 +2,13 @@ defmodule Mipha.Accounts.Queries do
   @moduledoc false
 
   alias Mipha.Accounts.{User, Team, Company}
+  import Ecto.Query
 
   @doc """
   Returns the list users.
   """
   @spec list_users :: Ecto.Query.t()
-  def list_users, do: User
+  def list_users, do: User |> order_by([q], asc: q.inserted_at)
 
   @doc """
   Returns the list teams.

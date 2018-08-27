@@ -536,7 +536,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/mipha_web/templates/topic/_right_sidebar.html.eex:37
-msgid "Total %{topic_count} repleis"
+msgid "Total %{topic_count} replies"
 msgstr ""
 
 #, elixir-format

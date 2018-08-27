@@ -33,22 +33,30 @@ channel.on('presence_diff', diff => {
 })
 
 const renderOnlineUsers = function(presences) {
-  let onlineUsers = Presence.list(
-    presences,
-    (_id, { metas: [user, ...rest] }) => {
-      return onlineUserTemplate(user)
-    }
-  ).join('')
-
+  let onlineUsers = `<strong>${
+    Object.keys(presences).length
+  } Online Users</strong>`
   document.querySelector('#online-users').innerHTML = onlineUsers
 }
 
-const onlineUserTemplate = function(user) {
-  return `
-    <div id="online-user-${user.user_id}">
-      <strong class="text-secondary">${user.username}</strong>
-    </div>
-  `
+let channelTopicId = window.channelTopicId
+
+if (channelTopicId) {
+  let channel = socket.channel(`topic:${channelTopicId}`, {})
+  channel
+    .join()
+    .receive('ok', resp => {
+      console.log('Joined topic successfully', resp)
+    })
+    .receive('error', resp => {
+      console.log('Unable to join', resp)
+    })
+
+  channel.on(`topic:${channelTopicId}:new_reply`, message => {
+    if (message) {
+      $('.notify-updated').show()
+    }
+  })
 }
 
 export default socket

@@ -3,6 +3,7 @@ defmodule MiphaWeb.UserSocket do
 
   ## Channels
   channel "room:*", MiphaWeb.RoomChannel
+  channel "topic:*", MiphaWeb.TopicChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

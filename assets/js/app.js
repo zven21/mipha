@@ -20,6 +20,7 @@ Topic.selectorNode()
 Topic.hookPreview($('.editor-toolbar'), $('.topic-editor'))
 Topic.hookReply()
 Topic.hookMention()
+Topic.reloadWhenNewReply()
 // Editor
 window._editor = new Editor()
 // Refresh Captcha

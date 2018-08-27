@@ -527,7 +527,7 @@ msgstr "帖子更新成功"
 #, elixir-format
 #: lib/mipha_web/templates/topic/_right.html.eex:48
 msgid "Topics Count: %{topic_count}"
-msgstr ""
+msgstr "帖子总共 %{topic_count}"
 
 #, elixir-format
 #: lib/mipha_web/templates/topic/_replies.html.eex:3
@@ -536,8 +536,8 @@ msgstr "总共"
 
 #, elixir-format
 #: lib/mipha_web/templates/topic/_right_sidebar.html.eex:37
-msgid "Total %{topic_count} repleis"
-msgstr ""
+msgid "Total %{topic_count} replies"
+msgstr "共 %{topic_count} 回复"
 
 #, elixir-format
 #: lib/mipha_web/templates/user/_left.html.eex:63
@@ -554,18 +554,18 @@ msgstr "取消收藏"
 #, elixir-format
 #: lib/mipha_web/controllers/topic_controller.ex:253
 msgid "Uncollection failed"
-msgstr ""
+msgstr "取消收藏操作失败"
 
 #, elixir-format
 #: lib/mipha_web/controllers/topic_controller.ex:248
 msgid "Uncollection successfully"
-msgstr ""
+msgstr "已取消收藏"
 
 #, elixir-format
 #: lib/mipha_web/templates/user/followers.html.eex:28
 #: lib/mipha_web/templates/user/index.html.eex:26
 msgid "Unfollow"
-msgstr ""
+msgstr "取消关注"
 
 #, elixir-format
 #: lib/mipha_web/controllers/user_controller.ex:116

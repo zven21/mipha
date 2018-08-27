@@ -1,6 +1,7 @@
 defmodule MiphaWeb.ReplyController do
   use MiphaWeb, :controller
 
+  import MiphaWeb.Endpoint, only: [broadcast!: 3]
   alias Mipha.{Stars, Replies, Topics}
 
   plug MiphaWeb.Plug.RequireUser when action in ~w(create edit update delete star unstar)a
@@ -12,7 +13,9 @@ defmodule MiphaWeb.ReplyController do
 
   def create(conn, %{"reply" => reply_params}, topic) do
     case Replies.insert_reply(current_user(conn), reply_params) do
-      {:ok, _} ->
+      {:ok, %{reply: reply}} ->
+        # broadcast topic:id
+        broadcast!("topic:#{topic.id}", "topic:#{topic.id}:new_reply", %{reply_id: reply.id})
         conn
         |> put_flash(:success, "Reply created successfully.")
         |> redirect(to: topic_path(conn, :show, topic))

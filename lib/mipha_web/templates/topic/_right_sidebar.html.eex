@@ -34,7 +34,7 @@
         <hr>
         <div class="reply-buttons">
           <div class="total">
-            <%= gettext "Total %{topic_count} repleis", topic_count: @topic.reply_count %>
+            <%= gettext "Total %{topic_count} replies", topic_count: @topic.reply_count %>
           </div>
         </div>
         <hr>

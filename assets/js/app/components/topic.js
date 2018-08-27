@@ -106,11 +106,19 @@ const hookMention = () => {
   })
 }
 
+const reloadWhenNewReply = () => {
+  $('.notify-updated a').click(function() {
+    window.location.reload()
+    $('.notify-updated').hide()
+  })
+}
+
 const Topic = {
   selectorNode,
   hookPreview,
   hookReply,
-  hookMention
+  hookMention,
+  reloadWhenNewReply
 }
 
 export default Topic

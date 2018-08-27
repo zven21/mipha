@@ -17,6 +17,13 @@ defmodule MiphaWeb.Session do
 
   def user_logged_in?(conn), do: current_user(conn)
 
+  def user_token(conn) do
+    case get_current_user(conn) do
+      nil -> nil
+      id -> Phoenix.Token.sign(conn, "user socket", id)
+    end
+  end
+
   def admin?(conn) do
     case current_user(conn) do
       nil -> false

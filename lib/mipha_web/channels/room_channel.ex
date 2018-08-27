@@ -34,7 +34,7 @@ defmodule MiphaWeb.RoomChannel do
   def handle_info(:after_join, socket) do
     push socket, "presence_state", Presence.list(socket)
 
-    user = Repo.get(User, socket.assigns[:user])
+    user = Repo.get(User, socket.assigns[:user_id])
 
     {:ok, _} = Presence.track(socket, "user:#{user.id}", %{
       user_id: user.id,

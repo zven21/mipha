@@ -2,7 +2,7 @@ defmodule MiphaWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:*", MiphaWeb.RoomChannel
+  # channel "room:*", MiphaWeb.RoomChannel
   channel "topic:*", MiphaWeb.TopicChannel
 
   ## Transports
@@ -24,7 +24,7 @@ defmodule MiphaWeb.UserSocket do
   def connect(%{"token" => token}, socket) do
     case Phoenix.Token.verify(socket, "user socket", token, max_age: 86_400) do
       {:ok, user_id} ->
-        {:ok, assign(socket, :user, user_id)}
+        {:ok, assign(socket, :user_id, user_id)}
       {:error, _reason} ->
         :error
     end

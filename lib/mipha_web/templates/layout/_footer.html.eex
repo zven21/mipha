@@ -1,4 +1,6 @@
 <footer class="footer" id="footer">
   <div class="container">
+    <div id="online-users">
+    </div>
   </div>
 </footer>

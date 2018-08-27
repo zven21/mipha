@@ -3,6 +3,8 @@ import 'bootstrap'
 import 'jquery.caret'
 import 'dropzone/dist/dropzone-amd-module'
 
+import socket from './socket'
+
 // JS components
 import Times from './app/components/times'
 import Utils from './common/components/utils'
@@ -18,7 +20,8 @@ Topic.selectorNode()
 Topic.hookPreview($('.editor-toolbar'), $('.topic-editor'))
 Topic.hookReply()
 Topic.hookMention()
+Topic.reloadWhenNewReply()
 // Editor
 window._editor = new Editor()
-// 刷新 Captcha
+// Refresh Captcha
 Session.refreshExcaptcha()

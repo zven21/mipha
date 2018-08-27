@@ -14,6 +14,7 @@ defmodule Mipha.Application do
       supervisor(Mipha.Repo, []),
       # Start the endpoint when the application starts
       supervisor(MiphaWeb.Endpoint, []),
+      supervisor(MiphaWeb.Presence, []),
       # Start your own worker by calling: Mipha.Worker.start_link(arg1, arg2, arg3)
       worker(Cachex, [:app_cache, []]),
       worker(PlugAttack.Storage.Ets, [Mipha.PlugAttack.Storage, [clean_period: 60_000]])

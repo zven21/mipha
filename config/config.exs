@@ -50,6 +50,18 @@ config :sentry,
 config :turbo_ecto, Turbo.Ecto,
   repo: Mipha.Repo
 
+# Exq
+config :exq,
+  name: Exq,
+  host: "127.0.0.1",
+  port: 6379,
+  namespace: "exq",
+  concurrency: 10,
+  queues: ~w(default),
+  scheduler_enable: true,
+  max_retries: 0,
+  shutdown_timeout: 5000
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

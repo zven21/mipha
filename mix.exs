@@ -65,6 +65,8 @@ defmodule Mipha.Mixfile do
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"},
+      {:redix, "~> 0.7.1"},
+      {:exq, "~> 0.12.1"}
     ]
   end
 

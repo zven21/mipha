@@ -1,5 +1,7 @@
 defmodule MiphaWeb.Plug.Locale do
-  @moduledoc false
+  @moduledoc """
+  Locale, support: 简体中文 and English
+  """
 
   import Plug.Conn
 

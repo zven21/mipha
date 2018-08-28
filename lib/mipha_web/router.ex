@@ -117,7 +117,7 @@ defmodule MiphaWeb.Router do
     resources "/users", UserController, only: ~w(index delete)a
     resources "/nodes", NodeController
     resources "/topics", TopicController, only: ~w(index)a
-    resources "/repies", ReplyController, only: ~w(index show delete)a
+    resources "/replies", ReplyController, only: ~w(index show delete)a
     resources "/companies", CompanyController, only: ~w(index delete)a
     resources "/teams", TeamController, only: ~w(index delete)a
     resources "/notifications", NotificationController, only: ~w(index show delete)a
@@ -132,7 +132,6 @@ defmodule MiphaWeb.Router do
   end
 
   if Mix.env == :dev do
-    # If using Phoenix
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 end

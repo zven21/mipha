@@ -12,7 +12,7 @@ defmodule MiphaWeb.SessionController do
   end
 
   def excaptcha(conn, _) do
-    {:ok, text, img_binary} = Captcha.get()
+    {:ok, text, img_binary} = Captcha.get(50_000)
 
     conn
     |> put_session(:excaptcha, text)

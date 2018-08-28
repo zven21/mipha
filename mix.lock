@@ -19,6 +19,7 @@
   "ecto_enum": {:hex, :ecto_enum, "1.1.0", "d44fe2ce6e1c0e907e7c3b6456a69e0f1d662348d8b4e2a662ba312223d8ff62", [:mix], [{:ecto, ">= 2.0.0", [hex: :ecto, repo: "hexpm", optional: false]}, {:mariaex, ">= 0.0.0", [hex: :mariaex, repo: "hexpm", optional: true]}, {:postgrex, ">= 0.0.0", [hex: :postgrex, repo: "hexpm", optional: true]}], "hexpm"},
   "elixir_make": {:hex, :elixir_make, "0.4.2", "332c649d08c18bc1ecc73b1befc68c647136de4f340b548844efc796405743bf", [:mix], [], "hexpm"},
   "eternal": {:hex, :eternal, "1.2.0", "e2a6b6ce3b8c248f7dc31451aefca57e3bdf0e48d73ae5043229380a67614c41", [:mix], [], "hexpm"},
+  "ex_machina": {:hex, :ex_machina, "2.2.0", "fec496331e04fc2db2a1a24fe317c12c0c4a50d2beb8ebb3531ed1f0d84be0ed", [:mix], [{:ecto, "~> 2.1", [hex: :ecto, repo: "hexpm", optional: true]}], "hexpm"},
   "exmoji": {:hex, :exmoji, "0.2.2", "fae4e012d3b78771436d19ff8922219bd93d9115364226da5cc5d4703d5d879f", [:mix], [{:poison, "~> 1.5", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
   "faker": {:hex, :faker, "0.10.0", "367c2ae47e7b4ac6410e1eaa880c07b5fe4194476f697d37ac1ce25f3058aae2", [:mix], [], "hexpm"},
   "file_system": {:hex, :file_system, "0.2.6", "fd4dc3af89b9ab1dc8ccbcc214a0e60c41f34be251d9307920748a14bf41f1d3", [:mix], [], "hexpm"},

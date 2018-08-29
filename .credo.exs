@@ -104,7 +104,7 @@
         #
         ## Refactoring Opportunities
         #
-        {Credo.Check.Refactor.DoubleBooleanNegation},
+        {Credo.Check.Refactor.DoubleBooleanNegation, false},
         {Credo.Check.Refactor.CondStatements},
         {Credo.Check.Refactor.CyclomaticComplexity},
         {Credo.Check.Refactor.FunctionArity},

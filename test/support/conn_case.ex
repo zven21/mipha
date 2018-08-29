@@ -19,8 +19,13 @@ defmodule MiphaWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+
       alias Mipha.Repo
       import Ecto
+      import Ecto.Query, only: [from: 2]
+
+      defp count(query), do: Repo.aggregate(query, :count, :id)
+
       import MiphaWeb.Router.Helpers
       import Mipha.Factory
       # The default endpoint for testing
@@ -37,8 +42,8 @@ defmodule MiphaWeb.ConnCase do
 
     user =
       cond do
-        tags[:as_admin] -> Mipha.Factory.build(:user, is_admin: true)
-        tags[:as_user] -> Mipha.Factory.build(:user, is_admin: false)
+        tags[:as_admin] -> Mipha.Factory.insert(:user, is_admin: true)
+        tags[:as_user] -> Mipha.Factory.insert(:user, is_admin: false)
         true -> nil
       end
 

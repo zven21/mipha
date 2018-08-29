@@ -11,8 +11,8 @@ defmodule Mipha.Factory do
 
   use ExMachina.Ecto, repo: Mipha.Repo
 
-  alias Mipha.Accounts.User
-  alias Mipha.Topics.Topic
+  alias Mipha.Accounts.{User, Company, Team}
+  alias Mipha.Topics.{Topic, Node}
   alias Mipha.Replies.Reply
   alias Mipha.Collections.Collection
   alias Mipha.Notifications.{Notification, UserNotification}
@@ -23,7 +23,8 @@ defmodule Mipha.Factory do
   def user_factory do
     %User{
       username: sequence(:username, &"user#{&1}"),
-      email: sequence(:email, &"user#{&1}@elixir-mipha.com")
+      email: sequence(:email, &"user#{&1}@elixir-mipha.com"),
+      is_admin: false
     }
   end
 
@@ -31,15 +32,23 @@ defmodule Mipha.Factory do
   def topic_factory do
     %Topic{
       user: build(:user),
-      title: "elixir-mipha-title",
-      body: "elixir-mipha-body"
+      node: build(:node),
+      title: sequence(:title, &"topic-title#{&1}"),
+      body: sequence(:body, &"topic-body#{&1}")
+    }
+  end
+
+  @spec node_factory :: Node.t()
+  def node_factory do
+    %Node{
+      name: sequence(:name, &"node-name#{&1}")
     }
   end
 
   @spec reply_factory :: Reply.t()
   def reply_factory do
     %Reply{
-      content: "elixir-mipha-reply",
+      content: sequence(:content, &"reply-content#{&1}"),
       user: build(:user),
       topic: build(:topic)
     }
@@ -80,6 +89,21 @@ defmodule Mipha.Factory do
   def follow_factory do
     %Follow{
       follower: build(:user)
+    }
+  end
+
+  @spec company_factory :: Company.t()
+  def company_factory do
+    %Company{
+      name: sequence(:name, &"company-name#{&1}")
+    }
+  end
+
+  @spec team_factory :: Team.t()
+  def team_factory do
+    %Team{
+      name: sequence(:name, &"team-name#{&1}"),
+      owner: build(:user)
     }
   end
 end

@@ -6,7 +6,7 @@
 <div class="card">
   <div class="card-header"><%= gettext "Note" %></div>
   <div class="card-body">
-    <%= gettext "It's open source project, for more information, please visit: " %>
+    <%= gettext "Mipha is open source elixir forum, for more information, please visit" %>
     <a href="https://github.com/zven21/mipha" target="_blank">Mipha</a>
   </div>
 </div>

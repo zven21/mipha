@@ -527,7 +527,7 @@ msgstr "帖子更新成功"
 #, elixir-format
 #: lib/mipha_web/templates/topic/_right.html.eex:48
 msgid "Topics Count: %{topic_count}"
-msgstr "帖子总共 %{topic_count}"
+msgstr "帖子数: %{topic_count}"
 
 #, elixir-format
 #: lib/mipha_web/templates/topic/_replies.html.eex:3
@@ -646,7 +646,7 @@ msgstr ""
 #, elixir-format
 #: lib/mipha_web/templates/topic/_right.html.eex:47
 msgid "Users Count: %{user_count}"
-msgstr ""
+msgstr "用户数: %{user_count}"
 
 #, elixir-format
 #: lib/mipha_web/templates/setting/profile.html.eex:28

@@ -223,7 +223,7 @@ defmodule Mipha.Follows do
     %User{id: user_id} = Keyword.get(clauses, :user)
 
     opts = [follower_id: follower_id, user_id: user_id]
-    get_follow(opts)
+    !!get_follow(opts)
   end
 
   @doc """

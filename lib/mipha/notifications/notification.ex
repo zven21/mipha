@@ -13,17 +13,17 @@ defmodule Mipha.Notifications.Notification do
 
   @type t :: %Notification{}
 
-  # 支持如下情况
-  # 话题被评论     :topic_reply_added
-  # 话题被点赞     :topic_starred
-  # 评论被点赞     :reply_starred
-  # 评论被评论     :reply_comment_added
-  # 话题中被 @     :topic_mentioned
-  # 评论中被 @     :reply_mentioned
-  # 关注他人       :followed
-  # 关注的用户发生的动态
-  #   * 发布话题   :topic_added
-  #   * 评论话题   :topic_reply_added
+  # Support as follows
+  # :topic_reply_added
+  # :topic_starred
+  # :reply_starred
+  # :reply_comment_added
+  # :topic_mentioned
+  # :reply_mentioned
+  # :followed
+  # Follow user action
+  #   :topic_added
+  #   :topic_reply_added
   defenum NotificationAction, :notification_action, [
     :topic_reply_added,
     :topic_starred,

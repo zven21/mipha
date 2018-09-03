@@ -161,7 +161,7 @@ defmodule Mipha.Collections do
     %Topic{id: topic_id} = Keyword.get(clauses, :topic)
 
     opts = [user_id: user_id, topic_id: topic_id]
-    get_collection(opts)
+    !!get_collection(opts)
   end
 
   @doc """

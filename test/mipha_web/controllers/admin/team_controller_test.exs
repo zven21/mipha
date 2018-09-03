@@ -1,39 +1,22 @@
 defmodule MiphaWeb.Admin.TeamControllerTest do
   use MiphaWeb.ConnCase
 
-  alias Mipha.Accounts
+  @tag :as_admin
+  test "lists all teams on index", %{conn: conn} do
+    t1 = insert(:team)
+    t2 = insert(:team)
+    conn = get(conn, admin_team_path(conn, :index))
 
-  @create_attrs %{
-    avatar: "some avatar",
-    github_handle: "some github_handle",
-    name: "some name",
-    owner_id: 42,
-    summary: "some summary"
-  }
-
-  def fixture(:team) do
-    {:ok, team} = Accounts.create_team(@create_attrs)
-    team
+    assert conn.status == 200
+    assert conn.resp_body =~ t1.name
+    assert conn.resp_body =~ t2.name
   end
 
-  describe "index" do
-    test "lists all teams", %{conn: conn} do
-      conn = get conn, admin_team_path(conn, :index)
-      assert html_response(conn, 200) =~ "#"
-    end
-  end
+  @tag :as_admin
+  test "deletes team, and redirectes", %{conn: conn} do
+    t = insert(:team)
+    conn = delete(conn, admin_team_path(conn, :delete, t.id))
 
-  describe "delete team" do
-    setup [:create_team]
-
-    test "deletes chosen team", %{conn: conn, team: team} do
-      conn = delete conn, admin_team_path(conn, :delete, team)
-      assert redirected_to(conn) == admin_team_path(conn, :index)
-    end
-  end
-
-  defp create_team(_) do
-    team = fixture(:team)
-    {:ok, team: team}
+    assert redirected_to(conn) == admin_team_path(conn, :index)
   end
 end

@@ -20,10 +20,7 @@ defmodule MiphaWeb.Router do
 
   pipeline :admin do
     plug :put_layout, {MiphaWeb.LayoutView, :admin}
-    # FIXME
-    if Mix.env != :test do
-      plug MiphaWeb.Plug.RequireAdmin
-    end
+    plug MiphaWeb.Plug.RequireAdmin
   end
 
   scope "/auth", MiphaWeb do

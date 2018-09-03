@@ -19,7 +19,15 @@ defmodule MiphaWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+
+      alias Mipha.Repo
+      import Ecto
+      import Ecto.Query, only: [from: 2]
+
+      defp count(query), do: Repo.aggregate(query, :count, :id)
+
       import MiphaWeb.Router.Helpers
+      import Mipha.Factory
       # The default endpoint for testing
       @endpoint MiphaWeb.Endpoint
     end
@@ -27,9 +35,22 @@ defmodule MiphaWeb.ConnCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Mipha.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Mipha.Repo, {:shared, self()})
     end
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+
+    user =
+      cond do
+        tags[:as_admin] -> Mipha.Factory.insert(:user, is_admin: true)
+        tags[:as_user] -> Mipha.Factory.insert(:user, is_admin: false)
+        true -> nil
+      end
+
+    conn =
+      Phoenix.ConnTest.build_conn()
+      |> Plug.Conn.assign(:current_user, user)
+
+    {:ok, conn: conn, user: user}
   end
 end

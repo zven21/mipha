@@ -290,7 +290,7 @@ defmodule Mipha.Stars do
       end
       |> Keyword.put(:user_id, user_id)
 
-    get_star(clauses)
+    !!get_star(clauses)
   end
 
   @spec get_starrable_from_clauses(Keyword.t()) :: starrable()

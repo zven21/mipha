@@ -88,7 +88,8 @@ defmodule Mipha.Factory do
   @spec follow_factory :: Follow.t()
   def follow_factory do
     %Follow{
-      follower: build(:user)
+      follower: build(:user),
+      user: build(:user)
     }
   end
 

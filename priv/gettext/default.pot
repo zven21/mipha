@@ -189,11 +189,6 @@ msgid "Invalid password"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/topic/_right.html.eex:9
-msgid "It's open source project, for more information, please visit: "
-msgstr ""
-
-#, elixir-format
 #: lib/mipha_web/templates/layout/_header.html.eex:13
 msgid "Job"
 msgstr ""
@@ -421,7 +416,7 @@ msgstr ""
 #: lib/mipha_web/templates/layout/_header.html.eex:70
 #: lib/mipha_web/templates/session/new.html.eex:5
 #: lib/mipha_web/templates/session/new.html.eex:33
-msgid "Sign Up"
+msgid "Register"
 msgstr ""
 
 #, elixir-format
@@ -702,4 +697,9 @@ msgstr ""
 #, elixir-format
 #: lib/mipha_web/templates/setting/show.html.eex:18
 msgid "Public Email"
+msgstr ""
+
+#, elixir-format
+#: lib/mipha_web/templates/topic/_right.html.eex:9
+msgid "Mipha is open source elixir forum, for more information, please visit"
 msgstr ""

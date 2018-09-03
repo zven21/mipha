@@ -4,7 +4,7 @@
       <div style="padding:20px;" data-turbolinks-action="replace">
         You need <a class="btn btn-primary btn-sm" href="/login">Login</a>
         to reply, Or
-        <a class="btn btn-danger btn-sm" href="/join">Sign Up</a>。
+        <a class="btn btn-danger btn-sm" href="/join">Register</a>。
       </div>
     </div>
   </div>

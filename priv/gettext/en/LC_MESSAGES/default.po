@@ -200,7 +200,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/mipha_web/templates/topic/_topic.html.eex:24
-#: lib/mipha_web/templates/topic/show.html.eex:17
+#: lib/mipha_web/templates/topic/show.html.eex:18
 msgid "Last by"
 msgstr ""
 
@@ -364,17 +364,17 @@ msgid "Reply"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/reply_controller.ex:58
+#: lib/mipha_web/controllers/reply_controller.ex:61
 msgid "Reply deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/reply_controller.ex:48
+#: lib/mipha_web/controllers/reply_controller.ex:51
 msgid "Reply updated error."
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/reply_controller.ex:43
+#: lib/mipha_web/controllers/reply_controller.ex:46
 msgid "Reply updated successfully."
 msgstr ""
 
@@ -421,7 +421,7 @@ msgstr ""
 #: lib/mipha_web/templates/layout/_header.html.eex:70
 #: lib/mipha_web/templates/session/new.html.eex:5
 #: lib/mipha_web/templates/session/new.html.eex:33
-msgid "Sign Up"
+msgid "Register"
 msgstr ""
 
 #, elixir-format
@@ -440,13 +440,13 @@ msgid "Source Code"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/reply_controller.ex:76
+#: lib/mipha_web/controllers/reply_controller.ex:79
 #: lib/mipha_web/controllers/topic_controller.ex:197
 msgid "Star failed"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/reply_controller.ex:71
+#: lib/mipha_web/controllers/reply_controller.ex:74
 #: lib/mipha_web/controllers/topic_controller.ex:192
 msgid "Star successfully"
 msgstr ""
@@ -589,13 +589,13 @@ msgid "Unpin"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/reply_controller.ex:95
+#: lib/mipha_web/controllers/reply_controller.ex:98
 #: lib/mipha_web/controllers/topic_controller.ex:215
 msgid "Unstar failed"
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/controllers/reply_controller.ex:90
+#: lib/mipha_web/controllers/reply_controller.ex:93
 #: lib/mipha_web/controllers/topic_controller.ex:211
 msgid "Unstar successfully"
 msgstr ""
@@ -674,13 +674,13 @@ msgid "captcha error, pls input again."
 msgstr ""
 
 #, elixir-format
-#: lib/mipha_web/templates/topic/show.html.eex:24
+#: lib/mipha_web/templates/topic/show.html.eex:25
 msgid "hits"
 msgstr ""
 
 #, elixir-format
 #: lib/mipha_web/templates/topic/_topic.html.eex:28
-#: lib/mipha_web/templates/topic/show.html.eex:19
+#: lib/mipha_web/templates/topic/show.html.eex:20
 msgid "replied at"
 msgstr ""
 

@@ -67,7 +67,7 @@
           </div>
         </li>
         <% else %>
-          <li class="nav-item" ><%= link (gettext "Sign Up"), to: join_path(@conn, :new), class: "nav-link" %></li>
+          <li class="nav-item" ><%= link (gettext "Register"), to: join_path(@conn, :new), class: "nav-link" %></li>
           <li class="nav-item" ><%= link (gettext "Sign In"), to: auth_path(@conn, :login), class: "nav-link" %></li>
         <% end %>
         </ul>

@@ -39,7 +39,7 @@
 
     <div class="card">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="/join"><%= gettext "Sign Up" %></a></li>
+        <li class="list-group-item"><a href="/join"><%= gettext "Register" %></a></li>
         <li class="list-group-item"><a href="/forgot_password"><%= gettext "Forgot your password?" %></a></li>
       </ul>
     </div>

@@ -74,7 +74,7 @@ defmodule MiphaWeb.TopicControllerTest do
     topic = Repo.one(from t in Topic, where: t.id == t.id, preload: [:user])
 
     assert redirected_to(conn) == topic_path(conn, :show, topic.id)
-    assert has_starred?(user: topic.user, topic: topic) == true
+    assert has_starred?(user: topic.user, topic: topic)
   end
 
   @tag :as_user
@@ -85,7 +85,7 @@ defmodule MiphaWeb.TopicControllerTest do
     topic = Repo.one(from t in Topic, where: t.id == t.id, preload: [:user])
 
     assert redirected_to(conn) == topic_path(conn, :show, topic.id)
-    assert has_starred?(user: topic.user, topic: topic) == false
+    refute has_starred?(user: topic.user, topic: topic)
   end
 
   @tag :as_user
@@ -95,7 +95,7 @@ defmodule MiphaWeb.TopicControllerTest do
     topic = Repo.one(from t in Topic, where: t.id == t.id, preload: [:user])
 
     assert redirected_to(conn) == topic_path(conn, :show, topic.id)
-    assert has_collected?(user: topic.user, topic: topic) == true
+    assert has_collected?(user: topic.user, topic: topic)
   end
 
   @tag :as_user
@@ -106,7 +106,7 @@ defmodule MiphaWeb.TopicControllerTest do
     topic = Repo.one(from t in Topic, where: t.id == t.id, preload: [:user])
 
     assert redirected_to(conn) == topic_path(conn, :show, topic.id)
-    assert has_collected?(user: topic.user, topic: topic) == false
+    refute has_collected?(user: topic.user, topic: topic)
   end
 
   @tag :as_admin

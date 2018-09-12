@@ -1,6 +1,7 @@
 # Mipha
 
 [![Build Status](https://travis-ci.org/zven21/mipha.svg?branch=master)](https://travis-ci.org/zven21/mipha)
+[![Coverage Status](https://coveralls.io/repos/github/zven21/mipha/badge.svg?branch=excoveralls)](https://coveralls.io/github/zven21/mipha?branch=excoveralls)
 
 [English](./README.md) | 简体中文
 

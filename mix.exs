@@ -10,7 +10,9 @@ defmodule Mipha.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test]
     ]
   end
 
@@ -65,7 +67,8 @@ defmodule Mipha.Mixfile do
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"},
-      {:ex_machina, "~> 2.2"}
+      {:ex_machina, "~> 2.2"},
+      {:excoveralls, "~> 0.10", only: :test},
     ]
   end
 

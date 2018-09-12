@@ -15,7 +15,6 @@ env:
   - MIX_ENV=test
 before_script:
   - mix ecto.create && mix ecto.migrate
-  - mix run priv/repo/seeds.exs
 script:
   - mix test
   - mix coveralls.travis

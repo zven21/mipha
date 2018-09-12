@@ -151,7 +151,7 @@ msgstr "忘记密码？"
 #, elixir-format
 #: lib/mipha_web/templates/auth/login.html.eex:43
 msgid "Forgot your password?"
-msgstr "友情社区"
+msgstr "忘记密码？"
 
 #, elixir-format
 #: lib/mipha_web/templates/topic/_right.html.eex:14

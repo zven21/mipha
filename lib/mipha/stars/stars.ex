@@ -5,6 +5,7 @@ defmodule Mipha.Stars do
 
   import Ecto.Query, warn: false
   alias Ecto.Multi
+
   alias Mipha.{
     Repo,
     Stars,
@@ -112,25 +113,27 @@ defmodule Mipha.Stars do
   end
 
   # unstar, decrease topic star_count
-  defp decrease_related_count(multi, [user_id: _, topic_id: topic_id]) when topic_id != "" do
+  defp decrease_related_count(multi, user_id: _, topic_id: topic_id) when topic_id != "" do
     update_topic_fn = fn %{star: star} ->
       topic = starrable(star)
-      attrs = %{star_count: (topic.star_count - 1)}
+      attrs = %{star_count: topic.star_count - 1}
       Topics.update_topic(topic, attrs)
     end
 
     Multi.run(multi, :decrease_related_count, update_topic_fn)
   end
+
   # unstar, decrease reply star_count
-  defp decrease_related_count(multi, [user_id: _, reply_id: reply_id]) when reply_id != "" do
+  defp decrease_related_count(multi, user_id: _, reply_id: reply_id) when reply_id != "" do
     update_reply_fn = fn %{star: star} ->
       reply = starrable(star)
-      attrs = %{star_count: (reply.star_count - 1)}
+      attrs = %{star_count: reply.star_count - 1}
       Replies.update_reply(reply, attrs)
     end
 
     Multi.run(multi, :decrease_related_count, update_reply_fn)
   end
+
   defp decrease_related_count(multi, _), do: multi
 
   @doc """
@@ -204,22 +207,24 @@ defmodule Mipha.Stars do
   defp increase_related_count(multi, %{topic_id: topic_id}) when topic_id != "" do
     update_topic_fn = fn %{star: star} ->
       topic = starrable(star)
-      attrs = %{star_count: (topic.star_count + 1)}
+      attrs = %{star_count: topic.star_count + 1}
       Topics.update_topic(topic, attrs)
     end
 
     Multi.run(multi, :increase_related_count, update_topic_fn)
   end
+
   # star, increase reply star_count
   defp increase_related_count(multi, %{reply_id: reply_id}) when reply_id != "" do
     update_reply_fn = fn %{star: star} ->
       reply = starrable(star)
-      attrs = %{star_count: (reply.star_count + 1)}
+      attrs = %{star_count: reply.star_count + 1}
       Replies.update_reply(reply, attrs)
     end
 
     Multi.run(multi, :increase_related_count, update_reply_fn)
   end
+
   defp increase_related_count(multi, _), do: multi
 
   defp notify_author_of_starrable(multi) do

@@ -37,6 +37,7 @@ defmodule MiphaWeb.AuthController do
           login: params["user"]["login"],
           password: params["user"]["password"]
         }
+
         case Accounts.authenticate(attrs) do
           {:ok, user} ->
             conn |> ok_login(user)
@@ -48,17 +49,19 @@ defmodule MiphaWeb.AuthController do
 
           {:error, reason} ->
             changeset = Accounts.user_login_changeset()
+
             conn
             |> put_flash(:danger, reason)
             |> render(:login, callback_url: Helpers.callback_url(conn), changeset: changeset)
         end
+
       :github ->
         with %{name: name, nickname: nickname, email: email} <- auth.info do
           case Accounts.login_or_register_from_github(%{
-                  name: name,
-                  nickname: nickname,
-                  email: email
-                }) do
+                 name: name,
+                 nickname: nickname,
+                 email: email
+               }) do
             {:ok, user} ->
               conn
               |> ok_login(user)

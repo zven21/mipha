@@ -17,12 +17,12 @@ defmodule Mipha.Topics.Topic do
 
   @type t :: %Topic{}
 
-  defenum TopicType, :topic_type, [
+  defenum(TopicType, :topic_type, [
     :normal,
     :featured,
     :educational,
     :job
-  ]
+  ])
 
   schema "topics" do
     field :title, :string

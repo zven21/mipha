@@ -12,9 +12,10 @@ defmodule MiphaWeb.NotificationController do
       |> Notifications.Queries.cond_user_notifications()
       |> Turbo.Ecto.turbo(params)
 
-    render conn, :index,
+    render(conn, :index,
       notifications: result.datas,
       paginate: result.paginate
+    )
   end
 
   def make_read(conn, _params) do

@@ -27,9 +27,11 @@ defmodule MiphaWeb.ChannelCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Mipha.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Mipha.Repo, {:shared, self()})
     end
+
     :ok
   end
 end

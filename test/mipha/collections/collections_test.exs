@@ -49,7 +49,10 @@ defmodule Mipha.CollectionsTest do
 
     test "update_collection/2 with invalid data returns error changeset" do
       collection = collection_fixture()
-      assert {:error, %Ecto.Changeset{}} = Collections.update_collection(collection, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Collections.update_collection(collection, @invalid_attrs)
+
       assert collection == Collections.get_collection!(collection.id)
     end
 

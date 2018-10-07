@@ -6,7 +6,7 @@ defmodule MiphaWeb.Admin.CompanyController do
 
   def index(conn, params) do
     result = Queries.list_companies() |> Turbo.Ecto.turbo(params)
-    render conn, :index, companies: result.datas, paginate: result.paginate
+    render(conn, :index, companies: result.datas, paginate: result.paginate)
   end
 
   def delete(conn, %{"id" => id}) do

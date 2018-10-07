@@ -4,7 +4,7 @@ defmodule MiphaWeb.SearchController do
   alias Mipha.{Accounts, Qiniu}
 
   def index(conn, _) do
-    render conn, :index
+    render(conn, :index)
   end
 
   @doc """
@@ -15,7 +15,7 @@ defmodule MiphaWeb.SearchController do
       conn
       |> current_user()
       |> Accounts.search_mention_user(params["q"])
-      |> Enum.map(&(%{login: &1.username, avatar_url: Qiniu.q_url(&1.avatar)}))
+      |> Enum.map(&%{login: &1.username, avatar_url: Qiniu.q_url(&1.avatar)})
 
     json(conn, users)
   end

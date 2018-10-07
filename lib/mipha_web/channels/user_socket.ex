@@ -3,10 +3,10 @@ defmodule MiphaWeb.UserSocket do
 
   ## Channels
   # channel "room:*", MiphaWeb.RoomChannel
-  channel "topic:*", MiphaWeb.TopicChannel
+  channel("topic:*", MiphaWeb.TopicChannel)
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket, timeout: 45_000
+  transport(:websocket, Phoenix.Transports.WebSocket, timeout: 45_000)
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
@@ -25,6 +25,7 @@ defmodule MiphaWeb.UserSocket do
     case Phoenix.Token.verify(socket, "user socket", token, max_age: 86_400) do
       {:ok, user_id} ->
         {:ok, assign(socket, :user_id, user_id)}
+
       {:error, _reason} ->
         :error
     end

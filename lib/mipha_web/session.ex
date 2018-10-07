@@ -11,7 +11,7 @@ defmodule MiphaWeb.Session do
   def current_user(conn) do
     case get_current_user(conn) do
       nil -> nil
-      id  -> Accounts.get_user(id)
+      id -> Accounts.get_user(id)
     end
   end
 
@@ -27,7 +27,7 @@ defmodule MiphaWeb.Session do
   def admin?(conn) do
     case current_user(conn) do
       nil -> false
-      u   -> u.is_admin
+      u -> u.is_admin
     end
   end
 
@@ -35,7 +35,7 @@ defmodule MiphaWeb.Session do
     if get_session_from_cookies() do
       case conn.cookies["current_user"] do
         nil -> Conn.get_session(conn, :current_user)
-        u   -> u
+        u -> u
       end
     else
       Conn.get_session(conn, :current_user)

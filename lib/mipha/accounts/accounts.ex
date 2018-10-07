@@ -132,7 +132,7 @@ defmodule Mipha.Accounts do
 
     case check_user_password(user, attrs.password) do
       true -> {:ok, user}
-      _    -> {:error, "Failed auth."}
+      _ -> {:error, "Failed auth."}
     end
   end
 
@@ -181,7 +181,7 @@ defmodule Mipha.Accounts do
   defp check_user_password(user, password) do
     case user do
       nil -> false
-      _   -> !is_nil(user.password_hash) && Bcrypt.checkpw(password, user.password_hash)
+      _ -> !is_nil(user.password_hash) && Bcrypt.checkpw(password, user.password_hash)
     end
   end
 
@@ -220,7 +220,8 @@ defmodule Mipha.Accounts do
         |> User.update_password_changeset(attrs)
         |> Repo.update()
 
-      _ -> {:error, "Invalid current password"}
+      _ ->
+        {:error, "Invalid current password"}
     end
   end
 
@@ -228,7 +229,7 @@ defmodule Mipha.Accounts do
   Mark the current user verified
   """
   def mark_as_verified(user) do
-    attrs = %{"email_verified_at" => Timex.now}
+    attrs = %{"email_verified_at" => Timex.now()}
     update_user(user, attrs)
   end
 
@@ -284,14 +285,14 @@ defmodule Mipha.Accounts do
   def github_repositories(%User{} = user) do
     user
     |> github_repos_cache_key
-    |> Store.get!
+    |> Store.get!()
     |> fetch_github_repos(user)
   end
 
   def github_repositories(%Team{} = team) do
     team
     |> github_repos_cache_key
-    |> Store.get!
+    |> Store.get!()
     |> fetch_github_repos(team)
   end
 
@@ -300,12 +301,13 @@ defmodule Mipha.Accounts do
     repos =
       target
       |> github_repos_url
-      |> HTTPoison.get!
+      |> HTTPoison.get!()
       |> handle_response
 
     Store.put!(github_repos_cache_key(target), repos)
     repos
   end
+
   defp fetch_github_repos(items, _) do
     items
   end
@@ -313,11 +315,12 @@ defmodule Mipha.Accounts do
   # 拉取数据，并且 Json 处理
   defp handle_response(%HTTPoison.Response{body: body, status_code: 200}) do
     body
-    |> Jason.decode!
-    |> Enum.map(&(Map.take(&1, ~w(name html_url watchers language description))))
+    |> Jason.decode!()
+    |> Enum.map(&Map.take(&1, ~w(name html_url watchers language description)))
     |> Enum.sort(&(&1["watchers"] >= &2["watchers"]))
     |> Enum.take(10)
   end
+
   defp handle_response(%HTTPoison.Response{body: _, status_code: 404}) do
     []
   end
@@ -329,7 +332,9 @@ defmodule Mipha.Accounts do
 
   # 请求获取 github 用户的 repos 的 Url
   defp github_repos_url(target) do
-    "https://api.github.com/users/#{github_handle(target)}/repos?type=owner&sort=pushed&client_id=#{System.get_env("GITHUB_CLIENT_ID")}&client_secret=#{System.get_env("GITHUB_CLIENT_SECRET")}"
+    "https://api.github.com/users/#{github_handle(target)}/repos?type=owner&sort=pushed&client_id=#{
+      System.get_env("GITHUB_CLIENT_ID")
+    }&client_secret=#{System.get_env("GITHUB_CLIENT_SECRET")}"
   end
 
   @doc """
@@ -338,6 +343,7 @@ defmodule Mipha.Accounts do
   def github_handle(%User{} = user) do
     user.github_handle || user.username
   end
+
   def github_handle(%Team{} = team) do
     team.github_handle || team.name
   end
@@ -375,13 +381,15 @@ defmodule Mipha.Accounts do
   Returns the user update_password changeset
   """
   @spec user_update_password_changeset(Map.t()) :: Ecto.Changeset.t()
-  def user_update_password_changeset(attrs \\ %{}), do: User.update_password_changeset(%User{}, attrs)
+  def user_update_password_changeset(attrs \\ %{}),
+    do: User.update_password_changeset(%User{}, attrs)
 
   @doc """
   Returns the change user reset password.
   """
   @spec change_user_reset_password(User.t(), Map.t()) :: Ecto.Changeset.t()
-  def change_user_reset_password(%User{} = user, attrs \\ %{}), do: User.reset_password_changeset(user, attrs)
+  def change_user_reset_password(%User{} = user, attrs \\ %{}),
+    do: User.reset_password_changeset(user, attrs)
 
   alias Mipha.Accounts.Location
 

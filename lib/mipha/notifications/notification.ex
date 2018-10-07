@@ -24,7 +24,7 @@ defmodule Mipha.Notifications.Notification do
   # Follow user action
   #   :topic_added
   #   :topic_reply_added
-  defenum NotificationAction, :notification_action, [
+  defenum(NotificationAction, :notification_action, [
     :topic_reply_added,
     :topic_starred,
     :reply_starred,
@@ -33,7 +33,7 @@ defmodule Mipha.Notifications.Notification do
     :reply_mentioned,
     :followed,
     :topic_added
-  ]
+  ])
 
   schema "notifications" do
     field :action, NotificationAction

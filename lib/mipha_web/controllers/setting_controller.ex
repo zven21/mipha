@@ -10,7 +10,7 @@ defmodule MiphaWeb.SettingController do
   def action(conn, _) do
     if Enum.member?(@intercepted_action, action_name(conn)) do
       changeset = Accounts.change_user(current_user(conn))
-      render conn, action_name(conn), changeset: changeset
+      render(conn, action_name(conn), changeset: changeset)
     else
       apply(__MODULE__, action_name(conn), [conn, conn.params])
     end
@@ -18,10 +18,10 @@ defmodule MiphaWeb.SettingController do
 
   def update(conn, %{"user" => user_params}) do
     case user_params["by"] do
-      "show"     ->   update_account(conn, user_params)
-      "profile"  ->   update_profile(conn, user_params)
-      "password" ->   update_password(conn, user_params)
-      "reward"   ->   update_reward(conn, user_params)
+      "show" -> update_account(conn, user_params)
+      "profile" -> update_profile(conn, user_params)
+      "password" -> update_password(conn, user_params)
+      "reward" -> update_reward(conn, user_params)
     end
   end
 
@@ -74,6 +74,7 @@ defmodule MiphaWeb.SettingController do
 
       {:error, reason} ->
         changeset = Accounts.user_update_password_changeset()
+
         conn
         |> put_flash(:danger, reason)
         |> render(:password, changeset: changeset)
@@ -104,6 +105,7 @@ defmodule MiphaWeb.SettingController do
   end
 
   defp build_attrs({nil, params}, _), do: params
+
   defp build_attrs({%Plug.Upload{} = avatar, params}, field) do
     # FIXME need set global callback
     with %HTTPoison.Response{status_code: 200, body: body} <- Qiniu.upload(avatar.path) do

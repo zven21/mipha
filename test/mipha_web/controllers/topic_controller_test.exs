@@ -226,28 +226,34 @@ defmodule MiphaWeb.TopicControllerTest do
   test "requires user auth on any acitons", %{conn: conn} do
     t = insert(:topic)
 
-    Enum.each([
-      get(conn, topic_path(conn, :new)),
-      post(conn, topic_path(conn, :create), topic: @valid_attrs),
-      get(conn, topic_path(conn, :edit, t.id)),
-      put(conn, topic_path(conn, :update, t.id), topic: @valid_attrs),
-      delete(conn, topic_path(conn, :delete, t.id)),
-    ], fn conn ->
-      assert html_response(conn, 302)
-    end)
+    Enum.each(
+      [
+        get(conn, topic_path(conn, :new)),
+        post(conn, topic_path(conn, :create), topic: @valid_attrs),
+        get(conn, topic_path(conn, :edit, t.id)),
+        put(conn, topic_path(conn, :update, t.id), topic: @valid_attrs),
+        delete(conn, topic_path(conn, :delete, t.id))
+      ],
+      fn conn ->
+        assert html_response(conn, 302)
+      end
+    )
   end
 
   @tag :as_user
   test "requires admin auth on any acitons", %{conn: conn} do
     t = insert(:topic)
 
-    Enum.each([
-      post(conn, topic_path(conn, :unsuggest, t.id)),
-      post(conn, topic_path(conn, :suggest, t.id)),
-      post(conn, topic_path(conn, :normal, t.id)),
-      post(conn, topic_path(conn, :excellent, t.id))
-    ], fn conn ->
-      assert html_response(conn, 302)
-    end)
+    Enum.each(
+      [
+        post(conn, topic_path(conn, :unsuggest, t.id)),
+        post(conn, topic_path(conn, :suggest, t.id)),
+        post(conn, topic_path(conn, :normal, t.id)),
+        post(conn, topic_path(conn, :excellent, t.id))
+      ],
+      fn conn ->
+        assert html_response(conn, 302)
+      end
+    )
   end
 end

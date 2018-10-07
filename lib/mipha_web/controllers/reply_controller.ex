@@ -16,6 +16,7 @@ defmodule MiphaWeb.ReplyController do
       {:ok, %{reply: reply}} ->
         # broadcast topic:id
         broadcast!("topic:#{topic.id}", "topic:#{topic.id}:new_reply", %{reply_id: reply.id})
+
         conn
         |> put_flash(:success, "Reply created successfully.")
         |> redirect(to: topic_path(conn, :show, topic))
@@ -31,15 +32,17 @@ defmodule MiphaWeb.ReplyController do
     reply = Replies.get_reply!(id)
     changeset = Replies.change_reply(reply)
 
-    render conn, :edit,
+    render(conn, :edit,
       topic: topic,
       changeset: changeset,
       reply: reply,
       topic: topic
+    )
   end
 
   def update(conn, %{"id" => id, "reply" => reply_params}, topic) do
     reply = Replies.get_reply!(id)
+
     case Replies.update_reply(reply, reply_params) do
       {:ok, _} ->
         conn
@@ -64,10 +67,12 @@ defmodule MiphaWeb.ReplyController do
 
   def star(conn, %{"reply_id" => reply_id}, topic) do
     reply = Replies.get_reply!(reply_id)
+
     attrs = %{
       user_id: current_user(conn).id,
       reply_id: reply.id
     }
+
     case Stars.insert_star(attrs) do
       {:ok, _} ->
         conn
@@ -83,10 +88,12 @@ defmodule MiphaWeb.ReplyController do
 
   def unstar(conn, %{"reply_id" => reply_id}, topic) do
     reply = Replies.get_reply!(reply_id)
+
     attrs = [
       user_id: current_user(conn).id,
       reply_id: reply.id
     ]
+
     case Stars.delete_star(attrs) do
       {:ok, _} ->
         conn

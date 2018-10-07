@@ -27,19 +27,20 @@ defmodule MiphaWeb.RoomChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
   def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
+    broadcast(socket, "shout", payload)
     {:noreply, socket}
   end
 
   def handle_info(:after_join, socket) do
-    push socket, "presence_state", Presence.list(socket)
+    push(socket, "presence_state", Presence.list(socket))
 
     user = Repo.get(User, socket.assigns[:user_id])
 
-    {:ok, _} = Presence.track(socket, "user:#{user.id}", %{
-      user_id: user.id,
-      username: user.username
-    })
+    {:ok, _} =
+      Presence.track(socket, "user:#{user.id}", %{
+        user_id: user.id,
+        username: user.username
+      })
 
     {:noreply, socket}
   end

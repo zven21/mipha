@@ -5,6 +5,6 @@ defmodule MiphaWeb.Admin.TopicController do
 
   def index(conn, params) do
     result = Queries.list_topics() |> Turbo.Ecto.turbo(params)
-    render conn, :index, topics: result.datas, paginate: result.paginate
+    render(conn, :index, topics: result.datas, paginate: result.paginate)
   end
 end

@@ -21,7 +21,7 @@ defmodule Mipha.Topics.Queries do
   """
   @spec job_topics :: Ecto.Query.t()
   def job_topics do
-    Topic.job
+    Topic.job()
     |> preload([:user, :node, :last_reply_user])
   end
 
@@ -47,16 +47,16 @@ defmodule Mipha.Topics.Queries do
   def cond_topics(opts) do
     opts
     |> filter_from_clauses
-    |> Topic.base_order
+    |> Topic.base_order()
     |> preload([:user, :node, :last_reply_user])
   end
 
   defp filter_from_clauses(opts), do: do_filter_from_clauses(opts)
 
-  defp do_filter_from_clauses(type: :educational), do: Topic.educational
-  defp do_filter_from_clauses(type: :featured), do: Topic.featured
-  defp do_filter_from_clauses(type: :no_reply), do: Topic.no_reply
-  defp do_filter_from_clauses(type: :popular), do: Topic.popular
+  defp do_filter_from_clauses(type: :educational), do: Topic.educational()
+  defp do_filter_from_clauses(type: :featured), do: Topic.featured()
+  defp do_filter_from_clauses(type: :no_reply), do: Topic.no_reply()
+  defp do_filter_from_clauses(type: :popular), do: Topic.popular()
   defp do_filter_from_clauses(node: node), do: Topic.by_node(node)
   defp do_filter_from_clauses(user: user), do: Topic.by_user(user)
   defp do_filter_from_clauses(user_ids: user_ids), do: Topic.by_user_ids(user_ids)

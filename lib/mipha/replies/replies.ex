@@ -112,7 +112,7 @@ defmodule Mipha.Replies do
         |> Reply.preload_topic()
         |> Map.fetch!(:topic)
 
-      attrs = %{reply_count: (topic.reply_count - 1)}
+      attrs = %{reply_count: topic.reply_count - 1}
       Topics.update_topic(topic, attrs)
     end
 
@@ -222,7 +222,7 @@ defmodule Mipha.Replies do
       notified_users =
         @username_regex
         |> Regex.scan(attrs["content"])
-        |> Enum.map(fn([_, match]) -> Accounts.get_user_by_username(match) end)
+        |> Enum.map(fn [_, match] -> Accounts.get_user_by_username(match) end)
         |> Enum.filter(&(not is_nil(&1)))
 
       attrs = %{
@@ -252,7 +252,7 @@ defmodule Mipha.Replies do
       attrs = %{
         last_reply_id: reply.id,
         last_reply_user_id: reply.user_id,
-        reply_count: (topic.reply_count + 1)
+        reply_count: topic.reply_count + 1
       }
 
       case Topics.update_topic(topic, attrs) do
@@ -287,11 +287,13 @@ defmodule Mipha.Replies do
         {:error, _, reason, _} -> {:error, reason}
       end
     end
+
     Multi.run(multi, :notify_topic_owner_of_new_reply, insert_notification_fn)
   end
 
   # 如果是回复其他人的评论，回复该评论的作者, 有新的回复。
-  defp maybe_notify_parent_reply_owner_of_new_reply(multi, %{"parent_id" => parent_id}) when parent_id != "" do
+  defp maybe_notify_parent_reply_owner_of_new_reply(multi, %{"parent_id" => parent_id})
+       when parent_id != "" do
     insert_notification_fn = fn %{reply: reply} ->
       notified_users =
         reply
@@ -315,6 +317,7 @@ defmodule Mipha.Replies do
 
     Multi.run(multi, :notify_parent_reply_owner_of_new_reply, insert_notification_fn)
   end
+
   defp maybe_notify_parent_reply_owner_of_new_reply(multi, _), do: multi
 
   # 发起评论时，通知关注评论作者的 follower

@@ -14,7 +14,8 @@ defmodule MiphaWeb.UserController do
           |> put_flash(:danger, gettext("User not exist."))
           |> redirect(to: "/")
 
-        user -> apply(__MODULE__, action_name(conn), [conn, conn.params, user])
+        user ->
+          apply(__MODULE__, action_name(conn), [conn, conn.params, user])
       end
     else
       apply(__MODULE__, action_name(conn), [conn, conn.params])
@@ -25,64 +26,71 @@ defmodule MiphaWeb.UserController do
     users = Accounts.Queries.list_users() |> Turbo.Ecto.search(params)
     user_count = Accounts.get_user_count()
 
-    render conn, :index,
+    render(conn, :index,
       users: users,
       user_count: user_count
+    )
   end
 
   def show(conn, _params, user) do
     topics = Topics.recent_topics(user)
     replies = Replies.recent_replies(user)
 
-    render conn, :show,
+    render(conn, :show,
       user: user,
       topics: topics,
       replies: replies
+    )
   end
 
   def topics(conn, params, user) do
-    result = Topics.Queries.cond_topics([user: user]) |> Turbo.Ecto.turbo(params)
+    result = Topics.Queries.cond_topics(user: user) |> Turbo.Ecto.turbo(params)
 
-    render conn, :topics,
+    render(conn, :topics,
       user: user,
       paginate: result.paginate,
       topics: result.datas
+    )
   end
 
   def replies(conn, params, user) do
-    result = Replies.Queries.cond_replies([user: user]) |> Turbo.Ecto.turbo(params)
+    result = Replies.Queries.cond_replies(user: user) |> Turbo.Ecto.turbo(params)
 
-    render conn, :replies,
+    render(conn, :replies,
       user: user,
       paginate: result.paginate,
       replies: result.datas
+    )
   end
 
   def following(conn, params, user) do
-    result = Follows.Queries.cond_follows([follower: user]) |> Turbo.Ecto.turbo(params)
+    result = Follows.Queries.cond_follows(follower: user) |> Turbo.Ecto.turbo(params)
 
-    render conn, :following,
+    render(conn, :following,
       user: user,
       paginate: result.paginate,
       following: result.datas
+    )
   end
 
   def followers(conn, params, user) do
-    result = Follows.Queries.cond_follows([user: user]) |> Turbo.Ecto.turbo(params)
+    result = Follows.Queries.cond_follows(user: user) |> Turbo.Ecto.turbo(params)
 
-    render conn, :followers,
+    render(conn, :followers,
       user: user,
       paginate: result.paginate,
       followers: result.datas
+    )
   end
 
   def collections(conn, params, user) do
-    result = Collections.Queries.cond_collections([user: user]) |> Turbo.Ecto.turbo(params)
+    result = Collections.Queries.cond_collections(user: user) |> Turbo.Ecto.turbo(params)
 
-    render conn, :collections,
+    render(conn, :collections,
       user: user,
       paginate: result.paginate,
       collections: result.datas
+    )
   end
 
   def follow(conn, _params, user) do
@@ -125,8 +133,7 @@ defmodule MiphaWeb.UserController do
 
   def sent_forgot_password_email(conn, %{"user" => user_params}) do
     with {:ok, email} <- parse(user_params["email"]),
-         {:ok, user} <- parse(Accounts.get_user_by_email(email))
-    do
+         {:ok, user} <- parse(Accounts.get_user_by_email(email)) do
       # Send email
       user
       |> Token.generate_token()
@@ -145,7 +152,7 @@ defmodule MiphaWeb.UserController do
   end
 
   def forgot_password(conn, _) do
-    render conn, :forgot_password
+    render(conn, :forgot_password)
   end
 
   def reset_password(conn, %{"token" => token}) do
@@ -153,12 +160,13 @@ defmodule MiphaWeb.UserController do
       user = Accounts.get_user!(user_id)
       changeset = Accounts.change_user_reset_password(user)
 
-      render conn, :reset_password,
+      render(conn, :reset_password,
         user: user,
         token: token,
         changeset: changeset
+      )
     else
-      _ -> render conn, :invalid_token
+      _ -> render(conn, :invalid_token)
     end
   end
 
@@ -170,9 +178,9 @@ defmodule MiphaWeb.UserController do
 
   def update_password(conn, %{"user" => user_params}) do
     with {:ok, token} <- parse(user_params["reset_password_token"]),
-         {:ok, user_id} <- Token.verify_token(token)
-    do
+         {:ok, user_id} <- Token.verify_token(token) do
       user = Accounts.get_user!(user_id)
+
       case Accounts.update_reset_password(user, user_params) do
         {:ok, _} ->
           conn
@@ -180,13 +188,14 @@ defmodule MiphaWeb.UserController do
           |> redirect(to: "/login")
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          render conn, :reset_password,
+          render(conn, :reset_password,
             changeset: changeset,
             user: user,
             token: token
+          )
       end
     else
-      _ -> render conn, :invalid_token
+      _ -> render(conn, :invalid_token)
     end
   end
 

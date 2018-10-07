@@ -5,12 +5,14 @@ defmodule Mipha.Follows do
 
   import Ecto.Query, warn: false
   alias Ecto.Multi
+
   alias Mipha.{
     Repo,
     Follows,
     Accounts,
     Notifications
   }
+
   alias Follows.Follow
   alias Accounts.User
 
@@ -124,7 +126,7 @@ defmodule Mipha.Follows do
   def delete_follow(clauses) when length(clauses) == 2 do
     clauses
     |> get_follow
-    |> Repo.delete
+    |> Repo.delete()
   end
 
   @doc """
@@ -155,6 +157,7 @@ defmodule Mipha.Follows do
   @spec unfollow_user(Keyword.t()) :: {:ok, Follow.t()} | {:error, any()}
   def unfollow_user(follower: follower, user: user) do
     opts = [follower: follower, user: user]
+
     if can_follow?(opts) do
       if has_followed?(opts) do
         delete_follow(user_id: user.id, follower_id: follower.id)
@@ -180,6 +183,7 @@ defmodule Mipha.Follows do
   @spec follow_user(Keyword.t()) :: {:ok, Follow.t()} | {:error, any()}
   def follow_user(follower: follower, user: user) do
     opts = [follower: follower, user: user]
+
     if can_follow?(opts) do
       if has_followed?(opts) do
         {:error, "Follow already."}
@@ -200,7 +204,7 @@ defmodule Mipha.Follows do
     %User{id: follower_id} = Keyword.get(clauses, :follower)
     %User{id: user_id} = Keyword.get(clauses, :user)
 
-    user_id == follower_id && false || true
+    (user_id == follower_id && false) || true
   end
 
   @doc """
@@ -292,7 +296,7 @@ defmodule Mipha.Follows do
     query =
       clauses
       |> Keyword.get(:user)
-      |> Follow.by_user
+      |> Follow.by_user()
 
     query
     |> join(:inner, [c], u in assoc(c, :follower))

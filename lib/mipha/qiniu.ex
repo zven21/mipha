@@ -6,7 +6,7 @@ defmodule Mipha.Qiniu do
 
   def upload(path) do
     @bucket
-    |> Qiniu.PutPolicy.build
+    |> Qiniu.PutPolicy.build()
     |> Qiniu.Uploader.upload(path, key: generate_key())
   end
 
@@ -16,11 +16,12 @@ defmodule Mipha.Qiniu do
   def q_url(value) when is_nil(value) do
     @base_url <> "default.jpg"
   end
+
   def q_url(value) do
     @base_url <> value
   end
 
   defp generate_key do
-    "#{Timex.to_unix(Timex.now)}/#{Enum.random(1..1_000)}.jpg"
+    "#{Timex.to_unix(Timex.now())}/#{Enum.random(1..1_000)}.jpg"
   end
 end

@@ -3,12 +3,12 @@ defmodule Mipha.Repo.Migrations.CreateFollows do
 
   def change do
     create table(:follows) do
-      add :user_id, :integer
-      add :follower_id, :integer
+      add(:user_id, :integer)
+      add(:follower_id, :integer)
 
       timestamps()
     end
 
-    create unique_index(:follows, [:follower_id, :user_id])
+    create(unique_index(:follows, [:follower_id, :user_id]))
   end
 end

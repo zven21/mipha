@@ -7,7 +7,7 @@ defmodule MiphaWeb.ViewHelpers do
 
   def markdown(body) do
     body
-    |> Markdown.render
+    |> Markdown.render()
     |> raw()
   end
 end

@@ -24,8 +24,8 @@ defmodule MiphaWeb.TagHelpers do
   Returns user level.
   """
   def user_level_tag(user) do
-    level_name = user.is_admin && "管理员" || "会员"
-    level_class = user.is_admin && "badge-alert" || "badge-success"
+    level_name = (user.is_admin && "管理员") || "会员"
+    level_class = (user.is_admin && "badge-alert") || "badge-success"
     content_tag(:span, level_name, class: "badge #{level_class} role")
   end
 
@@ -33,7 +33,7 @@ defmodule MiphaWeb.TagHelpers do
   Return if rem(number) == 0, return odd, else return even.
   """
   def cycle_tag(number) do
-    Integer.is_odd(number) && "odd" || "even"
+    (Integer.is_odd(number) && "odd") || "even"
   end
 
   @doc """
@@ -50,7 +50,9 @@ defmodule MiphaWeb.TagHelpers do
   end
 
   def topic_title_tag(topic, reply \\ nil) do
-    ahref = if is_nil(reply), do: "/topics/#{topic.id}", else: "/topics/#{topic.id}#reply#{reply.id}"
+    ahref =
+      if is_nil(reply), do: "/topics/#{topic.id}", else: "/topics/#{topic.id}#reply#{reply.id}"
+
     content_tag(:a, topic.title, href: ahref, title: topic.title)
   end
 

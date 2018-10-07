@@ -31,8 +31,8 @@ defmodule Mipha.Replies.Queries do
 
   defp filter_from_clauses(opts) do
     cond do
-      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Reply.by_user
-      Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Reply.by_topic
+      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Reply.by_user()
+      Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Reply.by_topic()
       true -> Reply
     end
   end

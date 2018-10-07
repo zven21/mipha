@@ -5,6 +5,7 @@ defmodule Mipha.Notifications do
 
   import Ecto.Query, warn: false
   alias Ecto.Multi
+
   alias Mipha.{
     Repo,
     Topics,
@@ -117,9 +118,10 @@ defmodule Mipha.Notifications do
   @doc """
   标记单个已读
   """
-  @spec read_notification(UserNotification.t()) :: {:ok, UserNotification.t()} | {:error, %Ecto.Changeset{}}
+  @spec read_notification(UserNotification.t()) ::
+          {:ok, UserNotification.t()} | {:error, %Ecto.Changeset{}}
   def read_notification(%UserNotification{} = user_notification) do
-    attrs = %{read_at: Timex.now}
+    attrs = %{read_at: Timex.now()}
 
     user_notification
     |> UserNotification.update_changeset(attrs)
@@ -134,7 +136,7 @@ defmodule Mipha.Notifications do
     user
     |> UserNotification.by_user()
     |> UserNotification.unread()
-    |> Repo.update_all(set: [read_at: Timex.now])
+    |> Repo.update_all(set: [read_at: Timex.now()])
   end
 
   @doc """
@@ -166,7 +168,7 @@ defmodule Mipha.Notifications do
     |> Map.get(:actor)
   end
 
- @doc """
+  @doc """
   获取通知对象 topic || reply || user
 
   ## Examples

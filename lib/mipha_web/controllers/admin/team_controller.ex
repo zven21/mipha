@@ -6,7 +6,7 @@ defmodule MiphaWeb.Admin.TeamController do
 
   def index(conn, params) do
     result = Queries.list_teams() |> Turbo.Ecto.turbo(params)
-    render conn, :index, teams: result.datas, paginate: result.paginate
+    render(conn, :index, teams: result.datas, paginate: result.paginate)
   end
 
   def delete(conn, %{"id" => id}) do

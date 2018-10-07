@@ -3,10 +3,9 @@ defmodule Mipha.Repo.Migrations.CreateLocations do
 
   def change do
     create table(:locations) do
-      add :name, :string
+      add(:name, :string)
 
       timestamps()
     end
-
   end
 end

@@ -3,9 +3,9 @@ defmodule Mipha.Repo.Migrations.CreateCompanies do
 
   def change do
     create table(:companies) do
-      add :name, :string
-      add :avatar, :string
-      add :location_id, :integer
+      add(:name, :string)
+      add(:avatar, :string)
+      add(:location_id, :integer)
 
       timestamps()
     end

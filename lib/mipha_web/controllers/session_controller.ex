@@ -8,7 +8,7 @@ defmodule MiphaWeb.SessionController do
 
   def new(conn, _params) do
     changeset = Accounts.user_register_changeset()
-    render conn, :new, changeset: changeset
+    render(conn, :new, changeset: changeset)
   end
 
   def excaptcha(conn, _) do
@@ -40,6 +40,7 @@ defmodule MiphaWeb.SessionController do
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         sent_welcome_email(user)
+
         conn
         |> ok_login(user)
 

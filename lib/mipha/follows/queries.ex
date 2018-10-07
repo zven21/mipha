@@ -29,8 +29,8 @@ defmodule Mipha.Follows.Queries do
 
   defp filter_from_clauses(opts) do
     cond do
-      Keyword.has_key?(opts, :follower) -> opts |> Keyword.get(:follower) |> Follow.by_follower
-      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Follow.by_user
+      Keyword.has_key?(opts, :follower) -> opts |> Keyword.get(:follower) |> Follow.by_follower()
+      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Follow.by_user()
       true -> Follow
     end
   end

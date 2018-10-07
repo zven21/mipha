@@ -172,7 +172,7 @@ defmodule Mipha.Topics do
       notified_users =
         @username_regex
         |> Regex.scan(attrs["body"])
-        |> Enum.map(fn([_, match]) -> Accounts.get_user_by_username(match) end)
+        |> Enum.map(fn [_, match] -> Accounts.get_user_by_username(match) end)
         |> Enum.filter(&(not is_nil(&1)))
 
       attrs = %{
@@ -212,7 +212,7 @@ defmodule Mipha.Topics do
 
   """
   def list_featured_topics do
-    Topic.featured
+    Topic.featured()
     |> Repo.all()
     |> Repo.preload([:node, :user, :last_reply_user])
   end
@@ -242,9 +242,9 @@ defmodule Mipha.Topics do
   @spec recent_topics(User.t()) :: [Topic.t()] | nil
   def recent_topics(%User{} = user) do
     user
-    |> Topic.by_user
-    |> Topic.recent
-    |> Repo.all
+    |> Topic.by_user()
+    |> Topic.recent()
+    |> Repo.all()
     |> Repo.preload([:node, :user, :last_reply_user])
   end
 
@@ -260,7 +260,7 @@ defmodule Mipha.Topics do
   @spec author(Topic.t()) :: User.t()
   def author(%Topic{} = topic) do
     topic
-    |> Topic.preload_user
+    |> Topic.preload_user()
     |> Map.fetch!(:user)
   end
 
@@ -364,8 +364,8 @@ defmodule Mipha.Topics do
   """
   @spec list_parent_nodes :: [Node.t()] | nil
   def list_parent_nodes do
-    Node.is_parent
-    |> Repo.all
-    |> Node.preload_children
+    Node.is_parent()
+    |> Repo.all()
+    |> Node.preload_children()
   end
 end

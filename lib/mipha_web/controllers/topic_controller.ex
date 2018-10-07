@@ -26,25 +26,29 @@ defmodule MiphaWeb.TopicController do
         [type: action_name(conn)]
       end
 
-    parent_nodes = Topics.list_parent_nodes
+    parent_nodes = Topics.list_parent_nodes()
+
     result =
       opts
-      |> Queries.cond_topics
+      |> Queries.cond_topics()
       |> Turbo.Ecto.turbo(conn.params)
 
-    render conn, action_name(conn),
+    render(conn, action_name(conn),
       asset: "topics",
       topics: result.datas,
       paginate: result.paginate,
       parent_nodes: parent_nodes
+    )
   end
+
   defp do_fragment(:suggest, conn) do
     topic = Topics.get_topic!(conn.params["id"])
-    attrs = %{"suggested_at" => Timex.now}
+    attrs = %{"suggested_at" => Timex.now()}
     flash = gettext("Pin")
 
     do_update(conn, topic, attrs, flash)
   end
+
   defp do_fragment(:unsuggest, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"suggested_at" => nil}
@@ -52,13 +56,15 @@ defmodule MiphaWeb.TopicController do
 
     do_update(conn, topic, attrs, flash)
   end
+
   defp do_fragment(:close, conn) do
     topic = Topics.get_topic!(conn.params["id"])
-    attrs = %{"closed_at" => Timex.now}
+    attrs = %{"closed_at" => Timex.now()}
     flash = gettext("Closed")
 
     do_update(conn, topic, attrs, flash)
   end
+
   defp do_fragment(:open, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"closed_at" => nil}
@@ -66,6 +72,7 @@ defmodule MiphaWeb.TopicController do
 
     do_update(conn, topic, attrs, flash)
   end
+
   defp do_fragment(:excellent, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"type" => "featured"}
@@ -73,6 +80,7 @@ defmodule MiphaWeb.TopicController do
 
     do_update(conn, topic, attrs, flash)
   end
+
   defp do_fragment(:normal, conn) do
     topic = Topics.get_topic!(conn.params["id"])
     attrs = %{"type" => "normal"}
@@ -80,6 +88,7 @@ defmodule MiphaWeb.TopicController do
 
     do_update(conn, topic, attrs, flash)
   end
+
   defp do_fragment(_, conn) do
     apply(__MODULE__, action_name(conn), [conn, conn.params])
   end
@@ -94,33 +103,36 @@ defmodule MiphaWeb.TopicController do
   end
 
   def jobs(conn, params) do
-    parent_nodes = Topics.list_parent_nodes
-    result = Turbo.Ecto.turbo(Queries.job_topics, params)
+    parent_nodes = Topics.list_parent_nodes()
+    result = Turbo.Ecto.turbo(Queries.job_topics(), params)
 
-    render conn, :jobs,
+    render(conn, :jobs,
       parent_nodes: parent_nodes,
       topics: result.datas,
       paginate: result.paginate
+    )
   end
 
   def new(conn, _params) do
     changeset = Topics.change_topic()
-    parent_nodes = Topics.list_parent_nodes
+    parent_nodes = Topics.list_parent_nodes()
 
-    render conn, :new,
+    render(conn, :new,
       changeset: changeset,
       parent_nodes: parent_nodes
+    )
   end
 
   def edit(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
     changeset = Topics.change_topic(topic)
-    parent_nodes = Topics.list_parent_nodes
+    parent_nodes = Topics.list_parent_nodes()
 
-    render conn, :edit,
+    render(conn, :edit,
       topic: topic,
       changeset: changeset,
       parent_nodes: parent_nodes
+    )
   end
 
   def create(conn, %{"topic" => topic_params}) do
@@ -131,7 +143,8 @@ defmodule MiphaWeb.TopicController do
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, :topic, %Ecto.Changeset{} = changeset, _} ->
-        parent_nodes = Topics.list_parent_nodes
+        parent_nodes = Topics.list_parent_nodes()
+
         conn
         |> put_flash(:danger, gettext("Create topic failed, pls select node_id."))
         |> render(:new, changeset: changeset, parent_nodes: parent_nodes)
@@ -140,6 +153,7 @@ defmodule MiphaWeb.TopicController do
 
   def update(conn, %{"id" => id, "topic" => topic_params}) do
     topic = Topics.get_topic!(id)
+
     case Topics.update_topic(topic, topic_params) do
       {:ok, topic} ->
         conn
@@ -147,8 +161,8 @@ defmodule MiphaWeb.TopicController do
         |> redirect(to: topic_path(conn, :show, topic))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        parent_nodes = Topics.list_parent_nodes
-        render conn, :edit, topic: topic, changeset: changeset, parent_nodes: parent_nodes
+        parent_nodes = Topics.list_parent_nodes()
+        render(conn, :edit, topic: topic, changeset: changeset, parent_nodes: parent_nodes)
     end
   end
 
@@ -159,6 +173,7 @@ defmodule MiphaWeb.TopicController do
     if is_nil(get_session(conn, "visited_topic_#{topic.id}")) do
       # increment topic visit count.
       Topics.topic_visit_counter(topic)
+
       conn
       |> put_session("visited_topic_#{topic.id}", topic.id)
       |> render(:show, topic: topic)
@@ -182,10 +197,12 @@ defmodule MiphaWeb.TopicController do
 
   def star(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
+
     attrs = %{
       user_id: current_user(conn).id,
       topic_id: topic.id
     }
+
     case Stars.insert_star(attrs) do
       {:ok, _} ->
         conn
@@ -201,15 +218,18 @@ defmodule MiphaWeb.TopicController do
 
   def unstar(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
+
     attrs = [
       user_id: current_user(conn).id,
       topic_id: topic.id
     ]
+
     case Stars.delete_star(attrs) do
       {:ok, _} ->
         conn
         |> put_flash(:info, gettext("Unstar successfully"))
         |> redirect(to: topic_path(conn, :show, topic))
+
       {:error, _} ->
         conn
         |> put_flash(:danger, gettext("Unstar failed"))
@@ -219,10 +239,12 @@ defmodule MiphaWeb.TopicController do
 
   def collection(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
+
     attrs = %{
       user_id: current_user(conn).id,
       topic_id: topic.id
     }
+
     case Collections.insert_collection(attrs) do
       {:ok, _} ->
         conn
@@ -238,10 +260,12 @@ defmodule MiphaWeb.TopicController do
 
   def uncollection(conn, %{"id" => id}) do
     topic = Topics.get_topic!(id)
+
     attrs = [
       user_id: current_user(conn).id,
       topic_id: topic.id
     ]
+
     case Collections.delete_collection(attrs) do
       {:ok, _} ->
         conn

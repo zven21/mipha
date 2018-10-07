@@ -6,7 +6,7 @@ defmodule MiphaWeb.Admin.UserController do
 
   def index(conn, params) do
     result = Queries.list_users() |> Turbo.Ecto.turbo(params)
-    render conn, :index, users: result.datas, paginate: result.paginate
+    render(conn, :index, users: result.datas, paginate: result.paginate)
   end
 
   def delete(conn, %{"id" => id}) do

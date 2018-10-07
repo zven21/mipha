@@ -127,10 +127,10 @@ defmodule Mipha.Accounts.User do
     |> cast(attrs, permitted_attrs)
     |> validate_required(register_attrs)
     |> validate_length(:username, min: 3, max: 12)
-    |> validate_format(:username, Regexp.username)
+    |> validate_format(:username, Regexp.username())
     |> unique_constraint(:username)
     |> validate_length(:email, min: 1, max: 20)
-    |> validate_format(:email, Regexp.email)
+    |> validate_format(:email, Regexp.email())
     |> unique_constraint(:email)
     |> put_pass_hash()
   end
@@ -188,6 +188,7 @@ defmodule Mipha.Accounts.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         put_change(changeset, :password_hash, Bcrypt.hashpwsalt(password))
+
       _ ->
         changeset
     end

@@ -22,8 +22,8 @@ defmodule Mipha.Collections.Queries do
 
   defp filter_from_clauses(opts) do
     cond do
-      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Collection.by_user
-      Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Collection.by_topic
+      Keyword.has_key?(opts, :user) -> opts |> Keyword.get(:user) |> Collection.by_user()
+      Keyword.has_key?(opts, :topic) -> opts |> Keyword.get(:topic) |> Collection.by_topic()
       true -> Collection
     end
   end

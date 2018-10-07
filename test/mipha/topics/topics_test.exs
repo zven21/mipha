@@ -62,7 +62,15 @@ defmodule Mipha.TopicsTest do
 
     test "get_topic!/1 returns the topic with given id" do
       topic = topic_fixture()
-      assert Topics.get_topic!(topic.id) == (topic |> Repo.preload([:node, :user, :last_reply_user, [replies: [:user, [parent: :user]]]]))
+
+      assert Topics.get_topic!(topic.id) ==
+               topic
+               |> Repo.preload([
+                 :node,
+                 :user,
+                 :last_reply_user,
+                 [replies: [:user, [parent: :user]]]
+               ])
     end
 
     test "create_topic/1 with valid data creates a topic" do
@@ -104,7 +112,10 @@ defmodule Mipha.TopicsTest do
     test "update_topic/2 with invalid data returns error changeset" do
       topic = topic_fixture()
       assert {:error, %Ecto.Changeset{}} = Topics.update_topic(topic, @invalid_attrs)
-      assert (topic |> Repo.preload([:node, :user, :last_reply_user, [replies: [:user, [parent: :user]]]])) == Topics.get_topic!(topic.id)
+
+      assert topic
+             |> Repo.preload([:node, :user, :last_reply_user, [replies: [:user, [parent: :user]]]]) ==
+               Topics.get_topic!(topic.id)
     end
 
     test "delete_topic/1 deletes the topic" do
@@ -123,7 +134,12 @@ defmodule Mipha.TopicsTest do
     alias Mipha.Topics.Node
 
     @valid_attrs %{name: "some name", parent_id: 42, position: 42, summary: "some summary"}
-    @update_attrs %{name: "some updated name", parent_id: 43, position: 43, summary: "some updated summary"}
+    @update_attrs %{
+      name: "some updated name",
+      parent_id: 43,
+      position: 43,
+      summary: "some updated summary"
+    }
     @invalid_attrs %{name: nil, parent_id: nil, position: nil, summary: nil}
 
     def node_fixture(attrs \\ %{}) do

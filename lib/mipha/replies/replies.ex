@@ -106,7 +106,7 @@ defmodule Mipha.Replies do
   end
 
   defp decrease_topic_reply_count(multi) do
-    update_topic_fn = fn %{reply: reply} ->
+    update_topic_fn = fn _repo, %{reply: reply} ->
       topic =
         reply
         |> Reply.preload_topic()

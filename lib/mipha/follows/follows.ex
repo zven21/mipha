@@ -252,7 +252,7 @@ defmodule Mipha.Follows do
   end
 
   defp notify_followee_of_follow(multi) do
-    insert_notification_fn = fn %{follow: follow} ->
+    insert_notification_fn = fn _repo, %{follow: follow} ->
       followee =
         follow
         |> Follow.preload_user()

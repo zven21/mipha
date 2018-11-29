@@ -146,7 +146,7 @@ defmodule Mipha.Topics do
   end
 
   defp maybe_notify_users_of_new_topic(multi) do
-    insert_notification_fn = fn %{topic: topic} ->
+    insert_notification_fn = fn _repo, %{topic: topic} ->
       # 获取关注话题作者的 follower.
       notified_users = notifiable_users_of_topic(topic)
 
@@ -168,7 +168,7 @@ defmodule Mipha.Topics do
 
   # 通知被 @ 的用户
   def maybe_notify_mention_users_of_new_topic(multi, attrs) do
-    insert_notification_fn = fn %{topic: topic} ->
+    insert_notification_fn = fn _repo, %{topic: topic} ->
       notified_users =
         @username_regex
         |> Regex.scan(attrs["body"])

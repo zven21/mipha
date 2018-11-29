@@ -23,11 +23,11 @@ defmodule MiphaWeb.UserController do
   end
 
   def index(conn, params) do
-    users = Accounts.Queries.list_users() |> Turbo.Ecto.search(params)
+    result = Accounts.Queries.list_users() |> Turbo.Ecto.turbo(params)
     user_count = Accounts.get_user_count()
 
     render(conn, :index,
-      users: users,
+      users: result.datas,
       user_count: user_count
     )
   end

@@ -114,7 +114,7 @@ defmodule Mipha.Stars do
 
   # unstar, decrease topic star_count
   defp decrease_related_count(multi, user_id: _, topic_id: topic_id) when topic_id != "" do
-    update_topic_fn = fn %{star: star} ->
+    update_topic_fn = fn _repo, %{star: star} ->
       topic = starrable(star)
       attrs = %{star_count: topic.star_count - 1}
       Topics.update_topic(topic, attrs)
@@ -125,7 +125,7 @@ defmodule Mipha.Stars do
 
   # unstar, decrease reply star_count
   defp decrease_related_count(multi, user_id: _, reply_id: reply_id) when reply_id != "" do
-    update_reply_fn = fn %{star: star} ->
+    update_reply_fn = fn _repo, %{star: star} ->
       reply = starrable(star)
       attrs = %{star_count: reply.star_count - 1}
       Replies.update_reply(reply, attrs)
@@ -205,7 +205,7 @@ defmodule Mipha.Stars do
 
   # star, increase topic star_count
   defp increase_related_count(multi, %{topic_id: topic_id}) when topic_id != "" do
-    update_topic_fn = fn %{star: star} ->
+    update_topic_fn = fn _repo, %{star: star} ->
       topic = starrable(star)
       attrs = %{star_count: topic.star_count + 1}
       Topics.update_topic(topic, attrs)
@@ -228,7 +228,7 @@ defmodule Mipha.Stars do
   defp increase_related_count(multi, _), do: multi
 
   defp notify_author_of_starrable(multi) do
-    insert_notification_fn = fn %{star: star} ->
+    insert_notification_fn = fn _repo, %{star: star} ->
       starrable = starrable(star)
 
       author =

@@ -76,13 +76,13 @@ defmodule Mipha.TopicsTest do
     test "create_topic/1 with valid data creates a topic" do
       assert {:ok, %Topic{} = topic} = Topics.create_topic(@valid_attrs)
       assert topic.body == "some body"
-      assert topic.closed_at == ~N[2010-04-17 14:00:00.000000]
+      assert topic.closed_at == ~N[2010-04-17 14:00:00]
       assert topic.last_reply_id == 42
       assert topic.last_reply_user_id == 42
       assert topic.node_id == 42
-      assert topic.replied_at == ~N[2010-04-17 14:00:00.000000]
+      assert topic.replied_at == ~N[2010-04-17 14:00:00]
       assert topic.reply_count == 42
-      assert topic.suggested_at == ~N[2010-04-17 14:00:00.000000]
+      assert topic.suggested_at == ~N[2010-04-17 14:00:00]
       assert topic.title == "some title"
       assert topic.user_id == 42
       assert topic.visit_count == 42
@@ -97,13 +97,13 @@ defmodule Mipha.TopicsTest do
       assert {:ok, topic} = Topics.update_topic(topic, @update_attrs)
       assert %Topic{} = topic
       assert topic.body == "some updated body"
-      assert topic.closed_at == ~N[2011-05-18 15:01:01.000000]
+      assert topic.closed_at == ~N[2011-05-18 15:01:01]
       assert topic.last_reply_id == 43
       assert topic.last_reply_user_id == 43
       assert topic.node_id == 43
-      assert topic.replied_at == ~N[2011-05-18 15:01:01.000000]
+      assert topic.replied_at == ~N[2011-05-18 15:01:01]
       assert topic.reply_count == 43
-      assert topic.suggested_at == ~N[2011-05-18 15:01:01.000000]
+      assert topic.suggested_at == ~N[2011-05-18 15:01:01]
       assert topic.title == "some updated title"
       assert topic.user_id == 43
       assert topic.visit_count == 43

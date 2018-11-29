@@ -1,7 +1,10 @@
 defmodule MiphaWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :mipha
 
-  socket("/socket", MiphaWeb.UserSocket)
+  socket "/socket", MiphaWeb.UserSocket,
+    # or list of options
+    websocket: true,
+    longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
   #

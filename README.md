@@ -16,7 +16,7 @@ English | [简体中文](./README.ZH.md)
 
 ## Introduction
 
-Mipha is an open-source elixir forum (inspire by [homeland](https://ruby-china.org)).
+Mipha is an open-source elixir forum build with phoenix 1.4 (inspire by [homeland](https://ruby-china.org)).
 
 ## Getting started
 

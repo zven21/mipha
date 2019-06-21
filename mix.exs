@@ -5,7 +5,7 @@ defmodule Mipha.Mixfile do
     [
       app: :mipha,
       version: "0.0.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -40,7 +40,7 @@ defmodule Mipha.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
+      {:phoenix, "~> 1.4.6"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},

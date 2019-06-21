@@ -12,7 +12,8 @@ English | [简体中文](./README.ZH.md)
 * [Getting started](#getting-started)
 * [Database relationship](#database-relationship)
 * [Project structure](#project-structure)
-* [Features](#features)
+* [Make a pull request](#make-a-pull-request)
+* [License](#license)
 
 ## Introduction
 
@@ -70,6 +71,20 @@ mix phx.serve
 └── test                       # test
 ```
 
-## Features
+## Contributing
 
-[Milestone 1](https://github.com/zven21/mipha/milestone/1)
+Bug report or pull request are welcome.
+
+## Make a pull request
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+Please write unit test with your code if necessary.
+
+## License
+
+The proj is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

@@ -28,3 +28,4 @@ npm-debug.log
 
 # Ingore the whole configuration files from the .idea folder
 /.idea
+/.elixir_ls

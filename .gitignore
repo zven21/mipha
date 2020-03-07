@@ -25,6 +25,7 @@ npm-debug.log
 # secrets files as long as you replace their contents by environment
 # variables.
 /config/*.secret.exs
+/assets/yarn.lock
 
 # Ingore the whole configuration files from the .idea folder
 /.idea

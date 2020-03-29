@@ -1,0 +1,11 @@
+version: "3.6"
+
+# cd docker && docker-compose up -d
+
+services:
+  postgresql_dev:
+    image: sameersbn/postgresql:9.6
+    environment:
+      - PG_PASSWORD=postgres
+    ports:
+      - "5432:5432"

@@ -26,6 +26,7 @@ npm-debug.log
 # variables.
 /config/*.secret.exs
 /assets/yarn.lock
+/assets/package-lock.json
 
 # Ingore the whole configuration files from the .idea folder
 /.idea

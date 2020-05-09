@@ -57,7 +57,7 @@ defmodule Mipha.Mixfile do
       {:ueberauth_identity, "~> 0.2.3"},
       {:ueberauth_github, "~> 0.7.0"},
       {:faker, "~> 0.10.0"},
-      {:earmark, "~> 1.3.0"},
+      {:earmark, "~> 1.4.4"},
       {:html_sanitize_ex, "~> 1.3"},
       {:timex, "~> 3.3"},
       {:ecto_enum, "~> 1.1"},

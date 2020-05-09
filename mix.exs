@@ -53,7 +53,7 @@ defmodule Mipha.Mixfile do
       {:credo, "~> 0.10.2", only: [:dev, :test], runtime: false},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:ueberauth, "~> 0.5.0"},
+      {:ueberauth, "~> 0.6.3"},
       {:ueberauth_identity, "~> 0.2.3"},
       {:ueberauth_github, "~> 0.7.0"},
       {:faker, "~> 0.10.0"},

@@ -50,7 +50,7 @@ defmodule Mipha.Mixfile do
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.7"},
-      {:credo, "~> 0.10.2", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.4.0", only: [:dev, :test], runtime: false},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:ueberauth, "~> 0.5.0"},

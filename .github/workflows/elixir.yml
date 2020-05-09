@@ -10,7 +10,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
     - uses: actions/checkout@v2
     - name: Setup elixir
@@ -22,3 +30,5 @@ jobs:
       run: mix deps.get
     - name: Run Tests
       run: mix test
+      env: 
+        DB_HOST: postgres

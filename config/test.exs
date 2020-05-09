@@ -15,5 +15,5 @@ config :mipha, Mipha.Repo,
   username: "postgres",
   password: "postgres",
   database: "mipha_test",
-  hostname: "localhost",
+  hostname: "postgres",
   pool: Ecto.Adapters.SQL.Sandbox

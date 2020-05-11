@@ -71,7 +71,7 @@ defmodule Mipha.Mixfile do
       {:captcha, github: "zven21/elixir-captcha"},
       {:turbo_ecto, github: "zven21/turbo_ecto"},
       {:turbo_html, github: "zven21/turbo_html"},
-      {:remote_ip, "~> 0.1.4"},
+      {:remote_ip, "~> 0.2.1"},
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"},
       {:ex_machina, "~> 2.2.2"},

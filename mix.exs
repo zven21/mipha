@@ -72,7 +72,7 @@ defmodule Mipha.Mixfile do
       {:turbo_ecto, github: "zven21/turbo_ecto"},
       {:turbo_html, github: "zven21/turbo_html"},
       {:remote_ip, "~> 0.1.4"},
-      {:plug_attack, "~> 0.3.1"},
+      {:plug_attack, "~> 0.4.2"},
       {:sentry, "~> 6.4"},
       {:ex_machina, "~> 2.2.2"},
       {:excoveralls, "~> 0.10", only: :test}

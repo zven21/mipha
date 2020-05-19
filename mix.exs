@@ -67,7 +67,7 @@ defmodule Mipha.Mixfile do
       {:bamboo_smtp, "~> 1.5"},
       {:cachex, "~> 3.1.1"},
       {:jason, "~> 1.1"},
-      {:poison, "~> 3.0", override: true},
+      {:poison, "~> 4.0", override: true},
       {:captcha, github: "zven21/elixir-captcha"},
       {:turbo_ecto, github: "zven21/turbo_ecto"},
       {:turbo_html, github: "zven21/turbo_html"},

@@ -12,6 +12,7 @@ defmodule Mipha.Application do
     children = [
       # Start the Ecto repository
       supervisor(Mipha.Repo, []),
+      {Phoenix.PubSub, name: Mipha.PubSub},
       # Start the endpoint when the application starts
       supervisor(MiphaWeb.Endpoint, []),
       supervisor(MiphaWeb.Presence, []),

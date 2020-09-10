@@ -40,8 +40,8 @@ defmodule Mipha.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.6"},
-      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix, "~> 1.5.1"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
@@ -58,7 +58,7 @@ defmodule Mipha.Mixfile do
       {:ueberauth_identity, "~> 0.2.3"},
       {:ueberauth_github, "~> 0.7.0"},
       {:faker, "~> 0.10.0"},
-      {:earmark, "~> 1.3.0"},
+      {:earmark, "~> 1.2.6"},
       {:html_sanitize_ex, "~> 1.3"},
       {:timex, "~> 3.3"},
       {:ecto_enum, "~> 1.1"},

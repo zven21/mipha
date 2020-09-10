@@ -74,7 +74,7 @@ defmodule Mipha.Mixfile do
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"},
-      {:ex_machina, "~> 2.2.2"},
+      {:ex_machina, "~> 2.4.0"},
       {:excoveralls, "~> 0.10", only: :test}
     ]
   end

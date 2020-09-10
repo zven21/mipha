@@ -14,8 +14,9 @@ config :mipha, MiphaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Gbwl1EqAtjdYfG5movSWszQHvrppYxDbg/7xegRJSakWiTTl6ypdMpNgNct3LiDx",
   render_errors: [view: MiphaWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Mipha.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Mipha.PubSub
+  # pubsub: [name: Mipha.PubSub,
+  #          adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -49,6 +50,9 @@ config :sentry,
 
 config :turbo_ecto, Turbo.Ecto,
   repo: Mipha.Repo
+
+
+config :phoenix, :json_library, Jason
 
 config :gettext, :default_locale, "zh"
 

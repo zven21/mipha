@@ -19,7 +19,7 @@
     <% end %>
     <%= render "_flash.html", assigns %>
     <div id="main" class="main-container container">
-      <%= render @view_module, @view_template, assigns %>
+      <%= @inner_content %>
     </div>
     <%= render "_footer.html", assigns %>
 

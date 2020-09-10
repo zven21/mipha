@@ -51,7 +51,7 @@ defmodule Mipha.Mixfile do
       {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.7"},
-      {:credo, "~> 0.10.2", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.0"},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:ueberauth, "~> 0.5.0"},

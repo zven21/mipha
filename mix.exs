@@ -65,7 +65,7 @@ defmodule Mipha.Mixfile do
       {:exmoji, "~> 0.2.2"},
       {:bamboo, "~> 1.0"},
       {:bamboo_smtp, "~> 1.5"},
-      {:cachex, "~> 3.1.1"},
+      {:cachex, "~> 3.3.0"},
       {:jason, "~> 1.1"},
       {:poison, "~> 4.0", override: true},
       {:captcha, github: "zven21/elixir-captcha"},

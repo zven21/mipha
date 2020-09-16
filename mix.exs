@@ -65,7 +65,7 @@ defmodule Mipha.Mixfile do
       {:qiniu, "~> 0.4.0"},
       {:exmoji, "~> 0.2.2"},
       {:bamboo, "~> 1.0"},
-      {:bamboo_smtp, "~> 1.5"},
+      {:bamboo_smtp, "~> 2.1"},
       {:cachex, "~> 3.3.0"},
       {:poison, "~> 4.0", override: true},
       {:captcha, github: "zven21/elixir-captcha"},
@@ -74,7 +74,7 @@ defmodule Mipha.Mixfile do
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"},
-      {:ex_machina, "~> 2.2.2"},
+      {:ex_machina, "~> 2.4.0"},
       {:excoveralls, "~> 0.10", only: :test}
     ]
   end

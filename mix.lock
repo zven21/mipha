@@ -60,7 +60,7 @@
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.6", "cf344f5692c82d2cd7554f5ec8fd961548d4fd09e7d22f5b62482e5aeaebd4b0", [:make, :mix, :rebar3], [], "hexpm", "bdb0d2471f453c88ff3908e7686f86f9be327d065cc1ec16fa4540197ea04680"},
   "telemetry": {:hex, :telemetry, "0.4.2", "2808c992455e08d6177322f14d3bdb6b625fbcfd233a73505870d8738a2f4599", [:rebar3], [], "hexpm", "2d1419bd9dda6a206d7b5852179511722e2b18812310d304620c7bd92a13fcef"},
   "timex": {:hex, :timex, "3.6.2", "845cdeb6119e2fef10751c0b247b6c59d86d78554c83f78db612e3290f819bc2", [:mix], [{:combine, "~> 0.10", [hex: :combine, repo: "hexpm", optional: false]}, {:gettext, "~> 0.10", [hex: :gettext, repo: "hexpm", optional: false]}, {:tzdata, "~> 0.1.8 or ~> 0.5 or ~> 1.0.0", [hex: :tzdata, repo: "hexpm", optional: false]}], "hexpm", "26030b46199d02a590be61c2394b37ea25a3664c02fafbeca0b24c972025d47a"},
-  "turbo_ecto": {:git, "https://github.com/zven21/turbo_ecto.git", "0d659d5448e91b55469fde7257cd145ca8f9f7a2", []},
+  "turbo_ecto": {:git, "https://github.com/zven21/turbo_ecto.git", "324c839a210c5414628274bb3652588a8f1de739", []},
   "turbo_html": {:git, "https://github.com/zven21/turbo_html.git", "3e7696befa8fd7c38f512c9a672149450510cae8", []},
   "tzdata": {:hex, :tzdata, "1.0.3", "73470ad29dde46e350c60a66e6b360d3b99d2d18b74c4c349dbebbc27a09a3eb", [:mix], [{:hackney, "~> 1.0", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm", "a6e1ee7003c4d04ecbd21dd3ec690d4c6662db5d3bbdd7262d53cdf5e7c746c1"},
   "ueberauth": {:hex, :ueberauth, "0.5.0", "4570ec94d7f784dc4c4aa94c83391dbd9b9bd7b66baa30e95a666c5ec1b168b1", [:mix], [{:plug, "~> 1.2", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm", "262581458decd7d36672667231614df17428744c3d4e3634ec2cc885453b8f47"},

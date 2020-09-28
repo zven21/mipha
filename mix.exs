@@ -75,7 +75,8 @@ defmodule Mipha.Mixfile do
       {:plug_attack, "~> 0.3.1"},
       {:sentry, "~> 6.4"},
       {:ex_machina, "~> 2.4.0"},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:git_hooks, "~> 0.5.0", only: [:test, :dev], runtime: false}
     ]
   end
 

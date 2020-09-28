@@ -56,6 +56,28 @@ config :phoenix, :json_library, Jason
 
 config :gettext, :default_locale, "zh"
 
+# git_hooks
+if Mix.env() != :prod do
+  config :git_hooks,
+    auto_install: true,
+    verbose: true,
+    hooks: [
+      pre_commit: [
+        tasks: [
+          {:cmd, "mix format"},
+          {:cmd, "mix credo --strict"}
+        ]
+      ],
+      pre_push: [
+        verbose: false,
+        tasks: [
+          {:cmd, "mix test"},
+          {:cmd, "echo 'success!'"}
+        ]
+      ]
+    ]
+end
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

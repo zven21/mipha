@@ -73,7 +73,7 @@ defmodule Mipha.Mixfile do
       {:turbo_html, github: "zven21/turbo_html"},
       {:remote_ip, "~> 0.1.4"},
       {:plug_attack, "~> 0.3.1"},
-      {:sentry, "~> 6.4"},
+      {:sentry, "~> 8.0"},
       {:ex_machina, "~> 2.4.0"},
       {:excoveralls, "~> 0.10", only: :test},
       {:git_hooks, "~> 0.5.0", only: [:test, :dev], runtime: false}
